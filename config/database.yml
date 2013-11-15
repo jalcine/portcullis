@@ -1,0 +1,24 @@
+development:
+  adapter: postgresql
+  encoding: unicode
+  database: portcullis_development
+  pool: 5
+  host: localhost
+  username: portcullis
+  password: vettio
+  min_messages: debug5
+test:
+  adapter: postgresql
+  encoding: unicode
+  database: portcullis_test
+  pool: 5
+  host: localhost
+  username: portcullis
+  password: vettio
+production:
+  adapter: postgresql
+  encoding: unicode
+  database: portcullis_production
+  pool: 5
+  username: portcullis
+  password: vettio
