@@ -1,6 +1,5 @@
-@import 'foundation/variables';
-@import 'foundation/components/global';
-@import 'foundation/components/grid';
-@import 'foundation/components/buttons';
-@import 'foundation/components/button-groups';
-@import 'foundation/components/forms';
+$topbar-bg-color: #33363b;
+$topbar-dropdown-bg: $topbar-bg-color;
+$topbar-height: 45px;
+$topbar-input-height: $topbar-height;
+@import 'foundation';

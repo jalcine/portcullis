@@ -1,16 +1,33 @@
-%section#search{role: :page}
-  .row.collapse
-    .large-10.large-centered.columns
+%header{role: :page}
+  .row
+    .small-12.large-10.large-centered.columns
       %h1.title Vettio
-  .row.collapse
-    .large-10.columns
-      %input#search_field{type: :text, placeholder: 'turn the fuck up'}
-    .large-2.columns
-      %input.button.large#search_button{type: :submit, value: "Search Boi"}
+.sticky
+  %nav.top-bar
+    %ul.title-area
+      %li.name
+        %h1
+          %a{href: root_url} Vettio
+      %li.toggle-topbar.menu-icon
+        %a{href: '#'}
+          %span Menu
+    %section.top-bar-section
+      %ul.left
+        %li.has-form
+          %form
+            %span
+              %input#search_field{type: :text, placeholder: 'Search for events and campuses...'}
+            %span
+              %input#search_link{href: '#', type: :submit, value: 'Search'}
+      %ul.right
+        %li
+          %a.sign_in{href: '#'} Sign In
+        %li
+          %a.sign_up{href: '#'} Sign Up 
+        %li
+          %a.sign_out{href: '#'} Sign Out
+        %li.divider
 %section#snapchat{role: :page}
-  .row.collapse
-    .large-10.large-centered.columns
-      %h1.title Events Made for College Students
   .row.collapse
     .large-4.columns
       %hr.left.stick
@@ -18,3 +35,16 @@
       %h2.title Popular Events
     .large-4.columns
       %hr.right.stick
+  - (1..4).each do
+    .row
+      .large-4.small-12.columns
+        %img{src: 'http://placekitten.com/g/800/600'}
+      .large-4.small-12.columns
+        %img{src: 'http://placekitten.com/g/800/600'}
+      .large-4.small-12.columns
+        %img{src: 'http://placekitten.com/g/800/600'}
+%footer
+  .row
+    .large-4.small-12.columns
+    .large-4.small-12.columns
+    .large-4.small-12.columns
