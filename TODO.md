@@ -3,10 +3,11 @@
 CURRENT TASKS:
   - Fix search bar in navigation.
     @ Added [Sat 2013-11-16]
-    @ Start [Sat 2013-11-16] [15:09]
+    @ Start [Sat 2013-11-16] [15:09], end [18:30]
     - Ensure that it's responsive.
+      * Might refactor this form logic into some stuff for a future blog post.
       @ Added [Sat 2013-11-16]
-      @ Start [Sat 2013-11-16] [15:11]
+      @ Start [Sat 2013-11-16] [15:11], end [18:30]
   - Define the slider for the landing page.
     @ Added [Sat 2013-11-16]
   - Tie in Facebook authentication.
