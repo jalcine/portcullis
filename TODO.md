@@ -5,11 +5,14 @@ CURRENT TASKS:
     @ Added [Sat 2013-11-16]
     @ Start [Sat 2013-11-16] [15:09], end [18:30]
     - Ensure that it's responsive.
-      * Might refactor this form logic into some stuff for a future blog post.
+      * Might refactor this form logic into some stuff for a future weblog post.
       @ Added [Sat 2013-11-16]
       @ Start [Sat 2013-11-16] [15:11], end [18:30]
+      @ DONE [Sat 2013-11-16]
+    @ DONE [Sat 2013-11-16]
   - Define the slider for the landing page.
     @ Added [Sat 2013-11-16]
+    @ Start [Sat 2013-11-16] [18:31]
   - Tie in Facebook authentication.
     @ Added [Sat 2013-11-16]
   - Build a ERD diagram.
