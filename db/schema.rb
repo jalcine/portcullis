@@ -11,7 +11,26 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131113004503) do
+ActiveRecord::Schema.define(version: 20131118081521) do
+
+  create_table "events", force: true do |t|
+    t.string   "name"
+    t.text     "description"
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "user_id"
+  end
+
+  add_index "events", ["user_id"], name: "index_events_on_user_id", unique: true, using: :btree
+
+  create_table "locations", force: true do |t|
+    t.decimal  "longitude"
+    t.decimal  "latitude"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
 
   create_table "profiles", force: true do |t|
     t.string   "first_name"
@@ -48,6 +67,16 @@ ActiveRecord::Schema.define(version: 20131113004503) do
 
   add_index "roles", ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
+
+  create_table "tickets", force: true do |t|
+    t.integer  "user_id"
+    t.integer  "event_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "tickets", ["event_id"], name: "index_tickets_on_event_id", using: :btree
+  add_index "tickets", ["user_id"], name: "index_tickets_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.datetime "created_at"

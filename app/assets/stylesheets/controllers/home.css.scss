@@ -33,11 +33,13 @@ body.home.landing {
       display: table;
       padding: 2em 0em;
 
-      &#snapchat {
+      &#howto {
         padding: 0em;
         text-align: center;
 
-        p.title { text-align: center; }
+        .columns {
+          h2:first-child > i.fa { font-size: 5em; }
+        }
       }
     }
   }

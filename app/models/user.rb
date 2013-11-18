@@ -19,6 +19,7 @@ class User < ActiveRecord::Base
   has_one :profile
   has_many :providers
   has_many :events
+  has_many :tickets
 
   class << self
     def build_with_oauth(oauth_data)

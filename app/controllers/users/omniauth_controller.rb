@@ -58,10 +58,8 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
     @task = omniauth_params['task'].to_s if omniauth_params.keys.include? 'task'
     no_good = (@task.nil? || omniauth_params.empty?)
 
-    Rails.logger.info request.env.keys.sort.to_yaml
     Rails.logger.info omniauth_params.to_yaml
     Rails.logger.info omniauth_auth.to_yaml
-    Rails.logger.info @task.to_yaml
 
     redirect_to new_user_registration_path,
       flash: { error: 'Invalid values from OAuth.' } and return false if no_good

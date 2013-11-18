@@ -21,3 +21,5 @@ tags
 /coverage
 config/settings.local.yml
 config/settings/*.local.yml
+
+/public/uploads/*

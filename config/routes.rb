@@ -18,10 +18,10 @@ Portcullis::Application.routes.draw do
   put '/u/edit',      to: 'users/profiles#update'
   get '/u/dashboard', to: 'users/profiles#new', as: :view_user_dashboard
 
+  get '/events/stream', to: 'events#stream', as: :event_stream
+  get '/tickets/stream', to: 'tickets#stream', as: :my_tickets
   resources :events
-  get '/stream', to: 'events#stream', as: :event_stream
   resources :tickets
-  get '/tickets', to: 'tickets#stream', as: :my_tickets
 
   match '*a', to: 'home#rescue_from_routing_error', via: [:get, :post, :patch, :put, :delete] if Rails.env.production?
 end
