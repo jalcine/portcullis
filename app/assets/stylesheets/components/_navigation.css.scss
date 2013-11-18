@@ -5,7 +5,6 @@ nav.top-bar {
     li > a.sign_out,
     li > a.sign_up {
       @include button($bg: $topbar-bg-color);
-      @include single-transition;
       border-width: 0em; margin: 0em;
       font-weight: normal;
     }
