@@ -11,4 +11,4 @@ Melody.SignUp =
         return false
 
 $ ->
-  Melody.SignUp.handleRole()
+  #Melody.SignUp.handleRole()
