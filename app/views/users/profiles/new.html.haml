@@ -1,0 +1,15 @@
+- page_title 'Create Your Profile'
+= javascript_include_tag 'users/profiles/new'
+%header.profile
+  .headline.small-12.columns
+    %h1 Create Your Profile
+    %p Vettio allows you to connect with artists.
+%section.association
+  .headline.small-10.columns.large-centered
+    %p Pick the type of events below that you'd like to cover.
+  #event_type_selector
+    - (1..8).each do | index |
+      %a.item{data: {id:index}, href: '#'}
+        %h2.label= Faker::Lorem.words(2).join ' '
+        %p.description
+          %span= Faker::Lorem.paragraph

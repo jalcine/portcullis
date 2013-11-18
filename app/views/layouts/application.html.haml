@@ -1,11 +1,21 @@
 !!! 5
-%html
+%html{lang: :en_US}
   %head
-    %title= page_title
-    = jquery_include_tag :google
-    = stylesheet_link_tag "application", media: "all", "data-turbolinks-track" => true
-    = javascript_include_tag "application", "data-turbolinks-track" => true
+    %meta{charset: "utf-8"}
+    %title= content_for?(:title) ? yield(:title) : 'Vettio'
     = csrf_meta_tags
-  %body
-    = render 'components/navigation' if navigation_state == true
-    = yield
+    %link{rel: 'shortcut icon', href: asset_url('favicon.png')}/
+    = render 'components/seo'
+    = render 'components/mobile'
+    = render 'components/apple'
+    = javascript_include_tag 'vendor/custom.modernizr', 'data-turbolinks-track' => true
+    = jquery_include_tag :google, 'data-turbolinks-track' => true
+    = stylesheet_link_tag :application, 'data-turbolinks-track' => true
+    = javascript_include_tag :application, 'data-turbolinks-track' => true
+  %body{class: page_classes(params)}
+    = render 'components/navigation' if navigation_visible?
+    = render 'components/header' if header_visible?
+    %section.main
+      = render 'components/flash_gordon' unless flash.empty?
+      = yield
+    = render 'components/footer' if footer_visible?

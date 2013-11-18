@@ -1,0 +1,6 @@
+toggles:
+  in_beta: true
+  features:
+    - beta
+    - auth:facebook
+    - auth:gplus

@@ -64,6 +64,8 @@ GEM
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
     chunky_png (1.2.9)
+    ci_reporter (1.9.0)
+      builder (>= 2.1.2)
     cliver (0.2.2)
     coderay (1.0.9)
     coffee-rails (4.0.1)
@@ -73,6 +75,7 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
+    colorize (0.6.0)
     columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
@@ -80,6 +83,7 @@ GEM
       sass (~> 3.1)
     compass-rails (2.0.alpha.0)
       compass (>= 0.12.2, < 0.14)
+    connection_pool (1.1.0)
     coolline (0.4.2)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
@@ -97,6 +101,7 @@ GEM
     diff-lcs (1.2.5)
     diffy (3.0.1)
     docile (1.1.0)
+    dotenv (0.9.0)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -106,6 +111,8 @@ GEM
     em-websocket (0.5.0)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.5.3)
+    erb2haml (0.1.5)
+      html2haml
     erubis (2.7.0)
     eventmachine (1.0.3)
     excon (0.28.0)
@@ -132,6 +139,8 @@ GEM
       ruby-hmac
     font-awesome-sass (4.0.2)
       sass-rails (>= 3.1.1)
+    foreigner (1.6.0)
+      activerecord (>= 3.0.0)
     formatador (0.2.4)
     friendly_id (5.0.1)
       activerecord (~> 4.0.0)
@@ -147,6 +156,7 @@ GEM
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
       posix-spawn (~> 0.3.6)
+    growl (1.0.3)
     guard (2.2.2)
       formatador (>= 0.2.4)
       listen (~> 2.1)
@@ -156,6 +166,11 @@ GEM
     guard-bundler (2.0.0)
       bundler (~> 1.0)
       guard (~> 2.2)
+    guard-ctags-bundler (1.0.1)
+      guard (~> 2.0)
+    guard-konacha (1.0.3)
+      guard (>= 1.1)
+      konacha (>= 3.0)
     guard-livereload (2.0.0)
       em-websocket (~> 0.5)
       guard (~> 2.0)
@@ -167,6 +182,9 @@ GEM
     guard-rspec (4.0.4)
       guard (>= 2.1.1)
       rspec (~> 2.14)
+    guard-sidekiq (0.0.11)
+      guard (>= 1.1)
+      sidekiq
     guard-spork (1.5.1)
       childprocess (>= 0.2.3)
       guard (>= 1.1)
@@ -181,6 +199,12 @@ GEM
     hashie (2.0.5)
     hike (1.2.3)
     hirb (0.7.1)
+    hpricot (0.8.6)
+    html2haml (1.0.1)
+      erubis (~> 2.7.0)
+      haml (>= 4.0.0.rc.1)
+      hpricot (~> 0.8.6)
+      ruby_parser (~> 3.1.1)
     http_parser.rb (0.5.3)
     httpauth (0.2.0)
     i18n (0.6.5)
@@ -204,6 +228,9 @@ GEM
       thor (>= 0.14, < 2.0)
     jquery-rails-cdn (1.0.1)
       jquery-rails
+    jquery-turbolinks (2.0.1)
+      railties (>= 3.1.0)
+      turbolinks
     json (1.8.1)
     jwt (0.1.8)
       multi_json (>= 1.5)
@@ -211,6 +238,13 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.1)
+    konacha (3.0.0)
+      actionpack (>= 3.1, < 5)
+      capybara
+      colorize
+      railties (>= 3.1, < 5)
+      sprockets
+    konacha-chai-matchers (0.1.5)
     launchy (2.4.0)
       addressable (~> 2.3)
     libnotify (0.8.2)
@@ -224,6 +258,10 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
+    mailboxer (0.11.0)
+      carrierwave (>= 0.5.8)
+      foreigner (>= 0.9.1)
+      rails (> 3.0.0)
     meta_request (0.2.8)
       callsite
       rack-contrib
@@ -237,6 +275,7 @@ GEM
     net-scp (1.1.2)
       net-ssh (>= 2.6.5)
     net-ssh (2.7.0)
+    newrelic_rpm (3.6.9.171)
     nokogiri (1.6.0)
       mini_portile (~> 0.5.0)
     oauth2 (0.8.1)
@@ -250,6 +289,8 @@ GEM
       rack
     omniauth-facebook (1.4.1)
       omniauth-oauth2 (~> 1.1.0)
+    omniauth-gplus (1.2.0)
+      omniauth-oauth2 (~> 1.1)
     omniauth-oauth2 (1.1.1)
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
@@ -304,6 +345,8 @@ GEM
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
+    rails_config (0.3.3)
+      activesupport (>= 3.0)
     rails_serve_static_assets (0.0.1)
     rails_stdout_logging (0.0.3)
     railties (4.0.0)
@@ -318,6 +361,9 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    redis (3.0.6)
+    redis-namespace (1.3.2)
+      redis (~> 3.0.4)
     rmagick (2.13.2)
     rolify (3.3.0.rc4)
     rspec (2.14.1)
@@ -338,6 +384,8 @@ GEM
       rspec-mocks (~> 2.14.0)
     ruby-hmac (0.4.0)
     ruby-progressbar (1.2.0)
+    ruby_parser (3.1.3)
+      sexp_processor (~> 4.1)
     sass (3.2.12)
     sass-rails (4.0.1)
       railties (>= 4.0.0, < 5.0)
@@ -346,6 +394,13 @@ GEM
     sdoc (0.3.20)
       json (>= 1.1.3)
       rdoc (~> 3.10)
+    sexp_processor (4.4.0)
+    sidekiq (2.16.1)
+      celluloid (>= 0.15.2)
+      connection_pool (>= 1.0.0)
+      json
+      redis (>= 3.0.4)
+      redis-namespace (>= 1.3.1)
     simplecov (0.8.1)
       docile (~> 1.1.0)
       lockfile (>= 2.1.0)
@@ -374,6 +429,8 @@ GEM
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
+    turbolinks (1.3.0)
+      coffee-rails
     turnip (1.1.0)
       gherkin (>= 2.5)
       rspec (~> 2.0)
@@ -416,11 +473,15 @@ DEPENDENCIES
   capybara-screenshot
   carrierwave (~> 0.9.0)
   carrierwave-processing (~> 0.0.2)
+  ci_reporter (~> 1.9.0)
   coffee-rails (~> 4.0.0)
   compass-rails (~> 2.0.alpha.0)
   database_cleaner (~> 1.2.0)
   debugger (~> 1.6.2)
   devise (~> 3.0.0rc)
+  dotenv
+  ejs (~> 1.1.1)
+  erb2haml (~> 0.1.5)
   factory_girl_rails (~> 4.2.1)
   faker (~> 1.1.2)
   fog
@@ -428,24 +489,34 @@ DEPENDENCIES
   friendly_id (~> 5.0.1)
   fuubar
   geocoder (~> 1.1.0)
+  growl
   guard (= 2.2.2)
   guard-bundler (~> 2.0.0)
+  guard-ctags-bundler (~> 1.0.1)
+  guard-konacha (~> 1.0.03)
   guard-livereload (~> 2.0.0)
   guard-migrate (~> 0.2.1)
   guard-rails (~> 0.4.7)
   guard-rspec (~> 4.0.1)
+  guard-sidekiq (~> 0.0.11)
   guard-spork (~> 1.5.1)
   haml (= 4.0.3)
   haml-rails (~> 0.4)
   jazz_hands (~> 0.5.2)
   jbuilder (~> 1.5.2)
   jquery-rails-cdn (~> 1.0.1)
+  jquery-turbolinks (~> 2.0.1)
   kaminari (~> 0.14.1)
+  konacha
+  konacha-chai-matchers
   libnotify
+  mailboxer (~> 0.11.0)
   meta_request (~> 0.2.8)
+  newrelic_rpm (~> 3.6.8)
   nokogiri (~> 1.6.0)
   omniauth (~> 1.1.4)
   omniauth-facebook (~> 1.4.1)
+  omniauth-gplus (~> 1.2.0)
   pg (= 0.17.0)
   poltergeist
   pry (= 0.9.12.2)
@@ -453,6 +524,8 @@ DEPENDENCIES
   rack-livereload (~> 0.3.15)
   rails (= 4.0.0)
   rails_12factor (~> 0.0.2)
+  rails_config
+  rb-fsevent
   rb-inotify
   rmagick (~> 2.13.2)
   rolify (~> 3.3.0.rc4)

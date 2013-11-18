@@ -9,4 +9,4 @@
 
 # Make sure your secret_key_base is kept private
 # if you're sharing your code publicly.
-Portcullis::Application.config.secret_key_base = '5b2500e482726ada597c0f5423cbc5d00817a4a92040f87cd3676702a8dc6247fc73985eb4654f80fd223ce33d5a8dffcda6d7816cad83c0301bb4a3d780d86a'
+Portcullis::Application.config.secret_key_base = 'b68d1238eb282440b3e4bf02a7747235139668049b8d02029434f8d1be8f4767ae81f981bb8ecb16b0eda11f0570aa9dc17538dd029369277bf534f319ed32f0'

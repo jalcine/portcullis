@@ -1,45 +1,83 @@
-guard :bundler do
-  watch('Gemfile')
+scope groups: [:core, :ui, :test]
+notification :libnotify, timeout: 3, append: true
+
+group :core do
+  guard :bundler do
+    watch('Gemfile')
+  end
+
+  guard :migrate do
+    watch(%r{^db/migrate/(\d+).+\.rb})
+    watch('db/seeds.rb')
+  end
+
+  guard 'ctags-bundler' do
+    watch(/^(app|lib|spec\/support)\/.*\.rb$/)
+    watch('Gemfile.lock')
+    watch('gem.tags')
+  end
+
+  #guard :sidekiq, environment: :development, verbose: true do
+  #  watch(%r{^workers/(.+)\.rb$})
+  #end
 end
 
-guard 'livereload' do
-  watch(%r{app/views/.+\.(erb|haml|slim)$})
-  watch(%r{app/helpers/.+\.rb})
-  watch(%r{public/.+\.(css|js|html)})
-  watch(%r{config/locales/.+\.yml})
-  watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
+group :ui do
+  guard :rails, port: 4373, daemon: false, debugger: true, server: :unicorn, force_run: true do
+    watch('Gemfile.lock')
+    watch('config/application.rb')
+    watch('config/environment.rb')
+    watch(%r{^config/(initializers|environments)/.+\.rb$})
+    watch(%r{^config/settings/.+\.yml$})
+  end 
+
+  guard :livereload, apply_css_live: true, grace_period: 0.1 do
+    watch('config/routes.rb')
+    watch(%r{app/views/.+\.haml$})
+    watch(%r{app/helpers/.+\.rb})
+    watch(%r{public/.+\.(css|js|html)})
+    watch(%r{config/locales/.+\.yml})
+    watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| "/assets/#{m[3]}" }
+  end
 end
 
-guard :migrate do
-  watch(%r{^db/migrate/(\d+).+\.rb})
-  watch('db/seeds.rb')
-end
+group :test do
+  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 30, retry_delay: 2 do
+    watch('Gemfile.lock')
+    watch('config/application.rb')
+    watch('config/environment.rb')
+    watch('config/environments/test.rb')
+    watch('spec/spec_helper.rb')
+    watch(%r{config/settings/test\.*\.yml})
+    watch(%r{^config/initializers/.+\.rb$})
+    watch(%w{^spec/support/prefork)/(.+)\.rb$})
+  end
 
-guard :rails do
-  watch('Gemfile.lock')
-  watch(%r{^(config|lib)/.*})
-end
+  guard :konacha do
+    watch('spec/javascripts/spec_helper.js.coffee') { 'spec/javascripts' }
+    watch(%r{^app/assets/javascripts/(.*)\.js(\.coffee)?$}) { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
+    watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee)$})
+  end
 
-guard :rspec do
-  watch(%r{^spec/.+_spec\.rb$})
-  watch(%r{^lib/(.+)\.rb$})     { |m| "spec/lib/#{m[1]}_spec.rb" }
-  watch('spec/spec_helper.rb')  { 'spec' }
-  watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
-  watch(%r{^app/(.*)(\.erb|\.haml|\.slim)$})          { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
-  watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}_spec.rb"] }
-  watch(%r{^spec/support/(.+)\.rb$})                  { 'spec' }
-  watch('config/routes.rb')                           { 'spec/routing' }
-  watch('app/controllers/application_controller.rb')  { 'spec/controllers' }
-  watch(%r{^app/views/(.+)/.*\.(erb|haml|slim)$})     { |m| "spec/features/#{m[1]}_spec.rb" }
-  watch(%r{^spec/acceptance/(.+)\.feature$})
-  watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { |m| Dir[File.join("**/#{m[1]}.feature")][0] || 'spec/acceptance' }
-end
+  guard :rspec, all_on_pass: true, keep_failed: true, all_on_start: true, cmd: 'bundle exec rspec --fail-fast --drb' do
+    # Global changes
+    watch('.rspec')                                     { 'spec' }
+    watch('spec/spec_helper.rb')                        { 'spec' }
+    watch(%w{^spec/factories/**/*.rb$})                 { 'spec' }
+    watch(%w{^spec/support/run/**/*.rb$})               { 'spec' }
+    watch('config/routes.rb')                           { 'spec/routing' }
+    watch('spec/turnip_helper.rb')                      { 'spec/acceptance'}
+    watch('app/controllers/application_controller.rb')  { 'spec/controllers' }
 
-guard :spork, rspec_en: { 'RAILS_ENV' => 'test' } do
-  watch('config/application.rb')
-  watch('config/environment.rb')
-  watch('config/environments/test.rb')
-  watch(%r{^config/initializers/.+\.rb$})
-  watch('Gemfile.lock')
-  watch('spec/spec_helper.rb') { :rspec }
+    # Per-file changes
+    watch(%r{^spec/.+_spec\.rb$})
+    watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
+    watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
+    watch(%r{^app/(.*)\.haml$})                         { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
+
+    # Integration and acceptance testing
+    watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { 'spec/acceptance' } 
+    watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}.feature"] }
+    watch(%r{^spec/acceptance/(.+)\.feature$})          { |m| "spec/acceptance/#{m[1]}.feature" }
+  end
 end

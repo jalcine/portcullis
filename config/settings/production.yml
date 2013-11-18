@@ -1,0 +1,15 @@
+toggles:
+  in_beta: true
+  features:
+    - beta
+    - auth:facebook
+    - auth:gplus
+
+authentication:
+  providers:
+    facebook:
+      id: <%= ENV['PORTCULLIS_AUTH_FACEBOOK_ID'] %>
+      secret: <%= ENV['PORTCULLIS_AUTH_FACEBOOK_SECRET'] %>
+    gplus:
+      id: <%= ENV['PORTCULLIS_AUTH_GPLUS_ID'] %>
+      secret: <%= ENV['PORTCULLIS_AUTH_GPLUS_SECRET'] %>
