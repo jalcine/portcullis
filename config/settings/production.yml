@@ -8,8 +8,8 @@ toggles:
 authentication:
   providers:
     facebook:
-      id: <%= ENV['MELODY_AUTH_FACEBOOK_ID'] %>
-      secret: <%= ENV['MELODY_AUTH_FACEBOOK_SECRET'] %>
+      id: <%= ENV['PORTCULLIS_AUTH_FACEBOOK_ID'] %>
+      secret: <%= ENV['PORTCULLIS_AUTH_FACEBOOK_SECRET'] %>
     gplus:
-      id: <%= ENV['MELODY_AUTH_GPLUS_ID'] %>
-      secret: <%= ENV['MELODY_AUTH_GPLUS_SECRET'] %>
+      id: <%= ENV['PORTCULLIS_AUTH_GPLUS_ID'] %>
+      secret: <%= ENV['PORTCULLIS_AUTH_GPLUS_SECRET'] %>
