@@ -5,10 +5,10 @@
     %p Join Vettio by reconnecting with one of the mediums below. It's easy!
 .row.collapse
   .page.buttons.large-6.small-12.columns
-    %a{href: omniauth_authorize_path(resource_name, :facebook), class: 'facebook', 'data-no-turbolinks'=> true}
+    %a{href: omniauth_authorize_path(resource_name, :facebook, task: :new), class: 'facebook', 'data-no-turbolinks'=> true}
       %i.icon
       Sign Up 
-    %a{href: omniauth_authorize_path(resource_name, :gplus), class: 'gplus', 'data-no-turbolinks'=> true}
+    %a{href: omniauth_authorize_path(resource_name, :gplus, task: :new), class: 'gplus', 'data-no-turbolinks'=> true}
       %i.icon
       Sign Up 
   .page.classical.large-6.small-12.columns

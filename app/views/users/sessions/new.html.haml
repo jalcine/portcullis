@@ -6,10 +6,10 @@
       %p Get into Vettio by reconnecting with one of the mediums below. It's easy!
   .row.collapse
     .page.buttons.large-6.small-12.columns
-      %a{href: omniauth_authorize_path(resource_name, :facebook), class: 'facebook'}
+      %a{href: omniauth_authorize_path(resource_name, :facebook, task: :new), class: 'facebook'}
         %i.icon
         Sign In 
-      %a{href: omniauth_authorize_path(resource_name, :gplus), class: 'gplus'}
+      %a{href: omniauth_authorize_path(resource_name, :gplus, task: :new), class: 'gplus'}
         %i.icon
         Sign In 
     .page.classical.large-6.small-12.columns
