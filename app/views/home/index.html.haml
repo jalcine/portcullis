@@ -1,27 +1,15 @@
 - page_title 'Events for College'
-- navigation_state false
+- disable_navigation
+- disable_footer
+- disable_header
 %header{role: :page}
   .row
     .small-12.large-10.large-centered.columns
       %h1.title Vettio 
-      %h2 Events Made for College Students
+      %h2 Events Made for Humans 
 = render 'components/navigation'
-%section#snapchat{role: :page}
-  .row.collapse
-    .large-4.columns
-      %hr.left.stick
-    .large-4.columns
-      %h2.title Popular Events
-    .large-4.columns
-      %hr.right.stick
-  - (1..4).each do
-    .row
-      .large-4.small-12.columns
-        %img{src: 'http://placekitten.com/g/800/600'}
-      .large-4.small-12.columns
-        %img{src: 'http://placekitten.com/g/800/600'}
-      .large-4.small-12.columns
-        %img{src: 'http://placekitten.com/g/800/600'}
+%section#howto{role: :page}
+%section#slider{role: :page}
 %footer
   .row
     .large-4.small-12.columns

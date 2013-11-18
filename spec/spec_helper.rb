@@ -1,17 +1,37 @@
 require 'rubygems'
-require 'spork'
-require 'spork/ext/ruby-debug'
-require 'rspec'
+require 'awesome_print'
 
-RSpec.configure do |config|
-  config.treat_symbols_as_metadata_keys_with_true_values = true
-  config.run_all_when_everything_filtered = true
-  config.filter_run :focus
-  config.order = 'random'
+ENV['RAILS_ENV'] ||= 'test'
+ENV['NEWRELIC_ENABLE'] = 'false'
+
+def prefork_some_jazz
+  require File.expand_path('../../config/environment', __FILE__)
+  Dir[Rails.root.join('spec/support/prefork/**/*.rb')].each { |f| require f }
+  Dir[Rails.root.join('spec/support/modules/**/*.rb')].each { |f| require f }
+  RSpec.configure do | config |
+    config.include ViewHelpers, type: :view
+    config.include ControllerHelpers, type: :controller
+  end
 end
 
-Spork.prefork do
+def pre_run_some_jazz
+  Dir[Rails.root.join('spec/support/run/**/*.rb')].each { |f| require f }
 end
 
-Spork.each_run do
+if ENV['DRB']
+  require 'spork'
+  Spork.prefork do
+    prefork_some_jazz
+  end
+
+  Spork.each_run do
+    pre_run_some_jazz
+  end
+else
+  puts "[I #{DateTime.now.to_s}] Coverage will be run."
+  require 'simplecov'
+  SimpleCov.start 'rails'
+  prefork_some_jazz
+  pre_run_some_jazz
+  puts "[I #{DateTime.now.to_s}] Isolated test completed."
 end

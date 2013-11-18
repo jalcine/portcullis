@@ -1,0 +1,79 @@
+@import 'compass/css3/text-shadow';
+@import 'compass/css3/transition';
+
+body.users_profiles {
+  header.profile {
+    @include grid-row($behavior: 'collapse');
+    max-width: inherit;
+    text-align: center;
+  }
+
+  section.main {
+    max-width: inherit;
+  }
+
+  section.association {
+    #event_type_selector {
+      @include grid-row(false);
+      max-width: inherit;
+
+      > .item {
+        @include transition(0.4s background-position-y);
+        padding: 0em;
+        display: table;
+        text-align: center;
+        background-repeat: no-repeat;
+        background-position: center center;
+        background-size: cover;
+        background-color: #455560;
+        border: 1px solid darken(#455560, 10%);
+        vertical-align: middle;
+        height: 200px;
+        max-height: 200px;
+        overflow: hidden;
+
+        @media #{$small}  { & { @include grid-column($columns: 12, $float: left, $collapse: false); } }
+        @media #{$medium} { & { @include grid-column($columns: 3, $float: left, $collapse: false); } }
+
+        width: 100%;
+
+        @for $i from 1 through 8 {
+          &:nth-child(#{$i}) { background-image: asset-url('events/#{$i}.jpg'); }
+        }
+
+        h2.label {
+          @include text-shadow(1px 1px 19px #fff);
+          @include transition(0.3s height);
+          margin: 0em;
+          line-height: 1;
+          display: table-cell;
+          vertical-align: middle;
+          height: 100%;
+          color: #a09fa3;
+          text-transform: uppercase;
+        }
+
+        p.description {
+          margin: 0em;
+          padding: 0em;
+          display: none;
+          background-color: rgba(black, 0.8);
+          color: #fff;
+          border-radius: 10px;
+          span {
+            display: table-cell;
+            padding: 0em;
+            vertical-align: middle;
+          }
+        }
+
+        &:hover, &[data-selected=true] {
+          h2.label { vertical-align: middle; line-height: 0em; margin: 0em; height: 1em; }
+          p.description { display: table-row; }
+        }
+
+      }
+
+    }
+  }
+} 

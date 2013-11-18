@@ -14,3 +14,10 @@
 # Ignore all logfiles and tempfiles.
 /log/*.log
 /tmp
+
+*tags
+tags
+.local.vimrc
+/coverage
+config/settings.local.yml
+config/settings/*.local.yml

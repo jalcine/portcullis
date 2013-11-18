@@ -1,0 +1,20 @@
+module VisualSteps
+  step 'I go to the sign-in page' do
+    visit '/login'
+  end
+
+  step 'I go to the sign-up page' do
+    visit '/signup'
+  end
+
+  step 'I sign in with :provider' do
+    click provider
+  end
+
+  step 'I should see an error' do
+  end
+end
+
+RSpec.configure do | config |
+  config.include VisualSteps
+end

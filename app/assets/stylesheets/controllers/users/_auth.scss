@@ -1,0 +1,83 @@
+@import 'foundation/components/buttons';
+
+@mixin sign-in-button($bg) {
+  @include button(emCalc(18), $bg, false, true, false, false);
+  @include inset-shadow(true);
+  @include single-transition;
+  max-width: 350px;
+  width: 100%;
+  clear: both;
+  margin: 0.25em auto;
+  display: inline-block;
+
+  @media #{$medium} { & { 
+      max-width: 350px;
+      margin-top: 0em;
+      margin-bottom: 0em;
+  } }
+
+  > i.icon {
+    @extend .fa;
+    font-size: 150%;
+    margin-right: 2em;
+  }
+}
+
+@mixin devise_forms {
+  form.custom {
+    margin: 0em 10%;
+    width: 80%;
+
+    > fieldset {
+      border: none;
+      padding: 0em;
+      margin: 2em 1em;
+    }
+  }
+
+  p.links {
+    text-align: left;
+    media #{small} { & { text-align: center; } }
+
+    > a {
+      &:after { content: ''; padding: 0.5em;  }
+      &:last-child:after { content: ''; }
+    }
+  }
+}
+
+body.users_sessions,
+body.users_registrations {
+  @include devise_forms;
+
+  .large-6.small-12.columns { height: 100%; }
+
+  .page {
+    text-align: center;
+
+    &.classical {
+      > form.custom {
+        > fieldset {
+          .row:first-child { margin-bottom: 1em; }
+        }
+      }
+    }
+
+    &.buttons {
+      > a {
+        &.facebook    { 
+          @include sign-in-button($bg: #3B5998);
+          > i.icon { @extend .fa-facebook-square; }
+        }
+        &.soundcloud  {
+          @include sign-in-button($bg: #ff7700);
+          > i.icon { @extend .fa-cloud; }
+        }
+        &.gplus       {
+          @include sign-in-button($bg: #dd4b39);
+          > i.icon { @extend .fa-google-plus-square; }
+        }
+      }
+    }
+  }
+}

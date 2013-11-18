@@ -1,0 +1,23 @@
+toggles:
+  in_beta: true
+
+authentication:
+  providers:
+    facebook:
+      image: 'large'
+      info_fields:
+        - name
+        - verified
+        - birthday
+        - email
+        - picture
+      scope:
+        - email
+        - user_birthday
+        - manage_pages
+    gplus:
+      scope:
+        - plus.me
+        - plus.login
+        - userinfo.profile
+        - userinfo.email

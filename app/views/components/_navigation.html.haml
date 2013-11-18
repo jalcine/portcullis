@@ -9,18 +9,24 @@
           %span Menu
     %section.top-bar-section
       %ul.left
-        %li.has-form
-          %form
-            %span
-              %input#search_field{type: :text, placeholder: 'Search for events and campuses...'}
-            %span
-              %input#search_link{href: '#', type: :submit, value: 'Search'}
+        %li
+          %a#nav_event_create{href: '#'} Create Event
+        %li
+          %a#nav_tickets_list{href: '#'} Manage Tickets 
       %ul.right
-        %li
-          %a.sign_in{href: '#'} Sign In
-        %li
-          %a.sign_up{href: '#'} Sign Up 
-        %li
-          %a.sign_out{href: '#'} Sign Out
+        - unless user_signed_in?
+          %li
+            %a.sign_in{href: new_user_session_path}
+              %i.fa.fa-key
+              Sign In
+          - unless params[:controller].include? 'registrations'
+            %li
+              %a.sign_up{href: new_user_registration_path}
+                %i.fa.fa-file
+                Sign Up 
+        - if user_signed_in?
+          %li
+            = link_to destroy_user_session_path, method: :delete, class: 'sign_out' do
+              %i.fa.fa-arrow-circle-right
+              Sign Out
         %li.divider
-

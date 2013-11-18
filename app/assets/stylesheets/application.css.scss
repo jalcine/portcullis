@@ -1,3 +1,6 @@
-@import 'foundation_jazz';
-@import 'home';
-@import 'navigation';
+@import 'compass/reset';
+/** Because God is good all the time. **/
+* { box-sizing: border-box; }
+@import 'foundation_additions';
+@import 'components/*';
+@import 'controllers/**/*';
