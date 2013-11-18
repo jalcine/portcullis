@@ -33,12 +33,10 @@ body.home.landing {
 
     > section[role=page] {
       width: 100%;
-      height: 90%;
-      display: table;
-      padding: 2em 0em;
+      height: 100%;
+      padding: 3em 0em;
 
       &#howto, &#howto2 {
-        padding: 0em;
         text-align: center;
 
         .columns {
