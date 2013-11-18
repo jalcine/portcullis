@@ -10,12 +10,13 @@
     %section.top-bar-section
       %ul.left
         %li
-          = link_to 'Create Event', new_event_path
+          = link_to new_event_path do
+            %i.fa.fa-plus-square
+            Create an Event
         %li
-          = link_to 'My Events', event_stream_path
-        - if true
-          %li
-            = link_to 'My Tickets', my_tickets_path
+          = link_to event_stream_path do
+            %i.fa.fa-glass
+            My Events
       %ul.right
         - unless user_signed_in?
           %li
