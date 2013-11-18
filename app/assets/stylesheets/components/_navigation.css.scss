@@ -1,4 +1,7 @@
+@import 'compass/css3/box-shadow';
+
 nav.top-bar {
+  @include box-shadow(0px 0px 30px #222);
   ul.right {
     li { padding-bottom: 0em; }
     li > a.sign_in,
