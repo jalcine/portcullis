@@ -62,7 +62,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
     Rails.logger.info omniauth_auth.to_yaml
 
     redirect_to new_user_registration_path,
-      flash: { error: 'Invalid values from OAuth.' } and return false if no_good
+      flash: { error: "Invalid values from OAuth. #{omniauth_params.to_yaml}" } and return false if no_good
 
     redirect_to new_user_session_path,
       flash: { error: 'Missing data from OAuth.' } and return false if is_omniauth_auth_malformed?
