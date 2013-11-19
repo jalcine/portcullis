@@ -37,13 +37,19 @@ body.home.landing {
       }
 
       > .row:nth-child(3){
-        form.custom {
-          margin: 0em;
-          margin-bottom: -1.05em;
-          button {
-            @include button-style($bg: #61cb9a);
-            font-size: 0.86em;
-            border-radius: 0em;
+        display: none;
+
+        @media only screen and (max-width: #{$topbar-breakpoint}) { & {
+          display: inline-block;
+            form.custom {
+              margin: 0em;
+              margin-bottom: -1.05em;
+              button {
+                @include button-style($bg: #61cb9a);
+                font-size: 0.86em;
+                border-radius: 0em;
+              }
+            }
           }
         }
       }
