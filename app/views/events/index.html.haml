@@ -2,7 +2,6 @@
 
 %table
   %tr
-    %th Location
     %th Name
     %th Description
     %th Date start
@@ -13,7 +12,6 @@
 
   - @events.each do |event|
     %tr
-      %td= event.location
       %td= event.name
       %td= event.description
       %td= event.date_start
