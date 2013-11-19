@@ -5,9 +5,19 @@
   .row
     .small-12.large-10.large-centered.columns
       %h1.title Vettio 
-  .row.collapse
+  .row.collapse.hide-for-small
     .small-12.columns
       %h2 Events Made for Humans, <i> By Humans</i>
+  .row.collapse.show-for-small
+    .small-12.columns
+      %form.custom{method: :get}
+        .row.collapse
+          .small-10.columns
+            %input{type: :text, placeholder: 'Events, places, people; search it all!'}
+          .small-2.columns
+            %button{type: :submit, class: 'button postfix round'}
+              %i.fa.fa-search
+              Search
 = render 'components/navigation'
 %section#howto{role: :page}
   .row
