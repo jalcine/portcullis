@@ -3,6 +3,6 @@
 $topbar-height: 45px;
 $topbar-bg: linear-gradient(#33363b, darken(#33363b, 25%));
 $topbar-link-bg-hover: linear-gradient(#33363b, lighten(#33363b, 10%));
-$topbar-breakpoint: em-calc(768);
+$topbar-breakpoint: em-calc(790);
 $topbar-media-query: "only screen and (min-width: #{$topbar-breakpoint})";
 
