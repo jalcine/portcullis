@@ -1,8 +1,6 @@
 class EventsController < ApplicationController
+  before_filter :authenticate_user!, only: [:edit, :update, :destroy, :new]
   before_action :set_event, only: [:show, :edit, :update, :destroy]
-
-  def stream
-  end
 
   # GET /events
   # GET /events.json

@@ -15,7 +15,7 @@
             Create Event
         - if user_signed_in?
           %li
-            = link_to event_stream_path do
+            = link_to events_path(scope: :my) do
               %i.fa.fa-glass
               My Events
         %li.has-search.hide-for-small
