@@ -12,11 +12,21 @@
         %li
           = link_to new_event_path do
             %i.fa.fa-plus-square
-            Create an Event
-        %li
-          = link_to event_stream_path do
-            %i.fa.fa-glass
-            My Events
+            Create Event
+        - if user_signed_in?
+          %li
+            = link_to event_stream_path do
+              %i.fa.fa-glass
+              My Events
+        %li.has-search
+          %form.custom{method: :get}
+            .row.collapse
+              .small-10.columns
+                %input{type: :text, placeholder: 'Events, places, people; search it all!'}
+              .small-2.columns
+                %button{type: :submit, class: 'button postfix round'}
+                  %i.fa.fa-search
+                  Search
       %ul.right
         - unless user_signed_in?
           %li

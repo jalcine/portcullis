@@ -20,10 +20,7 @@ ActiveRecord::Schema.define(version: 20131118081521) do
     t.datetime "date_end"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "user_id"
   end
-
-  add_index "events", ["user_id"], name: "index_events_on_user_id", unique: true, using: :btree
 
   create_table "locations", force: true do |t|
     t.decimal  "longitude"

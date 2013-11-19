@@ -1,7 +1,8 @@
 Portcullis::Application.routes.draw do
-
   root to: 'home#landing'
   get '/about', to: 'home#about', as: :about
+  get '/about/tos', to: 'home#tos', as: :terms_of_service
+  get '/privacy-policy', to: 'home#privacy_policy', as: :privacy_policy
 
   devise_for :users, path: '/', module: 'users', format: false,
     path_names: {
