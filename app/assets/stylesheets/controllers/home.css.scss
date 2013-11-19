@@ -39,8 +39,9 @@ body.home.landing {
       > .row:nth-child(3){
         form.custom {
           margin: 0em;
-          margin-bottom: -1em;
+          margin-bottom: -1.05em;
           button {
+            @include button-style($bg: #61cb9a);
             font-size: 0.86em;
             border-radius: 0em;
           }
