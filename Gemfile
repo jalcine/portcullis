@@ -25,6 +25,7 @@ gem 'omniauth-gplus', '~> 1.2.0'
 gem 'friendly_id', '~> 5.0.1'
 gem 'bcrypt-ruby', '~> 3.1.2'
 #gem 'sidekiq', '~> 2.16.1'
+#gem 'authorize-net'
 gem 'newrelic_rpm', '~> 3.6.8'
 gem 'font-awesome-sass', '~> 4.0.1'
 gem 'kaminari', '~> 0.14.1'
@@ -82,7 +83,8 @@ group :test, :development do
   gem 'capybara', require: false
   gem 'capybara-screenshot', require: false
   gem 'poltergeist', require: false
-  gem 'fuubar', require: false
+  #gem 'fuubar', require: false
+  gem 'nyan-cat-formatter', require: false
   gem 'konacha', require: false
   gem 'konacha-chai-matchers', require: false
   gem 'turnip', require: false

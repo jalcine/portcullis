@@ -1,5 +1,5 @@
 scope groups: [:core, :ui, :test]
-notification :libnotify, timeout: 3, append: true
+notification :libnotify, timeout: 3
 
 group :core do
   guard :bundler do
@@ -50,7 +50,7 @@ group :test do
     watch('spec/spec_helper.rb')
     watch(%r{config/settings/test\.*\.yml})
     watch(%r{^config/initializers/.+\.rb$})
-    watch(%w{^spec/support/prefork)/(.+)\.rb$})
+    watch(%w{^spec/support/prefork)/(.+)\.rb$}) { [:spork, 'spec'] }
   end
 
   guard :konacha do
