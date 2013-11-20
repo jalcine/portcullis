@@ -22,5 +22,7 @@ Portcullis::Application.routes.draw do
   resources :events
   resources :tickets
 
+  get '/search', to: 'search#present', as: :search
+
   match '*a', to: 'home#rescue_from_routing_error', via: [:get, :post, :patch, :put, :delete] if Rails.env.production?
 end

@@ -26,6 +26,7 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    ansi (1.4.3)
     arel (4.0.1)
     atomic (1.1.14)
     awesome_print (1.2.0)
@@ -193,6 +194,7 @@ GEM
       haml (>= 3.1, < 4.1)
       railties (>= 3.1, < 4.1)
     hashie (2.0.5)
+    hashr (0.0.22)
     hike (1.2.3)
     hirb (0.7.1)
     hpricot (0.8.6)
@@ -359,6 +361,8 @@ GEM
     redis (3.0.6)
     redis-namespace (1.3.2)
       redis (~> 3.0.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rmagick (2.13.2)
     rolify (3.3.0.rc4)
     rspec (2.14.1)
@@ -419,6 +423,14 @@ GEM
       atomic
     tilt (1.4.1)
     timers (1.1.0)
+    tire (0.6.1)
+      activemodel (>= 3.0)
+      activesupport
+      ansi
+      hashr (~> 0.0.19)
+      multi_json (~> 1.3)
+      rake
+      rest-client (~> 1.6)
     treetop (1.4.15)
       polyglot
       polyglot (>= 0.3.1)
@@ -528,6 +540,7 @@ DEPENDENCIES
   simplecov
   simplecov-html
   spork-rails (~> 4.0.0)
+  tire
   turnip
   uglifier (= 2.3.0)
   underscore-rails (~> 1.5.2)

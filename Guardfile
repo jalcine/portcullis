@@ -42,7 +42,7 @@ group :ui do
 end
 
 group :test do
-  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 30, retry_delay: 2 do
+  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 60, retry_delay: 2 do
     watch('Gemfile.lock')
     watch('config/application.rb')
     watch('config/environment.rb')

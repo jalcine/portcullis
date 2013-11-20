@@ -19,10 +19,10 @@
               %i.fa.fa-glass
               My Events
         %li.has-search.hide-for-small
-          %form.custom{method: :get}
+          %form#omnisearch.custom{method: :get, action: search_url}
             .row.collapse
               .small-10.columns
-                %input{type: :text, placeholder: 'Events, places, people; search it all!'}
+                %input{type: :text, placeholder: 'Events, places, people; search it all!', name: :query}
               .small-2.columns
                 %button{type: :submit, class: 'button postfix round'}
                   %i.fa.fa-search
