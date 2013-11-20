@@ -1,0 +1,7 @@
+form.custom {
+  .columns.error {
+    input, label, small {
+      @extend .small;
+    }
+  }
+}

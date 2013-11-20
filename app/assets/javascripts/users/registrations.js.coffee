@@ -1,5 +1,5 @@
 #= require lib/core
-Melody.SignUp =
+Portcullis.SignUp =
   handleRole: ->
     buttons = $('.page.buttons > a')
     buttons.each (index, elem) ->
@@ -11,4 +11,4 @@ Melody.SignUp =
         return false
 
 $ ->
-  #Melody.SignUp.handleRole()
+  #Portcullis.SignUp.handleRole()

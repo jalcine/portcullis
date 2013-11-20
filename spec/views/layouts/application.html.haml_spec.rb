@@ -46,8 +46,8 @@ describe 'layouts/application.html.haml' do
       render template: 'layouts/application', locals: { params: params }
     end
 
-    xit 'handles stylesheets' do
-      expect(rendered).to have_selector('link[data-turbolinks-track]')
+    it 'handles stylesheets' do
+      expect(rendered).to have_selector('link')
     end
 
   end

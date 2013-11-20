@@ -35,7 +35,6 @@ describe HomeController do
   describe 'GET *a' do
     before(:each) do
       allow(Rails.env).to receive(:production?).and_return(true)
-      Rails.application.reload_routes!
     end
 
     it 'returns http success' do

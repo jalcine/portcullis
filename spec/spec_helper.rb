@@ -1,6 +1,3 @@
-require 'rubygems'
-require 'awesome_print'
-
 ENV['RAILS_ENV'] ||= 'test'
 ENV['NEWRELIC_ENABLE'] = 'false'
 
@@ -17,6 +14,8 @@ end
 def pre_run_some_jazz
   Dir[Rails.root.join('spec/support/run/**/*.rb')].each { |f| require f }
 end
+
+require 'rubygems'
 
 if ENV['DRB']
   require 'spork'

@@ -1,3 +1,11 @@
-# Place all the behaviors and hooks related to the matching controller here.
-# All this logic will automatically be available in application.js.
-# You can use CoffeeScript in this file: http://coffeescript.org/
+#= require jquery/picker
+#= require jquery/picker.date
+#= require jquery/picker.time
+#= require jquery/picker.legacy
+#= require lib/core
+
+Portcullis.Events =
+  init: ->
+
+Portcullis.bind 'boot', ->
+  Portcullis.Events.init()

@@ -35,15 +35,15 @@ $em-base: 16px !default;
 }
 @import 'foundation/variables';
 @import 'options/*';
-@import 'foundation/components/global';
-@import 'foundation/components/grid';
-@import 'foundation/components/visibility';
-@import 'foundation/components/type';
-@import 'foundation/components/buttons';
-@import 'foundation/components/forms';
-@import 'foundation/components/custom-forms';
-@import 'foundation/components/top-bar';
-@import 'foundation/components/switch';
-@import 'foundation/components/panels';
-@import 'foundation/components/magellan';
-@import 'foundation/components/orbit';
+@import 'foundation';
+/*@import 'foundation/components/grid';*/
+/*@import 'foundation/components/visibility';*/
+/*@import 'foundation/components/type';*/
+/*@import 'foundation/components/buttons';*/
+/*@import 'foundation/components/forms';*/
+/*@import 'foundation/components/custom-forms';*/
+/*@import 'foundation/components/top-bar';*/
+/*@import 'foundation/components/switch';*/
+/*@import 'foundation/components/panels';*/
+/*@import 'foundation/components/magellan';*/
+/*@import 'foundation/components/orbit';*/

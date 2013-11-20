@@ -1,5 +1,72 @@
-%h1 New event
+- page_title 'Create Event'
+= javascript_include_tag 'events/new'
 
-= render 'form'
+#modal_all_day.reveal-modal.small.center-text
+  %h2
+    %i.fa.fa-clock-o
+    Going All Day
+  %p Do you want to mark this event as being an <b>all day</b> one?
+  %a#modal_make_all_day.button.success.medium.pull-right
+    Sure, Thanks!
+    %i.fa.fa-check-square
+  %a#modal_ignore_all_day.pull-left.button.medium.secondary
+    Nope, I'm Good
 
-= link_to 'Back', events_path
+.row
+  .small-12.large-8.small-centered.large-centered.columns
+    = form_for @event, class: :custom, data: {adibe: true} do |f|
+      = f.hidden_field :date_start
+      = f.hidden_field :date_end
+      %fieldset
+        %legend
+          %i.fa.fa-pencil
+          Context
+        .row
+          .small-2.columns
+            = f.label :name, class: 'inline has-tip tip-top', title: 'You have one shot to make this count! Describe your event lightly here.', data: {tooltip: true} do
+              Name
+              %small required
+          .small-10.columns
+            = f.text_field :name, autocomplete: :off, placeholder: 'Awesome Event at Main St', required: true, pattern: '[a-zA-Z]'
+        .row
+          .small-12.large-2.columns
+            = f.label :description, class: 'inline has-tip tip-top', title: 'Let your attending viewers know!', data: {tooltip: true} do
+              Description
+              %small required
+          .small-12.large-10.columns
+            = f.text_area :description, placeholder: 'Bring popcorn.', rows: 30
+      %fieldset
+        %legend
+          %i.fa.fa-clock-o
+          Timing
+        .row.collapse
+          .small-2.columns
+            = f.label :date_start, class: 'prefix' do
+              %i.fa.fa-backward
+              Start
+          .small-5.columns
+            %input#start_day{type: :date, placeholder: 'Start Day'}
+          .small-5.columns
+            %input#start_time{type: :time, placeholder: 'Start Time'}
+          .small-2.columns.center-text
+            = f.label :date_end, class: 'prefix' do
+              End
+              %i.fa.fa-forward
+          .small-5.columns
+            %input#end_day{type: :date, placeholder: 'End Day'}
+          .small-5.columns
+            %input#end_time{type: :time, placeholder: 'End Time'}
+        %hr
+        .row.collapse
+          .small-3.columns
+            #event_duration.pull-left
+              Long event!
+          .offset-6.small-3.columns
+            %label.pull-right{for: :all_day}
+              %input.custom#all_day{type: :checkbox}
+              %span.custom.checkbox
+              All Day Event
+      %hr
+      .row
+        .small-10.small-centered.large-6.large-centered.columns.center-text
+          = f.submit 'Create Event', class: 'button primary'

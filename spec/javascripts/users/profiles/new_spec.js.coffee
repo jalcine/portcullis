@@ -4,4 +4,4 @@
 describe 'user/profile/new', ->
   describe 'core', ->
     it 'exists', ->
-      expect(Melody.NewProfile).to.be.ok
+      expect(Portcullis.NewProfile).to.be.ok

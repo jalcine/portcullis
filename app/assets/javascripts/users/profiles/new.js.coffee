@@ -3,10 +3,10 @@
 $('a.item').attr 'data-no-turbolinks', true
 $('a.item').on 'click', (event) ->
   event.preventDefault()
-  Melody.NewProfile.Events.toggleSelection $(this)
+  Portcullis.NewProfile.Events.toggleSelection $(this)
   false
 
-Melody.NewProfile =
+Portcullis.NewProfile =
   Events:
     select: (elem) ->
     unselect: (elem) ->
