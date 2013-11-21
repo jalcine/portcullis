@@ -9,8 +9,34 @@ lookUp = (query) ->
       console.log data, textStatus, xhr
 
 Portcullis.Events.New =
+  leafletHandle: null
+  renderMap: ->
+    eventMap = $ '#event_map'
+    eventMap.css 'height', eventMap.height()
+    @leafletHandle = L.map 'event_map', zoom: 15
+    L.tileLayer('http://{s}.tile.cloudmade.com/ddac1a378966452591adc2782bf07771/997/256/{z}/{x}/{y}.png').addTo(@leafletHandle)
+    @leafletHandle.locate()
+  toggleMap: ->
+    addressTool = $ '#event_address_tool'
+    addressBar  = $ '#event_address'
+    addressTool.fadeToggle()
+    visible     = $('#event_address_tool:visible').length is 0
+
+    if visible
+      addressBar.removeAttr 'disabled'
+      # TODO: If not empty, geocode and update field info to map.
+    else
+      addressBar.attr 'disabled', 'disabled'
+      # TODO: Update textbox with geocode information.
   bindEvents : ->
+    @bindDateTimeTools()
+    @bindLocationTools()
+  bindLocationTools: ->
+    @renderMap()
     # Bind up the fields.
+    $('a#event_full_address').click ->
+      Portcullis.Events.New.toggleMap()
+  bindDateTimeTools: ->
     $('input[type=date]').pickadate()
     $('input[type=time]').pickatime()
 
@@ -105,5 +131,6 @@ Portcullis.Events.New =
       else
         fields.attr 'disabled', 'disabled'
 
+
 Portcullis.bind 'boot', ->
-  Portcullis.Events.New.bindEvents()
+  Portcullis.Events.New.bindEvents() if $('body').hasClass('events new')
