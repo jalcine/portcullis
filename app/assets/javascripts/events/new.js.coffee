@@ -13,9 +13,17 @@ Portcullis.Events.New =
   renderMap: ->
     eventMap = $ '#event_map'
     eventMap.css 'height', eventMap.height()
-    @leafletHandle = L.map 'event_map', zoom: 15
+    @leafletHandle = L.map('event_map', {
+      zoom: 15
+      center: [40.740083,-73.9903489]
+    })
     L.tileLayer('http://{s}.tile.cloudmade.com/ddac1a378966452591adc2782bf07771/997/256/{z}/{x}/{y}.png').addTo(@leafletHandle)
-    @leafletHandle.locate()
+  setMarker: (lat, lng = nil) ->
+    if typeof lat is Array and !lng?
+      _z = lat
+      lat = _z[0]
+      lng = _z[1]
+    @leafletHandle.setView [lat, lng]
   toggleMap: ->
     addressTool = $ '#event_address_tool'
     addressBar  = $ '#event_address'

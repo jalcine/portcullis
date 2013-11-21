@@ -1,5 +1,7 @@
-- page_title 'Create Event'
-= javascript_include_tag 'events/new'
+﻿- page_title 'Create Event'
+= javascript_include_tag asset_url('events/new')
+= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.js'
+= stylesheet_link_tag '//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.css'
 
 #modal_all_day.reveal-modal.small.center-text
   %h2
@@ -12,31 +14,50 @@
   %a#modal_ignore_all_day.pull-left.button.medium.secondary
     Nope, I'm Good
 
-%h2.center-text Create New Event
-
 .row
   .small-12.large-8.small-centered.large-centered.columns
     = form_for @event, class: :custom, data: {adibe: true} do |f|
       = f.hidden_field :date_start
       = f.hidden_field :date_end
       %fieldset
-        %legend
+        %legend.center-text
           %i.fa.fa-crosshairs
           Location
         .row
           .small-2.columns
-            = f.label :address, class: 'inline has-tip tip-top', data: { tooltip: :address }, title: 'Where is it happening? Let us know!'
+            = f.label :address, class: 'center-text inline has-tip tip-top', data: { tooltip: :address }, title: 'Where is it happening? Let us know!'
           .small-10.columns
             .row.collapse
               .small-10.columns
                 = f.text_field :address, placeholder: '1 Vettio Lane, New York, New York, 10010', autocomplete: :off
               .small-2.columns
                 %span.postfix
-                  %a.inline.has-tip.tip-top#event_full_address{data: {tooltip: :address}, title: 'Access more control over address entry'}
-                    Expand
-                    %i.fa.fa-angle-double-down
+                  %a.inline.has-tip.tip-top#event_full_address{data: {tooltip: :address}, title: 'Guessimate the whereabuts of your event using a map.'}
+                    %i.fa.fa-crosshairs
+                    Pinpoint 
+            .row.collapse
+              .small
+        .row
+          #event_address_tool.small-12.columns.row
+            .large-6.small-12.columns
+              #event_map
+            .large-6.small-12.columns
+              .row
+                .small-12.columns
+                  %input#event_address_title{type: :text, placeholder: 'Name of Location'}
+                .small-12.columns
+                  %input#event_address_line{type: :text, placeholder: 'Address Line'}
+                .small-12.columns
+                  %input#event_address_line2{type: :text, placeholder: 'Additional Address Line'}
+              .row.collapse
+                .small-4.columns
+                  %input#event_address_city{type: :text, placeholder: 'City'}
+                .small-4.columns
+                  %input#event_address_state{type: :text, placeholder: 'State'}
+                .small-4.columns
+                  %input#event_address_zipcode{type: :number, placeholder: 'ZIP Code'}
       %fieldset
-        %legend
+        %legend.center-text
           %i.fa.fa-pencil
           Context
         .row
@@ -54,7 +75,7 @@
           .small-12.large-10.columns
             = f.text_area :description, placeholder: 'Bring popcorn.', rows: 30
       %fieldset
-        %legend
+        %legend.center-text
           %i.fa.fa-clock-o
           Timing
         .row.collapse
@@ -76,14 +97,23 @@
             %input#end_time{type: :time, placeholder: 'End Time'}
         %hr
         .row.collapse
-          -#.small-3.columns
-            -##event_duration.pull-left
-              -#Long event!
+          .small-3.columns
+            #event_duration.pull-left
           .offset-6.small-3.columns
             %label.pull-right{for: :all_day}
               %input.custom#all_day{type: :checkbox}
               %span.custom.checkbox
               All Day Event
+      %fieldset
+        %legend.center-text
+          %i.fa.fa-tint
+          Design
+        .row
+          .small-3.columns
+            = f.label :emblem, class: 'inline'
+          .small-9.columns
+            = f.file_field :emblem, multiple: false, accept: 'image/png,image/gif,image/jpeg'
+
       %hr
       .row
         .small-10.small-centered.large-6.large-centered.columns.center-text
