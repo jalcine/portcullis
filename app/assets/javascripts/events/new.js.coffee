@@ -1,41 +1,69 @@
 #= require events
 
-lookUp = (query) ->
-  url = 'http://nominatim.openstreetmap.org/search'
-  $.get url, {
-    format: 'json'
-    q: escape(query)
-    }, (data, textStatus, xhr) ->
-      console.log data, textStatus, xhr
-
 Portcullis.Events.New =
   leafletHandle: null
+  leafletControls:
+    locate: null
   renderMap: ->
     eventMap = $ '#event_map'
-    eventMap.css 'height', eventMap.height()
+    theForm = eventMap.prev()
+    eventMap.css
+      height: theForm.height()
+      width:  theForm.width()
     @leafletHandle = L.map('event_map', {
+      minZoom: 9
+      maxZoom: 15
       zoom: 15
-      center: [40.740083,-73.9903489]
+      center: { lat: 40.740083, lng: -73.9903489 }
+      zoomControl: false
+      attributionControl: false
+      layers: [
+        L.tileLayer('http://{s}.tile.cloudmade.com/ddac1a378966452591adc2782bf07771/997/256/{z}/{x}/{y}.png')
+      ]
     })
-    L.tileLayer('http://{s}.tile.cloudmade.com/ddac1a378966452591adc2782bf07771/997/256/{z}/{x}/{y}.png').addTo(@leafletHandle)
+    @leafletControls.locate = L.control.locate({
+      position: 'bottomright'
+      locateOptions:
+        maxZoom: 20
+        setView: true
+        animate: true
+        reset: false
+    }).addTo @leafletHandle
+
   setMarker: (lat, lng = nil) ->
     if typeof lat is Array and !lng?
       _z = lat
       lat = _z[0]
       lng = _z[1]
     @leafletHandle.setView [lat, lng]
+
   toggleMap: ->
     addressTool = $ '#event_address_tool'
     addressBar  = $ '#event_address'
-    addressTool.fadeToggle()
-    visible     = $('#event_address_tool:visible').length is 0
+    visible     = $('#event_address_tool:visible').length is 1
 
     if visible
       addressBar.removeAttr 'disabled'
-      # TODO: If not empty, geocode and update field info to map.
     else
       addressBar.attr 'disabled', 'disabled'
-      # TODO: Update textbox with geocode information.
+      @updateAddressBar()
+
+    addressTool.slideToggle =>
+      @leafletHandle.invalidateSize true
+  updateAddressBar: ->
+    addressBar = $ '#event_address_bar'
+    addressBar.val 'Awesome'
+  fillInAddressTool: ->
+  searchFromAddressTool: ->
+    provider = new L.GeoSearch.Provider.OpenStreetMap()
+    query = "#{$('#event_address_title').val()} " +
+            "#{$('#event_address_line').val()}"
+    url = provider.GetServiceUrl query
+    $.getJSON url, {}, (d,t,j) ->
+      result = d[0]
+      $('#event_address').val result['display_name'] if d.length isnt 0
+    console.log url
+  searchFromAddressBar: ->
   bindEvents : ->
     @bindDateTimeTools()
     @bindLocationTools()
@@ -44,12 +72,17 @@ Portcullis.Events.New =
     # Bind up the fields.
     $('a#event_full_address').click ->
       Portcullis.Events.New.toggleMap()
+
+    $('input#event_address').keypress =>
+      @searchFromAddressBar()
+
+    $('#event_address_title, #event_address_line, #event_address_line2,' +
+      '#event_address_city, #event_address_state,' +
+      '#event_address_zipcode').keydown =>
+        @searchFromAddressTool()
   bindDateTimeTools: ->
     $('input[type=date]').pickadate()
     $('input[type=time]').pickatime()
-
-    $('input#event_address').on 'keypress', ->
-      lookUp $('input#event_address').val()
 
     startDayElem = $('input#start_day')
     startTimeElem = $('input#start_time')
@@ -106,9 +139,9 @@ Portcullis.Events.New =
           $('input#all_day').attr('checked', '')
           $('#modal_all_day').foundation('reveal', {
             closeOnBackgroundClick: true
-            opened: () ->
+            opened: ->
               $('form#new_event').addClass 'ghost'
-            closed: () ->
+            closed: ->
               $('form#new_event').removeClass 'ghost'
           }).foundation('reveal', 'open')
 
@@ -138,7 +171,6 @@ Portcullis.Events.New =
         fields.removeAttr 'disabled'
       else
         fields.attr 'disabled', 'disabled'
-
 
 Portcullis.bind 'boot', ->
   Portcullis.Events.New.bindEvents() if $('body').hasClass('events new')

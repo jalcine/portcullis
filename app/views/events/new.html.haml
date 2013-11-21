@@ -1,7 +1,11 @@
 ﻿- page_title 'Create Event'
+= stylesheet_link_tag '//cdn.leafletjs.com/leaflet-0.7/leaflet.css'
+= stylesheet_link_tag asset_url('leaflet/l.control.locate.css')
 = javascript_include_tag asset_url('events/new')
-= javascript_include_tag '//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.js'
-= stylesheet_link_tag '//cdnjs.cloudflare.com/ajax/libs/leaflet/0.6.4/leaflet.css'
+= javascript_include_tag 'http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js', defer: true
+= javascript_include_tag asset_url('leaflet/l.control.locate.js'), defer: true
+= javascript_include_tag asset_url('leaflet/l.control.geosearch.js'), defer: true
+= javascript_include_tag asset_url('leaflet/l.geosearch.provider.openstreetmap.js'), defer: true
 
 #modal_all_day.reveal-modal.small.center-text
   %h2
@@ -15,7 +19,7 @@
     Nope, I'm Good
 
 .row
-  .small-12.large-8.small-centered.large-centered.columns
+  .small-12.large-10.large-centered.columns
     = form_for @event, class: :custom, data: {adibe: true} do |f|
       = f.hidden_field :date_start
       = f.hidden_field :date_end
