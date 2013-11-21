@@ -4,6 +4,7 @@
 
 body.events {
   section.main {
+    padding-top: 2em;
     @include grid-row;
   }
 

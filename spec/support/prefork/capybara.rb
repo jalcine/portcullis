@@ -22,16 +22,7 @@ RSpec.configure do | config |
   Capybara.default_selector   = :css
   Capybara.default_driver     = :poltergeist
   Capybara.javascript_driver  = :poltergeist
-  Capybara.default_wait_time  = 10
+  Capybara.default_wait_time  = 30
   Capybara.visible_text_only  = false
-  Capybara.visible_text_only  = false
-  Capybara.app_host = 'http://lvh.me/' # Redirect to http://127.0.0.1/
-
-  Capybara.add_selector(:li) do
-    xpath { |num| ".//li[#{num}]" }
-  end
-
-  Capybara.add_selector(:dd) do
-    xpath { |num| ".//li[#{num}]" }
-  end
+  Capybara.app_host = 'http://lvh.me' # Redirect to http://127.0.0.1/
 end

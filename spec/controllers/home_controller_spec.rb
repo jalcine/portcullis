@@ -41,10 +41,5 @@ describe HomeController do
       visit 'foobar'
       expect(response.status).to be(200)
     end
-
-    xit 'renders the 404 page' do
-      visit 'foobar' 
-      expect(response).to render_template('errors/500')
-    end
   end
 end

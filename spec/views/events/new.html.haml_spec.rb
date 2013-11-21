@@ -6,12 +6,6 @@ describe 'events/new.html.haml' do
     assign :event, FactoryGirl.build(:event)
   end
 
-  xit 'has the right title' do
-    render template: 'events/new'
-    puts rendered
-    expect(page).to have_title 'Create Event - Vettio'
-  end
-
   describe 'form' do
     describe 'existence' do
       it 'has the description field' do

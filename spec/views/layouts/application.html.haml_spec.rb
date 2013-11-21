@@ -8,7 +8,6 @@ describe 'layouts/application.html.haml' do
       controller: 'layouts',
       action: 'application'
     )
-
   end
 
   let(:params)  { controller.request.params }
@@ -41,17 +40,6 @@ describe 'layouts/application.html.haml' do
     end
   end
 
-  describe 'turbolinks' do
-    before(:each) do
-      render template: 'layouts/application', locals: { params: params }
-    end
-
-    it 'handles stylesheets' do
-      expect(rendered).to have_selector('link')
-    end
-
-  end
-  
   describe 'styling' do
     before(:each) do
       render template: 'layouts/application', locals: { params: params }

@@ -1,10 +1,21 @@
 #= require events
 
+lookUp = (query) ->
+  url = 'http://nominatim.openstreetmap.org/search'
+  $.get url, {
+    format: 'json'
+    q: escape(query)
+    }, (data, textStatus, xhr) ->
+      console.log data, textStatus, xhr
+
 Portcullis.Events.New =
   bindEvents : ->
     # Bind up the fields.
     $('input[type=date]').pickadate()
     $('input[type=time]').pickatime()
+
+    $('input#event_address').on 'keypress', ->
+      lookUp $('input#event_address').val()
 
     startDayElem = $('input#start_day')
     startTimeElem = $('input#start_time')

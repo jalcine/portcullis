@@ -8,6 +8,7 @@ CURRENT TASKS:
   - Fix up the events look.
     @ Added [Tue 2013-11-19]
     @ Start [Tue 2013-11-19] [01:52], end [22:11]
+    @ Start [Thu 2013-11-21] [02:25]
   - Define the slider for the landing page.
     @ Added [Sat 2013-11-16]
     @ Start [Sat 2013-11-16] [18:31], end [01:51]

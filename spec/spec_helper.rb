@@ -1,4 +1,4 @@
-ENV['RAILS_ENV'] ||= 'test'
+ENV['RAILS_ENV'] = 'test'
 ENV['NEWRELIC_ENABLE'] = 'false'
 
 def prefork_some_jazz
