@@ -8,4 +8,4 @@ Portcullis.Events =
   init: ->
 
 Portcullis.bind 'boot', ->
-  Portcullis.Events.init()
+  Portcullis.Events.init() if $('body').hasClass 'events'
