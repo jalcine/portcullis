@@ -1,12 +1,10 @@
 require 'rack/contrib/time_zone'
-require 'rack/contrib/profiler'
-require 'rack/contrib/print_out'
+#require 'rack/contrib/profiler'
 
-Rails.applicaiton.configure do
+Portcullis::Application.configure do
   config.middleware.insert_before Rack::ETag, Rack::TimeZone
 
   if Rails.env.development?
-    config.middleware.use Rack::Profiler
-    config.middleware.use Rack::Printout
+    #config.middleware.use Rack::Profiler, {printer: 'RubyProf::GraphPrinter', times: 2}
   end
 end
