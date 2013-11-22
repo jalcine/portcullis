@@ -41,13 +41,14 @@ gem 'unicorn-rails'
 gem 'fog'
 gem 'pry', '0.9.12.2'
 gem 'rails_config'
-gem 'rack-contrib'
+gem 'rack-contrib', git: 'git://github.com/jalcine/rack-contrib', branch: 'support/fixing-profiler'
 gem 'sdoc', require: false, group: [:doc]
 
 group :development do
   gem 'ruby-prof'
   gem 'erb2haml', '~> 0.1.5'
   gem 'debugger', '~> 1.6.2'
+  gem 'coffee-rails-source-maps', '~> 1.4.0'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
   gem 'guard-bundler', '~> 2.0.0'
