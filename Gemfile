@@ -41,9 +41,11 @@ gem 'unicorn-rails'
 gem 'fog'
 gem 'pry', '0.9.12.2'
 gem 'rails_config'
+gem 'rack-contrib'
 gem 'sdoc', require: false, group: [:doc]
 
 group :development do
+  gem 'ruby-prof'
   gem 'erb2haml', '~> 0.1.5'
   gem 'debugger', '~> 1.6.2'
   gem 'binding_of_caller', '~> 0.7.2'
