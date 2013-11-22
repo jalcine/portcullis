@@ -49,6 +49,7 @@ group :development do
   gem 'erb2haml', '~> 0.1.5'
   gem 'debugger', '~> 1.6.2'
   gem 'coffee-rails-source-maps', '~> 1.4.0'
+  gem 'sass-rails-source-maps', '~> 0.0.1'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
   gem 'guard-bundler', '~> 2.0.0'
