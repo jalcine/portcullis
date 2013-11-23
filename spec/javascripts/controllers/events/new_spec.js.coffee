@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require events/new
+#= require controllers/events/new
 
 describe 'events/new', ->
   #$('body').html(JST['templates/events/new']())

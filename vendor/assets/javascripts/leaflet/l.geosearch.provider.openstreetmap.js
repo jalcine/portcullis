@@ -13,6 +13,17 @@ L.GeoSearch.Provider.OpenStreetMap = L.Class.extend({
         options = L.Util.setOptions(this, options);
     },
 
+    GetReverseServiceUrl: function (lat, lng) {
+        var parameters = L.Util.extend({
+            lat: lat,
+            lon: lng,
+            format: 'json'
+        }, this.options);
+
+        return 'http://nominatim.openstreetmap.org/reverse'
+            + L.Util.getParamString(parameters);
+    },
+
     GetServiceUrl: function (qry) {
         var parameters = L.Util.extend({
             q: qry,

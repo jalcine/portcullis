@@ -5,15 +5,15 @@ gem 'rails', '4.0.0'
 gem 'pg', '0.17.0'
 gem 'unf', '~> 0.1.3'
 gem 'tire'
-#gem 'elasticsearch'
-gem 'compass-rails', '~> 2.0.alpha.0'
 gem 'sass-rails', '~> 4.0.0'
+gem 'compass-rails', '~> 2.0.alpha.0'
+gem 'compass', '~> 0.12.0'
 gem 'uglifier', '2.3.0'
 gem 'jquery-rails-cdn', '~> 1.0.1'
 gem 'underscore-rails', '~> 1.5.2'
 gem 'backbone-on-rails', '~> 1.1.0.0'
 gem 'coffee-rails', '~> 4.0.0'
-gem 'zurb-foundation', '~> 4.3.2'
+gem 'foundation-rails', '~> 5.0.2'
 gem 'haml', '4.0.3'
 gem 'haml-rails', '~> 0.4'
 gem 'jbuilder', '~> 1.5.2'
@@ -84,7 +84,6 @@ group :test, :development do
   gem 'capybara', require: false
   gem 'capybara-screenshot', require: false
   gem 'poltergeist', require: false
-  #gem 'fuubar', require: false
   gem 'nyan-cat-formatter', require: false
   gem 'konacha', require: false
   gem 'konacha-chai-matchers', require: false

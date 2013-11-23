@@ -1,24 +1,27 @@
 Portcullis.Events.New =
+  timing:
+    updateHidden: (time, date, hiddenField) ->
+      resultingTime = time.pickatime('picker').get('select')
+      resultingDate = date.pickadate('picker').get('select').obj
+      dateTimeVal = resultingDate
+      dateTimeVal.setHours resultingTime.hour
+      dateTimeVal.setMinutes resultingTime.mins
+      hiddenField.val dateTimeVal.valueOf()
+    updateHiddenStart: ->
+      self.timing.updateHidden $('#start_time'), $('#start_day'), $('#event_date_start')
+    updateHiddenEnd: ->
+      self.timing.updateHidden $('#end_time'), $('#end_day'), $('#event_date_end')
   leaflet:
     handle: null
     address:
       box: $ '#event_address'
+      list: $ '#event_address_list'
       tool:
         title:   $ '#event_address_title'
         address: $ '#event_address_line'
         city:    $ '#event_address_city'
         state:   $ '#event_address_state'
         zipcode: $ '#event_address_zipcode'
-    search:
-      timeout: 0
-      polygon: null
-      fromAddressTool: =>
-        query = "#{@leaflet.address.tool.title.val()},  " +
-          "#{@leaflet.address.tool.line.val()},  " +
-          "#{@leaflet.address.tool.city.val()},  " +
-          "#{@leaflet.address.tool.state.val()}  " +
-          "#{@leaflet.address.tool.zipcode.val()}"
-        @discoverFromQuery query
     controls:
       locate: null
     layers:
@@ -36,13 +39,13 @@ Portcullis.Events.New =
           addressBar.attr 'disabled', 'disabled'
 
         addressTool.slideToggle =>
-          @leaflet.handle.invalidateSize true
+          self.leaflet.handle.invalidateSize true
       render: =>
-        theForm = @leaflet.map.elem.prev()
-        @leaflet.map.elem.css
+        theForm = self.leaflet.map.elem.prev()
+        self.leaflet.map.elem.css
           height: theForm.height()
           width:  theForm.width()
-        @leaflet.handle = L.map('event_map', {
+        self.leaflet.handle = L.map('event_map', {
           minZoom: 9
           maxZoom: 18
           zoom: 15
@@ -53,94 +56,122 @@ Portcullis.Events.New =
             L.tileLayer('http://{s}.tile.cloudmade.com/ddac1a378966452591adc2782bf07771/997/256/{z}/{x}/{y}.png')
           ]
         })
-        @fillInAddressTool()
-        @leaflet.handle.on 'locationfound', (le) =>
-          @discoverFromCoords le.latitude, le.longitude, =>
-            console.log @leaflet.address.box.data 'geodata'
-            @fillInAddressTool()
-        @leaflet.controls.locate = L.control.locate({
+        self.fillInAddressTool()
+        self.leaflet.handle.on 'locationfound', (le) =>
+          self.discover.fromCoords le.latitude, le.longitude, =>
+            self.fillInAddressTool()
+        self.leaflet.controls.locate = L.control.locate({
           position: 'bottomright'
           locateOptions:
             maxZoom: 20
             setView: true
             animate: true
             reset: false
-        }).addTo @leaflet.handle
+        }).addTo self.leaflet.handle
+  search:
+    enableSpinner: ->
+      $('#event_full_address > i.fa').removeClass('fa-cross-hairs').addClass('fa-spinner fa-spin')
+    disableSpinner: ->
+      $('#event_full_address > i.fa').removeClass('fa-spinner fa-spin').addClass('fa-cross-hairs')
+    timeout: 0
+    polygon: null
+    fromAddressTool: =>
+      query = self.leaflet.address.tool.title.val()
+      query += self.leaflet.address.tool.address.val()
+      query += self.leaflet.address.tool.city.val()
+      query += self.leaflet.address.tool.state.val()
+      query += self.leaflet.address.tool.zipcode.val()
+      self.discover.fromQuery query, (result) ->
+        return if !result?
+        result = result[0] if typeof result is 'object'
+        return if !result?
+        self.leaflet.address.box.data 'geodata', result
+        self.leaflet.address.box.val "#{result['address']['road']}"
+
+    fromAddressBar: =>
+      box = self.leaflet.address.box
+      list = self.leaflet.address.list
+      self.discover.fromQuery box.val(), (results) ->
+        box.foundation 'dropdown', 'open'
+        # TODO: Open/present droplist.
+        # TODO: Populate list of options.
+        # TODO: Bind each option to be filler.
   setMarker: (lat, lng = nil) ->
     if typeof lat is Array and !lng?
       _z = lat
       lat = _z[0]
       lng = _z[1]
-    @leaflet.handle.setView [lat, lng]
+    self.leaflet.handle.setView [lat, lng]
   fillInAddressTool: ->
-    data = @leaflet.address.box.data 'geodata'
-    if data isnt undefined
-      @leaflet.address.tool.line.val "#{data['address']['road'] || data['address']['pedestrian']}"
-      @leaflet.address.tool.line.val "#{data['address']['house_number']} " + @leaflet.address.tool.line.val() if data['type'] == 'house'
-      @leaflet.address.tool.city.val data['address']['county'] || data['address']['state_district'] || data['address']['city']
-      @leaflet.address.tool.state.val data['address']['state']
-      @leaflet.address.tool.zipcode.val data['address']['postcode']
-      @leaflet.address.tool.title.val "#{data['address'][data['type']] }" if data['address'][data['type']]?
-      @leaflet.address.box.val "#{@leaflet.address.tool.line.val()}, #{@leaflet.address.tool.city.val()}, #{@leaflet.address.tool.state.val()} #{@leaflet.address.tool.zipcode.val()}"
-  discoverFromCoords: (lat, lng, callback = null) ->
-    provider = new L.GeoSearch.Provider.OpenStreetMap()
-    provider.options.zoom = 18
-    provider.options.addressdetails = 1
-    provider.options.countrycodes = ['us']
-    provider.options.limit = 1
-    provider.options.polygon = 1
-    url = provider.GetReverseServiceUrl lat, lng
-    @handleQueryURI url, false, callback
-  discoverFromQuery: (query, callback) ->
-    provider = new L.GeoSearch.Provider.OpenStreetMap()
-    provider.options.zoom = 18
-    provider.options.addressdetails = 1
-    provider.options.countrycodes = ['us']
-    provider.options.limit = 1
-    provider.options.polygon = 1
-    url = provider.GetServiceUrl query, true
-    @handleQueryURI url, true, callback
-  handleQueryURI: (url, moveToPlace = false, callback = null) ->
-    $.getJSON url, {}, (d,t,j) =>
-      result = d
-      result = d[0] if d.length?
-      callback.call() if callback?
-      $('#event_full_address > i.fa').removeClass('fa-spinner fa-spin').addClass('fa-cross-hairs')
-      @leaflet.address.box.removeData 'geodata'
-      if result?
-        @leaflet.address.box.data 'geodata', result
-        @leaflet.address.box.val "#{result['address']['road']}"
-        @leaflet.handle.panTo [result.lat, result.lon], { animate: true } if moveToPlace is true
-        bounds = L.latLngBounds result['polygonpoints']
-        if bounds?
-          @leaflet.handle.removeLayer(@leaflet.layers.search) if @leafletLayers.search?
-          @leaflet.layers.search = L.rectangle bounds, {color: '#ff7800', weight: 1}
-          @leaflet.layers.search.addTo @leaflet.handle
-  searchFromAddressBar: ->
+    data = self.leaflet.address.box.data 'geodata'
+    address = self.leaflet.address.tool
+    if data?
+      address.address.val "#{data['address']['road'] || data['address']['pedestrian']}"
+      address.address.val "#{data['address']['house_number']} " + self.leaflet.address.tool.line.val() if data['type'] == 'house'
+      address.city.val data['address']['county'] || data['address']['state_district'] || data['address']['city']
+      address.state.val data['address']['state']
+      address.zipcode.val data['address']['postcode']
+      address.title.val "#{data['address'][data['type']] }" if data['address'][data['type']]?
+      self.leaflet.address.box.val "#{address.title.val()}, #{address.address.val()}, #{address.city.val()}, #{address.state.val()} #{address.zipcode.val()}"
+  discover:
+    fromCoords: (lat, lng, callback = null) ->
+      provider = new L.GeoSearch.Provider.OpenStreetMap()
+      provider.options.zoom = 18
+      provider.options.addressdetails = 1
+      provider.options.countrycodes = ['us']
+      provider.options.limit = 1
+      provider.options.polygon = 1
+      url = provider.GetReverseServiceUrl lat, lng
+      self.discover.invokeQuery url, false, callback
+    fromQuery: (query, callback) ->
+      provider = new L.GeoSearch.Provider.OpenStreetMap()
+      provider.options.zoom = 18
+      provider.options.addressdetails = 1
+      provider.options.countrycodes = ['us']
+      provider.options.limit = 1
+      provider.options.polygon = 1
+      url = provider.GetServiceUrl query, true
+      self.discover.invokeQuery url, true, callback
+    invokeQuery: (url, moveToPlace = false, callback = null) ->
+      self.search.enableSpinner()
+      $.getJSON url, {}, (d,t,j) =>
+        self.leaflet.address.box.removeData 'geodata'
+        result = d
+        result = d[0] if d.length?
+        callback.call(self, d) if callback?
+        self.search.disableSpinner()
+        if result?
+          self.leaflet.handle.panTo [result.lat, result.lon], { animate: true } if moveToPlace is true
+          bounds = L.latLngBounds result['polygonpoints']
+          if bounds?
+            self.leaflet.handle.removeLayer(self.leaflet.layers.search) if self.leaflet.layers.search?
+            self.leaflet.layers.search = L.rectangle bounds, {color: '#ff7800', weight: 1}
+            self.leaflet.layers.search.addTo self.leaflet.handle
   bindEvents : ->
     @bindDateTimeTools()
     @bindLocationTools()
   bindLocationTools: ->
-    @leaflet.map.render()
+    self.leaflet.map.render()
     # Bind up the fields.
-    $('a#event_full_address').click ->
-      Portcullis.Events.New.map.toggle()
+    $('a#event_full_address').click =>
+      self.leaflet.map.toggle()
 
     $('input#event_address').keyup =>
-      @searchFromAddressBar()
+      clearTimeout self.search.timeout
+      self.search.timeout = setTimeout( () =>
+        self.search.fromAddressBar()
+      , 250)
 
     $('#event_address_tool_fill').click (e) =>
       e.preventDefault()
-      @fillInAddressTool()
+      self.fillInAddressTool()
 
     $('#event_address_title, #event_address_line,' +
       '#event_address_city, #event_address_state,' +
       '#event_address_zipcode').keyup =>
-        console.log @leaflet.search.timeout
-        clearTimeout @leaflet.search.timeout
-        $('#event_full_address > i.fa').removeClass('fa-cross-hairs').addClass('fa-spinner fa-spin')
-        @leaflet.search.timeout = setTimeout( () =>
-          @leaflet.search.fromAddressTool()
+        clearTimeout self.search.timeout
+        self.search.timeout = setTimeout( () =>
+          self.search.fromAddressTool()
         , 250)
   bindDateTimeTools: ->
     $('input[type=date]').pickadate()
@@ -159,8 +190,16 @@ Portcullis.Events.New =
       close: ->
         if startDayPicker.get('select').pick is 0
           startDayPicker.set 'select', Date.new
+      set: ->
+        self.timing.updateHiddenStart()
 
+    startTimePicker.on
+      set: ->
+        self.timing.updateHiddenStart()
+    
     endDayPicker.on
+      set: ->
+        self.timing.updateHiddenEnd()
       close: ->
         startDayVal = startDayPicker.get('select').pick
         endDayVal = endDayPicker.get('select').pick
@@ -178,6 +217,8 @@ Portcullis.Events.New =
           endDayElem.parent().find('small.error').remove()
 
     endTimePicker.on
+      set: ->
+        self.timing.updateHiddenEnd()
       close: ->
         startTimeVal = startTimePicker.get('select').pick
         endTimeVal = endTimePicker.get('select').pick
@@ -195,8 +236,6 @@ Portcullis.Events.New =
           endTimeElem.removeClass 'error'
           endTimeElem.parent().find('small.error').remove()
 
-        console.log startTimeVal, endTimeVal, sameDay
-
         if sameDay and startTimeVal + 12 <= endTimeVal
           $('input#all_day').attr('checked', '')
           $('#modal_all_day').foundation('reveal', {
@@ -207,17 +246,12 @@ Portcullis.Events.New =
               $('form#new_event').removeClass 'ghost'
           }).foundation('reveal', 'open')
 
-    
     # Rig the button.
     daForm = $('form#new_event')
 
     # Prepopulate fields.
     startDayPicker.set 'select', Date.new
     endDayPicker.set 'select', Date.new
-
-    daForm.on 'submit', ->
-      # TODO: Run validations.
-      #
     $('#modal_all_day a.button').on 'click', ->
       $('#modal_all_day').foundation 'reveal', 'close'
     
@@ -227,12 +261,12 @@ Portcullis.Events.New =
     $('input#all_day').on 'change', ->
       fields = $('input#end_time, input#start_time')
       val = $('input#all_day:checked').length is 1
-      console.log val, fields
-
       if !val
         fields.removeAttr 'disabled'
       else
         fields.attr 'disabled', 'disabled'
 
+self = Portcullis.Events.New
+
 Portcullis.bind 'boot', ->
-  Portcullis.Events.New.bindEvents() if $('body').hasClass('events new')
+  Portcullis.Events.New.bindEvents() if $('form#new_event').length isnt 0

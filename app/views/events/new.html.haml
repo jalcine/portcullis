@@ -1,11 +1,5 @@
 ﻿- page_title 'Create Event'
-= stylesheet_link_tag '//cdn.leafletjs.com/leaflet-0.7/leaflet.css'
-= stylesheet_link_tag asset_url('leaflet/l.control.locate.css')
-= javascript_include_tag asset_url('events/new')
-= javascript_include_tag 'http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js', defer: true
-= javascript_include_tag asset_url('leaflet/l.control.locate.js'), defer: true
-= javascript_include_tag asset_url('leaflet/l.control.geosearch.js'), defer: true
-= javascript_include_tag asset_url('leaflet/l.geosearch.provider.openstreetmap.js'), defer: true
+= javascript_include_tag 'http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'
 
 #modal_all_day.reveal-modal.small.center-text
   %h2
@@ -18,11 +12,20 @@
   %a#modal_ignore_all_day.pull-left.button.medium.secondary
     Nope, I'm Good
 
+- if @event.errors.any?
+  .alert-box.radius.alert{'data-alert' => ''}
+    %a.close{href: '#'}
+      %i.fa.fa-times-circle.fa-fw
+    %b Something went haywire when attempting to save your event!
+    %ul
+      - @event.errors.full_messages.each do | msg |
+        %li= msg
+
 .row
-  .small-12.large-10.large-centered.columns
-    = form_for @event, class: :custom, data: {adibe: true} do |f|
-      = f.hidden_field :date_start
-      = f.hidden_field :date_end
+  .small-12.large-8.large-centered.columns
+    = form_for @event, class: :custom do |f|
+      = f.hidden_field :date_start, value: @event.date_start.to_s
+      = f.hidden_field :date_end, value: @event.date_end.to_s
       %fieldset
         %legend.center-text
           %i.fa.fa-crosshairs
@@ -33,14 +36,13 @@
           .small-10.columns
             .row.collapse
               .small-10.columns
-                = f.text_field :address, placeholder: '1 Vettio Lane, New York, New York, 10010', autocomplete: :off
+                = f.text_field :address, placeholder: '1 Vettio Lane, New York, New York, 10010', autocomplete: :off, value: @event.address
+                %ul#event_address_list.f-dropdown{'data-dropdown-content' => ''}
               .small-2.columns
                 %span.postfix
                   %a.inline.has-tip.tip-top#event_full_address{data: {tooltip: :address}, title: 'Guessimate the whereabuts of your event using a map.'}
                     %i.fa.fa-crosshairs
                     Pinpoint 
-            .row.collapse
-              .small
         .row
           #event_address_tool.small-12.columns.row
             .large-6.small-12.columns
@@ -51,8 +53,6 @@
                   %input#event_address_title{type: :text, placeholder: 'Name of Location'}
                 .small-12.columns
                   %input#event_address_line{type: :text, placeholder: 'Address Line'}
-                .small-12.columns
-                  %input#event_address_line2{type: :text, placeholder: 'Additional Address Line'}
               .row.collapse
                 .small-4.columns
                   %input#event_address_city{type: :text, placeholder: 'City'}
@@ -60,6 +60,11 @@
                   %input#event_address_state{type: :text, placeholder: 'State'}
                 .small-4.columns
                   %input#event_address_zipcode{type: :number, placeholder: 'ZIP Code'}
+              .row.collapse
+                .small-12.columns.pull-right
+                  %a#event_address_tool_fill{href: '#'}
+                    %i.fa.fa-magic
+                    Fill In Info
       %fieldset
         %legend.center-text
           %i.fa.fa-pencil
@@ -70,14 +75,14 @@
               Name
               %small required
           .small-10.columns
-            = f.text_field :name, autocomplete: :off, placeholder: 'Awesome Event at Main St', required: true, pattern: '[a-zA-Z]'
+            = f.text_field :name, autocomplete: :off, placeholder: 'Awesome Event at Main St', required: true, value: @event.name
         .row
           .small-12.large-2.columns
             = f.label :description, class: 'inline has-tip tip-top', title: 'Let your attending viewers know!', data: {tooltip: :description} do
               Description
               %small required
           .small-12.large-10.columns
-            = f.text_area :description, placeholder: 'Bring popcorn.', rows: 30
+            = f.text_area :description, placeholder: 'Bring popcorn.', rows: 30, value: @event.description
       %fieldset
         %legend.center-text
           %i.fa.fa-clock-o

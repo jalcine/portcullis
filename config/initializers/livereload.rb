@@ -3,14 +3,14 @@ if Rails.env.development?
 
   Portcullis::Application.configure do
     # Local machine.
-    config.middleware.insert_before BetterErrors::Middleware, Rack::LiveReload, {
+    config.middleware.insert_before Rack::Lock, Rack::LiveReload, {
       no_swf: true,
       min_delay: 30,
       max_delay: 100
     }
 
     # Over Intranet/Internet
-    config.middleware.insert_before BetterErrors::Middleware, Rack::LiveReload, {
+    config.middleware.insert_before Rack::Lock, Rack::LiveReload, {
       no_swf: true,
       min_delay: 30,
       max_delay: 100,

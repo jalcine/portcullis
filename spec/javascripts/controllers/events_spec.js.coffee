@@ -1,5 +1,5 @@
 #= require spec_helper
-#= require events
+#= require controllers/events
 
 describe 'events', ->
   describe 'core', ->

@@ -16,17 +16,14 @@ group :core do
     watch('Gemfile.lock')
     watch('gem.tags')
   end
-
-  #guard :sidekiq, environment: :development, verbose: true do
-  #  watch(%r{^workers/(.+)\.rb$})
-  #end
 end
 
 group :ui do
-  guard :rails, port: 4373, daemon: false, debugger: true, server: :unicorn, force_run: true do
+  guard :rails, port: 4373, daemon: true, debugger: true, server: :unicorn, force_run: true do
     watch('Gemfile.lock')
     watch('config/application.rb')
     watch('config/environment.rb')
+    watch('config/unicorn/development.rb')
     watch(%r{^config/(initializers|environments)/.+\.rb$})
     watch(%r{^config/settings/.+\.yml$})
   end 
@@ -44,6 +41,7 @@ end
 group :test do
   guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 60, retry_delay: 2 do
     watch('Gemfile.lock')
+    watch('config/unicorn/test.rb')
     watch('config/application.rb')
     watch('config/environment.rb')
     watch('config/environments/test.rb')
@@ -53,7 +51,7 @@ group :test do
     watch(%w{^spec/support/prefork)/(.+)\.rb$}) { [:spork, 'spec'] }
   end
 
-  guard :konacha do
+  guard :konacha, all_on_start: false do
     watch('spec/javascripts/spec_helper.js.coffee') { 'spec/javascripts' }
     watch(%r{^app/assets/javascripts/(.*)\.js(\.coffee)?$}) { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
     watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee)$})

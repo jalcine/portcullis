@@ -1,13 +1,13 @@
 @import 'font-awesome';
-@import url('http://fonts.googleapis.com/css?family=Lato|Actor|Engagement');
+@import url('http://fonts.googleapis.com/css?family=Open%20Sans|Actor|Engagement');
 
 $apple-fonts: 'Helvetica Neue', 'Helvetica', 'Lucida Grande';
-$microsoft-fonts: Arial, 'Trebuchet MS', sans-serif;
+$microsoft-fonts: Arial, 'Trebuchet MS';
 
-$body-font-family: Lato, $apple-fonts, $microsoft-fonts;
-$body-font-weight: 300;
-$header-font-family: Actor, $apple-fonts, $microsoft-fonts;
-$header-font-weight: 600;
+$body-font-family: 'Open Sans', $apple-fonts, $microsoft-fonts, sans-serif;
+$body-font-weight: 200;
+$header-font-family: Actor, $apple-fonts, $microsoft-fonts, serif;
+$header-font-weight: 400;
 
 /** Some helpers **/
 .center-text { text-align: center; }
