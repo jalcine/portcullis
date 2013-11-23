@@ -19,7 +19,7 @@ group :core do
 end
 
 group :ui do
-  guard :rails, port: 4373, daemon: true, debugger: true, server: :unicorn, force_run: true do
+  guard :rails, port: 4373, daemon: false, debugger: true, server: :unicorn, force_run: true do
     watch('Gemfile.lock')
     watch('config/application.rb')
     watch('config/environment.rb')
@@ -28,7 +28,7 @@ group :ui do
     watch(%r{^config/settings/.+\.yml$})
   end 
 
-  guard :livereload, apply_css_live: true, grace_period: 0.1 do
+  guard :livereload, apply_css_live: true, grace_period: 0 do
     watch('config/routes.rb')
     watch(%r{app/views/.+\.haml$})
     watch(%r{app/helpers/.+\.rb})
@@ -57,7 +57,7 @@ group :test do
     watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee)$})
   end
 
-  guard :rspec, all_on_pass: true, keep_failed: true, all_on_start: true, cmd: 'bundle exec rspec --drb' do
+  guard :rspec, all_on_pass: true, keep_failed: true, all_on_start: false, cmd: 'bundle exec rspec --drb' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }

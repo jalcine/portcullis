@@ -8,7 +8,7 @@ working_directory APP_ROOT
 
 listen "#{APP_ROOT}/tmp/unicorn.socket", backlog: 64
 
-timeout 15
+timeout 60
 
 pid "#{APP_ROOT}/tmp/pids/unicorn.pid"
 

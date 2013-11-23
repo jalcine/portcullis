@@ -1,54 +1,7 @@
 @import 'compass/css3/box-shadow';
+@import 'compass/css3/transition';
 
 nav.top-bar {
-  @include box-shadow(0px 0px 30px #222);
   margin: 0em;
-  ul.right {
-    li { padding-bottom: 0em; }
-    li > a.sign_in,
-    li > a.sign_out,
-    li > a.sign_up {
-      @include button($bg: $topbar-bg-color);
-      border-width: 0em; margin: 0em;
-      font-weight: normal;
-    }
-    li > a.sign_in { @include button-style($bg: #f76d3c); }
-    li > a.sign_up { @include button-style($bg: #61cb9a); }
-    li > a.sign_out { @include button-style($bg: #c85048); }
-  }
-  ul > li > a { font-weight: normal; }
-
-  ul.left {
-    width: 60%;
-    background-color: transparent;
-
-    li.has-search { 
-      width: 60%; padding: 0em 0.5em;
-      form.custom button {
-        @include button-style($bg: #61cb9a);
-      }
-    }
-
-    @media (max-width: #{$small-screen}) { & { 
-      width: 100%;
-
-      li.has-search {
-        height: 43px;
-        overflow: hidden;
-        width: 100%;
-        padding: 0em;
-
-        input[type=text] {
-          height: 43px;
-        }
-
-        button[type=submit] {
-          height: 43px;
-          border-radius: 0em;
-          margin: 0em;
-          padding: 0.2em;
-        }
-      }
-    } }
-   }
+  li#omnisearch { width: 370px; }
 }

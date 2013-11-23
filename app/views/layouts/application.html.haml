@@ -7,9 +7,7 @@
     %link{rel: 'shortcut icon', href: asset_url('favicon.png')}/
     = render 'components/seo'
     = render 'components/mobile'
-    = render 'components/apple'
-    = javascript_include_tag 'vendor/custom.modernizr'
-    = jquery_include_tag :google
+    = render 'components/ios'
     = stylesheet_link_tag :application
   %body{class: page_classes(params)}
     = render 'components/navigation' if navigation_visible?
@@ -18,4 +16,5 @@
       = render 'components/flash_gordon' unless flash.empty?
       = yield
     = render 'components/footer' if footer_visible?
+    = jquery_include_tag :google
     = javascript_include_tag :application

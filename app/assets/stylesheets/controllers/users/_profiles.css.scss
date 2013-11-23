@@ -38,7 +38,7 @@ body.users_profiles {
         width: 100%;
 
         @for $i from 1 through 8 {
-          &:nth-child(#{$i}) { background-image: asset-url('events/#{$i}.jpg'); }
+          /*&:nth-child(#{$i}) { background-image: asset-url('events/#{$i}.jpg'); }*/
         }
 
         h2.label {
