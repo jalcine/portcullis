@@ -5,9 +5,9 @@ gem 'rails', '4.0.0'
 gem 'pg', '0.17.0'
 gem 'unf', '~> 0.1.3'
 gem 'tire'
-gem 'sass-rails', '~> 4.0.0'
+#gem 'elasticsearch'
 gem 'compass-rails', '~> 2.0.alpha.0'
-gem 'compass', '~> 0.12.0'
+gem 'sass-rails', '~> 4.0.0'
 gem 'uglifier', '2.3.0'
 gem 'jquery-rails-cdn', '~> 1.0.1'
 gem 'underscore-rails', '~> 1.5.2'
@@ -41,15 +41,11 @@ gem 'unicorn-rails'
 gem 'fog'
 gem 'pry', '0.9.12.2'
 gem 'rails_config'
-gem 'rack-contrib', git: 'git://github.com/jalcine/rack-contrib', branch: 'support/fixing-profiler'
 gem 'sdoc', require: false, group: [:doc]
 
 group :development do
-  gem 'ruby-prof'
   gem 'erb2haml', '~> 0.1.5'
   gem 'debugger', '~> 1.6.2'
-  gem 'coffee-rails-source-maps', '~> 1.4.0'
-  gem 'sass-rails-source-maps', '~> 0.0.1'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
   gem 'guard-bundler', '~> 2.0.0'
@@ -84,6 +80,7 @@ group :test, :development do
   gem 'capybara', require: false
   gem 'capybara-screenshot', require: false
   gem 'poltergeist', require: false
+  #gem 'fuubar', require: false
   gem 'nyan-cat-formatter', require: false
   gem 'konacha', require: false
   gem 'konacha-chai-matchers', require: false
