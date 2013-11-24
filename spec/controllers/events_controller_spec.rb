@@ -26,10 +26,6 @@ describe EventsController do
     end
 
     describe 'showing the event after making it' do
-      it 'redirects' do
-        expect(response.status).to eq(302)
-      end
-
       it 'shows the page' do
         expect(response).to render_template 'events/show'
       end
