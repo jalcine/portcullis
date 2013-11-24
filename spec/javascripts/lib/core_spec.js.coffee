@@ -1,10 +1,10 @@
 #= require spec_helper
 #= require lib/core
 
-describe 'Melody', ->
+describe 'Portcullis', ->
   it 'exists', ->
-    expect(Melody).to.not.be.null
+    expect(Portcullis).to.not.be.null
 
   it 'boots once', ->
-    Melody.boot
-    expect(Melody.boot).to.be.null
+    Portcullis.boot
+    expect(Portcullis.boot).to.be.null

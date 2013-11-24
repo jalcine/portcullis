@@ -4,17 +4,18 @@ ruby '2.0.0'
 gem 'rails', '4.0.0'
 gem 'pg', '0.17.0'
 gem 'unf', '~> 0.1.3'
+gem 'tire'
+#gem 'elasticsearch'
 gem 'compass-rails', '~> 2.0.alpha.0'
-gem 'sass-rails', '~> 4.0.0'
+gem 'sass-rails', '4.0.0'
 gem 'uglifier', '2.3.0'
 gem 'jquery-rails-cdn', '~> 1.0.1'
 gem 'underscore-rails', '~> 1.5.2'
 gem 'backbone-on-rails', '~> 1.1.0.0'
-gem 'coffee-rails', '~> 4.0.0'
-gem 'zurb-foundation', '~> 4.3.2'
+gem 'coffee-rails', '4.0.0'
+gem 'foundation-rails', '~> 5.0.2'
 gem 'haml', '4.0.3'
 gem 'haml-rails', '~> 0.4'
-#gem 'turbolinks', '~> 1.3.0'
 gem 'jbuilder', '~> 1.5.2'
 gem 'geocoder', '~> 1.1.0'
 gem 'browser', '0.2.1' , require: false
@@ -24,7 +25,6 @@ gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-gplus', '~> 1.2.0'
 gem 'friendly_id', '~> 5.0.1'
 gem 'bcrypt-ruby', '~> 3.1.2'
-#gem 'sidekiq', '~> 2.16.1'
 gem 'newrelic_rpm', '~> 3.6.8'
 gem 'font-awesome-sass', '~> 4.0.1'
 gem 'kaminari', '~> 0.14.1'
@@ -40,9 +40,7 @@ gem 'dotenv'
 gem 'unicorn-rails'
 gem 'fog'
 gem 'pry', '0.9.12.2'
-#gem 'ledermann-rails-settings', require: 'rails-settings'
 gem 'rails_config'
-#gem 'analytics-ruby', '< 1.0'
 gem 'sdoc', require: false, group: [:doc]
 
 group :development do
@@ -54,7 +52,7 @@ group :development do
   gem 'guard-migrate', '~> 0.2.1'
   gem 'guard-ctags-bundler', '~> 1.0.1'
   gem 'guard-livereload', '~> 2.0.0'
-  gem 'guard-rspec', '~> 4.0.1'
+  gem 'guard-rspec', '~> 4.0.0'
   gem 'guard-sidekiq', '~> 0.0.11'
   gem 'guard-rails', '~> 0.4.7'
   gem 'guard-konacha', '~> 1.0.03'
@@ -82,7 +80,8 @@ group :test, :development do
   gem 'capybara', require: false
   gem 'capybara-screenshot', require: false
   gem 'poltergeist', require: false
-  gem 'fuubar', require: false
+  #gem 'fuubar', require: false
+  gem 'nyan-cat-formatter', require: false
   gem 'konacha', require: false
   gem 'konacha-chai-matchers', require: false
   gem 'turnip', require: false

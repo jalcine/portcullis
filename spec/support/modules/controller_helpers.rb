@@ -1,10 +1,11 @@
 module ControllerHelpers
-  def login_admin(admin = FactoryGirl.create(:user, :role_admininstrator))
-    sign_in admin
+  def login_user(user = FactoryGirl.create(:user))
+    stub_env_for_devise :user unless request.env.include? 'devise.mapping'
+    sign_in user
   end
 
-  def login_user(user = FactoryGirl.create(:user))
-    sign_in user
+  def logout_user
+    sign_out current_user
   end
 
   def stub_env_for_devise(user_role = :user)

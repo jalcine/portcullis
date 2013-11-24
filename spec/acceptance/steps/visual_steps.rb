@@ -4,7 +4,7 @@ module VisualSteps
   end
 
   step 'I go to the sign-up page' do
-    visit '/signup'
+    visit '/join'
   end
 
   step 'I sign in with :provider' do

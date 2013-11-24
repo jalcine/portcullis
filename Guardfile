@@ -1,5 +1,5 @@
 scope groups: [:core, :ui, :test]
-notification :libnotify, timeout: 3, append: true
+notification :libnotify, timeout: 3
 
 group :core do
   guard :bundler do
@@ -16,10 +16,6 @@ group :core do
     watch('Gemfile.lock')
     watch('gem.tags')
   end
-
-  #guard :sidekiq, environment: :development, verbose: true do
-  #  watch(%r{^workers/(.+)\.rb$})
-  #end
 end
 
 group :ui do
@@ -27,11 +23,12 @@ group :ui do
     watch('Gemfile.lock')
     watch('config/application.rb')
     watch('config/environment.rb')
+    watch('config/unicorn/development.rb')
     watch(%r{^config/(initializers|environments)/.+\.rb$})
     watch(%r{^config/settings/.+\.yml$})
   end 
 
-  guard :livereload, apply_css_live: true, grace_period: 0.1 do
+  guard :livereload, apply_css_live: true, grace_period: 0 do
     watch('config/routes.rb')
     watch(%r{app/views/.+\.haml$})
     watch(%r{app/helpers/.+\.rb})
@@ -42,24 +39,25 @@ group :ui do
 end
 
 group :test do
-  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 30, retry_delay: 2 do
+  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 60, retry_delay: 2 do
     watch('Gemfile.lock')
+    watch('config/unicorn/test.rb')
     watch('config/application.rb')
     watch('config/environment.rb')
     watch('config/environments/test.rb')
     watch('spec/spec_helper.rb')
     watch(%r{config/settings/test\.*\.yml})
     watch(%r{^config/initializers/.+\.rb$})
-    watch(%w{^spec/support/prefork)/(.+)\.rb$})
+    watch(%w{^spec/support/prefork)/(.+)\.rb$}) { [:spork, 'spec'] }
   end
 
-  guard :konacha do
+  guard :konacha, all_on_start: false do
     watch('spec/javascripts/spec_helper.js.coffee') { 'spec/javascripts' }
     watch(%r{^app/assets/javascripts/(.*)\.js(\.coffee)?$}) { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
     watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee)$})
   end
 
-  guard :rspec, all_on_pass: true, keep_failed: true, all_on_start: true, cmd: 'bundle exec rspec --fail-fast --drb' do
+  guard :rspec, all_on_pass: true, keep_failed: true, all_on_start: false, cmd: 'bundle exec rspec --drb' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }
@@ -73,10 +71,10 @@ group :test do
     watch(%r{^spec/.+_spec\.rb$})
     watch(%r{^lib/(.+)\.rb$})                           { |m| "spec/lib/#{m[1]}_spec.rb" }
     watch(%r{^app/(.+)\.rb$})                           { |m| "spec/#{m[1]}_spec.rb" }
-    watch(%r{^app/(.*)\.haml$})                         { |m| "spec/#{m[1]}#{m[2]}_spec.rb" }
+    watch(%r{^app/views/(.*)\.haml$})                   { |m| "spec/views/#{m[1]}#{m[2]}_spec.rb" }
 
     # Integration and acceptance testing
-    watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { 'spec/acceptance' } 
+    watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { 'spec/acceptance' }
     watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}.feature"] }
     watch(%r{^spec/acceptance/(.+)\.feature$})          { |m| "spec/acceptance/#{m[1]}.feature" }
   end

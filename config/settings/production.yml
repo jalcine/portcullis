@@ -5,6 +5,9 @@ toggles:
     - auth:facebook
     - auth:gplus
 
+search:
+  uri: <%= ENV['SEARCHBOX_URL'] %>
+
 authentication:
   providers:
     facebook:

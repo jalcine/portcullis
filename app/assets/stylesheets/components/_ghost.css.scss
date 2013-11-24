@@ -1,0 +1,7 @@
+@import 'compass/css3/filter';
+@import 'compass/css3/transition';
+
+.ghost {
+  @include transition(0.4s -webkit-filter, 0.4s -moz-filter, 0.4s filter);
+  @include filter(blur(10px));
+}

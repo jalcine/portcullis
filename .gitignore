@@ -23,3 +23,10 @@ config/settings.local.yml
 config/settings/*.local.yml
 
 /public/uploads/*
+/public/assets/*
+
+config/settings.local.yml
+config/settings/*.local.yml
+config/environments/*.local.yml
+
+/.sass-cache

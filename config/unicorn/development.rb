@@ -2,13 +2,13 @@
 APP_ROOT = Dir.pwd.gsub(/\/config*.+$/, '')
 
 # You have a good computer.
-worker_processes 4
+worker_processes 1
 
 working_directory APP_ROOT
 
 listen "#{APP_ROOT}/tmp/unicorn.socket", backlog: 64
 
-timeout 15
+timeout 60
 
 pid "#{APP_ROOT}/tmp/pids/unicorn.pid"
 

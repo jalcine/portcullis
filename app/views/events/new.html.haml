@@ -1,5 +1,131 @@
-%h1 New event
+﻿- page_title 'Create Event'
+= javascript_include_tag 'http://cdn.leafletjs.com/leaflet-0.6.4/leaflet.js'
 
-= render 'form'
+#modal_all_day.reveal-modal.small.center-text
+  %h2
+    %i.fa.fa-clock-o
+    Going All Day
+  %p Do you want to mark this event as being an <b>all day</b> one?
+  %a#modal_make_all_day.button.success.medium.pull-right
+    Sure, Thanks!
+    %i.fa.fa-check-square
+  %a#modal_ignore_all_day.pull-left.button.medium.secondary
+    Nope, I'm Good
 
-= link_to 'Back', events_path
+- if @event.errors.any?
+  .alert-box.radius.alert{'data-alert' => ''}
+    %a.close{href: '#'}
+      %i.fa.fa-times-circle.fa-fw
+    %b Something went haywire when attempting to save your event!
+    %ul
+      - @event.errors.full_messages.each do | msg |
+        %li= msg
+
+.row
+  .small-12.large-8.large-centered.columns
+    = form_for @event, class: :custom do |f|
+      = f.hidden_field :date_start, value: @event.date_start.to_s
+      = f.hidden_field :date_end, value: @event.date_end.to_s
+      = f.hidden_field :longitude, value: @event.longitude
+      = f.hidden_field :latitude, value: @event.latitude
+      %fieldset
+        %legend.center-text
+          %i.fa.fa-crosshairs
+          Location
+        .row
+          .small-2.columns
+            = f.label :address, class: 'center-text inline has-tip tip-top', data: { tooltip: :address }, title: 'Where is it happening? Let us know!'
+          .small-10.columns
+            .row.collapse
+              .small-10.columns
+                = f.text_field :address, placeholder: '1 Vettio Lane, New York, New York, 10010', autocomplete: :on, value: @event.address
+                %ul#event_address_list.f-dropdown{'data-dropdown-content' => ''}
+              .small-2.columns
+                %span.postfix
+                  %a.inline.has-tip.tip-top#event_full_address{data: {tooltip: :address}, title: 'Guessimate the whereabuts of your event using a map.'}
+                    %i.fa.fa-crosshairs
+                    Pinpoint 
+        .row
+          #event_address_tool.small-12.columns.row
+            .large-6.small-12.columns
+              #event_map
+            .large-6.small-12.columns
+              .row
+                .small-12.columns
+                  %input#event_address_title{type: :text, placeholder: 'Name of Location'}
+                .small-12.columns
+                  %input#event_address_line{type: :text, placeholder: 'Address Line'}
+              .row.collapse
+                .small-4.columns
+                  %input#event_address_city{type: :text, placeholder: 'City'}
+                .small-4.columns
+                  %input#event_address_state{type: :text, placeholder: 'State'}
+                .small-4.columns
+                  %input#event_address_zipcode{type: :number, placeholder: 'ZIP Code'}
+              .row.collapse
+                .small-12.columns.pull-right
+                  %a#event_address_tool_fill{href: '#'}
+                    %i.fa.fa-magic
+                    Fill In Info
+      %fieldset
+        %legend.center-text
+          %i.fa.fa-pencil
+          Context
+        .row
+          .small-2.columns
+            = f.label :name, class: 'inline has-tip tip-top', title: 'You have one shot to make this count! Describe your event lightly here.', data: {tooltip: :name } do
+              Name
+              %small required
+          .small-10.columns
+            = f.text_field :name, autocomplete: :off, placeholder: 'Awesome Event at Main St', value: @event.name
+        .row
+          .small-12.large-2.columns
+            = f.label :description, class: 'inline has-tip tip-top', title: 'Let your attending viewers know!', data: {tooltip: :description} do
+              Description
+              %small required
+          .small-12.large-10.columns
+            = f.text_area :description, placeholder: 'Bring popcorn.', rows: 30, value: @event.description
+      %fieldset
+        %legend.center-text
+          %i.fa.fa-clock-o
+          Timing
+        .row.collapse
+          .small-2.columns
+            = f.label :date_start, class: 'prefix' do
+              %i.fa.fa-backward
+              Start
+          .small-5.columns
+            %input#start_day{type: :date, placeholder: 'Start Day'}
+          .small-5.columns
+            %input#start_time{type: :time, placeholder: 'Start Time'}
+          .small-2.columns.center-text
+            = f.label :date_end, class: 'prefix' do
+              End
+              %i.fa.fa-forward
+          .small-5.columns
+            %input#end_day{type: :date, placeholder: 'End Day'}
+          .small-5.columns
+            %input#end_time{type: :time, placeholder: 'End Time'}
+        %hr
+        .row.collapse
+          .small-3.columns
+            #event_duration.pull-left
+          .offset-6.small-3.columns
+            %label.pull-right{for: :all_day}
+              %input.custom#all_day{type: :checkbox}
+              %span.custom.checkbox
+              All Day Event
+      %fieldset
+        %legend.center-text
+          %i.fa.fa-tint
+          Design
+        .row
+          .small-3.columns
+            = f.label :emblem, class: 'inline'
+          .small-9.columns
+            = f.file_field :emblem, multiple: false, accept: 'image/png,image/gif,image/jpeg'
+
+      %hr
+      .row
+        .small-10.small-centered.large-6.large-centered.columns.center-text
+          = f.submit 'Create Event', class: 'button primary'

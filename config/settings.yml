@@ -1,6 +1,9 @@
 toggles:
   in_beta: true
 
+search:
+  uri: 'http://localhost:9200'
+
 authentication:
   providers:
     facebook:
