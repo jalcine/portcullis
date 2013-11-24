@@ -17,13 +17,14 @@
               %i.fa.fa-glass
               My Events
         %li#omnisearch.has-form
-          .row.collapse
-            .small-9.large-8.columns
-              %input{type: :text, placeholder: 'Events, places, people; search it all!', name: :query}
-            .small-3.large-4.columns
-              %a{href: '#', class: 'button expand'}
-                %i.fa.fa-search.fa-fw
-                Search
+          %form{method: :get, action: search_url}
+            .row.collapse
+              .small-9.large-8.columns
+                %input{type: :text, placeholder: 'Events, places, people; search it all!', name: :query}
+              .small-3.large-4.columns
+                %button.button.expand{type: :submit}
+                  %i.fa.fa-search.fa-fw
+                  Search
       %ul.right
         - unless user_signed_in?
           %li
