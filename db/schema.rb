@@ -20,10 +20,10 @@ ActiveRecord::Schema.define(version: 20131120175802) do
     t.datetime "date_end"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "user_id"
-    t.string   "address"
     t.decimal  "latitude"
     t.decimal  "longitude"
+    t.string   "address"
+    t.string   "user_id"
   end
 
   create_table "locations", force: true do |t|
