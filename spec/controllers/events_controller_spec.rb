@@ -8,14 +8,31 @@ describe EventsController do
   describe 'POST create' do
     describe 'uses the provided @event' do
       before(:each) { post :create, event: FactoryGirl.attributes_for(:event) }
-      it { expect(assigns(:event)).to be_a Event }
+      it 'isnt null' do
+        expect(assigns(:event)).to_not be_nil
+        expect(assigns(:event)).to be_a Event
+      end
     end
 
-    describe 'persists a new object' do
+    describe 'persists a new event' do
       subject { FactoryGirl.attributes_for(:event) }
       before(:each) { post :create, event: subject }
-      it { expect(Event.find_by_name subject[:name]).to be_a Event }
-      it { expect(Event.find_by_address subject[:address]).to be_a Event }
+
+      it 'was saved' do
+        expect(assigns(:event)).to_not be_nil
+        expect(assigns(:event)).to_not be_a_new_record
+        expect(assigns(:event)).to be_persisted
+      end
+    end
+
+    describe 'showing the event after making it' do
+      it 'redirects' do
+        expect(response.status).to eq(302)
+      end
+
+      it 'shows the page' do
+        expect(response).to render_template 'events/show'
+      end
     end
   end
 
