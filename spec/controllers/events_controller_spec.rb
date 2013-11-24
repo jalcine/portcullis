@@ -24,12 +24,6 @@ describe EventsController do
         expect(assigns(:event)).to be_persisted
       end
     end
-
-    describe 'showing the event after making it' do
-      it 'shows the page' do
-        expect(response).to render_template 'events/show'
-      end
-    end
   end
 
   describe 'GET new' do

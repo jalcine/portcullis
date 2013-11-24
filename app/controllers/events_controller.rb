@@ -27,7 +27,6 @@ class EventsController < ApplicationController
   def create
     @event = Event.new(event_params)
     @event.user = current_user
-    @event.date_end = params[:event][:date_end]
 
     respond_to do |format|
       if @event.save
@@ -72,8 +71,6 @@ class EventsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      k = params.require(:event).permit(:name, :description, :date_start, :date_end, :address)
-      Rails.logger.debug k
-      k
+      params.require(:event).permit(:name, :description, :date_start, :date_end, :address, :longitude, :latitude)
     end
 end

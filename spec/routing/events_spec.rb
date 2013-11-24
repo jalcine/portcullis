@@ -33,4 +33,11 @@ describe 'events routes' do
       id: subject.id.to_s
     })
   end
+
+  it 'creates an event' do
+    expect(post: '/events', event: FactoryGirl.attributes_for(:event)).to route_to({
+      action: 'create',
+      controller: 'events'
+    })
+  end
 end

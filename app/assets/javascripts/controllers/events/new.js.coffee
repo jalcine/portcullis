@@ -6,7 +6,7 @@ Portcullis.Events.New =
       dateTimeVal = resultingDate
       dateTimeVal.setHours resultingTime.hour
       dateTimeVal.setMinutes resultingTime.mins
-      hiddenField.val dateTimeVal.valueOf()
+      hiddenField.val dateTimeVal.toUTCString()
     updateHiddenStart: ->
       self.timing.updateHidden $('#start_time'), $('#start_day'), $('#event_date_start')
     updateHiddenEnd: ->
@@ -142,14 +142,35 @@ Portcullis.Events.New =
         self.search.disableSpinner()
         if result?
           self.leaflet.handle.panTo [result.lat, result.lon], { animate: true } if moveToPlace is true
+          $('#event_longitude').val result.lat
+          $('#event_latitude').val result.lon
           bounds = L.latLngBounds result['polygonpoints']
           if bounds?
             self.leaflet.handle.removeLayer(self.leaflet.layers.search) if self.leaflet.layers.search?
             self.leaflet.layers.search = L.rectangle bounds, {color: '#ff7800', weight: 1}
             self.leaflet.layers.search.addTo self.leaflet.handle
+  form:
+    pumpUpHiddenValues: ->
+      dateStartElem = $('#event_date_start')
+      dateEndElem = $('#event_date_end')
+      startDayElem = $('input#start_day')
+      startTimeElem = $('input#start_time')
+      endDayElem   = $('input#end_day')
+      endTimeElem   = $('input#end_time')
+      startDayPicker = startDayElem.pickadate('picker')
+      startTimePicker = startTimeElem.pickatime('picker')
+      endDayPicker   = endDayElem.pickadate('picker')
+      endTimePicker   = endTimeElem.pickatime('picker')
+      dateStartElem.val (new Date(startDayPicker.get('select').pick + startTimePicker.get('select').pick * 1000)).toUTCString()
+      dateEndElem.val (new Date(endDayPicker.get('select').pick + endTimePicker.get('select').pick * 1000)).toUTCString()
   bindEvents : ->
     @bindDateTimeTools()
     @bindLocationTools()
+
+    # Bind the submission.
+    $('form#new_event').submit (e) =>
+      @form.pumpUpHiddenValues()
+
   bindLocationTools: ->
     self.leaflet.map.render()
     # Bind up the fields.
@@ -250,8 +271,10 @@ Portcullis.Events.New =
     daForm = $('form#new_event')
 
     # Prepopulate fields.
-    startDayPicker.set 'select', Date.new
-    endDayPicker.set 'select', Date.new
+    startDayPicker.set 'select', new Date
+    startTimePicker.set 'select', (new Date).getHours() * 60
+    endDayPicker.set 'select', new Date
+    endTimePicker.set 'select', (new Date).getHours() * 60
     $('#modal_all_day a.button').on 'click', ->
       $('#modal_all_day').foundation 'reveal', 'close'
     

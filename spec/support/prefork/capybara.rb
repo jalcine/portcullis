@@ -25,4 +25,5 @@ RSpec.configure do | config |
   Capybara.default_wait_time  = 30
   Capybara.visible_text_only  = false
   Capybara.app_host = 'http://lvh.me' # Redirect to http://127.0.0.1/
+  Rails.application.routes.default_url_options[:host] = Capybara.app_host
 end

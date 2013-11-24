@@ -3,5 +3,18 @@
 
 nav.top-bar {
   margin: 0em;
-  li#omnisearch { width: 370px; }
+
+  li#omnisearch { 
+    @media #{$medium-up} {
+      & {
+        width: 370px;
+      }
+    }
+
+    @media #{$large-up} {
+      & {
+        width: 710px;
+      }
+    }
+  }
 }

@@ -6,7 +6,6 @@ describe 'components/_navigation.html.haml' do
   describe 'the title region' do
     before(:each) { render }
     it { expect(rendered).to have_selector('nav.top-bar') }
-    it { expect(rendered).to have_selector('nav.top-bar > ul.title-area > li.name > h1 > a') }
     it { expect(rendered).to have_selector('nav.top-bar > ul.title-area > li.toggle-topbar') }
   end
 
@@ -27,21 +26,24 @@ describe 'components/_navigation.html.haml' do
         it 'hides sign out button' do
           expect(right_menu).to_not have_selector('li > a.sign_out')
         end
-
       end
 
       context 'when logged in' do
         before(:each) { view.stub(:user_signed_in?).and_return(true) }
-        before(:each) { render }
+        before(:each) do
+          render
+        end
+
         it 'hides sign in button' do
           expect(right_menu).to_not have_selector('li > a.sign_in')
         end
+
         it 'hides sign up button' do
           expect(right_menu).to_not have_selector('li > a.sign_up')
         end
 
         it 'shows sign out button' do
-          expect(right_menu).to have_selector("li > a.sign_out[href='#{destroy_user_session_path}']")
+          expect(right_menu).to have_selector('li > a.sign_out')
         end
       end
     end

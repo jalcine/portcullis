@@ -26,6 +26,8 @@
     = form_for @event, class: :custom do |f|
       = f.hidden_field :date_start, value: @event.date_start.to_s
       = f.hidden_field :date_end, value: @event.date_end.to_s
+      = f.hidden_field :longitude, value: @event.longitude
+      = f.hidden_field :latitude, value: @event.latitude
       %fieldset
         %legend.center-text
           %i.fa.fa-crosshairs
@@ -36,7 +38,7 @@
           .small-10.columns
             .row.collapse
               .small-10.columns
-                = f.text_field :address, placeholder: '1 Vettio Lane, New York, New York, 10010', autocomplete: :off, value: @event.address
+                = f.text_field :address, placeholder: '1 Vettio Lane, New York, New York, 10010', autocomplete: :on, value: @event.address
                 %ul#event_address_list.f-dropdown{'data-dropdown-content' => ''}
               .small-2.columns
                 %span.postfix
@@ -75,7 +77,7 @@
               Name
               %small required
           .small-10.columns
-            = f.text_field :name, autocomplete: :off, placeholder: 'Awesome Event at Main St', required: true, value: @event.name
+            = f.text_field :name, autocomplete: :off, placeholder: 'Awesome Event at Main St', value: @event.name
         .row
           .small-12.large-2.columns
             = f.label :description, class: 'inline has-tip tip-top', title: 'Let your attending viewers know!', data: {tooltip: :description} do

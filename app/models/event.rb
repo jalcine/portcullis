@@ -8,13 +8,11 @@ class Event < ActiveRecord::Base
   scope :in_past,   -> (time = DateTime.now) { where('date_start < ?', time) }
 
   # Validations
-  validates_presence_of :name
-  validates_presence_of :date_end
-  validates_presence_of :date_start
-  validates_presence_of :address, allow_nil: true, allow_blank: true
-  validates_presence_of :longitude, allow_nil: true, allow_blank: true
-  validates_presence_of :latitude, allow_nil: true, allow_blank: true
-  validates_presence_of :description, allow_blank: false
+  validates_presence_of :name, allow_blank: false, allow_nil: false
+  validates_presence_of :date_end, allow_nil: false, allow_blank: false
+  validates_presence_of :date_start, allow_nil: false, allow_blank: false
+  validates_presence_of :description, allow_blank: false, allow_nil: false
+  validates_presence_of :address
   validates_uniqueness_of :name
 
   # Concerns

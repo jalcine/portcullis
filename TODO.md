@@ -1,10 +1,12 @@
 # Quicktask v1.2
 
 CURRENT TASKS:
-  - Add gender to sign up page.
-    @ Added [Tue 2013-11-19]
-  - Add birthday to sign up page.
-    @ Added [Tue 2013-11-19]
+  - Redo the sign up page.
+    @ Added [Sun 2013-11-24]
+    - Add gender to sign up page.
+      @ Added [Tue 2013-11-19]
+    - Add birthday to sign up page.
+      @ Added [Tue 2013-11-19]
   - Fix up the events look.
     @ Added [Tue 2013-11-19]
     @ Start [Tue 2013-11-19] [01:52], end [22:11]
