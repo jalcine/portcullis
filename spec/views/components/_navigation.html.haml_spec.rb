@@ -6,7 +6,6 @@ describe 'components/_navigation.html.haml' do
   describe 'the title region' do
     before(:each) { render }
     it { expect(rendered).to have_selector('nav.top-bar') }
-    it { expect(rendered).to have_selector('nav.top-bar > ul.title-area > li.toggle-topbar') }
   end
 
   context 'signed out' do

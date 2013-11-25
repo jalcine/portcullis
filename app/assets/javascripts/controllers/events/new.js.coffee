@@ -28,18 +28,6 @@ Portcullis.Events.New =
       search: null
     map:
       elem: $ '#eventMap'
-      toggle: =>
-        addressTool = $ '#event_address_tool'
-        addressBar  = $ '#event_address'
-        visible     = $('#event_address_tool:visible').length is 1
-
-        if visible
-          addressBar.removeAttr 'disabled'
-        else
-          addressBar.attr 'disabled', 'disabled'
-
-        addressTool.slideToggle =>
-          self.leaflet.handle.invalidateSize true
       render: =>
         theForm = self.leaflet.map.elem.prev()
         self.leaflet.map.elem.css
@@ -170,12 +158,9 @@ Portcullis.Events.New =
     # Bind the submission.
     $('form#new_event').submit (e) =>
       @form.pumpUpHiddenValues()
-
   bindLocationTools: ->
     self.leaflet.map.render()
     # Bind up the fields.
-    $('a#event_full_address').click =>
-      self.leaflet.map.toggle()
 
     $('input#event_address').keyup =>
       clearTimeout self.search.timeout

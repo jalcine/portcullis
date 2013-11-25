@@ -11,7 +11,34 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131120175802) do
+ActiveRecord::Schema.define(version: 20131125082149) do
+
+  create_table "age_groups", force: true do |t|
+    t.string   "name"
+    t.integer  "max_age"
+    t.integer  "min_age"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "categories", force: true do |t|
+    t.string   "name"
+    t.integer  "category_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "event_id"
+  end
+
+  add_index "categories", ["category_id"], name: "index_categories_on_category_id", using: :btree
+  add_index "categories", ["event_id"], name: "index_categories_on_event_id", using: :btree
+
+  create_table "event_age_groups", force: true do |t|
+    t.integer "event_id"
+    t.integer "age_group_id"
+  end
+
+  add_index "event_age_groups", ["age_group_id"], name: "index_event_age_groups_on_age_group_id", using: :btree
+  add_index "event_age_groups", ["event_id"], name: "index_event_age_groups_on_event_id", using: :btree
 
   create_table "events", force: true do |t|
     t.string   "name"
@@ -24,7 +51,13 @@ ActiveRecord::Schema.define(version: 20131120175802) do
     t.decimal  "longitude"
     t.string   "address"
     t.string   "user_id"
+    t.integer  "primary_category_id"
+    t.integer  "secondary_category_id"
+    t.string   "access_key"
   end
+
+  add_index "events", ["primary_category_id"], name: "index_events_on_primary_category_id", using: :btree
+  add_index "events", ["secondary_category_id"], name: "index_events_on_secondary_category_id", using: :btree
 
   create_table "locations", force: true do |t|
     t.decimal  "longitude"
