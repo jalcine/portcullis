@@ -43,6 +43,7 @@ gem 'fog'
 gem 'pry', '0.9.12.2'
 gem 'rails_config'
 gem 'sdoc', require: false, group: [:doc]
+gem 'rack-contrib', git: 'git://github.com/jalcine/rack-contrib.git'
 
 group :development do
   gem 'erb2haml', '~> 0.1.5'
