@@ -28,6 +28,10 @@ CURRENT TASKS:
       @ Added [Sat 2013-11-16]
   - Build payment gateway.
     @ Added [Sat 2013-11-16]
+    - Build abstract system for handling payment (Portcullis::Payments).
+      @ Added [Mon 2013-11-25]
+    - Incorporate Recurly into the payment system.
+      @ Added [Mon 2013-11-25]
   - Incorporate searching function.
     @ Added [Sat 2013-11-16]
     - Add weighting for events of specific attributes.

@@ -1,3 +1,4 @@
+# vim: ft=guard.ruby fdm=syntax
 source 'https://rubygems.org'
 ruby '2.0.0'
 
