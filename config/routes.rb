@@ -19,8 +19,9 @@ Portcullis::Application.routes.draw do
   put '/u/edit',      to: 'users/profiles#update'
   get '/u/dashboard', to: 'users/profiles#new', as: :view_user_dashboard
 
-  resources :events
-  resources :tickets
+  resources :events do
+    resources :tickets
+  end
 
   get '/search', to: 'search#present', as: :search
 

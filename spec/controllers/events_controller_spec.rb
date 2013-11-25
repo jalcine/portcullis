@@ -7,7 +7,7 @@ describe EventsController do
   
   describe 'POST create' do
     describe 'uses the provided @event' do
-      before(:each) { post :create, event: FactoryGirl.attributes_for(:event) }
+      before(:each) { post :create, event: FactoryGirl.create(:event).to_hash }
       it 'isnt null' do
         expect(assigns(:event)).to_not be_nil
         expect(assigns(:event)).to be_a Event
@@ -15,7 +15,7 @@ describe EventsController do
     end
 
     describe 'persists a new event' do
-      subject { FactoryGirl.attributes_for(:event) }
+      subject { FactoryGirl.create(:event).to_hash }
       before(:each) { post :create, event: subject }
 
       it 'was saved' do
@@ -37,6 +37,11 @@ describe EventsController do
     it 'assigns @event' do
       get :new
       expect(assigns(:event)).to be_a Event
+    end
+
+    it 'uses an existing event' do
+      get :new
+      expect(assigns(:event)).to_not be_a_new_record
     end
 
     it 'uses the proper template' do

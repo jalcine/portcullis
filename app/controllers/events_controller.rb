@@ -15,7 +15,8 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @event = Event.new
+    @event = Event.create!
+    @event.user = current_user
   end
 
   # GET /events/1/edit
@@ -25,8 +26,8 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    @event = Event.new(event_params)
-    @event.user = current_user
+    @event = Event.find(event_params[:id])
+    @event.update_attributes event_params
 
     respond_to do |format|
       if @event.save
@@ -73,6 +74,6 @@ class EventsController < ApplicationController
     def event_params
       params.require(:event).permit(:name, :description, :date_start,
         :date_end, :address, :longitude, :latitude, :age_groups, 
-        :primary_category_id, :secondary_category_id)
+        :primary_category_id, :secondary_category_id, :id)
     end
 end
