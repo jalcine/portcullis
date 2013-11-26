@@ -28,7 +28,7 @@ group :ui do
     watch(%r{^config/settings/.+\.yml$})
   end 
 
-  guard :livereload, apply_css_live: true, grace_period: 0 do
+  guard :livereload, apply_css_live: true, grace_period: 0.1 do
     watch('config/routes.rb')
     watch(%r{app/views/.+\.haml$})
     watch(%r{app/helpers/.+\.rb})

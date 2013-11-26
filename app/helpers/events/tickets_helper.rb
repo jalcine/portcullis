@@ -1,2 +1,2 @@
-module TicketsHelper
+module Events::TicketsHelper
 end

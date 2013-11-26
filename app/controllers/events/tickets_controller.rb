@@ -1,7 +1,7 @@
-class TicketsController < ApplicationController
+class Events::TicketsController < ApplicationController
   def new
     @ticket = Ticket.new
-    @ticket.event = Event.find params[:ticket_id]
+    @ticket.event = Event.find params[:event_id]
     render 'tickets/form'
   end
 
