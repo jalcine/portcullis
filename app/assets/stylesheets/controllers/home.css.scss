@@ -5,33 +5,25 @@
 body.home.landing {
   > section.main {
     > header[role=page] {
-      background: $secondary-color; /*asset-url('home_banner.jpg');*/
+      background: #fff; /*asset-url('home_banner.jpg');*/
       background-position-y: 30%;
       background-position-x: center;
       background-size: cover;
 
       > .row:nth-child(1) {
-        h1.title {
-          @include text-shadow(2px 2px 40px darken($secondary-color, 25%));
-          @include transition(0.3s background-color);
-          color: $primary-color;
-          font-family: Engagement;
-          font-weight: 200;
-          font-size: 12em;
-          letter-spacing: -9px;
-          margin: 0em;
-          padding: 0em;
-          text-align: center;
+        img {
+          margin: 1em;
         }
       }
 
       > .row:nth-child(2){
         max-width: inherit;
         h2 {
-          color: #fff;
+          color: $primary-color;
           text-align: center;
           margin-bottom: 1em;
           font-size: 1.2em;
+          text-transform: capitalize;
         }
       }
 
@@ -81,11 +73,13 @@ body.home.landing {
   }
 
   nav.top-bar {
-    background: $secondary-color;
+    background: #fff;
+    color: #555;
 
-    li > a, li.has-form, li.divider {
-      background: $secondary-color;
-      border-color: $secondary-color;
+    li, li > a, li.has-form, li.divider {
+      color: #555;
+      background: #fff;
+      border-color: #fff;
     }
   }
 }
