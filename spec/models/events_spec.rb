@@ -14,10 +14,8 @@ describe Event do
   end
 
   describe '.tickets' do
-    let(:ticket_attrs) { FactoryGirl.attributes_for :ticket }
     it 'saves tickets' do
-      params = FactoryGirl.attributes_for :event
-      params[:tickets_attributes] =  [ ticket_attrs ]
+      params = FactoryGirl.attributes_for :event, :with_tickets
       a_event = Event.create params
       expect(a_event).to be_persisted
       expect(a_event.errors).to be_empty
