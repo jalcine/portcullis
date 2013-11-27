@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131125082149) do
+ActiveRecord::Schema.define(version: 20131126160659) do
 
   create_table "age_groups", force: true do |t|
     t.string   "name"
@@ -20,6 +20,14 @@ ActiveRecord::Schema.define(version: 20131125082149) do
     t.datetime "created_at"
     t.datetime "updated_at"
   end
+
+  create_table "age_groups_events", id: false, force: true do |t|
+    t.integer "event_id"
+    t.integer "age_group_id"
+  end
+
+  add_index "age_groups_events", ["age_group_id"], name: "index_age_groups_events_on_age_group_id", using: :btree
+  add_index "age_groups_events", ["event_id"], name: "index_age_groups_events_on_event_id", using: :btree
 
   create_table "categories", force: true do |t|
     t.string   "name"
@@ -32,14 +40,6 @@ ActiveRecord::Schema.define(version: 20131125082149) do
   add_index "categories", ["category_id"], name: "index_categories_on_category_id", using: :btree
   add_index "categories", ["event_id"], name: "index_categories_on_event_id", using: :btree
 
-  create_table "event_age_groups", force: true do |t|
-    t.integer "event_id"
-    t.integer "age_group_id"
-  end
-
-  add_index "event_age_groups", ["age_group_id"], name: "index_event_age_groups_on_age_group_id", using: :btree
-  add_index "event_age_groups", ["event_id"], name: "index_event_age_groups_on_event_id", using: :btree
-
   create_table "events", force: true do |t|
     t.string   "name"
     t.text     "description"
@@ -47,10 +47,10 @@ ActiveRecord::Schema.define(version: 20131125082149) do
     t.datetime "date_end"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "user_id"
+    t.string   "address"
     t.decimal  "latitude"
     t.decimal  "longitude"
-    t.string   "address"
-    t.string   "user_id"
     t.string   "access_key"
     t.integer  "secondary_category_id"
     t.integer  "primary_category_id"
@@ -58,13 +58,6 @@ ActiveRecord::Schema.define(version: 20131125082149) do
 
   add_index "events", ["primary_category_id"], name: "index_events_on_primary_category_id", using: :btree
   add_index "events", ["secondary_category_id"], name: "index_events_on_secondary_category_id", using: :btree
-
-  create_table "locations", force: true do |t|
-    t.decimal  "longitude"
-    t.decimal  "latitude"
-    t.datetime "created_at"
-    t.datetime "updated_at"
-  end
 
   create_table "profiles", force: true do |t|
     t.string   "first_name"
@@ -103,14 +96,20 @@ ActiveRecord::Schema.define(version: 20131125082149) do
   add_index "roles", ["name"], name: "index_roles_on_name", using: :btree
 
   create_table "tickets", force: true do |t|
-    t.integer  "user_id"
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
+    t.string   "name"
+    t.decimal  "price",        precision: 8, scale: 2
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.integer  "quantity"
+    t.integer  "max_quantity"
+    t.text     "description"
+    t.integer  "payment_type"
   end
 
   add_index "tickets", ["event_id"], name: "index_tickets_on_event_id", using: :btree
-  add_index "tickets", ["user_id"], name: "index_tickets_on_user_id", using: :btree
 
   create_table "users", force: true do |t|
     t.datetime "created_at"

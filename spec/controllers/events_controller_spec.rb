@@ -3,7 +3,14 @@ require 'spec_helper'
 describe EventsController do
   before(:each) { login_user }
 
-  describe 'GET index' do; end
+  describe 'GET index' do
+    it 'handles a bunch of events' do
+      4.times.each { FactoryGirl.create :event }
+      get :index
+      expect(assigns(:events)).to_not be_nil
+      expect(assigns(:events)).to_not be_empty
+    end
+  end
   
   describe 'POST create' do
     describe 'uses the provided @event' do
