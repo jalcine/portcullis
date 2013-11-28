@@ -2,6 +2,7 @@ require 'rspec/rails'
 require 'rspec/autorun'
 require 'rspec/expectations'
 require 'rspec/matchers'
+require 'awesome_print'
 
 RSpec.configure do | config |
   config.order = :random

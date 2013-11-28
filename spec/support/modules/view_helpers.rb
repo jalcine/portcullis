@@ -12,5 +12,6 @@ module ViewHelpers
     allow(view).to receive(:is_in_registrations?).and_return(:false)
     allow(view).to receive(:is_in_sessions?).and_return(:false)
     allow(view).to receive(:is_in_passwords?).and_return(:false)
+    allow(view).to receive(:user_signed_in?).and_return(:false)
   end
 end

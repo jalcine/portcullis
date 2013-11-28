@@ -3,11 +3,14 @@ ENV['NEWRELIC_ENABLE'] = 'false'
 
 def prefork_some_jazz
   require File.expand_path('../../config/environment', __FILE__)
-  Dir[Rails.root.join('spec/support/prefork/**/*.rb')].each { |f| require f }
   Dir[Rails.root.join('spec/support/modules/**/*.rb')].each { |f| require f }
+  Dir[Rails.root.join('spec/support/prefork/**/*.rb')].each { |f| require f }
+
   RSpec.configure do | config |
     config.include ViewHelpers, type: :view
+    config.include ViewHelpers, type: :feature
     config.include ControllerHelpers, type: :controller
+    config.include ControllerHelpers, type: :feature
   end
 end
 
@@ -16,6 +19,7 @@ def pre_run_some_jazz
 end
 
 require 'rubygems'
+Bundler.require(:default, :test)
 
 if ENV['DRB']
   require 'spork'
@@ -32,5 +36,5 @@ else
   SimpleCov.start 'rails'
   prefork_some_jazz
   pre_run_some_jazz
-  puts "[I #{DateTime.now.to_s}] Isolated test completed."
+  puts "[I #{DateTime.now.to_s}] Preconfiguration for isolated test complete." 
 end

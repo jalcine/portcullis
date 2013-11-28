@@ -8,10 +8,12 @@ module VisualSteps
   end
 
   step 'I sign in with :provider' do
-    click provider
+    visit '/login'
+    click_link provider
   end
 
   step 'I should see an error' do
+    expect(page).to match /error/
   end
 end
 
