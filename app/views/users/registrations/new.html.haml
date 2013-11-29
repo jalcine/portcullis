@@ -7,10 +7,10 @@
   .page.buttons.large-6.small-12.columns
     %a{href: omniauth_authorize_path(resource_name, :facebook, task: :new), class: 'facebook', 'data-no-turbolinks'=> true}
       %i.icon
-      Sign Up 
+      Sign Up With Facebook
     %a{href: omniauth_authorize_path(resource_name, :gplus, task: :new), class: 'gplus', 'data-no-turbolinks'=> true}
       %i.icon
-      Sign Up 
+      Sign Up With Google+ 
   .page.classical.large-6.small-12.columns
     = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { 'data-abide'=> true, class: 'custom' }) do |f|
       %fieldset
