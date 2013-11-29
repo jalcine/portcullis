@@ -8,5 +8,11 @@ FactoryGirl.define do
     date_start  { Time.now }
     date_end    { date_start }
     address     { Faker::Address.street_address include_secondary: true }
+
+    trait :with_tickets do
+      after(:create) do | event, evaluator |
+        10.times.each { event.tickets << FactoryGirl.create(:ticket) }
+      end
+    end
   end
 end

@@ -2,7 +2,7 @@
 APP_ROOT = Dir.pwd.gsub(/\/config*.+$/, '')
 
 # You have a good computer.
-worker_processes 4
+worker_processes 8
 
 working_directory APP_ROOT
 

@@ -5,10 +5,11 @@ class Event < ActiveRecord::Base
 
   # Relations
   belongs_to :user
-  has_many :tickets
-  has_one :category, as: :primary_category
-  has_one :category, as: :secondary_category
+  has_many :tickets, inverse_of: :event
+  has_one :primary_category, class_name: Category
+  has_one :second_category, class_name: Category 
   has_and_belongs_to_many :age_groups
+  accepts_nested_attributes_for :tickets, allow_destroy: true
 
   # Scopes
   scope :in_future, -> (time = DateTime.now) { where('date_start > ?', time) }

@@ -6,7 +6,6 @@ development:
   host: localhost
   username: portcullis
   password: vettio
-  min_messages: debug
 test:
   adapter: postgresql
   encoding: unicode

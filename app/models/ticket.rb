@@ -1,4 +1,7 @@
 class Ticket < ActiveRecord::Base
-  belongs_to :user
-  belongs_to :event
+  belongs_to :event, inverse_of: :tickets
+
+  def is_free?
+    price == 0
+  end
 end
