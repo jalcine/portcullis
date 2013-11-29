@@ -15,7 +15,7 @@ describe TicketsController do
     let(:event) { FactoryGirl.create :event }
     it 'creates a new ticket' do
       post :create, { ticket: subject, event_id: event.id  }
-      expect(response.code).to be(200)
+      expect(response.status).to eq(200)
       expect(assigns(:ticket)).to_not be_nil
       expect(assigns(:ticket)).to_not be_a_new_record
       expect(assigns(:ticket)).to be_persisted

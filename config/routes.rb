@@ -20,7 +20,7 @@ Portcullis::Application.routes.draw do
   get '/u/dashboard', to: 'users/profiles#new', as: :view_user_dashboard
 
   resources :events do
-    resources :tickets, controller: 'events/tickets'
+    resources :tickets
   end
 
   get '/search', to: 'search#present', as: :search

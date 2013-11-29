@@ -3,7 +3,7 @@ require 'spec_helper'
 describe 'events/new.html.haml' do
   before(:each) do
     view.stub(:user_signed_in?).and_return(true)
-    assign :event, FactoryGirl.build(:event)
+    assign :event, FactoryGirl.create(:event)
   end
 
   describe 'form' do
@@ -13,6 +13,7 @@ describe 'events/new.html.haml' do
         expect(rendered).to match /Description/
         expect(rendered).to have_selector 'label[for=event_description]'
       end
+      
       describe 'date/time' do
         it 'has the start field' do
           render

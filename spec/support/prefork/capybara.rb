@@ -14,17 +14,18 @@ RSpec.configure do | config |
   Capybara.register_driver :poltergeist do | app |
     Capybara::Poltergeist::Driver.new app, {
       debug: true,
+      server: false,
       js_errors: false,
       logger: test_log,
-      phantomjs_logger: test_log
+      phantomjs_logger: test_log,
+      window_size: [1300, 1000]
     }
   end
 
   Capybara.default_selector   = :css
   Capybara.default_driver     = :poltergeist
   Capybara.javascript_driver  = :poltergeist
-  Capybara.default_wait_time  = 3
-  Capybara.visible_text_only  = false
+  Capybara.visible_text_only  = true
   Capybara.app_host = 'http://lvh.me' # Redirect to http://127.0.0.1/
   Rails.application.routes.default_url_options[:host] = Capybara.app_host
 end
