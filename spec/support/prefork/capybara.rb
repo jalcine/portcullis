@@ -23,7 +23,7 @@ RSpec.configure do | config |
   end
 
   Capybara.default_selector   = :css
-  Capybara.default_driver     = :poltergeist
+  #Capybara.default_driver     = :poltergeist
   Capybara.javascript_driver  = :poltergeist
   Capybara.visible_text_only  = true
   Capybara.app_host = 'http://lvh.me' # Redirect to http://127.0.0.1/

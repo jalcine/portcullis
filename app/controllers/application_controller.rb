@@ -13,7 +13,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    view_user_dashboard_path 
+    #view_user_dashboard_path 
+    root_url
   end
 
   def user_for_paper_trail
