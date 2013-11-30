@@ -15,10 +15,14 @@
     .page.classical.large-6.small-12.columns
       = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'custom' }) do |f|
         %fieldset
-          .row
-            .large-12.small-12.columns
+          .row.collapse
+            .large-4.small-12.columns
+              = f.label :email, class: 'inline prefix'
+            .large-8.small-12.columns
               = f.email_field :email, autofocus: true, placeholder: 'awesome@yourback.com'
-          .row
+          .row.collapse
+            .large-4.small-12.columns
+              = f.label :password, class: 'inline prefix'
             .large-12.small-12.columns
               = f.password_field :password, placeholder: '********'
           - if devise_mapping.rememberable?

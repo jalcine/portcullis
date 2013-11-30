@@ -51,9 +51,9 @@ ActiveRecord::Schema.define(version: 20131126160659) do
     t.string   "address"
     t.decimal  "latitude"
     t.decimal  "longitude"
-    t.string   "access_key"
-    t.integer  "secondary_category_id"
     t.integer  "primary_category_id"
+    t.integer  "secondary_category_id"
+    t.string   "access_key"
   end
 
   add_index "events", ["primary_category_id"], name: "index_events_on_primary_category_id", using: :btree
@@ -99,14 +99,14 @@ ActiveRecord::Schema.define(version: 20131126160659) do
     t.integer  "event_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.string   "name"
-    t.decimal  "price",        precision: 8, scale: 2
-    t.datetime "date_start"
     t.datetime "date_end"
-    t.integer  "quantity"
-    t.integer  "max_quantity"
-    t.text     "description"
+    t.datetime "date_start"
+    t.decimal  "price",        precision: 8, scale: 2
     t.integer  "payment_type"
+    t.text     "description"
+    t.integer  "max_quantity"
+    t.integer  "quantity"
+    t.string   "name"
   end
 
   add_index "tickets", ["event_id"], name: "index_tickets_on_event_id", using: :btree
