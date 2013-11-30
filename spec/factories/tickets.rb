@@ -1,5 +1,6 @@
 FactoryGirl.define do
   factory :ticket do
+    event
     name { Faker::Lorem.words(3).join '' }
     description { Faker::Lorem.paragraphs(4).join '. ' }
     date_start { DateTime.now + (Random.rand(5).to_i).days }
