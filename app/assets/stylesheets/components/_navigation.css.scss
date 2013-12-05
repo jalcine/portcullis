@@ -2,7 +2,15 @@
 @import 'compass/css3/transition';
 
 nav.top-bar {
-  margin: 0em;
+  li > a {
+    @include transition(0.4s background, 0.4 color);
+  }
+
+  li.name {
+    img {
+      height: $topbar-height;
+    }
+  }
 
   li#omnisearch { 
     @media #{$medium-up} {
