@@ -277,4 +277,4 @@ Portcullis.Events.New =
 self = Portcullis.Events.New
 
 Portcullis.bind 'boot', ->
-  Portcullis.Events.New.bindEvents() if $('form#new_event').length isnt 0
+  Portcullis.Events.New.bindEvents() if $('body').hasClass 'new'

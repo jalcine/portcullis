@@ -4,6 +4,5 @@ require 'rspec/core'
 RSpec.configure do | config |
   config.include Warden::Test::Helpers
   config.include Devise::TestHelpers, type: :controller
-
   Warden.test_mode!
 end

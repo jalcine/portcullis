@@ -1,6 +1,6 @@
 module ControllerHelpers
   def login_user(user = FactoryGirl.create(:user))
-    stub_env_for_devise :user 
+    stub_env_for_devise
     sign_in user
   end
 

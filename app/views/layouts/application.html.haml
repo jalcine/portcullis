@@ -1,7 +1,7 @@
 !!! 5
 %html{lang: :en_US}
   %head
-    %meta{charset: "utf-8"}
+    %meta{charset: 'utf-8'}
     %title= content_for?(:title) ? yield(:title) : 'Vettio'
     = csrf_meta_tags
     %link{rel: 'shortcut icon', href: asset_url('favicon.png')}/
@@ -17,5 +17,4 @@
       = render 'components/flash_gordon' unless flash.empty?
       = yield
     = render 'components/footer' if footer_visible?
-    = jquery_include_tag :google
-    = javascript_include_tag :application
+    = render 'components/javascript'

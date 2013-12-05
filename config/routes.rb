@@ -17,7 +17,6 @@ Portcullis::Application.routes.draw do
   get '/u/:id',       to: 'users/profiles#view', as: :view_profile
   get '/u/edit',      to: 'users/profiles#edit', as: :edit_profile
   put '/u/edit',      to: 'users/profiles#update'
-  get '/u/dashboard', to: 'users/profiles#new', as: :view_user_dashboard
 
   resources :events do
     resources :tickets

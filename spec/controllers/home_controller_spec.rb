@@ -16,7 +16,7 @@ describe HomeController do
     it 'redirects to dashboard' do
       login_user
       get 'landing'
-      expect(response).to be_redirect
+      expect(response).to_not be_redirect
     end
   end
 
