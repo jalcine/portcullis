@@ -1,6 +1,8 @@
 # Quicktask v1.2
 
 CURRENT TASKS:
+  - Add LinkedIn authentication.
+    @ Added [Wed 2013-12-04]
   - Redo the sign up page.
     @ Added [Sun 2013-11-24]
     - Add gender to sign up page.
