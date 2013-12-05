@@ -5,14 +5,10 @@
 body.home.landing {
   > section.main {
     > header[role=page] {
-      background: #fff; /*asset-url('home_banner.jpg');*/
-      background-position-y: 30%;
-      background-position-x: center;
-      background-size: cover;
-
       > .row:nth-child(1) {
         img {
-          margin: 1em;
+          margin: 1.5em 0em;
+          max-width: 600px;
         }
       }
 
@@ -69,17 +65,6 @@ body.home.landing {
 
       /*&#howto { background-color: #f7f8d8; }*/
       /*&#howto2 { background-color: #55c2ed; }*/
-    }
-  }
-
-  nav.top-bar {
-    background: #fff;
-    color: #555;
-
-    li, li > a, li.has-form, li.divider {
-      color: #555;
-      background: #fff;
-      border-color: #fff;
     }
   }
 }

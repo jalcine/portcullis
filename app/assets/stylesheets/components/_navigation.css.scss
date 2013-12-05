@@ -8,7 +8,14 @@ nav.top-bar {
 
   li.name {
     img {
-      height: $topbar-height * 0.9;
+      height: $topbar-height * 0.75;
+      margin-bottom: $topbar-height * 0.05;
+    }
+  }
+
+  ul {
+    &.left {
+
     }
   }
 
@@ -25,4 +32,8 @@ nav.top-bar {
       }
     }
   }
+}
+
+#nav_link_create_event {
+  text-transform: uppercase;
 }

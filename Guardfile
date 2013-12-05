@@ -1,4 +1,4 @@
-scope groups: [:core, :ui, :test]
+scope groups: [:ui, :test, :core]
 notification :libnotify, timeout: 3
 
 group :core do
