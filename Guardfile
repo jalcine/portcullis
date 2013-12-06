@@ -57,7 +57,7 @@ group :test do
     watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee)$})
   end
 
-  guard :rspec, all_on_pass: false, keep_failed: false, all_on_start: false, cmd: 'bundle exec rspec --drb' do
+  guard :rspec, all_on_pass: true, keep_failed: true, all_on_start: true, cmd: 'bundle exec rspec --drb' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }

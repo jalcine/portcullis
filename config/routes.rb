@@ -14,6 +14,8 @@ Portcullis::Application.routes.draw do
     sessions: ''
   }, controllers: { omniauth_callbacks: 'users/omniauth' }
 
+  get '/search', to: 'search#present', as: :search
+
   get '/u/:id',       to: 'users/profiles#view', as: :view_profile
   get '/u/edit',      to: 'users/profiles#edit', as: :edit_profile
   put '/u/edit',      to: 'users/profiles#update'
@@ -21,8 +23,6 @@ Portcullis::Application.routes.draw do
   resources :events do
     resources :tickets
   end
-
-  get '/search', to: 'search#present', as: :search
 
   match '*a', to: 'home#rescue_from_routing_error', via: [:get, :post, :patch, :put, :delete] if Rails.env.production?
 end

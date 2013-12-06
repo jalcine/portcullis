@@ -1,0 +1,60 @@
+%a.close-reveal-modal
+  %i.fa.fa-fw.fa-times
+= form_for [@event, @ticket], remote: true do | f |
+  %h2.center-text Add Ticket For Event
+  .row
+    .large-6.columns
+      .row.collapse
+        .large-2.columns
+          = f.label :name, class: 'left inline'
+        .large-10.columns
+          = f.text_field :name
+      .row.collapse
+        .large-2.columns
+          = f.label :price, class: 'left inline'
+        .large-10.columns
+          = f.number_field :price
+    .large-6.columns.center-text
+      %ul#pricing.button-group.radius
+        %li
+          %span.button.small#price_free{role: :link, href: '#'} Free
+        %li
+          %span.button.small#price_donation{href: '#', role: :link} Donation
+        %li
+          %span.button.small#price_fixed_price{href: '#', role: :link} Fixed Price
+
+  .row
+    .large-6.columns
+      = f.label :description
+      = f.text_area :description, rows: 20
+    .large-6.columns
+      = f.label :date_start do
+        Sales Start Date
+      .row.collapse
+        .large-9.columns
+          %input#ticket_date_start{type: :date, placeholder: 'Start Day'}
+        .large-3.columns
+          %input#ticket_time_start{type: :time, placeholder: 'Start Time'}
+      = f.label :date_end do
+        Sales End Date
+      .row.collapse
+        .large-9.columns
+          %input#ticket_date_end{type: :date, placeholder: 'End Day'}
+        .large-3.columns
+          %input#ticket_time_end{type: :time, placeholder: 'End Time'}
+
+  .row.collapse
+
+  .row.collapse
+    .large-9.columns
+      %ul.button-group
+        %li
+          %span.button.small.secondary{role: :button}
+            %i.fa.fa-fw.fa-clock-o
+            Clear Sales Window
+        %li
+          %span.button.small.secondary{role: :button}
+            %i.fa.fa-fw.fa-trash-o
+            Clear Entries
+    .large-3.columns
+      %button.right.button.small.success.radius{type: :submit} Create Ticket

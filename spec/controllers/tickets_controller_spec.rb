@@ -1,12 +1,15 @@
 require 'spec_helper'
 
 describe TicketsController do
+  before(:each) { login_user }
   let(:event) { FactoryGirl.create :event }
 
   describe 'GET /events/:event_id/tickets/new' do
     it 'passes an object' do
-      get :new, event_id: event
+      get :new, event_id: event.id
+      expect(assigns(:event)).to_not be_nil
       expect(assigns(:ticket)).to_not be_nil
+      expect(assigns(:ticket)).to be_a_new_record
     end
   end
 
@@ -15,7 +18,8 @@ describe TicketsController do
     let(:event) { FactoryGirl.create :event }
     it 'creates a new ticket' do
       post :create, { ticket: subject, event_id: event.id  }
-      expect(response.status).to eq(200)
+      expect(response.status).to eq(302)
+      expect(assigns(:event)).to_not be_nil
       expect(assigns(:ticket)).to_not be_nil
       expect(assigns(:ticket)).to_not be_a_new_record
       expect(assigns(:ticket)).to be_persisted
@@ -23,6 +27,7 @@ describe TicketsController do
   end
 
   describe 'PUT /events/:event_id/tickets/:id' do
+    subject { FactoryGirl.attributes_for :ticket }
     pending 'update tickets'
   end
 

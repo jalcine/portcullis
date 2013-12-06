@@ -20,5 +20,10 @@ describe Event do
       expect(a_event).to be_persisted
       expect(a_event.errors).to be_empty
     end
+
+    it 'lists tickets' do
+      a_event = FactoryGirl.create :event, :with_tickets
+      expect(a_event.tickets).to_not be_empty
+    end
   end
 end
