@@ -1,6 +1,12 @@
 # Quicktask v1.2
 
 CURRENT TASKS:
+  - Add organizer name to 'New Event'
+    @ Added [Fri 2013-12-06]
+  - Remove Age Group from 'New Event'
+    @ Added [Fri 2013-12-06]
+  - Add Public/Private events
+    @ Added [Fri 2013-12-06]
   - Add LinkedIn authentication.
     @ Added [Wed 2013-12-04]
   - Redo the sign up page.
