@@ -24,6 +24,7 @@ gem 'devise', '~> 3.0.0rc'
 gem 'omniauth', '~> 1.1.4'
 gem 'omniauth-facebook', '~> 1.4.1'
 gem 'omniauth-gplus', '~> 1.2.0'
+gem 'omniauth-linkedin-oauth2', '~> 0.1.4'
 gem 'friendly_id', '~> 5.0.1'
 gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'newrelic_rpm', '~> 3.6.8'
@@ -44,6 +45,7 @@ gem 'pry', '0.9.12.2'
 gem 'rails_config'
 gem 'sdoc', require: false, group: [:doc]
 gem 'rack-contrib', git: 'git://github.com/jalcine/rack-contrib.git'
+gem 'linkedin', '~> 0.4.4'
 
 group :development do
   gem 'erb2haml', '~> 0.1.5'
