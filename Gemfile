@@ -18,6 +18,7 @@ gem 'foundation-rails', '~> 5.0.2'
 gem 'haml', '4.0.3'
 gem 'haml-rails', '~> 0.4'
 gem 'jbuilder', '~> 1.5.2'
+gem 'yajl-ruby', '~> 1.1.0'
 gem 'geocoder', '~> 1.1.0'
 gem 'browser', '0.2.1' , require: false
 gem 'devise', '~> 3.0.0rc'

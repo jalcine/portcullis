@@ -1,11 +1,26 @@
 form.new_ticket {
-  ul#pricing.button-group {
+  ul#pricing {
+    @include button-group-container($float: false);
+    & > li { @include button-group-style($radius: true); }
+    #price_free, #price_donation, #price_fixed {
+      @include button($bg: #33363b, $padding: $button-tny);
+      @include transition(0.3s font-weight);
+      @include single-transition;
+
+      &[data-checked], &:hover {
+        @include button($bg: #61cb9a, $padding: $button-tny);
+        font-weight: 900;
+      }
+    }
+
     margin: 0em;
-    line-height: 4.8;
+    line-height: 1;
     display: inline-block;
   }
 
   textarea#ticket_description {
     height: 8em;
   }
+
+  div#pricer.row { display: none; }
 }

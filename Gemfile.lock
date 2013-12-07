@@ -471,6 +471,7 @@ GEM
     websocket-driver (0.3.0)
     xpath (2.0.0)
       nokogiri (~> 1.3)
+    yajl-ruby (1.1.0)
     yard (0.8.7.3)
 
 PLATFORMS
@@ -562,3 +563,4 @@ DEPENDENCIES
   underscore-rails (~> 1.5.2)
   unf (~> 0.1.3)
   unicorn-rails
+  yajl-ruby (~> 1.1.0)

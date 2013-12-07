@@ -1,7 +1,7 @@
 #= require spec_helper
-#= require controllers/events
+#= require controllers/tickets/new
 
-describe 'events', ->
+describe 'tickets', ->
   describe 'core', ->
     it 'exists', ->
-      expect(Portcullis.Events).to.be.ok
+      expect(Portcullis.Tickets.New).to.be.ok

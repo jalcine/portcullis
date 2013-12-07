@@ -28,6 +28,7 @@ describe 'tickets/new.html.haml' do
       it { expect(form).to have_selector 'a#price_priced' }
     end
 
+    it { expect(form).to have_selector 'input[name="ticket[name]"]' }
     it { expect(form).to have_selector 'label[for="ticket_name"]' }
     it { expect(form).to have_selector 'input[name="ticket[name]"]' }
     it { expect(form).to have_selector 'label[for="ticket_price"]' }

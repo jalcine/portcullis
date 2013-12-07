@@ -7,6 +7,18 @@
 if window.Portcullis is undefined
   Portcullis =
     boot : ->
+      $('input[type=date]').pickadate()
+      $('input[type=time]').pickatime()
+      $('input[type=number], .number').number(true, 2)
+
+      $(document).on 'opened', '[data-reveal]', ->
+        obj = $(this)
+        timeFields = obj.find('input[type=time]')
+        dateFields = obj.find('input[type=date]')
+        console.log timeFields, dateFields
+        timeFields.pickatime()
+        dateFields.pickadate()
+
       console.debug '[MELODY] Booted for first-run.'
       Portcullis.trigger 'boot'
       Portcullis.boot = null

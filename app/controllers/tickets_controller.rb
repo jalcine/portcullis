@@ -22,17 +22,12 @@ class TicketsController < ApplicationController
         }
         format.json {
           render action: 'show',
-          status: :created,
           location: event_tickets_url(@event, @ticket)
         }
-        format.js {
-          render action: 'show',
-          status: :created
-        }
+        format.js { render action: 'show' }
       else
         format.html { render action: 'new' }
-        format.json { render json: @ticket.errors, 
-          status: :unprocessable_entity }
+        format.json { render json: @ticket.errors }
       end
     end
   end

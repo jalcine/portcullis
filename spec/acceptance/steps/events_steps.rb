@@ -6,8 +6,8 @@ module EventSteps
 
   step 'it updates the internal start timestamp' do
     expect(find("form.edit_event")).to_not be_nil
-    #find('#start_day').fill_in with: 'January 8th, 2016'
-    #find('#start_time').fill_in with: '4:00 pm'
+    find('#start_day').set 'January 8th, 2016'
+    find('#start_time').set '4:00 pm'
   end
 
   step 'it updates the internal end timestamp' do

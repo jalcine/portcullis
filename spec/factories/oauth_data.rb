@@ -14,5 +14,6 @@ FactoryGirl.define do
 
     trait :facebook
     trait :gplus
+    trait :linkedin
   end
 end
