@@ -16,10 +16,19 @@ class TicketsController < ApplicationController
 
     respond_to do | format |
       if @ticket.save
-        format.html { redirect_to event_tickets_url(@event, @ticket),
-          notice: 'Ticket was successfully created.' }
-        format.json { render action: 'show', status: :created,
-          location: event_tickets_url(@event, @ticket) }
+        format.html { 
+          redirect_to event_tickets_url(@event, @ticket),
+          notice: 'Ticket was successfully created.'
+        }
+        format.json {
+          render action: 'show',
+          status: :created,
+          location: event_tickets_url(@event, @ticket)
+        }
+        format.js {
+          render action: 'show',
+          status: :created
+        }
       else
         format.html { render action: 'new' }
         format.json { render json: @ticket.errors, 
