@@ -1,3 +1,4 @@
+# TODO: Add logic for unlimited ticket sales.
 Portcullis.Tickets.New =
   bind: ->
     self.bindSalesWindow()
@@ -5,17 +6,25 @@ Portcullis.Tickets.New =
     self.bindSubmission()
 
   injectNewEntry: (jsonData) ->
-    # TODO: Inject the JAZZ NEGRO
-    console.log 'dip mofo'
-    console.log jsonData
+    modal = $('#modal_add_ticket')
+    modal.foundation()
+    modal.foundation 'reveal'
+    modal.foundation 'reveal', 'close'
+    console.log 'close dialog'
+    # TODO: Render new ticket in list.
 
   bindSubmission: ->
-    $('form#new_ticket').on 'ajax:beforeSend', ->
-      # TODO: Fix fields
+    $('form#new_ticket').on 'ajax:before', ->
+      thePrice = $('input#ticket_price').val()
+      thePrice *= -1 if thePrice < 0
+      thePrice *= -1 if $('span#price_donation[data-checked]').length isnt 0
+      thePrice = 0   if $('span#price_free[data-checked]').length isnt 0
+      $('input#ticket_price').val thePrice
+      # TODO: Update sales window start time.
+      # TODO: Update sales window end time.
 
-    $('form#new_ticket').on 'ajax:success', (data, status, xhr) =>
-      console.log data 
-      self.injectNewEntry data
+    $('form#new_ticket').on 'ajax:complete', (event, data, status, xhr) =>
+      console.log arguments
 
   bindPricingType: ->
     $('input[type=number]').number(true, 2)

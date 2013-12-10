@@ -27,9 +27,9 @@ authentication:
         - email
         - user_birthday
         - manage_pages
-    gplus:
-      scope:
-        - plus.me
-        - plus.login
-        - userinfo.profile
-        - userinfo.email
+    #gplus:
+      #scope:
+        #- plus.me
+        #- plus.login
+        #- userinfo.profile
+        #- userinfo.email

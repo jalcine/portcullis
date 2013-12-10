@@ -3,7 +3,6 @@ require 'spec_helper'
 describe 'tickets/new.html.haml' do
   let(:event)   { FactoryGirl.create :event }
   let(:ticket)  { FactoryGirl.create(:ticket, event: event) }
-  let(:form)    { page.find("form#new_ticket_#{ticket.id}") }
 
   before(:each) do
     assign(:event, event)
@@ -11,43 +10,40 @@ describe 'tickets/new.html.haml' do
     render
   end
 
-  describe 'cues' do
-    it { expect(page).to have_selector 'form.new_ticket' }
-    it { expect(page).to have_selector 'form.new_ticket h2' }
+  describe 'visual cues' do
+    it 'has a rendered' do
+      expect(rendered).to have_selector 'form'
+    end
+    it 'has a title' do
+      expect(rendered).to have_selector 'form > h2'
+    end
   end
 
   describe 'fields' do
-    it { expect(form).to have_selector 'button[type=submit]' }
+    it { expect(rendered).to have_selector 'button[type=submit]' }
 
     describe 'pricing buttons' do
-      it { expect(form).to match /Free/ }
-      it { expect(form).to match /Donation/ }
-      it { expect(form).to match /Priced/ }
-      it { expect(form).to have_selector 'a#price_donation' }
-      it { expect(form).to have_selector 'a#price_free' }
-      it { expect(form).to have_selector 'a#price_priced' }
+      it { expect(rendered).to match /Free/ }
+      it { expect(rendered).to match /Donation/ }
+      it { expect(rendered).to match /Paid/ }
+      it { expect(rendered).to have_selector 'span#price_donation' }
+      it { expect(rendered).to have_selector 'span#price_free' }
+      it { expect(rendered).to have_selector 'span#price_fixed' }
     end
 
-    it { expect(form).to have_selector 'input[name="ticket[name]"]' }
-    it { expect(form).to have_selector 'label[for="ticket_name"]' }
-    it { expect(form).to have_selector 'input[name="ticket[name]"]' }
-    it { expect(form).to have_selector 'label[for="ticket_price"]' }
-    it { expect(form).to have_selector 'input[name="ticket[price]"]' }
-    it { expect(form).to have_selector 'label[for="ticket_description"]' }
-    it { expect(form).to have_selector 'textarea[name="ticket[description]"]' }
+    it { expect(rendered).to have_selector 'input[name="ticket[name]"]' }
+    it { expect(rendered).to have_selector 'input[name="ticket[name]"]' }
+    it { expect(rendered).to have_selector 'input[name="ticket[price]"]' }
+    it { expect(rendered).to have_selector 'textarea[name="ticket[description]"]' }
 
     describe 'timing window' do
-      it { expect(form).to have_selector 'label[for="ticket_date_start"]' }
-      it { expect(form).to have_selector 'input[name="ticket[date_start]"]' }
-      it { expect(form).to have_selector 'label[for="ticket_date_end"]' }
-      it { expect(form).to have_selector 'input[name="ticket[date_end]"]' }
+      it { expect(rendered).to have_selector 'input[name="ticket[date_start]"]' }
+      it { expect(rendered).to have_selector 'input[name="ticket[date_end]"]' }
     end
 
     describe 'quotas' do
-      it { expect(form).to have_selector 'label[for="ticket_quantity]' }
-      it { expect(form).to have_selector 'input[name="ticket[quantity]"]' }
-      it { expect(form).to have_selector 'label[for="ticket_max_quantity]' }
-      it { expect(form).to have_selector 'input[name="ticket[max_quantity]"]' }
+      it { expect(rendered).to have_selector 'input[name="ticket[quantity]"]' }
+      it { expect(rendered).to have_selector 'input[name="ticket[infinite]"]' }
     end
   end
 end

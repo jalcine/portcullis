@@ -3,7 +3,7 @@ toggles:
   features:
     - beta
     - auth:facebook
-    - auth:gplus
+    - auth:linkedin
 
 search:
   uri: <%= ENV['SEARCHBOX_URL'] %>

@@ -4,4 +4,10 @@ class Ticket < ActiveRecord::Base
   def is_free?
     price == 0
   end
+    
+  def to_builder
+    Jbuilder.new do | ticket |
+      ticket.(self, :name, :description, :price, :quantity, :event)
+    end
+  end
 end

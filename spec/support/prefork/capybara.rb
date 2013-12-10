@@ -1,15 +1,14 @@
-require 'capybara/rails'
 require 'capybara/rspec'
 require 'capybara/poltergeist'
+require 'capybara/rails'
 require 'capybara-screenshot'
 
 RSpec.configure do | config |
+  test_log = File.new "#{Rails.root}/log/test.log", 'a'
   config.include Capybara::DSL
   config.include Capybara::RSpecMatchers, type: :views
   config.include Capybara::RSpecMatchers, type: :helpers
   config.include Capybara::RSpecMatchers, type: :feature
-
-  test_log = File.new "#{Rails.root}/log/test.log", 'a'
 
   Capybara.register_driver :poltergeist do | app |
     Capybara::Poltergeist::Driver.new app, {
@@ -23,7 +22,7 @@ RSpec.configure do | config |
   end
 
   Capybara.default_selector   = :css
-  #Capybara.default_driver     = :poltergeist
+  Capybara.default_driver     = :poltergeist
   Capybara.javascript_driver  = :poltergeist
   Capybara.visible_text_only  = true
   Capybara.app_host = 'http://lvh.me' # Redirect to http://127.0.0.1/

@@ -9,6 +9,20 @@ class TicketsController < ApplicationController
     render layout: nil
   end
 
+  def show
+    respond_to do | format |
+      if @ticket.nil?
+        format.js { render jbuilder: nil }
+        format.html { render nothing: true }
+        format.json { render nothing: true }
+      else
+        format.js { render jbuilder: @ticket }
+        format.json { render nothing: true }
+        format.html { redirect_to root_url, notice: 'No ticket' }
+      end
+    end
+  end
+
   def create
     Rails.logger.debug params.to_yaml
     @ticket = Ticket.create ticket_params
@@ -28,6 +42,7 @@ class TicketsController < ApplicationController
       else
         format.html { render action: 'new' }
         format.json { render json: @ticket.errors }
+        format.js   { render json: @tickets.errors, status: :not_found }
       end
     end
   end
@@ -47,6 +62,6 @@ class TicketsController < ApplicationController
 
     def ticket_params
       params.require(:ticket).permit(:name, :description,
-        :date_start, :date_end, :quantity, :max_quantity)
+        :date_start, :date_end, :quantity, :price)
     end
 end
