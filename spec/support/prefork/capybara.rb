@@ -5,10 +5,6 @@ require 'capybara-screenshot'
 
 RSpec.configure do | config |
   test_log = File.new "#{Rails.root}/log/test.log", 'a'
-  config.include Capybara::DSL
-  config.include Capybara::RSpecMatchers, type: :views
-  config.include Capybara::RSpecMatchers, type: :helpers
-  config.include Capybara::RSpecMatchers, type: :feature
 
   Capybara.register_driver :poltergeist do | app |
     Capybara::Poltergeist::Driver.new app, {
@@ -25,6 +21,11 @@ RSpec.configure do | config |
   Capybara.default_driver     = :poltergeist
   Capybara.javascript_driver  = :poltergeist
   Capybara.visible_text_only  = true
-  Capybara.app_host = 'http://lvh.me' # Redirect to http://127.0.0.1/
-  Rails.application.routes.default_url_options[:host] = Capybara.app_host
+  Capybara.default_wait_time  = 10
+  Rails.application.reload_routes!
+
+  config.include Capybara::DSL
+  config.include Capybara::RSpecMatchers, type: :views
+  config.include Capybara::RSpecMatchers, type: :helpers
+  config.include Capybara::RSpecMatchers, type: :feature
 end

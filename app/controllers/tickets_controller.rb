@@ -1,7 +1,7 @@
 class TicketsController < ApplicationController
   before_action :authenticate_user!
   before_filter :set_event
-  before_filter :set_ticket, except: [:new]
+  before_filter :set_ticket, except: [:new, :create]
 
   def new
     @ticket = Ticket.new
@@ -49,19 +49,15 @@ class TicketsController < ApplicationController
 
   private
     def set_event
-      @event = Event.find params[:event_id] if params.include? :event_id
-      @event = Event.find params['event_id'] if params.include? 'event_id'
-      Rails.logger.debug @event
+      @event = Event.find params[:event_id]
     end
 
     def set_ticket
-      @ticket = Ticket.find params[:id] if params.include? :id
-      @ticket = Ticket.find params['id'] if params.include? 'id'
-      Rails.logger.debug @ticket
+      @ticket = Ticket.find params[:id]
     end
 
     def ticket_params
-      params.require(:ticket).permit(:name, :description,
+      params.require(:ticket).permit(:name, :description, 
         :date_start, :date_end, :quantity, :price)
     end
 end

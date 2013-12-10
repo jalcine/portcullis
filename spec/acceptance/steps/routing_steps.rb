@@ -1,10 +1,12 @@
 module RoutingSteps
   step 'I go to the sign-up page' do
-    visit new_user_registration_path
+    pending
+    visit '/join'
   end
 
   step 'I go to the sign-in page' do
-    visit new_user_session_path
+    pending
+    visit '/login'
   end
 end
 

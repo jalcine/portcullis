@@ -16,9 +16,9 @@ Feature: Creating new events
     Then I should have 1 tickets
 
   Scenario: Saves a new whole event
-    When I fill in the event's title with "Captain Underpants Reunion"
+    When I set the event's title with "Captain Underpants: The Reunion"
     And I populate the event's time range
-    And I fill in the event's description with some placeholder text
+    And I set the event's description to some placeholder text
     And I click the "Create Event" button
     And I add a ticket named "Early Bird"
     And I set a start time & date for the event

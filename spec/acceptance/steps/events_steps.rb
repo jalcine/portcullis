@@ -15,7 +15,14 @@ module EventSteps
 
   step 'I set a end time & date for the event' do
   end
+
   step 'I set a start time & date for the event' do
+  end
+
+  step "I set the event's title to :title" do | title |
+  end
+
+  step 'I add a ticket to the event named :ticket' do | ticket |
   end
 
   step 'I have should :number tickets' do | count |
