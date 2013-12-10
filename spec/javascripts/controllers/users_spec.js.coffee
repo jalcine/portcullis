@@ -1,7 +1,7 @@
 #= require spec_helper
-#= require controllers/events
+#= require controllers/users
 
-describe 'events', ->
+describe 'users', ->
   describe 'core', ->
     it 'exists', ->
-      expect(Portcullis.Events).to.be.ok
+      expect(Portcullis.Users).to.be.ok

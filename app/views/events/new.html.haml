@@ -22,6 +22,7 @@
     Nope, I'm Good
 
 #modal_add_ticket.reveal-modal.medium{'data-reveal' => true}
+
 .panel
   %h2 Create an Event
   %p Holding your event is awesome! Use the components below to assist you in the event creation process.
@@ -221,7 +222,10 @@
           .large-2.columns
             %span.inline Tickets
           .large-10.columns
-            %a{href: '#', data: {'reveal-id' => 'modal_add_ticket', 'reveal-ajax' => new_event_ticket_url(@event)}} Add Tickets
+            %ul#ticket_list
+            %a{href: '#', data: {'reveal-id' => 'modal_add_ticket', 'reveal-ajax' => new_event_ticket_url(@event)}}
+              %i.fa.fa-fw.fa-ticket
+              Add Tickets
       %hr
       .row
         .small-10.small-centered.large-6.large-centered.columns.center-text

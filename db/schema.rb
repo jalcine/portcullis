@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131126160659) do
+ActiveRecord::Schema.define(version: 20131206175938) do
 
   create_table "age_groups", force: true do |t|
     t.string   "name"
@@ -105,8 +105,7 @@ ActiveRecord::Schema.define(version: 20131126160659) do
     t.datetime "date_end"
     t.datetime "date_start"
     t.decimal  "price",        precision: 8, scale: 2
-    t.integer  "payment_type"
-    t.text     "description"
+    t.text     "description",                          default: "", null: false
   end
 
   add_index "tickets", ["event_id"], name: "index_tickets_on_event_id", using: :btree

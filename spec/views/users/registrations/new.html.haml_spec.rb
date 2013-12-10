@@ -10,9 +10,17 @@ describe 'users/registrations/new.html.haml' do
   describe 'the buttons' do
     Settings.authentication.providers.each do | provider, _ |
       before(:each) { render }
-      it { expect(rendered).to have_selector 'i.icon' }
-      it { expect(rendered).to match /Sign Up/ }
-      it { expect(rendered).to have_selector ".page.buttons > a.#{provider}" }
+      it 'has an icon' do
+        expect(rendered).to have_selector 'i.icon'
+      end
+
+      it 'tells the user to sign up' do
+        expect(rendered).to match /Sign Up/
+      end
+
+      it 'corresponds with its provider' do
+        expect(rendered).to have_selector ".page.buttons > a.#{provider}"
+      end
     end
   end
 end

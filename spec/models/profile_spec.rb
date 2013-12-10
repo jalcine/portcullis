@@ -34,6 +34,7 @@ describe Profile do
     it { expect(profile.avatar).to be_an_instance_of(AvatarUploader)}
 
     before(:all) { AvatarUploader.storage = :file }
+    after(:all)  { AvatarUploader.storage = :fog }
 
     describe 'uploading' do
       it 'prevents invalid file type uploads' do

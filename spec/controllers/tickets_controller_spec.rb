@@ -1,28 +1,32 @@
 require 'spec_helper'
 
 describe TicketsController do
+  before(:each) { login_user }
+  subject { FactoryGirl.attributes_for :ticket }
   let(:event) { FactoryGirl.create :event }
 
   describe 'GET /events/:event_id/tickets/new' do
-    it 'passes an object' do
-      get :new, event_id: event
-      expect(assigns(:ticket)).to_not be_nil
+    before(:each){ get :new, event_id: event.id }
+    describe 'variables' do
+      it { expect(assigns(:event)).to_not be_nil } 
+      it { expect(assigns(:ticket)).to_not be_nil }
+      it { expect(assigns(:ticket)).to be_a_new_record }
     end
   end
 
   describe 'POST /events/:event_id/tickets' do
-    subject { FactoryGirl.attributes_for :ticket }
-    let(:event) { FactoryGirl.create :event }
-    it 'creates a new ticket' do
-      post :create, { ticket: subject, event_id: event.id  }
-      expect(response.status).to eq(200)
-      expect(assigns(:ticket)).to_not be_nil
-      expect(assigns(:ticket)).to_not be_a_new_record
-      expect(assigns(:ticket)).to be_persisted
+    describe 'creates a new ticket' do
+      before(:each) { post :create, { ticket: subject, event_id: event.id  } } 
+      it { expect(response.status).to eq(302) }
+      it { expect(assigns(:event)).to_not be_nil }
+      it { expect(assigns(:ticket)).to_not be_nil }
+      it { expect(assigns(:ticket)).to_not be_a_new_record }
+      it { expect(assigns(:ticket)).to be_persisted }
     end
   end
 
   describe 'PUT /events/:event_id/tickets/:id' do
+    subject { FactoryGirl.attributes_for :ticket }
     pending 'update tickets'
   end
 
@@ -31,6 +35,18 @@ describe TicketsController do
   end
 
   describe 'GET /events/:event_id/tickets/:id' do
-    pending 'show tickets'
+    describe 'shows the ticket' do
+      let(:ticket) { Ticket.create subject }
+      before(:each) do 
+        event.tickets << ticket
+        get :show, { id: ticket.id, event_id: event.id }
+      end
+      it { expect(assigns(:event)).to_not be_nil }
+      it { expect(assigns(:ticket)).to_not be_nil }
+      it { expect(assigns(:event).tickets).to_not be_empty }
+      it { expect(assigns(:event).tickets).to include(ticket) }
+      it { expect(assigns(:ticket).event).to eq(assigns(:event))}
+      xit { expect(response.status).to eq(200) }
+    end
   end
 end

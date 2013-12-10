@@ -18,8 +18,8 @@
 
   > i.icon {
     @extend .fa;
+    @extend .fa-fw;
     font-size: 150%;
-    margin-right: 2em;
   }
 }
 
@@ -69,9 +69,9 @@ body.users_registrations {
           @include sign-in-button($bg: #3B5998);
           > i.icon { @extend .fa-facebook-square; }
         }
-        &.soundcloud  {
-          @include sign-in-button($bg: #ff7700);
-          > i.icon { @extend .fa-cloud; }
+        &.linkedin    {
+          @include sign-in-button($bg: #1a85bc);
+          > i.icon { @extend .fa-linkedin-square; }
         }
         &.gplus       {
           @include sign-in-button($bg: #dd4b39);

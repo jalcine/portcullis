@@ -1,2 +1,6 @@
 toggles:
   in_beta: true
+  features:
+    - auth:linkedin
+    - auth:facebook
+    - beta

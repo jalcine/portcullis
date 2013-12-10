@@ -3,7 +3,7 @@ toggles:
   features:
     - beta
     - auth:facebook
-    - auth:gplus
+    - auth:linkedin
 
 search:
   uri: <%= ENV['SEARCHBOX_URL'] %>
@@ -16,3 +16,6 @@ authentication:
     gplus:
       id: <%= ENV['PORTCULLIS_AUTH_GPLUS_ID'] %>
       secret: <%= ENV['PORTCULLIS_AUTH_GPLUS_SECRET'] %>
+    linkedin:
+      id: <%= ENV['PORTCULLIS_AUTH_LINKEDIN_ID'] %>
+      secret: <%= ENV['PORTCULLIS_AUTH_LINKEDIN_SECRET'] %>

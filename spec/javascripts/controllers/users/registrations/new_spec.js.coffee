@@ -1,7 +1,6 @@
 #= require spec_helper
-#= require controllers/events
+#= require controllers/users/registrations/new
 
-describe 'events', ->
-  describe 'core', ->
-    it 'exists', ->
-      expect(Portcullis.Events).to.be.ok
+describe 'users/registrations/new', ->
+  it 'exists', ->
+    pending 'What?'

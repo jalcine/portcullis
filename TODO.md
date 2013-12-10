@@ -1,8 +1,12 @@
 # Quicktask v1.2
 
 CURRENT TASKS:
-  - Add LinkedIn authentication.
-    @ Added [Wed 2013-12-04]
+  - Add organizer name to 'New Event'
+    @ Added [Fri 2013-12-06]
+  - Remove Age Group from 'New Event'
+    @ Added [Fri 2013-12-06]
+  - Add Public/Private events
+    @ Added [Fri 2013-12-06]
   - Redo the sign up page.
     @ Added [Sun 2013-11-24]
     - Add gender to sign up page.
@@ -40,6 +44,9 @@ CURRENT TASKS:
       @ Added [Sat 2013-11-16]
 
 COMPLETED TASKS:
+  - Add LinkedIn authentication.
+    @ Added [Wed 2013-12-04]
+    @ DONE [Sun 2013-12-08]
   - Fix search bar in navigation.
     @ Added [Sat 2013-11-16]
     @ Start [Sat 2013-11-16] [15:09], end [18:30]

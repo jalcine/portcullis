@@ -35,8 +35,10 @@ describe Provider do
           subject.import_from_oauth provider, oauth_data
         end
 
-        it { expect(subject.user.profile).to_not be_nil }
-        it { expect(subject.user.profile).to be_persisted }
+        it 'has a profile' do
+          expect(subject.user.profile).to_not be_nil
+          expect(subject.user.profile).to be_persisted
+        end
       end
     end
   end

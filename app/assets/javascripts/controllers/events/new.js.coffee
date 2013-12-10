@@ -1,3 +1,5 @@
+#= require controllers/events
+
 Portcullis.Events.New =
   timing:
     updateHidden: (time, date, hiddenField) ->
@@ -180,9 +182,6 @@ Portcullis.Events.New =
           self.search.fromAddressTool()
         , 250)
   bindDateTimeTools: ->
-    $('input[type=date]').pickadate()
-    $('input[type=time]').pickatime()
-
     startDayElem = $('input#start_day')
     startTimeElem = $('input#start_time')
     endDayElem   = $('input#end_day')

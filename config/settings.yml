@@ -6,6 +6,15 @@ search:
 
 authentication:
   providers:
+    linkedin:
+      scope:
+        - r_emailaddress
+        - r_network
+      fields:
+        - id
+        - email-address
+        - first-name
+        - last-name
     facebook:
       image: 'large'
       info_fields:
@@ -18,9 +27,9 @@ authentication:
         - email
         - user_birthday
         - manage_pages
-    gplus:
-      scope:
-        - plus.me
-        - plus.login
-        - userinfo.profile
-        - userinfo.email
+    #gplus:
+      #scope:
+        #- plus.me
+        #- plus.login
+        #- userinfo.profile
+        #- userinfo.email

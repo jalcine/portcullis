@@ -3,4 +3,4 @@ toggles:
   features:
     - beta
     - auth:facebook
-    - auth:gplus
+    - auth:linkedin

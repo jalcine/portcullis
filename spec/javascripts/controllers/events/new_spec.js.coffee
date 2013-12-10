@@ -2,8 +2,6 @@
 #= require controllers/events/new
 
 describe 'events/new', ->
-  #$('body').html(JST['templates/events/new']())
-
   describe 'core', ->
     it 'exists', ->
       expect(Portcullis.Events.New).to.be.ok

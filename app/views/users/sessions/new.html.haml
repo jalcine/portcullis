@@ -6,12 +6,11 @@
       %p Get into Vettio by reconnecting with one of the mediums below. It's easy!
   .row.collapse
     .page.buttons.large-4.small-12.columns
-      %a{href: omniauth_authorize_path(resource_name, :facebook, task: :new), class: 'facebook'}
-        %i.icon
-        Sign In With Facebook 
-      %a{href: omniauth_authorize_path(resource_name, :gplus, task: :new), class: 'gplus'}
-        %i.icon
-        Sign In With Google+ 
+      - Settings.authentication.providers.each do | provider_name, _ |
+        - if Settings.toggles.features.include? "auth:#{provider_name}"
+          %a{href: omniauth_authorize_path(resource_name, provider_name, task: :new), class: provider_name}
+            %i.fa-fw.icon
+            = "Sign In With #{provider_name.capitalize}"
     .page.classical.large-8.small-12.columns
       = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'custom' }) do |f|
         %fieldset

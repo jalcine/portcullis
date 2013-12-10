@@ -1,0 +1,9 @@
+ul.button-group > li {
+  display: inline-block; // YES!
+
+  &:nth-child {
+    margin-left: -4px;
+  }
+
+  &:first-child { margin: 0em; }
+}

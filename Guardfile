@@ -51,13 +51,13 @@ group :test do
     watch(%w{^spec/support/prefork)/(.+)\.rb$}) { [:spork, 'spec'] }
   end
 
-  guard :konacha, all_on_start: false do
+  guard :konacha, all_on_start: true do
     watch('spec/javascripts/spec_helper.js.coffee') { 'spec/javascripts' }
     watch(%r{^app/assets/javascripts/(.*)\.js(\.coffee)?$}) { |m| "spec/javascripts/#{m[1]}_spec.#{m[2]}" }
     watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee)$})
   end
 
-  guard :rspec, all_on_pass: false, keep_failed: false, all_on_start: false, cmd: 'bundle exec rspec --drb' do
+  guard :rspec, all_on_pass: true, keep_failed: true, all_on_start: true, cmd: 'bundle exec rspec --drb' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }
