@@ -11,8 +11,6 @@ module EventSteps
   end
 
   step 'I populate the time range for the event' do
-    event_date_start_field = find('#event_date_start')
-    event_date_end_field   = find('#event_date_end')
     event_day_start_field  = find('#start_day')
     event_day_end_field    = find('#end_day')
     event_time_start_field = find('#start_time')
@@ -24,25 +22,40 @@ module EventSteps
     expect(find('#event_name').value).to eq title
   end
 
-  step 'I add :number :type tickets (for :price) to the event named :ticket' do | number, type, ticket, price |
+  step 'I add :number :type tickets to the event named :ticket' do | number, type, ticket |
     click_link 'Add Tickets'
-    fill_in 'Ticket Name', with: ticket
+
     case type.downcase.to_s
     when :free
-      click_link 'Free'
+      click_link 'Free', exact: true
     when :paid
-      click_link 'Paid'
+      click_link 'Paid', exact: true
     when :donation
-      click_link 'Donation'
+      click_link 'Donation', exact: true
     end
+
+    fill_in 'ticket[name]', with: ticket
+    fill_in 'ticket[description]', with: Faker::Lorem.paragraphs(3).join('\n')
+    fill_in 'ticket[quantity]', with: number
+    click_on 'Create Ticket'
   end
 
   step 'I have should :number tickets' do | count |
     expect(assign(:event).tickets.count).to eq(count)
   end
 
+  step 'it should create a new event' do
+    pending
+  end
+
   step 'I confirm creation of the event' do
-    click_link 'Create Event'
+    within 'form.edit_event' do
+      click_on 'Create Event'
+    end
+  end
+
+  step 'It should show the new event page' do
+    pending
   end
 end
 
