@@ -1,28 +1,14 @@
-Feature: Creating new events
+Feature: Events
   Background:
     Given there's a user signed in
-    And I go to the new events page
-
-  Scenario: Setting the start time & date
-    When I set a start time & date for the event
-    Then it updates the internal start timestamp
-
-  Scenario: Setting the end time & date
-    When I set a end time & date for the event
-    Then it updates the internal end timestamp
-
-  Scenario: Adding tickets
-    When I add a ticket named "Early Bird"
-    Then I should have 1 tickets
 
   Scenario: Saves a new whole event
-    When I set the event's title with "Captain Underpants: The Reunion"
-    And I populate the event's time range
+    When I go to the new events 
+    And I set the event's title with "Captain Underpants: The Reunion"
     And I set the event's description to some placeholder text
-    And I click the "Create Event" button
-    And I add a ticket named "Early Bird"
-    And I set a start time & date for the event
-    And I set a end time & date for the event
+    And I populate the time range for the event
+    And I add 30 free tickets to the event named "Early Bird"
+    And I confirm creation of the event
     Then it should create a new event
     Then it should show the new event page
-    Then the page should have the text "Captain Underpants Reunion"
+    Then the page should have the text "Captain Underpants: The Reunion"
