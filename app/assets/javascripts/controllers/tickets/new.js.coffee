@@ -10,7 +10,6 @@ Portcullis.Tickets.New =
     modal.foundation()
     modal.foundation 'reveal'
     modal.foundation 'reveal', 'close'
-    console.log 'close dialog'
     # TODO: Render new ticket in list.
 
   bindSubmission: ->
@@ -25,6 +24,7 @@ Portcullis.Tickets.New =
 
     $('form#new_ticket').on 'ajax:complete', (event, data, status, xhr) =>
       console.log arguments
+      self.injectNewEntry data
 
   bindPricingType: ->
     $('input[type=number]').number(true, 2)

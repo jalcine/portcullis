@@ -10,7 +10,8 @@
     .large-6.columns
       .row.collapse
         .large-12.columns
-          = f.text_field :name, placeholder: 'Ticket Name'
+          = f.label :name do
+            = f.text_field :name, placeholder: 'Ticket Name'
     .large-6.columns.center-text
       %ul#pricing
         %li
@@ -30,7 +31,8 @@
     .large-6.columns
       .row.collapse
         .large-6.columns
-          = f.number_field :quantity, placeholder: 'Quantity of Available Tickets'
+          = f.label :quantity do
+            = f.number_field :quantity, placeholder: 'Quantity of Available Tickets'
         .large-6.columns
           = f.label :infinite do
             = check_box_tag 'ticket[infinite]'
@@ -38,7 +40,8 @@
             Infinite Tickets
       .row.collapse
         .large-12.columns
-          = f.text_area :description, rows: 20, placeholder: 'Free form description'
+          = f.label :description do
+            = f.text_area :description, rows: 20, placeholder: 'Ticket escription'
     .large-6.columns
       #pricer.row.collapse
         .large-12.columns

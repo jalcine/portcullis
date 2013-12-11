@@ -9,7 +9,7 @@ RSpec.configure do | config |
   Capybara.register_driver :poltergeist do | app |
     Capybara::Poltergeist::Driver.new app, {
       debug: true,
-      server: false,
+      server: true,
       js_errors: false,
       logger: test_log,
       phantomjs_logger: test_log,
@@ -17,11 +17,9 @@ RSpec.configure do | config |
     }
   end
 
-  Capybara.default_selector   = :css
   Capybara.default_driver     = :poltergeist
   Capybara.javascript_driver  = :poltergeist
-  Capybara.visible_text_only  = true
-  Capybara.default_wait_time  = 10
+  #Capybara.default_wait_time  = 10
   Rails.application.reload_routes!
 
   config.include Capybara::DSL
