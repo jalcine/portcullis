@@ -3,12 +3,29 @@ class TicketsController < ApplicationController
   before_filter :set_event
   before_filter :set_ticket, except: [:new, :create]
 
+  # DELETE /events/:event_id/tickets/:id
+  def destroy
+    @ticket.destory unless @ticket.nil?
+    respond_to do | format |
+      if @ticket.destroyed?
+        format.js { render jbuilder: nil }
+        format.json { render nothing: true }
+        format.html { render nothing: true, status: :created }
+      end
+    end
+  end
+
+  # GET /events/:event_id/tickets
   def new
     @ticket = Ticket.new
     @ticket.event = @event
-    render layout: nil
+
+    respond_to do | format |
+      format.html { render layout: nil }
+    end
   end
 
+  # GET /events/:event_id/tickets/:id
   def show
     respond_to do | format |
       if @ticket.nil?
@@ -23,8 +40,8 @@ class TicketsController < ApplicationController
     end
   end
 
+  # PUT /events/:event_id/tickets/:id
   def create
-    Rails.logger.debug params.to_yaml
     @ticket = Ticket.create ticket_params
     @event.tickets << @ticket
 
@@ -32,16 +49,44 @@ class TicketsController < ApplicationController
       if @ticket.save
         format.html { 
           redirect_to event_tickets_url(@event, @ticket),
-          notice: 'Ticket was successfully created.'
+          notice: 'Ticket was successfully created.',
+          status: :created
         }
         format.json {
-          render action: 'show',
+          render action: :show,
+          location: event_tickets_url(@event, @ticket),
+          status: :created
+        }
+        format.js { 
+          render action: :show,
+          status: :created
+        }
+      else
+        format.html { render action: :new }
+        format.json { render json: @ticket.errors, status: :not_found }
+        format.js   { render json: @tickets.errors, status: :not_found }
+      end
+    end
+  end
+
+  # POST /events/:event-id/tickets/:id
+  def update 
+    @ticket.update_attributes ticket_params 
+
+    respond_to do | format |
+      if @ticket.save
+        format.html { 
+          redirect_to [@event, @ticket],
+          notice: 'Ticket was successfully updated.'
+        }
+        format.json {
+          render action: :show,
           location: event_tickets_url(@event, @ticket)
         }
-        format.js { render action: 'show' }
+        format.js { render action: :show }
       else
-        format.html { render action: 'new' }
-        format.json { render json: @ticket.errors }
+        format.html { redirect_to @ticket, notice: @ticket.errors, status: 500 }
+        format.json { render json: @ticket.errors, status: :not_found }
         format.js   { render json: @tickets.errors, status: :not_found }
       end
     end
@@ -50,10 +95,12 @@ class TicketsController < ApplicationController
   private
     def set_event
       @event = Event.find params[:event_id]
+      Rails.logger.info 'No event passed!' unless params.include? :event_id
     end
 
     def set_ticket
       @ticket = Ticket.find params[:id]
+      Rails.logger.info 'No ticket passed!' unless params.include? :id
     end
 
     def ticket_params
