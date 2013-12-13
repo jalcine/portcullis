@@ -4,7 +4,7 @@ class Event < ActiveRecord::Base
   FEE_TAKE_ON= 0x02
 
   # Relations
-  belongs_to :user
+  belongs_to :owner, class_name: User, foreign_key: :user_id
   has_many :tickets, inverse_of: :event
   has_one :primary_category, class_name: Category
   has_one :second_category, class_name: Category 
@@ -26,4 +26,9 @@ class Event < ActiveRecord::Base
   include Searchable
   include Geocodable
   resourcify
+
+  # Confirmations
+  def expired?
+    date_start < DateTime.now && date_end < DateTime.Now
+  end
 end
