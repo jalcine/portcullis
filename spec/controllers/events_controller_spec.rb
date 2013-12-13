@@ -60,9 +60,11 @@ describe EventsController do
   describe 'GET edit' do
     subject { FactoryGirl.create :event }
     describe 'shows the right template' do
-      before(:each) { get :edit, id: subject.id }
+      before(:each) do
+        controller.current_user.grant :host, subject
+        get :edit, id: subject.id
+      end
       it { expect(response).to render_template 'events/edit' }
-      it { expect(response).to render_template 'events/_form' }
     end
 
     describe 'uses the proper event' do

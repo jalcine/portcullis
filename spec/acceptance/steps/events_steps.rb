@@ -1,7 +1,7 @@
 module EventSteps
   step 'I go to the new events page' do
     visit new_event_path
-    expect(find("form.edit_event")).to_not be_nil
+    expect(find('form.edit_event')).to_not be_nil
   end
   
   step 'I set the event\'s description to some placeholder text' do
