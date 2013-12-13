@@ -211,7 +211,7 @@ Devise.setup do |config|
     provider_args = {}
 
     provider_data.args.each do | argument_name, argument_data |
-      provider_args[argument_name.to_sym] = argument_data.map {|f| f.to_param }.join ', ' if argument_data.is_a? Array
+      provider_args[argument_name.to_sym] = argument_data.join ', ' if argument_data.is_a? Array
       provider_args[argument_name.to_sym] = argument_data.to_s
     end
 
