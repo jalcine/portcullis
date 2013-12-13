@@ -1,4 +1,5 @@
 class Provider < ActiveRecord::Base
+  resourcify
   belongs_to :user
   validates :token,  uniqueness: true, presence: true
   validates :user,   presence: { message: 'referencing user is required.' }

@@ -25,4 +25,5 @@ class Event < ActiveRecord::Base
   # Concerns
   include Searchable
   include Geocodable
+  resourcify
 end
