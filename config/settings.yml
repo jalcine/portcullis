@@ -18,7 +18,7 @@ authentication:
           - last-name
     facebook:
       args:
-        image: 'large'
+        image: large
         info_fields:
           - name
           - verified
@@ -29,9 +29,10 @@ authentication:
           - email
           - user_birthday
           - manage_pages
-    #gplus:
-      #scope:
-        #- plus.me
-        #- plus.login
-        #- userinfo.profile
-        #- userinfo.email
+    gplus:
+      args:
+        scope:
+          - plus.me
+          - plus.login
+          - userinfo.profile
+          - userinfo.email
