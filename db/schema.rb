@@ -51,9 +51,9 @@ ActiveRecord::Schema.define(version: 20131206175938) do
     t.string   "address"
     t.decimal  "latitude"
     t.decimal  "longitude"
-    t.integer  "primary_category_id"
     t.integer  "secondary_category_id"
     t.string   "access_key"
+    t.integer  "primary_category_id"
   end
 
   add_index "events", ["primary_category_id"], name: "index_events_on_primary_category_id", using: :btree
