@@ -228,6 +228,7 @@ Devise.setup do |config|
   # up on your models and hooks.
   # config.omniauth :github, 'APP_ID', 'APP_SECRET', :scope => 'user,public_repo'
   Settings.authentication.providers.each do | provider_name, provider_data |
+    Rails.logger.debug "Parsing configuration for #{provider_name} into Devise..."
     config.omniauth provider_name.to_sym, provider_data.id,
       provider_data.secret, scope: provider_data.scope.map{ |f| f.to_param }.join(',')
   end
