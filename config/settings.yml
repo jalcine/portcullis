@@ -19,7 +19,6 @@ authentication:
     facebook:
       args:
         scope:
-          - email
           - create_event
           - rsvp_event
           - publish_actions
