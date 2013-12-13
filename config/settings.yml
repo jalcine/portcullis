@@ -18,7 +18,7 @@ authentication:
           - last-name
     facebook:
       args:
-        #scope:
+        scope: ''
           #- create_event
           #- rsvp_event
           #- publish_actions
