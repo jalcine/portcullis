@@ -18,18 +18,18 @@ authentication:
           - last-name
     facebook:
       args:
-        scope:
-          - create_event
-          - rsvp_event
-          - publish_actions
-          - publish_stream
-          - user_birthday
-          - user_events
-          - user_checkins
-          - user_location
-          - friends_location
-          - friends_checkins
-          - friends_events
+        #scope:
+          #- create_event
+          #- rsvp_event
+          #- publish_actions
+          #- publish_stream
+          #- user_birthday
+          #- user_events
+          #- user_checkins
+          #- user_location
+          #- friends_location
+          #- friends_checkins
+          #- friends_events
     gplus:
       args:
         scope:
