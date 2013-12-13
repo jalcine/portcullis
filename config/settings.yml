@@ -7,26 +7,28 @@ search:
 authentication:
   providers:
     linkedin:
-      scope:
-        - r_emailaddress
-        - r_network
-      fields:
-        - id
-        - email-address
-        - first-name
-        - last-name
+      args:
+        scope:
+          - r_emailaddress
+          - r_network
+        fields:
+          - id
+          - email-address
+          - first-name
+          - last-name
     facebook:
-      image: 'large'
-      info_fields:
-        - name
-        - verified
-        - birthday
-        - email
-        - picture
-      scope:
-        - email
-        - user_birthday
-        - manage_pages
+      args:
+        image: 'large'
+        info_fields:
+          - name
+          - verified
+          - birthday
+          - email
+          - picture
+        scope:
+          - email
+          - user_birthday
+          - manage_pages
     #gplus:
       #scope:
         #- plus.me
