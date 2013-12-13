@@ -4,15 +4,10 @@ class TicketsController < ApplicationController
   before_filter :set_ticket, except: [:new, :create]
 
   # DELETE /events/:event_id/tickets/:id
+  # TODO: Add actions on destruction.
   def destroy
-    @ticket.destory unless @ticket.nil?
-    respond_to do | format |
-      if @ticket.destroyed?
-        format.js { render jbuilder: nil }
-        format.json { render nothing: true }
-        format.html { render nothing: true, status: :created }
-      end
-    end
+    @ticket.destroy unless @ticket.nil?
+    render nothing: true, status: :moved_permanently
   end
 
   # GET /events/:event_id/tickets
@@ -21,7 +16,7 @@ class TicketsController < ApplicationController
     @ticket.event = @event
 
     respond_to do | format |
-      format.html { render layout: nil }
+      format.js { render layout: nil }
     end
   end
 
@@ -29,8 +24,8 @@ class TicketsController < ApplicationController
   def show
     respond_to do | format |
       if @ticket.nil?
-        format.js { render jbuilder: nil }
         format.html { render nothing: true }
+        format.js { render jbuilder: nil }
         format.json { render nothing: true }
       else
         format.js { render jbuilder: @ticket }
@@ -50,16 +45,16 @@ class TicketsController < ApplicationController
         format.html { 
           redirect_to event_tickets_url(@event, @ticket),
           notice: 'Ticket was successfully created.',
-          status: :created
+          status: 200
         }
         format.json {
           render action: :show,
           location: event_tickets_url(@event, @ticket),
-          status: :created
+          status: 200 
         }
         format.js { 
           render action: :show,
-          status: :created
+          status: 200
         }
       else
         format.html { render action: :new }
@@ -86,25 +81,25 @@ class TicketsController < ApplicationController
         format.js { render action: :show }
       else
         format.html { redirect_to @ticket, notice: @ticket.errors, status: 500 }
-        format.json { render json: @ticket.errors, status: :not_found }
-        format.js   { render json: @tickets.errors, status: :not_found }
+        format.json { render json: @ticket.errors, status: 500 } 
+        format.js   { render json: @tickets.errors, status: 500 }
       end
     end
   end
 
   private
-    def set_event
-      @event = Event.find params[:event_id]
-      Rails.logger.info 'No event passed!' unless params.include? :event_id
-    end
+  def set_event
+    @event = Event.find params[:event_id]
+    Rails.logger.info 'No event passed!' unless params.include? :event_id
+  end
 
-    def set_ticket
-      @ticket = Ticket.find params[:id]
-      Rails.logger.info 'No ticket passed!' unless params.include? :id
-    end
+  def set_ticket
+    @ticket = Ticket.find params[:id]
+    Rails.logger.info 'No ticket passed!' unless params.include? :id
+  end
 
-    def ticket_params
-      params.require(:ticket).permit(:name, :description, 
-        :date_start, :date_end, :quantity, :price)
-    end
+  def ticket_params
+    params.require(:ticket).permit(:name, :description, 
+                                   :date_start, :date_end, :quantity, :price)
+  end
 end
