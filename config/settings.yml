@@ -26,6 +26,8 @@ authentication:
           - public-profile-url
     facebook:
       args:
+        image_size: large
+        display: page
         scope:
           - create_event
           - rsvp_event
