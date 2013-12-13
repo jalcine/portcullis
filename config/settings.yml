@@ -26,10 +26,7 @@ authentication:
           - email
           - picture
         scope:
-          - user_location
-          - user_hometown
           - user_birthday
-          - manage_pages
     gplus:
       args:
         scope:
