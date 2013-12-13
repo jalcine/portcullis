@@ -215,6 +215,8 @@ Devise.setup do |config|
       provider_args[argument_name.to_sym] = argument_data.to_s
     end
 
+    Rails.logger.info "Data to be collected from provider:"
+    Rails.logger.info provider_args.to_yaml
     config.omniauth provider_name.to_sym, provider_data.id, provider_data.secret, provider_args
   end
 end
