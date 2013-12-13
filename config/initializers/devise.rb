@@ -213,6 +213,11 @@ Devise.setup do |config|
     provider_data.args.each do | argument_name, argument_data |
       provider_args[argument_name.to_sym] = argument_data
       provider_args[argument_name.to_sym] = argument_data.join(',') if argument_data.is_a? Array
+
+      # Because of this: https://github.com/decioferreira/omniauth-linkedin-oauth2#profile-fields
+      if argument_name.to_sym == :fields and provider_name == :linkedin
+        provider_args[argument_name.to_sym] = argument_data
+      end
     end unless provider_data.args.nil?
 
     Rails.logger.info "Data to be collected from provider:"

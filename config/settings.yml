@@ -10,11 +10,20 @@ authentication:
       args:
         scope: 
           - r_network
+          - r_contactinfo
+          - r_fullprofile
+          - r_emailaddress
+          - rw_company_admin
+          - rw_groups
         fields:
           - id
           - email-address
           - first-name
           - last-name
+          - location
+          - industry
+          - picture-url
+          - public-profile-url
     facebook:
       args:
         scope:
