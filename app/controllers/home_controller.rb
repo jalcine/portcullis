@@ -11,6 +11,6 @@ class HomeController < ApplicationController
   end
 
   def rescue_from_routing_error
-    render status: :not_found, template: 'errors/500'
+    render status: :not_found, template: 'errors/500', format: :html
   end
 end

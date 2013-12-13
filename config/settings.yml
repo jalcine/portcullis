@@ -8,30 +8,42 @@ authentication:
   providers:
     linkedin:
       args:
-        scope:
-          - r_emailaddress
+        scope: 
           - r_network
+          - r_contactinfo
+          - r_fullprofile
+          - r_emailaddress
+          - rw_company_admin
+          - rw_groups
         fields:
           - id
           - email-address
           - first-name
           - last-name
+          - location
+          - industry
+          - picture-url
+          - public-profile-url
     facebook:
       args:
-        image: 'large'
-        info_fields:
-          - name
-          - verified
-          - birthday
-          - email
-          - picture
+        image_size: large
+        display: page
         scope:
-          - email
+          - create_event
+          - rsvp_event
+          - publish_actions
+          - publish_stream
           - user_birthday
-          - manage_pages
-    #gplus:
-      #scope:
-        #- plus.me
-        #- plus.login
-        #- userinfo.profile
-        #- userinfo.email
+          - user_events
+          - user_checkins
+          - user_location
+          - friends_location
+          - friends_checkins
+          - friends_events
+    gplus:
+      args:
+        scope:
+          - plus.me
+          - plus.login
+          - userinfo.profile
+          - userinfo.email

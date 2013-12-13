@@ -206,16 +206,22 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   Settings.authentication.providers.each do | provider_name, provider_data |
-    Rails.logger.debug "Parsing configuration for #{provider_name} into Devise..."
+    next unless Settings.toggles.features.include? "auth:#{provider_name}"
     provider_args = {}
+    Rails.logger.info "Parsing configuration for #{provider_name} data into Devise..."
+
     provider_data.args.each do | argument_name, argument_data |
-      provider_args[argument_name.to_sym] = argument_data.map {|f| f.to_param }.join ', ' if argument_data.is_a? Array
-      provider_args[argument_name.to_sym] = argument_data.to_s
-    end
+      provider_args[argument_name.to_sym] = argument_data
+      provider_args[argument_name.to_sym] = argument_data.join(',') if argument_data.is_a? Array
 
-    Rails.logger.debug "Data to be collected from provider: #{provider_data.to_yaml}."
+      # Because of this: https://github.com/decioferreira/omniauth-linkedin-oauth2#profile-fields
+      if argument_name.to_sym == :fields and provider_name == :linkedin
+        provider_args[argument_name.to_sym] = argument_data
+      end
+    end unless provider_data.args.nil?
 
-    config.omniauth provider_name.to_sym, provider_data.id,
-      provider_data.secret, provider_args if Settings.toggles.features.include? "auth:#{provider_name}"
+    Rails.logger.info "Data to be collected from provider:"
+    Rails.logger.info provider_args.to_s
+    config.omniauth provider_name.to_sym, provider_data.id, provider_data.secret, provider_args
   end
 end
