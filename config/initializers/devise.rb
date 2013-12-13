@@ -206,6 +206,7 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   Settings.authentication.providers.each do | provider_name, provider_data |
+    next if Settings.toggles.features.include? "auth:#{provider_name}"
     Rails.logger.debug "Parsing configuration for #{provider_name} into Devise..."
     provider_args = {}
     provider_data.args.each do | argument_name, argument_data |
@@ -216,6 +217,5 @@ Devise.setup do |config|
     Rails.logger.debug "Data to be collected from provider: #{provider_data.to_yaml}."
 
     config.omniauth provider_name.to_sym, provider_data.id,
-      provider_data.secret, provider_args if Settings.toggles.features.include? "auth:#{provider_name}"
-  end
+      provider_data.secret, provider_args   end
 end
