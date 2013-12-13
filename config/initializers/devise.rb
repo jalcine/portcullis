@@ -206,7 +206,7 @@ Devise.setup do |config|
   config.sign_out_via = :delete
 
   Settings.authentication.providers.each do | provider_name, provider_data |
-    next if Settings.toggles.features.include? "auth:#{provider_name}"
+    next unless Settings.toggles.features.include? "auth:#{provider_name}"
     Rails.logger.debug "Parsing configuration for #{provider_name} into Devise..."
     provider_args = {}
     provider_data.args.each do | argument_name, argument_data |
