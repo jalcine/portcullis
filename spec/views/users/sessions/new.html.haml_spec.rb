@@ -9,6 +9,7 @@ describe 'users/sessions/new.html.haml' do
 
   describe 'the buttons' do
     Settings.authentication.providers.each do | provider, _ |
+      next unless Settings.toggles.features.include? "auth:#{provider}"
       before(:each) { render }
       it { expect(rendered).to have_selector 'i.icon' }
       it { expect(rendered).to match /Sign In/ }
