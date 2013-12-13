@@ -8,14 +8,14 @@ authentication:
   providers:
     linkedin:
       args:
-        scope:
-          - r_emailaddress
-          - r_network
-        fields:
-          - id
-          - email-address
-          - first-name
-          - last-name
+        scope: ''
+          #- r_emailaddress
+          #- r_network
+        fields: ''
+          #- id
+          #- email-address
+          #- first-name
+          #- last-name
     facebook:
       args:
         scope: ''
