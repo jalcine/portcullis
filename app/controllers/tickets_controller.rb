@@ -10,12 +10,14 @@ class TicketsController < ApplicationController
     render nothing: true, status: :moved_permanently
   end
 
-  # GET /events/:event_id/tickets
+  # GET /events/:event_id/tickets/new
   def new
-    @ticket = Ticket.new
-    @ticket.event = @event
+    @ticket = @event.tickets.build {}
+    Rails.logger.debug @ticket
+    Rails.logger.debug @event
 
     respond_to do | format |
+      format.html
       format.js { render layout: nil }
     end
   end
@@ -24,7 +26,7 @@ class TicketsController < ApplicationController
   def show
     respond_to do | format |
       if @ticket.nil?
-        format.html { render nothing: true }
+        format.html
         format.js { render jbuilder: nil }
         format.json { render nothing: true }
       else
@@ -88,18 +90,18 @@ class TicketsController < ApplicationController
   end
 
   private
-  def set_event
-    @event = Event.find params[:event_id]
-    Rails.logger.info 'No event passed!' unless params.include? :event_id
-  end
+    def set_event
+      @event = Event.find params[:event_id]
+      Rails.logger.info 'No event passed!' unless params.include? :event_id
+    end
 
-  def set_ticket
-    @ticket = Ticket.find params[:id]
-    Rails.logger.info 'No ticket passed!' unless params.include? :id
-  end
+    def set_ticket
+      @ticket = Ticket.find params[:id]
+      Rails.logger.info 'No ticket passed!' unless params.include? :id
+    end
 
-  def ticket_params
-    params.require(:ticket).permit(:name, :description, 
-                                   :date_start, :date_end, :quantity, :price)
-  end
+    def ticket_params
+      params.require(:ticket).permit(:name, :description, 
+                                     :date_start, :date_end, :quantity, :price)
+    end
 end
