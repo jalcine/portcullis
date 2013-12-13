@@ -209,6 +209,7 @@ Devise.setup do |config|
     next unless Settings.toggles.features.include? "auth:#{provider_name}"
     Rails.logger.debug "Parsing configuration for #{provider_name} into Devise..."
     provider_args = {}
+
     provider_data.args.each do | argument_name, argument_data |
       provider_args[argument_name.to_sym] = argument_data.map {|f| f.to_param }.join ', ' if argument_data.is_a? Array
       provider_args[argument_name.to_sym] = argument_data.to_s
