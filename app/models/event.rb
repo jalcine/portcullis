@@ -1,7 +1,7 @@
 class Event < ActiveRecord::Base
-  FEE_PASS_ON=0x00
-  FEE_SPLIT=0x01
-  FEE_TAKE_ON= 0x02
+  FEE_SPLIT   = 0x0100
+  FEE_TAKE_ON = 0x0200
+  FEE_PASS_ON = 0x0300
 
   # Relations
   belongs_to :user
@@ -25,4 +25,9 @@ class Event < ActiveRecord::Base
   # Concerns
   include Searchable
   include Geocodable
+
+  # Confirmations
+  def expired?
+    date_start < DateTime.now && date_end < DateTime.now
+  end
 end
