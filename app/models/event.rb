@@ -29,6 +29,6 @@ class Event < ActiveRecord::Base
 
   # Confirmations
   def expired?
-    date_start < DateTime.now && date_end < DateTime.Now
+    date_start < DateTime.now && date_end < DateTime.now
   end
 end
