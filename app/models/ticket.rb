@@ -1,4 +1,5 @@
 class Ticket < ActiveRecord::Base
+  resourcify
   belongs_to :event, inverse_of: :tickets
 
   public

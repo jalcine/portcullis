@@ -5,8 +5,8 @@ FactoryGirl.define do
     access_key  nil
     name        Faker::Lorem.sentence
     description Faker::Lorem.paragraph(3)
-    date_start  { Time.now + 5.days }
-    date_end    { date_start + 5.hours }
+    date_start  Time.now
+    date_end    { date_start }
     address     Faker::Address.street_address(include_secondary: true)
 
     trait :with_tickets do
@@ -15,12 +15,11 @@ FactoryGirl.define do
       end
     end
 
-    trait :expired do
-      date_start { Time.now - 5.days }
-    end
-
     factory :protected_event do
       access_key Faker::Lorem.sentence
+    end
+    trait :expired do
+      date_start { Time.now - 5.days }
     end
   end
 end

@@ -1,7 +1,7 @@
 module EventSteps
   step 'I go to the new events page' do
     visit new_event_path
-    expect(find("form.edit_event")).to_not be_nil
+    expect(find('form.edit_event')).to_not be_nil
     @current_user.grant :host
     @current_user.save!
     expect(find('form.edit_event')).to_not be_nil
