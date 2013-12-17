@@ -51,13 +51,23 @@ class Ability
 
   def attendee
     # TODO: Check if users are banned?
-    # TODO: Check if users have ordered already.
-    can :rsvp, Event do |event|
-      !event.expired?
+    can :order, Ticket do | ticket |
+      ticket.expired?
     end
 
-    can [:update, :destory], Order do | order |
-      order.user == @user && order.ticket.event.owner != @user
+    can :rsvp, Event do | event |
+      # TODO: Check if users have ordered already.
+      event.expired?
     end
+
+    can [:create, :modify], Order do | order |
+      return false if @user.has_role? :host, order.ticket.event
+      !order.ticket.expired?
+    end
+
+    can :cancel, Order do | order |
+      !order.ticket.expired? or cannot?(:modify, order)
+    end
+
   end
 end

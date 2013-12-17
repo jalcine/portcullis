@@ -20,7 +20,7 @@ describe :attendee do
 
   describe Order do
     let(:order) { FactoryGirl.create :order }
-    it { expect(ability.can?(:create, order).to eq(true)) }
-    it { expect(ability.can?(:cancel, order).to eq(true)) }
+    it { expect(ability.can?(:create, order)).to eq(true) }
+    it { expect(ability.can?(:cancel, order)).to eq(true) }
   end
 end
