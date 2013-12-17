@@ -6,7 +6,6 @@ describe :attendee do
   
   describe Event do
     let(:event) { FactoryGirl.create :event }
-    it { expect(ability.can?(:view, event)).to eq(true) }
     it { expect(ability.can?(:rsvp, event)).to eq(true) }
     it { expect(ability.can?(:crud, event)).to eq(false) }
   end

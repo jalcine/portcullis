@@ -6,7 +6,7 @@ require 'capybara-screenshot'
 RSpec.configure do | config |
   test_log = File.new "#{Rails.root}/log/test.log", 'a'
 
-  Capybara.register_driver :vettio_webdriver do | app |
+  Capybara.register_driver :webdriver do | app |
     Capybara::Poltergeist::Driver.new app, {
       debug: true,
       server: true,
@@ -17,9 +17,9 @@ RSpec.configure do | config |
     }
   end
 
-  Capybara.default_driver     = :vettio_webdriver
-  Capybara.javascript_driver  = :vettio_webdriver
-  Capybara.default_wait_time  = 5
+  Capybara.default_driver     = :webdriver
+  Capybara.javascript_driver  = :webdriver
+  Capybara.default_wait_time  = 10
 
   config.include Capybara::DSL
   config.include Capybara::RSpecMatchers, type: :views

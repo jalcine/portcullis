@@ -6,30 +6,39 @@ class EventsController < ApplicationController
   # GET /events.json
   def index
     @events = Event.all
+    authorize! :read, @event
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
+    authorize! :read, @event
+    if @event.access_key.present? and !params.include? :access_key
+      respond_to do | format |
+        format.html { render 'events/_gate', status: 401 }
+        format.js   { render nothing: true,  status: 401 }
+        format.json { render nothing: true,  status: 401 }
+      end and return
+    end
   end
 
   # GET /events/new
   def new
-    authorize! :create, Event
     @event = Event.create!
     @event.owner = current_user
-    current_user.add_role :host, @event
+    current_user.grant :host, @event
+    authorize! :create, @event
   end
 
   # GET /events/1/edit
   def edit
-    authorize! :edit, @event
+    authorize! :update, @event
   end
 
   # POST /events
   # POST /events.json
   def create
-    authorize! :update, Event
+    authorize! :create, Event
     @event = Event.find(event_params[:id])
     @event.update_attributes event_params
 
@@ -78,15 +87,17 @@ class EventsController < ApplicationController
   end
 
   private
-  # Use callbacks to share common setup or constraints between actions.
-  def set_event
-    @event = Event.find(params[:id])
-  end
+    # Use callbacks to share common setup or constraints between actions.
+    def set_event
+      @event = Event.find(params[:id])
+    end
 
-  # Never trust parameters from the scary internet, only allow the white list through.
-  def event_params
-    params.require(:event).permit(:name, :description, :date_start,
-                                  :date_end, :address, :longitude, :latitude, :age_groups, 
-                                  :primary_category_id, :secondary_category_id, :id)
+    # Never trust parameters from the scary internet, only allow the white list through.
+    def event_params
+      params.require(:event).permit(:name, :description, :date_start,
+                                    :date_end, :address, :longitude, 
+                                    :latitude, :age_groups, 
+                                    :primary_category_id, 
+                                    :secondary_category_id, :id)
   end
 end

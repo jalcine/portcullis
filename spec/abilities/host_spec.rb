@@ -6,23 +6,18 @@ describe :host do
 
   describe 'its own' do
     describe Event do
-      let(:event) { FactoryGirl.create :event }
-      before(:each) do
-        subject.grant :host, event
-        event.owner = subject
-      end
+      let(:event) { FactoryGirl.create :event, owner: subject }
+      before(:each) { subject.grant(:host, event) }
       it { expect(ability.can?(:crud, event)).to eq(true) }
-      it { expect(ability.can?(:modify, event)).to eq(true) }
     end
 
     describe Ticket do
       let(:ticket) { FactoryGirl.create :ticket }
       before(:each) do
-        subject.grant :host, ticket.event
+        subject.grant(:host, ticket.event)
         ticket.event.owner = subject
       end
       it { expect(ability.can?(:crud, ticket)).to eq(true) }
-      it { expect(ability.can?(:modify, ticket)).to eq(true) }
     end
 
     describe Order do

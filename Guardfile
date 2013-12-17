@@ -12,7 +12,7 @@ group :core do
   end
 
   guard 'ctags-bundler' do
-    watch(/^(app|lib|spec\/support)\/.*\.rb$/)
+    watch(/^(app|lib)\/.*\.rb$/)
     watch('Gemfile.lock')
     watch('gem.tags')
   end

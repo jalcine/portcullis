@@ -1,7 +1,7 @@
 FactoryGirl.define do
   factory :user, aliases: [:owner] do
     email                  { Faker::Internet.email }
-    password               { "#{Faker::Name.first_name}-#{email}" }
+    password               { "#{Faker::Lorem.word}-#{email}" }
     password_confirmation  { password }
 
     [:guest, :host, :attendee, :administrator].each do | role |

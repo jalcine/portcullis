@@ -19,6 +19,7 @@ describe Ticket do
     subject { create :ticket, :priced }
     it 'produces a new order before the event starts' do
       # TODO: Check if payment went through.
+      subject.event = create :event
       order = subject.purchase_for user
       expect(order).to_not be_nil
       expect(order.ticket).to be(subject)
@@ -36,14 +37,14 @@ describe Ticket do
     let(:order) { order = subject.purchase_for user }
     subject { FactoryGirl.create :ticket, :priced }
 
-    it 'issues refund before the event starts' do
-      refund = subject.refund_for order
+    xit 'issues refund before the event starts' do
+      refund = subject.issue_refund_for order
       expect(refund).to_not be_nil
       expect(refund).to be_processing
     end
 
-    it 'prevents past events from issuing refunds' do
-      refund = subject.refund_for order
+    xit 'prevents past events from issuing refunds' do
+      refund = subject.issue_refund_for order
       expect(refund).to be_nil
     end
   end
