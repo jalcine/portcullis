@@ -18,6 +18,7 @@ describe :guest do
 
   describe Order do
     let(:order) { FactoryGirl.create :order }
+    it { except(ability.can?(:view, order)).to eq(false) }
     it { except(ability.can?(:create, order)).to eq(false) }
     it { except(ability.can?(:cancel, order)).to eq(false) }
   end
