@@ -17,10 +17,11 @@ class Ability
   end
 
   def guest
-    can :view, Event
-    can :view, Ticket
     cannot :crud, Event
     cannot :crud, Ticket
+    cannot :crud, Order
+    can :view, Event
+    can :view, Ticket
   end
 
   def administrator
@@ -29,6 +30,7 @@ class Ability
     attendee
     can :manage, Event
     can :manage, Ticket
+    can :manage, Order
     can :manage, User
   end
 
@@ -41,12 +43,21 @@ class Ability
     can [:crud, :modify], Ticket do | ticket |
       ticket.event.owner == @user
     end
+
+    can [:update, :create], Order do | order |
+      order.user == @user && order.ticket.event.owner != @user
+    end
   end
 
   def attendee
     # TODO: Check if users are banned?
+    # TODO: Check if users have ordered already.
     can :rsvp, Event do |event|
       !event.expired?
+    end
+
+    can [:update, :destory], Order do | order |
+      order.user == @user && order.ticket.event.owner != @user
     end
   end
 end
