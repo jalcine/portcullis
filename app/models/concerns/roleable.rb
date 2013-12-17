@@ -12,7 +12,7 @@ module Roleable
   end
 
   def remove_guest_role_if_others_are_present
-    self.remove_role :guest if self.roles.include? :guest and !self.roles.empty?
+    self.remove_role :guest if self.roles.include? :guest and self.roles.count >= 2
   end
 
   public
