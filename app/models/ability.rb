@@ -2,16 +2,16 @@ class Ability
   include CanCan::Ability
 
   def initialize(user)
-    @user = user
     attach_aliases
+    @user = user
     @user ||= User.new
     @user.roles.each { |role| send role.name.to_sym }
     guest if @user.roles.empty?
   end
 
   def attach_aliases
-    alias_action :read, to: :view
-    alias_action :show, to: :view
+    alias_action [:read, :show], to: :view
+    alias_action :edit, to: :update
     alias_action [:update, :destroy], to: :modify
     alias_action [:create, :read, :update, :destroy], to: :crud
   end
@@ -35,12 +35,11 @@ class Ability
   end
 
   def host
-    guest
-    can [:crud, :modify], Event do | event |
+    can :crud, Event do | event |
       event.owner == @user
     end
 
-    can [:crud, :modify], Ticket do | ticket |
+    can :crud, Ticket do | ticket |
       ticket.event.owner == @user
     end
 
