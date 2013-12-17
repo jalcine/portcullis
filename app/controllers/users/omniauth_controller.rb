@@ -32,8 +32,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
     @provider.name = provider.to_sym
     @provider.token = omniauth_auth['credentials']['token'].to_s
     @provider.uid = omniauth_auth['uid'].to_s
-    @user.revoke :guest
-    @user.grant @role
+    @user.grant :attendee
 
     begin
       @user.save!
@@ -58,9 +57,6 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
     @task = omniauth_params['task'].to_s if omniauth_params.keys.include? 'task'
     no_good = (@task.nil? || omniauth_params.empty?)
 
-    Rails.logger.info omniauth_params.to_yaml
-    Rails.logger.info omniauth_auth.to_yaml
-
     redirect_to new_user_registration_path,
       flash: { error: "Invalid values from OAuth. #{omniauth_params.to_yaml}" } and return false if no_good
 
@@ -81,10 +77,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
         flash[:error] = 'A bit of a slip up trying to make your account. Try again?'
         redirect_to new_user_registration_path, status: :internal_server_error and return
       when :error_user_exists
-        flash[:notice] = "Looks like we've met before!"
         @user = User.find_by_email(omniauth_auth['info']['email'])
-      when :user_created
-        flash[:notice] = 'Welcome to Vettio!'
       end
     when 'find'
       case find_user_from_oauth(provider)
@@ -101,7 +94,6 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
 
   private
   def complete_the_deed
-    flash.clear
     flash[:notice] = "Welcome #{@user.email}!"
     sign_in_and_redirect @user and return true unless @user.nil?
     redirect_to new_user_session_path, notice: "Unknown error with #{provider}." and return false
@@ -111,7 +103,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
     class_eval <<-METHODS, __FILE__, __LINE__+1
     public
     def #{provider}
-      return do_the_deed("#{provider}")
+      return do_the_deed('#{provider}')
     end
     METHODS
   end

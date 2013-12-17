@@ -8,16 +8,16 @@ module AuthenticationSteps
   end
 
   step "there's a user signed in" do
-    user = FactoryGirl.create :user, {password: 'kittykate39'}
+    @current_user = FactoryGirl.create :user
     visit '/login'
-    fill_in 'Email', with: user.email
-    fill_in 'Password', with: 'kittykate39'
+    fill_in 'Email', with: @current_user.email
+    fill_in 'Password', with: @current_user.password
     click_button 'Sign In'
   end
 
   step 'the user signs out' do
-    session.reset_sessions!
     visit destroy_user_sessions_path
+    session.reset_sessions!
   end
 
   step 'the provider is bound to fail' do

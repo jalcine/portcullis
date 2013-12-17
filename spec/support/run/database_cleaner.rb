@@ -1,11 +1,6 @@
 require 'database_cleaner'
 
 RSpec.configure do | config |
-  config.before(:each) do | arun |
-    DatabaseCleaner.start
-  end
-
-  config.after(:each) do | arun |
-    DatabaseCleaner.clean
-  end
+  config.before(:each) { DatabaseCleaner.start }
+  config.after(:each) { DatabaseCleaner.clean }
 end

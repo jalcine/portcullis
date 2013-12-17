@@ -208,7 +208,7 @@ Devise.setup do |config|
   Settings.authentication.providers.each do | provider_name, provider_data |
     next unless Settings.toggles.features.include? "auth:#{provider_name}"
     provider_args = {}
-    Rails.logger.info "Parsing configuration for #{provider_name} data into Devise..."
+    #Rails.logger.info "Parsing configuration for #{provider_name} data into Devise..."
 
     provider_data.args.each do | argument_name, argument_data |
       provider_args[argument_name.to_sym] = argument_data
@@ -220,8 +220,7 @@ Devise.setup do |config|
       end
     end unless provider_data.args.nil?
 
-    Rails.logger.info "Data to be collected from provider:"
-    Rails.logger.info provider_args.to_s
+    #Rails.logger.info "Data to be collected from provider: #{provider_args.to_s}"
     config.omniauth provider_name.to_sym, provider_data.id, provider_data.secret, provider_args
   end
 end

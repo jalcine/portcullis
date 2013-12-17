@@ -3,4 +3,4 @@
 
 describe 'tickets/new', ->
   it 'exists', ->
-    expect(Portcullis.Tickets.New).to.be.ok
+    expect(Portcullis.Tickets.New).to.not.be.null

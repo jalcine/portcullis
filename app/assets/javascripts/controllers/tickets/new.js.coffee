@@ -1,3 +1,4 @@
+#= require controllers/tickets
 # TODO: Add logic for unlimited ticket sales.
 Portcullis.Tickets.New =
   bind: ->

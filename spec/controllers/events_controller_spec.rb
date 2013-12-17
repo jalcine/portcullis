@@ -1,7 +1,10 @@
 require 'spec_helper'
 
 describe EventsController do
-  before(:each) { login_user }
+  before(:each) do
+    login_user
+    controller.current_user.add_role :host
+  end
 
   describe 'GET index' do
     it 'handles a bunch of events' do
@@ -15,10 +18,7 @@ describe EventsController do
   describe 'POST create' do
     describe 'uses the provided @event' do
       before(:each) { post :create, event: FactoryGirl.create(:event).to_hash }
-      it 'isnt null' do
-        expect(assigns(:event)).to_not be_nil
-        expect(assigns(:event)).to be_a Event
-      end
+      it { expect(assigns(:event)).to be_a Event }
     end
 
     describe 'persists a new event' do

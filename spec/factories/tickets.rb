@@ -11,7 +11,14 @@ FactoryGirl.define do
 
     trait :free do
       price 0.00
-      donation false
+    end
+
+    trait :priced do
+      price { Random.rand(150).to_i + 20 }
+    end
+
+    trait :donation do
+      price { Random.rand(150).to_i + 20 * -1 }
     end
   end
 end

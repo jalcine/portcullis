@@ -3,4 +3,4 @@
 
 describe 'tickets/index', ->
   it 'exists', ->
-    expect(Portcullis.Tickets.Index).to.be.ok
+    expect(Portcullis.Tickets.Index).to.not.be.null
