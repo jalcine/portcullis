@@ -10,13 +10,17 @@ class Ability
   end
 
   def attach_aliases
-    alias_action :update, :destroy, to: :modify
-    alias_action :crud, to: :manage
+    alias_action :read, to: :view
+    alias_action :show, to: :view
+    alias_action [:update, :destroy], to: :modify
+    alias_action [:create, :read, :update, :destroy], to: :crud
   end
 
   def guest
     can :view, Event
     can :view, Ticket
+    cannot :crud, Event
+    cannot :crud, Ticket
   end
 
   def administrator
@@ -30,14 +34,19 @@ class Ability
 
   def host
     guest
-    can :create, Event
-    can :create, Ticket { |ticket| @user.has_role?(:host, ticket.event) }
-    can :modify, Event  { |event| event.owner == @user }
-    can :modify, Ticket { |ticket| @user.has_role?(:host, ticket.event) }
+    can [:crud, :modify], Event do | event |
+      event.owner == @user
+    end
+
+    can [:crud, :modify], Ticket do | ticket |
+      ticket.event.owner == @user
+    end
   end
 
   def attendee
     # TODO: Check if users are banned?
-    can :rsvp, Event { |event| !event.expired?  }
+    can :rsvp, Event do |event|
+      !event.expired?
+    end
   end
 end
