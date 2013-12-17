@@ -1,0 +1,16 @@
+.flash_gordon {
+  margin: 0em 1em;
+  position: relative;
+  top: 2em;
+
+  .alert-box {
+    > .icon { 
+      @include .fa;
+      @include .fa-fw;
+    }
+
+    &.alert   { @include .fa-warning; }
+    &.success { @include .fa-check-square }
+    &.info    { @include .fa-info-circle }
+  }
+}
