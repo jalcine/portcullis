@@ -1,14 +1,16 @@
 @import 'compass/css3/box-shadow';
 @import 'compass/css3/transition';
+@import 'foundation/components/grid';
 
 .flash_gordon {
-  @include box-shadow(1px 1px 30px #999);
   @include transition(top 0.4s);
-  margin: 0em 0.1em;
+  @include grid-row();
   position: relative;
   top: 0.25em;
 
   .alert-box {
+    @include grid-column($columns: 9, $center: true);
+    @include box-shadow(1px 1px 30px #999);
     > .icon { 
       @extend .fa;
       @extend .fa-fw;
