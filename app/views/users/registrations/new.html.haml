@@ -32,8 +32,7 @@
                 = f.label :remember_me
             .small-3.columns
               .small-12
-                = f.submit 'Sign Up', class: 'button success shiny radius small'
+                = f.submit 'Sign Up', class: 'button success shiny radius small', title: 'Sign Up'
   .row
     .small-10.columns.small-centered.center-text
       = render 'users/shared/links'
-= javascript_include_tag asset_url('users/registrations')

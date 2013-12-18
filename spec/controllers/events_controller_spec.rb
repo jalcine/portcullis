@@ -46,16 +46,27 @@ describe EventsController do
   end
 
   describe 'GET edit' do
-    subject { FactoryGirl.create :event, owner: controller.current_user }
-    before(:each) do
-      controller.current_user.grant :host, subject
-      get :edit, id: subject.id
+    describe 'user owns' do
+      subject { FactoryGirl.create :event, owner: controller.current_user }
+      before(:each) do
+        controller.current_user.grant :host, subject
+        get :edit, id: subject.id
+      end
+
+      describe 'shows the proper template' do
+        it { expect(response).to be_success }
+        it { expect(response).to_not be_a_redirect }
+        it { expect(response).to render_template 'events/edit' }
+      end
     end
 
-    describe 'shows the proper template' do
-      it { expect(response).to be_success }
-      it { expect(response).to_not be_a_redirect }
-      it { expect(response).to render_template 'events/edit' }
+    describe 'user does not owns' do
+      subject { FactoryGirl.create :event, owner: FactoryGirl.create(:host_user) }
+      before(:each) do
+        get :edit, id: subject.id
+      end
+
+      it { expect(response).to be_a_redirect }
     end
   end
 

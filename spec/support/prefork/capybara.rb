@@ -19,7 +19,7 @@ RSpec.configure do | config |
 
   Capybara.default_driver     = :webdriver
   Capybara.javascript_driver  = :webdriver
-  Capybara.default_wait_time  = 10
+  Capybara.default_wait_time  = 60
 
   config.include Capybara::DSL
   config.include Capybara::RSpecMatchers, type: :views

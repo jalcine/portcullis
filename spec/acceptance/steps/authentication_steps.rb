@@ -8,10 +8,14 @@ module AuthenticationSteps
   end
 
   step "there's a user signed in" do
-    @current_user = FactoryGirl.create :user
-    visit '/login'
-    fill_in 'Email', with: @current_user.email
-    fill_in 'Password', with: @current_user.password
+    @current_user = FactoryGirl.attributes_for :user
+    send 'I go to the sign-up page'
+    fill_in 'user[email]', with: @current_user[:email]
+    fill_in 'user[password]', with: @current_user[:password]
+    click_button 'Sign Up'
+    send 'I go to the sign-in page'
+    fill_in 'user[email]', with: @current_user[:email]
+    fill_in 'user[password]', with: @current_user[:password]
     click_button 'Sign In'
   end
 
@@ -22,10 +26,10 @@ module AuthenticationSteps
 
   step 'the provider is bound to fail' do
     pending
+    # TODO: Set up provider to fail.
   end
 
   step 'A new user should be created from data from :provider' do | provider |
-    pending
     expect(Provider.where(name: provider.downcase)).to_not be_empty
   end
 end

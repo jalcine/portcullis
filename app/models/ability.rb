@@ -11,8 +11,8 @@ class Ability
   end
 
   def attach_aliases
-    alias_action [:read, :view], to: :show
-    alias_action :update, to: :edit
+    alias_action :show, to: [:read, :view]
+    alias_action :edit, to: :update
     alias_action [:update, :destroy], to: :modify
     alias_action [:create, :read, :update, :destroy], to: :crud
   end
@@ -39,11 +39,13 @@ class Ability
   def host
     can :create, Event
     can [:crud, :modify, :edit], Event.find_by(user_id: @user.id.to_s)
+
     can :crud, Ticket do | ticket |
       ticket.event.owner == @user
     end
+
     can :crud, Order do | order |
-      @user.has_role :host, order.ticket.event
+      puts can? :modify, order.ticket.event
     end
   end
 

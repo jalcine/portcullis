@@ -43,12 +43,12 @@ describe Profile do
         expect { profile.save! }.to raise_error(ActiveRecord::RecordInvalid)
       end
 
-      before(:each) do
-        profile.avatar = kittykat
-        profile.save!
-      end
-
       describe 'via file' do
+        before(:each) do
+          profile.avatar = kittykat
+          profile.save!
+        end
+
         it { expect(profile.avatar.url).to_not be_eql('/fallback/default.png') }
         it { expect(profile.avatar.filename).to be_eql('kittykat.png') }
       end
