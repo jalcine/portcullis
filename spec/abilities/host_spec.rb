@@ -8,7 +8,8 @@ describe :host do
     describe Event do
       let(:event) { FactoryGirl.create :event, owner: subject }
       before(:each) { subject.grant(:host, event) }
-      it { expect(ability.can?(:crud, event)).to eq(true) }
+      it { expect(ability.can?(:modify, event)).to eq(true) }
+      it { expect(ability.can?(:, event)).to eq(true) }
     end
 
     describe Ticket do

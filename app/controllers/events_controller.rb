@@ -1,30 +1,35 @@
 class EventsController < ApplicationController
   before_filter :authenticate_user!, only: [:edit, :update, :destroy, :new]
-  before_action :set_event, only: [:show, :edit, :update, :destroy]
+  before_action :set_event, except: [:index, :new, :create]
 
   # GET /events
   # GET /events.json
   def index
+    authorize! :view, Event
     @events = Event.all
-    authorize! :read, @event
   end
 
   # GET /events/1
   # GET /events/1.json
   def show
-    authorize! :read, @event
-    if @event.access_key.present? and !params.include? :access_key
-      respond_to do | format |
-        format.html { render 'events/_gate', status: 401 }
-        format.js   { render nothing: true,  status: 401 }
-        format.json { render nothing: true,  status: 401 }
-      end and return
+    authorize! :view, @event
+    if @event.access_key.present?
+      if !params.include? :access_key
+        respond_to do | format |
+          format.html { render 'events/_gate', status: 401 }
+          format.js   { render nothing: true,  status: 401 }
+          format.json { render nothing: true,  status: 401 }
+        end and return
+      else
+        # TODO: Check if the access_key is correct.
+        # TODO: Render the right formats.
+      end
     end
   end
 
   # GET /events/new
   def new
-    @event = Event.create!
+    @event = Event.new
     @event.owner = current_user
     current_user.grant :host, @event
     authorize! :create, @event
@@ -32,15 +37,17 @@ class EventsController < ApplicationController
 
   # GET /events/1/edit
   def edit
-    authorize! :update, @event
+    authorize! :edit, @event
   end
 
   # POST /events
   # POST /events.json
   def create
     authorize! :create, Event
-    @event = Event.find(event_params[:id])
-    @event.update_attributes event_params
+    @event = Event.new event_params
+    @event.owner = current_user
+    current_user.grant :host, @event
+    authorize! :create, @event
 
     respond_to do |format|
       if @event.save
@@ -57,6 +64,8 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     authorize! :update, @event
+    puts params.to_yaml
+
     respond_to do |format|
       if @event.update(event_params)
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
@@ -95,9 +104,7 @@ class EventsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
       params.require(:event).permit(:name, :description, :date_start,
-                                    :date_end, :address, :longitude, 
-                                    :latitude, :age_groups, 
-                                    :primary_category_id, 
-                                    :secondary_category_id, :id)
+        :date_end, :address, :longitude, :latitude, :age_groups, :access_key,
+        :primary_category_id, :secondary_category_id)
   end
 end

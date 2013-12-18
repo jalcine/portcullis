@@ -6,21 +6,24 @@ class Ability
     @user = user
     @user ||= User.new
     @user.roles.each { |role| send role.name.to_sym }
+    general
     guest if @user.roles.empty?
   end
 
   def attach_aliases
-    alias_action [:read, :show], to: :view
+    alias_action [:read, :view], to: :show
+    alias_action :update, to: :edit
     alias_action [:update, :destroy], to: :modify
     alias_action [:create, :read, :update, :destroy], to: :crud
   end
 
-  def guest
-    cannot :crud, Event
-    cannot :crud, Ticket
-    cannot :crud, Order
+  def general
     can :view, Event
     can :view, Ticket
+  end
+
+  def guest
+    cannot :view, Order
   end
 
   def administrator
@@ -35,26 +38,24 @@ class Ability
 
   def host
     can :create, Event
-    can :crud, Event.find_by(user_id: @user.id.to_s)
-
+    can [:crud, :modify, :edit], Event.find_by(user_id: @user.id.to_s)
     can :crud, Ticket do | ticket |
       ticket.event.owner == @user
     end
-
-    can [:update, :create], Order do | order |
-      order.user == @user && order.ticket.event.owner != @user
+    can :crud, Order do | order |
+      @user.has_role :host, order.ticket.event
     end
   end
 
   def attendee
-    # TODO: Check if users are banned?
+    can :view, Ticket
     can :order, Ticket do | ticket |
-      ticket.expired?
+      !ticket.expired?
     end
 
     can :rsvp, Event do | event |
       # TODO: Check if users have ordered already.
-      event.expired?
+      !event.expired?
     end
 
     can [:create, :modify], Order do | order |
@@ -65,6 +66,5 @@ class Ability
     can :cancel, Order do | order |
       !order.ticket.expired? or cannot?(:modify, order)
     end
-
   end
 end

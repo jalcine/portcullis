@@ -1,16 +1,21 @@
+@import 'compass/css3/box-shadow';
+@import 'compass/css3/transition';
+
 .flash_gordon {
-  margin: 0em 1em;
+  @include box-shadow(1px 1px 30px #999);
+  @include transition(top 0.4s);
+  margin: 0em 0.1em;
   position: relative;
-  top: 2em;
+  top: 0.25em;
 
   .alert-box {
     > .icon { 
-      @include .fa;
-      @include .fa-fw;
+      @extend .fa;
+      @extend .fa-fw;
     }
 
-    &.alert   { @include .fa-warning; }
-    &.success { @include .fa-check-square }
-    &.info    { @include .fa-info-circle }
+    &.alert   { @extend .fa-warning; }
+    &.success { @extend .fa-check-square; }
+    &.info    { @extend .fa-info-circle; }
   }
 }

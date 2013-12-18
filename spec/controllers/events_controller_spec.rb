@@ -17,14 +17,11 @@ describe EventsController do
 
   describe 'POST create' do
     before(:each) do
-      post :create, event: FactoryGirl.create(:event, owner: controller.current_user).to_hash
-    end
-
-    describe 'uses the provided @event' do
-      it { expect(assigns(:event)).to be_a Event }
+      post :create, event: attributes_for(:event)
     end
 
     describe 'persists a new event' do
+      it { expect(assigns(:event)).to be_a Event }
       it { expect(assigns(:event)).to_not be_nil }
       it { expect(assigns(:event)).to_not be_a_new_record }
       it { expect(assigns(:event)).to be_persisted } 
@@ -42,8 +39,9 @@ describe EventsController do
     describe 'proper viewing' do
       before(:each) { get :new }
       it { expect(assigns(:event)).to be_a Event }
-      it { expect(assigns(:event)).to_not be_a_new_record }
+      it { expect(assigns(:event)).to be_a_new_record }
       it { expect(response).to render_template 'events/new' }
+      it { expect(response).to render_template 'events/_form' }
     end
   end
 
@@ -63,24 +61,19 @@ describe EventsController do
 
   describe 'GET show' do
     describe 'normal behavior' do
-      subject { FactoryGirl.create :event }
+      subject { create :event }
       before(:each) { get :show, id: subject.id }
 
-      it 'uses the provided @event' do
-        expect(assigns(:event)).to be_a Event
-        expect(assigns(:event)).to eq(subject)
-      end
-
-      it 'uses the proper template' do
-        expect(response).to render_template 'events/show'
-      end
+      it { expect(assigns(:event)).to be_a Event }
+      it { expect(response).to render_template 'events/show' }
     end
 
-    it 'locks password-protected events' do
-      event = create :event, :protected
-      get :show, id: event.id
-      expect(response).to render_template 'events/_gate'
-      expect(response.status).to eq(401)
+    describe 'locks password-protected events' do
+      subject { create :event, :protected }
+      before(:each) { get :show, id: subject.id }
+
+      it { expect(response).to render_template 'events/_gate' }
+      it { expect(response.status).to eq(401) }
     end
   end
 

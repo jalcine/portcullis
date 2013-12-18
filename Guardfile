@@ -61,11 +61,11 @@ group :test do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }
-    watch(%w{^spec/factories/**/*.rb$})                 { 'spec' }
+    watch(%w{^spec/factories/**/*.rb$})                 { 'spec/models', 'spec/controllers' }
     watch(%w{^spec/support/run/**/*.rb$})               { 'spec' }
     watch('config/routes.rb')                           { 'spec/routing' }
     watch('spec/turnip_helper.rb')                      { 'spec/acceptance'}
-    watch('app/models/ability.rb')                      { 'spec' }
+    watch('app/models/ability.rb')                      { 'spec/abilities' }
     watch('app/controllers/application_controller.rb')  { 'spec/controllers' }
     watch(%r{^spec/factories/(.+)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}.feature"] }
 

@@ -1,10 +1,11 @@
 class ApplicationController < ActionController::Base
   # Ensure CanCan logic is employed.
   rescue_from CanCan::AccessDenied do |exception|
+    message = 'You aren\'t authorized to invoke that action.' 
     respond_to do | format |
-      format.html { redirect_to root_url, alert: exception.message }
-      format.json { render json: exception.message, status: :forbidden }
-      format.js { render json: exception.message, status: :forbidden }
+      format.html { redirect_to root_url, alert: message }
+      format.json { render json: message, status: :forbidden }
+      format.js   { render json: message, status: :forbidden }
     end
   end
 
