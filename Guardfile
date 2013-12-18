@@ -57,11 +57,11 @@ group :test do
     watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee)$})
   end
 
-  guard :rspec, all_on_pass: true, focus_on_failed: true, keep_failed: true, all_on_start: true, cmd: 'bundle exec rspec --drb' do
+  guard :rspec, all_on_pass: false, focus_on_failed: true, keep_failed: true, all_on_start: false, cmd: 'bundle exec rspec --drb' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }
-    watch(%w{^spec/factories/**/*.rb$})                 { 'spec/models', 'spec/controllers' }
+    watch(%w{^spec/factories/**/*.rb$})                 { ['spec/models', 'spec/controllers'] }
     watch(%w{^spec/support/run/**/*.rb$})               { 'spec' }
     watch('config/routes.rb')                           { 'spec/routing' }
     watch('spec/turnip_helper.rb')                      { 'spec/acceptance'}
