@@ -13,6 +13,7 @@
 $event-header-bg:      $success-color;
 $event-header-time-bg: #222;
 $event-header-height:  rem-calc(60px);
+$event-header-speed:   1s;
 
 body.events {
   &.show {
@@ -20,7 +21,7 @@ body.events {
 
     header#event_header {
       @include grid-row;
-      @include transition(0.3s height);
+      @include transition($event-header-speed height);
       height: $event-header-height;
       background-color: $event-header-bg;
       background-image: url(http://placekitten.com/g/1600/500);
@@ -28,8 +29,8 @@ body.events {
       max-width: initial;
 
       &[data-expanded=collapsed] { height: $event-header-height; }
-      &[data-expanded=expanded]  {
-        height: 500px;
+      &[data-expanded=expanded], &:hover  {
+        height: $event-header-height * 5;
 
         > #event_date, #event_title, #event_actions {
           background-color: $event-header-bg;
@@ -37,10 +38,11 @@ body.events {
       }
 
       > #event_date, #event_title, #event_actions {
-        @include transition(0.3s background-color);
-        background: transparent;
+        @include transition(($event-header-speed * 1.5) background-color);
+        background: rgba($event-header-bg, 0.3);
         text-align: center;
         height: $event-header-height;
+        line-height: $event-header-height;
       }
 
       > #event_date {
@@ -71,8 +73,6 @@ body.events {
       > #event_title {
         @include grid-column($columns: 6, $collapse: true);
         color: #fff;
-        height: $event-header-height * 0.9;
-        line-height: $event-header-height * 0.9;
         font-size: 175%;
       }
 
@@ -94,11 +94,25 @@ body.events {
     }
 
     section#event_content {
-      > span#event_image {
-        display: block;
-        background-color: #555;
-        height: 350px;
-        min-height: 250px;
+      > dl.tabs {
+        background-color: $event-header-bg;
+      }
+
+      #event_location {
+        @include grid-row;
+
+        > #event_map, #event_location_info {
+          min-height: $event-header-height * 2.5;
+          height: $event-header-height * 8;
+        }
+
+        > #event_map {
+          @include grid-column($columns: 8, $collapse: true);
+        }
+
+        > #event_location_info {
+          @include grid-column($columns: 4, $collapse: true, $last-column: true);
+        }
       }
     }
   }
