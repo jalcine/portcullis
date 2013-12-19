@@ -17,7 +17,7 @@ $event-header-speed:   1s;
 
 body.events {
   &.show {
-    section.main { padding-top: 0em; }
+    section.main { padding-top: rem-calc(32px); }
 
     header#event_header {
       @include grid-row;
@@ -52,13 +52,12 @@ body.events {
         border-left: none;
         border-bottom: none;
 
-        @media #{medium} {  & {
+        @media #{large-up} {  & {
           min-width: rem-calc(210px);
         } }
 
         > time:first-child {
           display: inline-block;
-          font-size: 118%;
           position: relative;
           top: $event-header-height * -1;
           line-height: $event-header-height;
@@ -98,6 +97,7 @@ body.events {
 
       > dl.tabs {
         background-color: $event-header-bg;
+        padding-bottom: rem-calc(2px);
 
         dd > a {
           @include single-transition;
@@ -127,6 +127,15 @@ body.events {
         > #event_location_info {
           @include grid-column($columns: 4, $collapse: true, $last-column: true);
         }
+      }
+    }
+
+    &[data-full-width] {
+      /*section.main { padding-top: 0em; }*/
+      header#event_header { 
+        max-width: initial;
+        width: 90%;
+        margin: 0em 5%;
       }
     }
   }
