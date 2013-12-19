@@ -1,7 +1,7 @@
 - disable_header
 - disable_footer
 - page_title @event.name
-%header#event_header{role: :content, data: { expanded: :expanded }}
+%header.sticky#event_header{role: :content, data: { expanded: :expanded }}
   #event_date
     %time{datetime: @event.date_start.to_i}= @event.date_start.strftime("%^b %-d")
   #event_title= @event.name
@@ -31,6 +31,17 @@
       %a{href: '#event_rsvp'}
         %i.fa.fa-fw.fa-bullseye
         RSVP
+    %dd
+      %a{href: '#event_reporting'}
+        %i.fa.fa-fw.fa-eye
+        %b= 350
+        views
+    %dd
+      %div
+        %a.button.medium.radius.primary{href: '#'}
+          %i.fa.fa-fw.fa-facebook
+          Share on Facebook
+        
   .tabs-content
     #event_meta.content
       = @event.description

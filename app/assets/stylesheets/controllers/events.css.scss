@@ -21,6 +21,7 @@ body.events {
 
     header#event_header {
       @include grid-row;
+      position: sticky;
       height: $event-header-height * 6;
       background-color: $event-header-bg;
       background-image: url(http://placekitten.com/g/1600/1000);
@@ -103,6 +104,13 @@ body.events {
 
         dd {
           display: inline-block;
+          > span {
+            display: block;
+            padding-top: rem-calc(16px);
+            padding-right: rem-calc(16px);
+            padding-bottom: rem-calc(18px);
+            padding-left: rem-calc(32px);
+          }
           > a {
             @include single-transition;
             background: $event-header-time-bg;
