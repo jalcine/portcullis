@@ -2,6 +2,8 @@
 @import 'compass/css3/transition';
 
 nav.top-bar {
+  margin: 0em;
+  padding: 0em;
   li > a {
     @include transition(0.4s background, 0.4 color);
   }
@@ -10,12 +12,6 @@ nav.top-bar {
     img {
       height: $topbar-height * 0.75;
       margin-bottom: $topbar-height * 0.05;
-    }
-  }
-
-  ul {
-    &.left {
-
     }
   }
 

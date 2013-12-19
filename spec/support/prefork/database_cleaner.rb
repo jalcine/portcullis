@@ -8,11 +8,13 @@ RSpec.configure do | config |
     DatabaseCleaner.clean_with :truncation
   end
 
-  config.before(:each) do | arun |
-    DatabaseCleaner.start
+  config.before(:each) do | a_run |
+    is_turnip = a_run.example.metadata[:turnip]
+    DatabaseCleaner.start if is_turnip == false
   end
 
-  config.after(:each) do | arun |
-    DatabaseCleaner.clean
+  config.after(:each) do | a_run |
+    is_turnip = a_run.example.metadata[:turnip]
+    DatabaseCleaner.clean if is_turnip == false
   end
 end

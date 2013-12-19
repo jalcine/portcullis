@@ -17,8 +17,7 @@ class TicketsController < ApplicationController
     Rails.logger.debug @event
 
     respond_to do | format |
-      format.html
-      format.js { render layout: nil }
+      format.html { render layout: nil }
     end
   end
 

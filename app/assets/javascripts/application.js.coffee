@@ -1,7 +1,9 @@
 #= require jquery_ujs
 #= require foundation
 #= require jquery/number.min
-#= require_tree .
+#= require_tree ./lib
+#= require_tree ./controllers
 
 $ ->
-  $(document).foundation()
+  doc = $ document
+  doc.foundation()

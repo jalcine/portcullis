@@ -9,7 +9,7 @@
   top: 0.25em;
 
   .alert-box {
-    @include grid-column($columns: 9, $center: true);
+    @include grid-column($columns: 10, $center: true);
     @include box-shadow(1px 1px 30px #999);
     > .icon { 
       @extend .fa;

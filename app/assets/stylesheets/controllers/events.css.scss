@@ -5,14 +5,72 @@
 @import 'compass/css3/box-shadow';
 @import 'compass/css3/border-radius';
 @import 'leaflet/main';
+@import 'foundation/components/grid';
+
+$event-header-bg:      $success-color;
+$event-header-time-bg: #222;
+$event-header-height:  80px;
 
 body.events {
   section.main {
-    padding-top: 2em;
     @include grid-row;
   }
 
-  &.new, &.create {
+  &.show {
+    padding-top: 0em;
+
+    section.main { max-width: initial; }
+
+    header#event_header {
+      @include grid-row;
+      height: $event-header-height;
+      background: $event-header-bg;
+
+      > #event_date, #event_title {
+        background: $event-header-bg;
+        height: $event-header-height;
+      }
+
+      > #event_date {
+        @include grid-column($columns: 3, $collapse: true);
+        border-top: $event-header-height solid $event-header-time-bg;
+        border-right: $event-header-height solid transparent;
+        border-left: none;
+        border-bottom: none;
+        max-width: 210px;
+
+        > time:first-child {
+          display: inline-block;
+          font-size: 118%;
+          position: relative;
+          top: $event-header-height * -1;
+          line-height: $event-header-height;
+          font-weight: 300;
+          overflow: hidden;
+          width: 100%;
+          color: #ddd;
+
+          i.fa-square-o { color: $event-header-bg; }
+          i.fa-clock-o  { color: lighten($event-header-time-bg, 50%); }
+        }
+      }
+
+      > #event_title {
+        @include grid-column($columns: 9, $collapse: true, $last-column: true);
+        background-color: $success-color;
+        color: #fff;
+        height: $event-header-height;
+        line-height: $event-header-height;
+        font-size: 175%;
+      }
+    }
+
+    section#event_content {
+    }
+  }
+
+  &.new, &.create, &.edit, &.update {
+    padding-top: 2em;
     [data-magellan-expedition=fixed] {
       text-align: center;
        &.fixed { left: 0px; }

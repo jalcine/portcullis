@@ -1,10 +1,12 @@
 module RoutingSteps
   step 'I go to the sign-in page' do
     visit new_user_session_path
+    expect(page).to have_content 'Sign In'
   end
 
   step 'I go to the sign-up page' do
     visit new_user_registration_path
+    expect(page).to have_content 'Sign Up'
   end
 
   step 'I go to the sign-out page' do

@@ -1,32 +1,38 @@
 module EventSteps
   step 'I go to the new events page' do
+    expect(@current_user).to_not be_nil
     visit new_event_path
-    expect(find('form.edit_event')).to_not be_nil
-    @current_user.grant :host
-    @current_user.save!
+    ['Location', 'Content', 'Timing', 'Classification', 'Tickets'].each do | region |
+      expect(page).to have_content region 
+    end
+  end
+ 
+  step 'I go to the edit events page' do
+    visit edit_event_path(@event)
     expect(find('form.edit_event')).to_not be_nil
   end
-  
+ 
   step 'I set the event\'s description to some placeholder text' do
-    awesome_description_text = Faker::Lorem.paragraphs.join('\n')
+    awesome_description_text = Faker::Lorem.paragraphs.join("\n")
     fill_in 'Description', with: awesome_description_text
     expect(find('#event_description').value).to eq awesome_description_text
   end
 
   step 'I populate the time range for the event' do
-    event_day_start_field  = find('#start_day')
-    event_day_end_field    = find('#end_day')
-    event_time_start_field = find('#start_time')
-    event_time_end_field   = find('#end_time')
+    date_start = Time.now + Random.rand(20).to_i.days
+    date_end = date_start + Random.rand(15).to_i.hours
+    page.evaluate_script("alert($('#start_day'))")
+    screenshot_and_open_image
   end
 
   step "I set the event's title with :title" do | title |
-    fill_in 'Name', with: title
+    fill_in 'event[name]', with: title
     expect(find('#event_name').value).to eq title
   end
 
   step 'I add :number :type tickets to the event named :ticket' do | number, type, ticket |
     click_link 'Add Tickets'
+    expect(page).to have_content 'Add Ticket For Event'
 
     case type.downcase.to_s
     when :free
@@ -37,14 +43,20 @@ module EventSteps
       click_link 'Donation', exact: true
     end
 
-    fill_in 'ticket[name]', with: ticket
-    fill_in 'ticket[description]', with: Faker::Lorem.paragraphs(3).join('\n')
-    fill_in 'ticket[quantity]', with: number
-    click_on 'Create Ticket'
+    fill_in 'ticket[name]',        with: ticket
+    fill_in 'ticket[quantity]',    with: number
+    fill_in 'ticket[description]', with: Faker::Lorem.paragraphs(3).join("\n")
+    find_link 'Create Ticket'
+    screenshot_and_open_image
+    click_link 'Create Ticket'
   end
 
   step 'I have should :number tickets' do | count |
     expect(assign(:event).tickets.count).to eq(count)
+  end
+
+  step 'I have a pre-existing event' do
+    @event = create :event, :with_tickets
   end
 
   step 'it should create a new event' do

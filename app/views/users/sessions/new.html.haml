@@ -33,7 +33,9 @@
                 = f.label :remember_me
             .small-3.columns
               .small-12
-                = f.submit 'Sign In', class: 'button success shiny radius small'
+                = f.button type: :submit, class: 'button success shiny radius small', title: 'Sign In' do
+                  Sign In
+                  %i.fa.fa-arrow-right
   .row
     .small-10.columns.small-centered.center-text
       = render 'users/shared/links'

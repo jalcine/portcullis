@@ -14,23 +14,20 @@ class EventsController < ApplicationController
   def show
     authorize! :view, @event
     if @event.access_key.present?
-      if !params.include? :access_key
+      valid_key = params[:access_key] == @event.access_key
+      if !params.include? :access_key or !valid_key
         respond_to do | format |
           format.html { render 'events/_gate', status: 401 }
           format.js   { render nothing: true,  status: 401 }
           format.json { render nothing: true,  status: 401 }
         end and return
-      else
-        # TODO: Check if the access_key is correct.
-        # TODO: Render the right formats.
       end
     end
   end
 
   # GET /events/new
   def new
-    @event = Event.new
-    @event.owner = current_user
+    @event = Event.create! owner: current_user
     current_user.grant :host, @event
     authorize! :create, @event
   end

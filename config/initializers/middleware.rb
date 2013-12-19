@@ -10,10 +10,10 @@ Portcullis::Application.configure do
 
     Portcullis::Application.configure do
       # Local machine.
-      config.middleware.insert_after Rack::Lock, Rack::LiveReload
+      config.middleware.use Rack::LiveReload
 
       # Over Intranet/Internet
-      config.middleware.insert_after Rack::Lock, Rack::LiveReload, {
+      config.middleware.use Rack::LiveReload, {
         host: Settings.local.host
       }
     end

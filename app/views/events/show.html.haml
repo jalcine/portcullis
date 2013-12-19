@@ -1,0 +1,9 @@
+%header#event_header{role: :content}
+  #event_date
+    %time{datetime: @event.date_start.to_i}
+      %span.fa-stack.fa-lg
+        %i.fa.fa-fw.fa-square.fa-stack-2x
+        %i.fa.fa-fw.fa-clock-o.fa-stack-1x
+      = @event.date_start.strftime("%^b %-d")
+  #event_title= @event.name
+%section#event_content

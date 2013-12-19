@@ -4,20 +4,23 @@ development:
   database: portcullis_development
   pool: 5
   host: localhost
+  sslmode: disable
   username: portcullis
   password: vettio
 test:
   adapter: postgresql
   encoding: unicode
   database: portcullis_test
-  pool: 5
+  pool: 1
   host: localhost
+  sslmode: disable
   username: portcullis
   password: vettio
 production:
   adapter: postgresql
   encoding: unicode
   database: portcullis_production
+  sslmode: disable
   pool: 5
   username: portcullis
   password: vettio
