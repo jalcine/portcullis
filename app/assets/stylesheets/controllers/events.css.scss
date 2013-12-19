@@ -6,25 +6,22 @@
 @import 'compass/css3/border-radius';
 @import 'leaflet/main';
 @import 'foundation/components/grid';
+@import 'foundation/components/buttons';
+@import 'foundation/components/split-buttons';
 
 $event-header-bg:      $success-color;
 $event-header-time-bg: #222;
-$event-header-height:  60px;
+$event-header-height:  rem-calc(60px);
 
 body.events {
-  section.main {
-    @include grid-row;
-  }
-
   &.show {
     padding-top: 0em;
-
-    section.main { max-width: initial; }
 
     header#event_header {
       @include grid-row;
       height: $event-header-height;
       background: $event-header-bg;
+      max-width: initial;
 
       > #event_date, #event_title {
         background: $event-header-bg;
@@ -37,7 +34,7 @@ body.events {
         border-right: $event-header-height solid transparent;
         border-left: none;
         border-bottom: none;
-        max-width: 210px;
+        max-width: rem-calc(210px);
 
         > time:first-child {
           display: inline-block;
@@ -50,9 +47,9 @@ body.events {
           width: 100%;
           color: #ddd;
 
-          span.fa-stack { margin-left: 20px; }
+          span.fa-stack { margin-left: rem-calc(20px); }
           i.fa-square-o { color: $event-header-bg; }
-          i.fa-clock-o  { color: lighten($event-header-time-bg, 50%); }
+          i.fa-clock-o  { color: lighten($event-header-time-bg, 40%); }
         }
       }
 
@@ -70,6 +67,15 @@ body.events {
         text-align: center;
         height: $event-header-height;
         line-height: $event-header-height;
+
+        > a#event_rsvp_button {
+          @include button($padding: rem-calc(5px), $bg: lighten($success-color, 10%), $full-width: false, $radius: true);
+          @include split-button();
+          @include single-transition();
+          @include block-glowing-effect();
+          height: $event-header-height;
+          line-height: $event-header-height;
+        }
       }
     }
 
@@ -78,7 +84,9 @@ body.events {
   }
 
   &.new, &.create, &.edit, &.update {
-    padding-top: 2em;
+    padding-top: rem-calc(32px);
+    section.main { @include grid-row; }
+
     [data-magellan-expedition=fixed] {
       text-align: center;
        &.fixed { left: 0px; }
@@ -96,8 +104,8 @@ body.events {
       background-color: #8f939a;
       width: 100%;
       height: 100%;
-      min-width: 300px;
-      min-height: 170px;
+      min-width: rem-calc(300px);
+      min-height: rem-calc(170px);
     }
   }
 }
