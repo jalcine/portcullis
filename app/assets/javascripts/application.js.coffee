@@ -7,3 +7,6 @@
 $ ->
   doc = $ document
   doc.foundation()
+  setTimeout ->
+    $('.alert-box').fadeOut()
+  , 3000

@@ -10,27 +10,23 @@
 @import 'foundation/components/buttons';
 @import 'foundation/components/split-buttons';
 
-$event-header-bg:      $success-color;
+$event-header-bg:      $primary-color;
 $event-header-time-bg: #222;
 $event-header-height:  rem-calc(60px);
 $event-header-speed:   1s;
 
 body.events {
   &.show {
-    padding-top: 0em;
+    section.main { padding-top: 0em; }
 
     header#event_header {
       @include grid-row;
-      @include transition($event-header-speed height);
-      height: $event-header-height * 1.2;
+      height: $event-header-height * 6;
       background-color: $event-header-bg;
       background-image: url(http://placekitten.com/g/1600/1000);
       background-position: center center;
-      max-width: initial;
 
-      &[data-expanded=expanded], &:hover  {
-        height: $event-header-height * 8;
-
+      &:hover  {
         > #event_date, #event_title, #event_actions {
           background-color: $event-header-bg;
         }
@@ -56,20 +52,20 @@ body.events {
         border-left: none;
         border-bottom: none;
 
+        @media #{medium} {  & {
+          min-width: rem-calc(210px);
+        } }
+
         > time:first-child {
           display: inline-block;
           font-size: 118%;
           position: relative;
           top: $event-header-height * -1;
           line-height: $event-header-height;
-          font-weight: 300;
+          font-weight: 900;
           overflow: hidden;
           width: 100%;
           color: #ddd;
-
-          span.fa-stack { margin-left: rem-calc(20px); }
-          i.fa-square-o { color: $event-header-bg; }
-          i.fa-clock-o  { color: lighten($event-header-time-bg, 40%); }
         }
       }
 
@@ -84,7 +80,7 @@ body.events {
         @include grid-column($columns: 3, $collapse: false, $last-column: false);
 
         > a#event_rsvp_button {
-          @include button($padding: rem-calc(5px), $bg: lighten($success-color, 10%), $full-width: false, $radius: true);
+          @include button($padding: rem-calc(5px), $bg: lighten($event-header-bg, 10%), $full-width: false, $radius: true);
           @include split-button();
           @include single-transition();
           @include block-glowing-effect();
@@ -98,12 +94,26 @@ body.events {
     }
 
     section#event_content {
+      @include grid-row;
+
       > dl.tabs {
         background-color: $event-header-bg;
+
+        dd > a {
+          @include single-transition;
+          background-color: $event-header-bg;
+          color: $tabs-navigation-bg-color;
+
+          &:hover {
+            background-color: $tabs-navigation-bg-color;
+            color: #222;
+          }
+        }
       }
 
       #event_location {
         @include grid-row;
+        max-width: initial;
 
         > #event_map, #event_location_info {
           min-height: $event-header-height * 2.5;

@@ -20,7 +20,7 @@ Portcullis.Events.Show =
       layers: [
         L.tileLayer('http://{s}.tile.cloudmade.com/ddac1a378966452591adc2782bf07771/997/256/{z}/{x}/{y}.png')
       ]
-    })
+    }).invalidateSize()
 
 self = Portcullis.Events.Show
 
