@@ -9,6 +9,6 @@ Portcullis::Application.configure do
     config.sass.line_comments = true
     config.sass_line_numbers = true
     config.sass.full_exception = true
-    config.sass.debug_info = true
+    config.sass.debug_info = false
   end
 end

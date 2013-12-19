@@ -13,7 +13,7 @@
 $event-header-bg:      $primary-color;
 $event-header-time-bg: #222;
 $event-header-height:  rem-calc(60px);
-$event-header-speed:   1s;
+$event-header-speed:   0.75s;
 
 body.events {
   &.show {
@@ -96,17 +96,22 @@ body.events {
       @include grid-row;
 
       > dl.tabs {
-        background-color: $event-header-bg;
+        background: $event-header-time-bg;
+        padding-left: rem-calc(10px);
         padding-bottom: rem-calc(2px);
+        text-align: right;
 
-        dd > a {
-          @include single-transition;
-          background-color: $event-header-bg;
-          color: $tabs-navigation-bg-color;
+        dd {
+          display: inline-block;
+          > a {
+            @include single-transition;
+            background: $event-header-time-bg;
+            color: $tabs-navigation-bg-color;
 
-          &:hover {
-            background-color: $tabs-navigation-bg-color;
-            color: #222;
+            &:hover {
+              background: $tabs-navigation-bg-color;
+              color: #222;
+            }
           }
         }
       }
