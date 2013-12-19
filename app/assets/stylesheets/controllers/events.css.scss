@@ -9,7 +9,7 @@
 
 $event-header-bg:      $success-color;
 $event-header-time-bg: #222;
-$event-header-height:  80px;
+$event-header-height:  60px;
 
 body.events {
   section.main {
@@ -50,18 +50,26 @@ body.events {
           width: 100%;
           color: #ddd;
 
+          span.fa-stack { margin-left: 20px; }
           i.fa-square-o { color: $event-header-bg; }
           i.fa-clock-o  { color: lighten($event-header-time-bg, 50%); }
         }
       }
 
       > #event_title {
-        @include grid-column($columns: 9, $collapse: true, $last-column: true);
+        @include grid-column($columns: 6, $collapse: true);
         background-color: $success-color;
         color: #fff;
         height: $event-header-height;
         line-height: $event-header-height;
         font-size: 175%;
+      }
+
+      > #event_actions {
+        @include grid-column($columns: 3, $collapse: false, $last-column: true);
+        text-align: center;
+        height: $event-header-height;
+        line-height: $event-header-height;
       }
     }
 

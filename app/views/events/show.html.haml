@@ -1,9 +1,26 @@
+- page_title @event.name
 %header#event_header{role: :content}
   #event_date
     %time{datetime: @event.date_start.to_i}
-      %span.fa-stack.fa-lg
+      %span.fa-stack
         %i.fa.fa-fw.fa-square.fa-stack-2x
         %i.fa.fa-fw.fa-clock-o.fa-stack-1x
       = @event.date_start.strftime("%^b %-d")
   #event_title= @event.name
+  #event_actions
+    %a.button.medium.alert.split{href: '#event_rsvp'}
+      RSVP
+      %span{data: {dropdown: :event_rsvp_menu}}
+    %ul#event_rsvp_menu.f-dropdown{data: {dropdown: {content: ''}}}
+      - if can? :edit, @event
+        %li
+          = link_to edit_event_path(@event) do
+            %i.fa.fa-fw.fa-pencil-square
+            Edit Event
+      - if can? :destroy, @event
+        %li
+          = link_to destroy_event_path(@event) do
+            %i.fa.fa-fw.fa-trash-o
+            Delete Event
 %section#event_content
+%section#event_rsvp

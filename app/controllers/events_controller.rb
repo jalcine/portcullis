@@ -40,7 +40,7 @@ class EventsController < ApplicationController
   # POST /events
   # POST /events.json
   def create
-    authorize! :create, Event
+    authorize! :update, Event
     @event = Event.new event_params
     @event.owner = current_user
     current_user.grant :host, @event
@@ -60,7 +60,7 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1
   # PATCH/PUT /events/1.json
   def update
-    authorize! :update, @event
+    authorize! :create, @event
     puts params.to_yaml
 
     respond_to do |format|
