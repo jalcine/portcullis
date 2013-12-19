@@ -4,6 +4,7 @@
 @import 'leaflet/l.control.locate';
 @import 'compass/css3/box-shadow';
 @import 'compass/css3/border-radius';
+@import 'compass/css3/text-shadow';
 @import 'leaflet/main';
 @import 'foundation/components/grid';
 @import 'foundation/components/buttons';
@@ -19,12 +20,26 @@ body.events {
 
     header#event_header {
       @include grid-row;
+      @include transition(0.3s height);
       height: $event-header-height;
-      background: $event-header-bg;
+      background-color: $event-header-bg;
+      background-image: url(http://placekitten.com/g/1600/500);
+      background-position: center center;
       max-width: initial;
 
-      > #event_date, #event_title {
-        background: $event-header-bg;
+      &[data-expanded=collapsed] { height: $event-header-height; }
+      &[data-expanded=expanded]  {
+        height: 500px;
+
+        > #event_date, #event_title, #event_actions {
+          background-color: $event-header-bg;
+        }
+      }
+
+      > #event_date, #event_title, #event_actions {
+        @include transition(0.3s background-color);
+        background: transparent;
+        text-align: center;
         height: $event-header-height;
       }
 
@@ -55,31 +70,36 @@ body.events {
 
       > #event_title {
         @include grid-column($columns: 6, $collapse: true);
-        background-color: $success-color;
         color: #fff;
-        height: $event-header-height;
-        line-height: $event-header-height;
+        height: $event-header-height * 0.9;
+        line-height: $event-header-height * 0.9;
         font-size: 175%;
       }
 
       > #event_actions {
-        @include grid-column($columns: 3, $collapse: false, $last-column: true);
-        text-align: center;
-        height: $event-header-height;
-        line-height: $event-header-height;
+        @include grid-column($columns: 3, $collapse: false, $last-column: false);
 
         > a#event_rsvp_button {
           @include button($padding: rem-calc(5px), $bg: lighten($success-color, 10%), $full-width: false, $radius: true);
           @include split-button();
           @include single-transition();
           @include block-glowing-effect();
-          height: $event-header-height;
-          line-height: $event-header-height;
+          margin-top: $event-header-height * 0.1;
+          height: $event-header-height * 0.8;
+          line-height: $event-header-height * 0.8;
+          padding-top: 0rem;
+          float: right;
         }
       }
     }
 
     section#event_content {
+      > span#event_image {
+        display: block;
+        background-color: #555;
+        height: 350px;
+        min-height: 250px;
+      }
     }
   }
 
