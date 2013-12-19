@@ -277,3 +277,6 @@ self = Portcullis.Events.New
 
 Portcullis.bind 'boot', ->
   Portcullis.Events.New.bindEvents() if $('body').hasClass 'new'
+  Portcullis.Events.New.bindEvents() if $('body').hasClass 'create'
+  Portcullis.Events.New.bindEvents() if $('body').hasClass 'edit'
+  Portcullis.Events.New.bindEvents() if $('body').hasClass 'update'

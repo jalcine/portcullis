@@ -1,5 +1,5 @@
 - page_title @event.name
-%header#event_header{role: :content}
+%header#event_header{role: :content, data: { expanded: :expanded }}
   #event_date
     %time{datetime: @event.date_start.to_i}
       %span.fa-stack
@@ -8,7 +8,8 @@
       = @event.date_start.strftime("%^b %-d")
   #event_title= @event.name
   #event_actions
-    %a.button.medium.alert.split{href: '#event_rsvp'}
+    %a#event_rsvp_button{href: '#event_rsvp'}
+      %i.fa.fa-fw.fa-lg.fa-bullseye
       RSVP
       %span{data: {dropdown: :event_rsvp_menu}}
     %ul#event_rsvp_menu.f-dropdown{data: {dropdown: {content: ''}}}
@@ -23,4 +24,23 @@
             %i.fa.fa-fw.fa-trash-o
             Delete Event
 %section#event_content
+  %dl.tabs{data: {tab: ''}}
+    %dd
+      %a{href: '#event_location'}
+        %i.fa.fa-fw.fa-crosshairs
+        Whereabouts
+    %dd
+      %a{href: '#event_description'}
+        %i.fa.fa-fw.fa-comments
+        Description
+    %dd.active
+      %a{href: '#event_rsvp'}
+        %i.fa.fa-fw.fa-bullseye
+        RSVP
+  .tabs-content
+    #event_location.content
+      #event_map{data: {longitude: @event.longitude, latitude: @event.latitude}}
+      #event_location_info= @event.address
+    #event_description.content= @event.description
+    #event_rsvp.content.active
 %section#event_rsvp

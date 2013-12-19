@@ -10,11 +10,19 @@ Portcullis::Application.configure do
 
     Portcullis::Application.configure do
       # Local machine.
-      config.middleware.use Rack::LiveReload
+      config.middleware.insert_before Rack::Lock, Rack::LiveReload, {
+        min_delay: 5e2,
+        max_delay: 1e4,
+        source: :livereload
+      }
 
       # Over Intranet/Internet
-      config.middleware.use Rack::LiveReload, {
-        host: Settings.local.host
+      config.middleware.insert_before Rack::Lock, Rack::LiveReload, {
+        min_delay: 5e2,
+        max_delay: 1e4,
+        host: Settings.local.host,
+        source: :livereload,
+        force_swf: true
       }
     end
   end

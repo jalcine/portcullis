@@ -22,36 +22,39 @@ body.events {
     header#event_header {
       @include grid-row;
       @include transition($event-header-speed height);
-      height: $event-header-height;
+      height: $event-header-height * 1.2;
       background-color: $event-header-bg;
-      background-image: url(http://placekitten.com/g/1600/500);
+      background-image: url(http://placekitten.com/g/1600/1000);
       background-position: center center;
       max-width: initial;
 
-      &[data-expanded=collapsed] { height: $event-header-height; }
       &[data-expanded=expanded], &:hover  {
-        height: $event-header-height * 5;
+        height: $event-header-height * 8;
 
         > #event_date, #event_title, #event_actions {
           background-color: $event-header-bg;
+        }
+
+        > #event_date {
+          border-top-color: $event-header-time-bg;
         }
       }
 
       > #event_date, #event_title, #event_actions {
         @include transition(($event-header-speed * 1.5) background-color);
-        background: rgba($event-header-bg, 0.3);
+        background: rgba($event-header-bg, 0.6);
         text-align: center;
         height: $event-header-height;
         line-height: $event-header-height;
       }
 
       > #event_date {
-        @include grid-column($columns: 3, $collapse: true);
-        border-top: $event-header-height solid $event-header-time-bg;
+        @include transition(($event-header-speed * 1.5) border-top-color, ($event-header-speed * 1.5) background-color);
+        @include grid-column($columns: 2, $collapse: true);
+        border-top: $event-header-height solid rgba($event-header-time-bg, 0.9);
         border-right: $event-header-height solid transparent;
         border-left: none;
         border-bottom: none;
-        max-width: rem-calc(210px);
 
         > time:first-child {
           display: inline-block;
@@ -71,9 +74,10 @@ body.events {
       }
 
       > #event_title {
-        @include grid-column($columns: 6, $collapse: true);
+        @include grid-column($columns: 7, $collapse: true);
         color: #fff;
         font-size: 175%;
+        text-align: left;
       }
 
       > #event_actions {
