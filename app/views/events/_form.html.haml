@@ -29,6 +29,7 @@
       = f.hidden_field :date_end, value: @event.date_end.to_s
       = f.hidden_field :longitude, value: @event.longitude
       = f.hidden_field :latitude, value: @event.latitude
+      = f.hidden_field :address, value: @event.address
       .row
         .small-10.large-8.columns.large-centered.small-centered
           %div{'data-magellan-expedition' => 'fixed'}
@@ -48,19 +49,19 @@
             %i.fa.fa-fw.fa-crosshairs
             Location
             %small Be it here, the mall or Mars!
-        .row
-          .small-3.columns
-            %small.label.pull-right required
-            = f.label :address, class: 'inline has-tip tip-top', data: { tooltip: :address }, title: 'Where is it happening? Let us know!'
-          .small-9.columns
-            .row.collapse
-              .small-10.columns
-                = f.text_field :address, placeholder: '1 Vettio Lane, New York, New York, 10010', autocomplete: :on, value: @event.address
-                %ul#event_address_list.f-dropdown{'data-dropdown-content' => ''}
-              .small-2.columns
-                %a#event_full_address.button.postfix
-                  %i.fa.fa-crosshairs.fa-fw
-                  Pinpoint 
+        -#.row
+          -#.small-3.columns
+            -#%small.label.pull-right required
+            -#= f.label :address, class: 'inline has-tip tip-top', data: { tooltip: :address }, title: 'Where is it happening? Let us know!'
+          -#.small-9.columns
+            -#.row.collapse
+              -#.small-10.columns
+                -#= f.text_field :address, placeholder: '1 Vettio Lane, New York, New York, 10010', autocomplete: :on, value: @event.address
+                -#%ul#event_address_list.f-dropdown{'data-dropdown-content' => ''}
+              -#.small-2.columns
+                -#%a#event_full_address.button.postfix
+                  -#%i.fa.fa-crosshairs.fa-fw
+                  -#Pinpoint 
         .row
           #event_address_tool.small-12.columns
             .row
