@@ -17,9 +17,12 @@ $event-header-height:  rem-calc(60px);
 $event-header-speed:   0.75s;
 
 body.events {
-  &.show {
-    section.main { padding: rem-calc(32px) 0em; }
+  section.main { 
+    @include grid-row;
+    padding-top: rem-calc(32px);
+  }
 
+  &.show {
     header#event_header {
       @include grid-row;
       position: sticky;
@@ -110,10 +113,6 @@ body.events {
             @extend .pull-right;
             > ul.button-group {
               a.button { 
-                > i.icon { 
-                  position: relative;
-                  top: rem-calc(5px);
-                }
                 padding-left: rem-calc(10px);
                 padding-right: rem-calc(10px);
                 height: $event-header-height;
@@ -131,79 +130,6 @@ body.events {
 
     section#event_rsvp {
       @include grid-row;
-      ul {
-        margin: 0em;
-        > li.ticket {
-          @include grid-row;
-          list-style: none;
-          display: inline-block;
-          margin: rem-calc(10px) 0rem;
-          border: 1px solid #555;
-
-          &, .left-side, .right-side {
-            height: rem-calc(32px) * 2;
-            max-height: rem-calc(32px) * 2;
-          }
-
-          .left-side {
-            @include grid-column($columns: 9, $collapse: true);
-            max-width: initial;
-
-            time.ending, b.name, span.tags {
-              height: rem-calc(32px);
-              line-height: rem-calc(32px);
-              min-height: rem-calc(32px);
-            }
-
-            b.name {
-              clear: both;
-              width: 100%;
-              display: block;
-              font-size: 120%;
-            }
-
-            time.ending {
-              width: 50%;
-              float: left;
-              padding: rem-calc(4px) 0rem;
-            }
-
-            span.tags {
-              width: 50%;
-              float: right;
-              clear: left;
-              padding: rem-calc(4px) 0rem;
-            }
-          }
-
-          .right-side {
-            @include grid-column($columns: 3, $collapse: false);
-            line-height: rem-calc(32px) * 2;
-            text-align: right;
-          }
-        }
-        /*.date_box {*/
-        /*margin: rem-calc(8px);*/
-        /*display: inline-block;*/
-
-        /*> .day {*/
-        /*font-weight: 800;*/
-        /*font-size: 300%;*/
-        /*letter-spacing: rem-calc(2px);*/
-        /*padding: rem-calc(6px) rem-calc(14px);*/
-        /*text-align: center;*/
-        /*}*/
-
-        /*> .month {*/
-        /*text-align: center;*/
-        /*background-color: orange;*/
-        /*color: white;*/
-        /*font-weight: 900;*/
-        /*padding: rem-calc(2px);*/
-        /*text-transform: uppercase;*/
-        /*}*/
-        /*}*/
-      }
     }
 
     &[data-full-width] {
@@ -217,10 +143,6 @@ body.events {
   }
 
   &.new, &.create, &.edit, &.update {
-    section.main { 
-      @include grid-row;
-      padding-top: rem-calc(32px);
-    }
 
     [data-magellan-expedition=fixed] {
       text-align: center;
