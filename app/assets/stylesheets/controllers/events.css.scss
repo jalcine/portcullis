@@ -12,12 +12,13 @@
 
 $event-header-bg:      $primary-color;
 $event-header-time-bg: #222;
+$event-header-time-fg: #ddd;
 $event-header-height:  rem-calc(60px);
 $event-header-speed:   0.75s;
 
 body.events {
   &.show {
-    section.main { padding-top: rem-calc(32px); }
+    section.main { padding: rem-calc(32px) 0em; }
 
     header#event_header {
       @include grid-row;
@@ -38,8 +39,7 @@ body.events {
       }
 
       > #event_date, #event_title, #event_actions {
-        @include transition(($event-header-speed * 1.5) background-color);
-        background: rgba($event-header-bg, 0.6);
+        background: rgba($event-header-bg, 0.9);
         text-align: center;
         height: $event-header-height;
         line-height: $event-header-height;
@@ -52,9 +52,10 @@ body.events {
         border-right: $event-header-height solid transparent;
         border-left: none;
         border-bottom: none;
+        color: $event-header-time-fg;
 
         @media #{large-up} {  & {
-          min-width: rem-calc(210px);
+            min-width: rem-calc(210px);
         } }
 
         > time:first-child {
@@ -65,7 +66,6 @@ body.events {
           font-weight: 900;
           overflow: hidden;
           width: 100%;
-          color: #ddd;
         }
       }
 
@@ -80,7 +80,7 @@ body.events {
         @include grid-column($columns: 3, $collapse: false, $last-column: false);
 
         > a#event_rsvp_button {
-          @include button($padding: rem-calc(5px), $bg: lighten($event-header-bg, 10%), $full-width: false, $radius: true);
+          @include button($padding: rem-calc(5px), $bg: lighten($success-color, 10%), $full-width: false, $radius: true);
           @include split-button();
           @include single-transition();
           @include block-glowing-effect();
@@ -95,56 +95,41 @@ body.events {
 
     section#event_content {
       @include grid-row;
+      background: $event-header-time-bg;
+      color: $event-header-time-fg;
 
-      > dl.tabs {
-        background: $event-header-time-bg;
-        padding-left: rem-calc(10px);
-        padding-bottom: rem-calc(2px);
-        text-align: right;
+      > .banner[data-event] {
+        @include grid-column($columns: 11, $center: true, $collapse: true);
+        height: $event-header-height;
+        overflow: hidden;
 
-        dd {
+        > .block {
+          padding: 0em rem-calc(16px);
           display: inline-block;
-          > span {
-            display: block;
-            padding-top: rem-calc(16px);
-            padding-right: rem-calc(16px);
-            padding-bottom: rem-calc(18px);
-            padding-left: rem-calc(32px);
-          }
-          > a {
-            @include single-transition;
-            background: $event-header-time-bg;
-            color: $tabs-navigation-bg-color;
 
-            &:hover {
-              background: $tabs-navigation-bg-color;
-              color: #222;
+          &.social {
+            > ul.button-group {
+              a.button {
+                @extend .pull-right;
+                @include button($padding: rem-calc(16px));
+              }
             }
           }
         }
       }
+    }
 
-      #event_location {
-        @include grid-row;
-        max-width: initial;
-
-        > #event_map, #event_location_info {
-          min-height: $event-header-height * 2.5;
-          height: $event-header-height * 8;
-        }
-
-        > #event_map {
-          @include grid-column($columns: 8, $collapse: true);
-        }
-
-        > #event_location_info {
-          @include grid-column($columns: 4, $collapse: true, $last-column: true);
-        }
+    section#event_rsvp {
+      @include grid-row;
+      > .ticket {
+        @include grid-column($columns: 10, $center: true, $collapse: true);
+        &:last-child { border-bottom: none; }
+        border-bottom: rem-calc(5px) solid $event-header-time-bg;
       }
     }
 
     &[data-full-width] {
-      /*section.main { padding-top: 0em; }*/
+      section.main { padding-top: 0em; }
       header#event_header { 
         max-width: initial;
         width: 90%;
@@ -154,12 +139,14 @@ body.events {
   }
 
   &.new, &.create, &.edit, &.update {
-    padding-top: rem-calc(32px);
-    section.main { @include grid-row; }
+    section.main { 
+      @include grid-row;
+      padding-top: rem-calc(32px);
+    }
 
     [data-magellan-expedition=fixed] {
       text-align: center;
-       &.fixed { left: 0px; }
+      &.fixed { left: 0px; }
     }
 
     #panel_classification {
