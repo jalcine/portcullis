@@ -11,7 +11,11 @@ jQuery.timeago.settings.allowFuture = true
 
 $ ->
   doc = $ document
-  doc.foundation()
+  doc.foundation {
+    tooltips: {
+      selector: '.has-tip, *[data-tooltip]'
+    }
+  }
   setTimeout ->
     $('.alert-box').fadeOut()
   , 3000

@@ -25,48 +25,87 @@ body.events {
       @include grid-row;
 
       > #event_banner_topheavy {
-        @include grid-column($columns: 12, $collapse: false, $float: false);
+        @include grid-column($columns: 12, $collapse: true, $float: false);
         background: $event-banner-bg;
         color: $event-banner-fg;
         height: $event-banner-height;
 
-        > #event_banner_date {
-          float: left;
+        #event_banner_date {
+          width: rem-calc(80px);
+          > .day {
+            border-top: rem-calc(1px) solid $event-banner-bg;
+          }
+          > .month {
+            line-height: rem-calc(16px);
+            height: rem-calc(32px);
+          }
         }
 
         > ul {
           list-style: none;
           display: inline-block;
+          height: $event-banner-height;
           margin: 0em; padding: 0em;
+          width: 100%;
 
           > li {
             display: inline-block;
+            float: left;
 
             &.text {
               line-height: $event-banner-height;
               height: $event-banner-height;
               text-align: center;
+              padding: 0em rem-calc(10px);
             }
 
             &.social {
-              span, a.button {
-                line-height: $event-banner-height;
-                height: $event-banner-height;
+              float: right;
+              padding-right: rem-calc(6px);
+
+              ul.button-group {
+                float: right;
+                display: inline-block;
+
+                > li {
+                  line-height: $event-banner-height;
+                }
               }
 
-              span { float: left; display: inline-block; }
-              ul.button-group { float: right; display: inline-block; }
-
               a.button {
-                padding: rem-calc(6px) rem-calc(12px) rem-calc(9px) rem-calc(12px);
+                padding: 0em rem-calc(12px);
+                line-height: $event-banner-height * 2/3;
+                height: $event-banner-height * 2/3;
                 margin: 0em;
+                border-color: transparent;
               }
             }
           }
         }
       }
+
       > #event_banner_content {
         @include grid-column($columns: 12, $collapse: false, $float: false);
+        display: table;
+        background: url(http://placekitten.com/g/2000/1400) $event-banner-bg center center;
+        width: 100%;
+        height: $event-banner-height * 5;
+
+         > h2 {
+           display: table-cell;
+           width: 100%;
+           vertical-align: middle;
+           text-align: center;
+           height: $event-banner-height * 4;
+         }
+
+         > #event_banner_actions {
+           height: $event-banner-height;
+           display: table-cell;
+           width: 100%;
+           vertical-align: middle;
+           text-align: center;
+         }
       }
     }
   }
@@ -109,7 +148,7 @@ time.date_box {
   span.day, span.month { 
     display: block;
     width: $timebox-width;
-    border: 1px solid ligten($timebox-day-fg, 50%);
+    border: 1px solid lighten($timebox-day-fg, 50%);
   }
 
   span.day {
