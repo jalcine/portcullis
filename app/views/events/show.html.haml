@@ -4,8 +4,8 @@
     %ul
       %li.text
         %time#event_banner_date.date_box
-          %span.day= 26
-          %span.month Dec
+          %span.day= @event.date_start.strftime '%-d'
+          %span.month= @event.date_start.strftime '%^B'
       %li.text.tip-bottom{data: {tooltip: true}, title: '39,212 views'}
         %i.fa.fa-fw.fa-lg.fa-eye
         %b 39.2k
@@ -29,17 +29,43 @@
           %li
             %a.gplus.button.tiny
               %i.icon.fa-lg
-
   #event_banner_content
-    %h2= @event.name
-    #event_banner_actions
-      %ul.button-group.round
-        %li
-          %a.button{href: '#'}
-            %i.fa.fa-fw.fa-lg.fa-map-marker
-        %li
-          %a.button{href: '#'}
-            %i.fa.fa-fw.fa-lg.fa-shopping-cart
-        %li
-          %a.button{href: '#'}
-            %i.fa.fa-fw.fa-lg.fa-group
+    %div{style: 'display: table'}
+    %h2= @event.name.present? ? @event.name : 'Untitled Event'
+
+%section#event_navigation{data: {magellan: {expedition: :fixed}}}
+  %dl
+    %dd{data: {magellan: {arrival: 'tickets'}}}
+      %a{href: '#tickets'}
+        %span.fa-stack
+          %i.fa.fa-stack-2x.fa-square.fa-inverse
+          %i.fa.fa-stack-1x.fa-ticket
+        Tickets
+    %dd{data: {magellan: {arrival: 'description'}}}
+      %a{href: '#description'}
+        %span.fa-stack
+          %i.fa.fa-stack-2x.fa-square.fa-inverse
+          %i.fa.fa-stack-1x.fa-comments
+        Description
+    %dd{data: {magellan: {arrival: 'attendees'}}}
+      %a{href: '#attendees'}
+        %span.fa-stack
+          %i.fa.fa-stack-2x.fa-square.fa-inverse
+          %i.fa.fa-stack-1x.fa-group
+        Attendees
+    %dd{data: {magellan: {arrival: 'schedule'}}}
+      %a{href: '#schedule'}
+        %span.fa-stack
+          %i.fa.fa-stack-2x.fa-square.fa-inverse
+          %i.fa.fa-fw.fa-stack-1x.fa-calendar-o
+        Schedule
+
+%section#tickets.event_panel{data: {magellan: {destination: :tickets}}}
+  In the works.
+%section#description.event_panel{data: {magellan: {destination: :description}}}
+  %h1.title Description
+  = @event.description
+%section#attendees.event_panel{data: {magellan: {destination: :attendees}}}
+  In the works.
+%section#schedule.event_panel{data: {magellan: {destination: :schedule}}}
+  In the works.
