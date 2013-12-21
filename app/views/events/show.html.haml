@@ -3,23 +3,19 @@
   #event_banner_topheavy
     %ul
       %li.text
-        %i.fa.fa-fw.fa-lg.fa-bar-chart-o
+        %time#event_banner_date.date_box
+          %span.day= 26
+          %span.month Dec
+      %li.text.tip-bottom{data: {tooltip: true}, title: '39,212 views'}
+        %i.fa.fa-fw.fa-lg.fa-eye
         %b 39.2k
-        VIEWS
-      %li.text
+      %li.text.tip-bottom{data: {tooltip: true}, title: 'Trending NOW'}
         %i.fa.fa-fw.fa-lg.fa-bar-chart-o
-        %b 39.2k
-        VIEWS
-      %li.text
-        %i.fa.fa-fw.fa-lg.fa-bar-chart-o
-        %b 39.2k
-        VIEWS
-      %li.text
-        %i.fa.fa-fw.fa-lg.fa-bar-chart-o
-        %b 39.2k
-        VIEWS
+        %b NOW
+      %li.text.tip-bottom{data: {tooltip: true}, title: '10,211 attendees'}
+        %i.fa.fa-fw.fa-lg.fa-group
+        %b 10.2k
       %li.social
-        %span SHARE
         %ul.button-group
           %li
             %a.facebook.button.tiny
@@ -33,8 +29,17 @@
           %li
             %a.gplus.button.tiny
               %i.icon.fa-lg
-    %time#event_banner_date.date_box
-      %span.day= 26
-      %span.month Dec
 
   #event_banner_content
+    %h2= @event.name
+    #event_banner_actions
+      %ul.button-group.round
+        %li
+          %a.button{href: '#'}
+            %i.fa.fa-fw.fa-lg.fa-map-marker
+        %li
+          %a.button{href: '#'}
+            %i.fa.fa-fw.fa-lg.fa-shopping-cart
+        %li
+          %a.button{href: '#'}
+            %i.fa.fa-fw.fa-lg.fa-group
