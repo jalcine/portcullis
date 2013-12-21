@@ -28,7 +28,7 @@ group :ui do
     watch(%r{^config/settings/.+\.yml$})
   end 
 
-  guard :livereload, apply_css_live: true, grace_period: 0.3, override_url: true do
+  guard :livereload, apply_css_live: true, grace_period: 0.3, override_url: false do
     watch('config/routes.rb')
     watch(%r{app/views/.+\.haml$})
     watch(%r{app/helpers/.+\.rb})
@@ -39,7 +39,7 @@ group :ui do
 end
 
 group :test do
-  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 60, retry_delay: 2 do
+  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 30, retry_delay: 2 do
     watch('Gemfile.lock')
     watch('config/unicorn/test.rb')
     watch('config/application.rb')
@@ -57,7 +57,7 @@ group :test do
     watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee)$})
   end
 
-  guard :rspec, all_on_pass: false, focus_on_failed: true, keep_failed: true, all_on_start: false, cmd: 'bundle exec rspec --drb' do
+  guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :none do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }

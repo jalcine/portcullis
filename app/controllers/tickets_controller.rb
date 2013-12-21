@@ -50,7 +50,6 @@ class TicketsController < ApplicationController
         }
         format.json {
           render action: :show,
-          location: event_tickets_url(@event, @ticket),
           status: 200 
         }
         format.js { 

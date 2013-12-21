@@ -4,12 +4,11 @@
     %meta{charset: 'utf-8'}
     %title= content_for?(:title) ? yield(:title) : 'Vettio'
     = csrf_meta_tags
+    = stylesheet_link_tag :application
     %link{rel: 'shortcut icon', href: asset_url('favicon.png')}/
     = render 'components/seo'
     = render 'components/mobile'
     = render 'components/ios'
-    = stylesheet_link_tag :application
-    = javascript_include_tag asset_path('vendor/modernizr') 
   %body{class: page_classes(params)}
     = render 'components/navigation' if navigation_visible?
     = render 'components/header' if header_visible?

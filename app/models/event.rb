@@ -1,7 +1,9 @@
 class Event < ActiveRecord::Base
-  FEE_SPLIT   = 0x0100
-  FEE_TAKE_ON = 0x0200
-  FEE_PASS_ON = 0x0300
+  unless defined?(FEE_SPLIT)
+    FEE_SPLIT   = 0x0100
+    FEE_TAKE_ON = 0x0200
+    FEE_PASS_ON = 0x0300
+  end
 
   # Relations
   belongs_to :owner, class_name: User, foreign_key: :user_id

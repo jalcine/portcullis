@@ -2,14 +2,23 @@
 source 'https://rubygems.org'
 ruby '2.0.0'
 
+# {{{ Core Jazz
+
+# We use Rails 4. We bout that life.
 gem 'rails', '4.0.0'
+
+# PostgreSQL. All day.
 gem 'pg', '0.17.0'
+
+# Unicode normalization in Ruby/jRuby
 gem 'unf', '~> 0.1.3'
+
+# Searching support via ElasticSearch.
 gem 'tire'
-#gem 'elasticsearch'
+
+# {{{ Frontend
 gem 'compass-rails', '~> 1.1.2'
 gem 'sass-rails', '4.0.0'
-gem 'uglifier', '2.3.0'
 gem 'jquery-rails-cdn', '~> 1.0.1'
 gem 'underscore-rails', '~> 1.5.2'
 gem 'backbone-on-rails', '~> 1.1.0.0'
@@ -17,8 +26,11 @@ gem 'coffee-rails', '4.0.0'
 gem 'foundation-rails', '~> 5.0.2'
 gem 'haml', '4.0.3'
 gem 'haml-rails', '~> 0.4'
+# }}}
+
 gem 'jbuilder', '~> 1.5.2'
 gem 'yajl-ruby', '~> 1.1.0'
+gem 'uglifier', '2.3.0'
 gem 'geocoder', '~> 1.1.0'
 gem 'browser', '0.2.1' , require: false
 gem 'devise', '~> 3.0.0rc'

@@ -28,31 +28,20 @@ body.events {
       background-image: url(http://placekitten.com/g/1600/1000);
       background-position: center center;
 
-      &:hover  {
-        > #event_date, #event_title, #event_actions {
-          background-color: $event-header-bg;
-        }
-
-        > #event_date {
-          border-top-color: $event-header-time-bg;
-        }
-      }
-
       > #event_date, #event_title, #event_actions {
-        background: rgba($event-header-bg, 0.9);
-        text-align: center;
+        background: $event-header-bg;
         height: $event-header-height;
         line-height: $event-header-height;
       }
 
       > #event_date {
-        @include transition(($event-header-speed * 1.5) border-top-color, ($event-header-speed * 1.5) background-color);
         @include grid-column($columns: 2, $collapse: true);
-        border-top: $event-header-height solid rgba($event-header-time-bg, 0.9);
+        border-top: $event-header-height solid $event-header-time-bg;
         border-right: $event-header-height solid transparent;
         border-left: none;
         border-bottom: none;
         color: $event-header-time-fg;
+        text-align: center;
 
         @media #{large-up} {  & {
             min-width: rem-calc(210px);
@@ -105,6 +94,7 @@ body.events {
 
         > .block {
           padding: 0em rem-calc(16px);
+          height: $event-header-height;
           display: inline-block;
 
           &.social {

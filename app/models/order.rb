@@ -1,10 +1,12 @@
 class Order < ActiveRecord::Base
-  ORDER_PAYMENT_INITAITED = 0x010
-  ORDER_PAYMENT_REFUSED   = 0x020
-  ORDER_PAYMENT_PENDING   = 0x030
-  ORDER_PAYMENT_ACCEPTED  = 0x040
-  ORDER_CANCELED          = 0x800
-  ORDER_COMPLETED         = 0x900
+  unless defined?(ORDER_CANCELED)
+    ORDER_PAYMENT_INITAITED = 0x010
+    ORDER_PAYMENT_REFUSED   = 0x020
+    ORDER_PAYMENT_PENDING   = 0x030
+    ORDER_PAYMENT_ACCEPTED  = 0x040
+    ORDER_CANCELED          = 0x800
+    ORDER_COMPLETED         = 0x900
+  end
 
   belongs_to :ticket
   belongs_to :user

@@ -1,6 +1,9 @@
 ENV['RAILS_ENV'] = 'test'
 ENV['NEWRELIC_ENABLE'] = 'false'
 
+require 'rubygems'
+Bundler.require(:test)
+
 def prefork_some_jazz
   require File.expand_path('../../config/environment', __FILE__)
   Rails.logger.debug 'Test environment loaded.'
@@ -20,10 +23,16 @@ def pre_run_some_jazz
   Dir[Rails.root.join('spec/support/run/**/*.rb')].each { |f| require f }
 end
 
-require 'rubygems'
-Bundler.require(:default, :test)
+def run_locally
+  puts "[I #{DateTime.now.to_s}] Coverage will be run."
+  require 'simplecov'
+  SimpleCov.start 'rails'
+  prefork_some_jazz
+  pre_run_some_jazz
+  puts "[I #{DateTime.now.to_s}] Preconfiguration for isolated test complete." 
+end
 
-if ENV['DRB']
+def run_with_spork
   require 'spork'
   Spork.prefork do
     prefork_some_jazz
@@ -32,11 +41,7 @@ if ENV['DRB']
   Spork.each_run do
     pre_run_some_jazz
   end
-else
-  puts "[I #{DateTime.now.to_s}] Coverage will be run."
-  require 'simplecov'
-  SimpleCov.start 'rails'
-  prefork_some_jazz
-  pre_run_some_jazz
-  puts "[I #{DateTime.now.to_s}] Preconfiguration for isolated test complete." 
 end
+
+run_with_spork if ENV['DRB']
+run_locally unless ENV['DRB']

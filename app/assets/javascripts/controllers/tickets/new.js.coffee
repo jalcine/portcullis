@@ -7,11 +7,6 @@ Portcullis.Tickets.New =
     self.bindSubmission()
 
   injectNewEntry: (jsonData) ->
-    modal = $('#modal_add_ticket')
-    modal.foundation()
-    modal.foundation 'reveal'
-    modal.foundation 'reveal', 'close'
-    # TODO: Render new ticket in list.
 
   bindSubmission: ->
     $('form#new_ticket').on 'ajax:before', ->
@@ -24,7 +19,7 @@ Portcullis.Tickets.New =
       # TODO: Update sales window end time.
 
     $('form#new_ticket').on 'ajax:complete', (event, data, status, xhr) =>
-      console.log arguments
+      $('#modal_add_ticket').foundation('reveal', 'close')
       self.injectNewEntry data
 
   bindPricingType: ->

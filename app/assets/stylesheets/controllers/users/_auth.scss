@@ -1,7 +1,7 @@
 @import 'foundation/components/buttons';
 
 @mixin sign-in-button($bg) {
-  @include button(emCalc(18), $bg, false, true, false, false);
+  @include button($padding: emCalc(18), $bg: $bg, $radius: false, $full-width: true, $disabled: false, $is-input: false);
   @include inset-shadow(true);
   @include single-transition;
   max-width: 350px;

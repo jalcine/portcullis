@@ -48,14 +48,17 @@ Portcullis.Events.New =
         })
         self.fillInAddressTool()
         self.leaflet.handle.on 'locationfound', (le) =>
+          console.log 'Searching for more info.'
           self.discover.fromCoords le.latitude, le.longitude, =>
             self.fillInAddressTool()
         self.leaflet.controls.locate = L.control.locate({
           position: 'bottomright'
+          drawCircle: false
+          setView: false
           locateOptions:
-            maxZoom: 20
-            setView: true
-            animate: true
+            maxZoom: 18 
+            setView: false 
+            animate: false 
             reset: false
         }).addTo self.leaflet.handle
   search:
@@ -77,15 +80,6 @@ Portcullis.Events.New =
         return if !result?
         self.leaflet.address.box.data 'geodata', result
         self.leaflet.address.box.val "#{result['address']['road']}"
-
-    fromAddressBar: =>
-      box = self.leaflet.address.box
-      list = self.leaflet.address.list
-      self.discover.fromQuery box.val(), (results) ->
-        box.foundation 'dropdown', 'open'
-        # TODO: Open/present droplist.
-        # TODO: Populate list of options.
-        # TODO: Bind each option to be filler.
   setMarker: (lat, lng = nil) ->
     if typeof lat is Array and !lng?
       _z = lat
@@ -96,6 +90,7 @@ Portcullis.Events.New =
     data = self.leaflet.address.box.data 'geodata'
     address = self.leaflet.address.tool
     if data?
+      self.leaflet.handle.setView { lat: data['lat'], lon: data['lon'] }
       address.address.val "#{data['address']['road'] || data['address']['pedestrian']}"
       address.address.val "#{data['address']['house_number']} " + self.leaflet.address.tool.line.val() if data['type'] == 'house'
       address.city.val data['address']['county'] || data['address']['state_district'] || data['address']['city']
@@ -105,22 +100,22 @@ Portcullis.Events.New =
       self.leaflet.address.box.val "#{address.title.val()}, #{address.address.val()}, #{address.city.val()}, #{address.state.val()} #{address.zipcode.val()}"
   discover:
     fromCoords: (lat, lng, callback = null) ->
-      provider = new L.GeoSearch.Provider.OpenStreetMap()
-      provider.options.zoom = 18
-      provider.options.addressdetails = 1
-      provider.options.countrycodes = ['us']
-      provider.options.limit = 1
-      provider.options.polygon = 1
-      url = provider.GetReverseServiceUrl lat, lng
-      self.discover.invokeQuery url, false, callback
+      p = new L.GeoSearch.Provider.OpenStreetMap()
+      p.options.zoom = 18
+      p.options.addressdetails = 1
+      p.options.countrycodes = ['us']
+      p.options.limit = 1
+      p.options.polygon = 1
+      url = p.GetReverseServiceUrl lat, lng
+      self.discover.invokeQuery url, true, callback
     fromQuery: (query, callback) ->
-      provider = new L.GeoSearch.Provider.OpenStreetMap()
-      provider.options.zoom = 18
-      provider.options.addressdetails = 1
-      provider.options.countrycodes = ['us']
-      provider.options.limit = 1
-      provider.options.polygon = 1
-      url = provider.GetServiceUrl query, true
+      p = new L.GeoSearch.Provider.OpenStreetMap()
+      p.options.zoom = 18
+      p.options.addressdetails = 1
+      p.options.countrycodes = ['us']
+      p.options.limit = 1
+      p.options.polygon = 1
+      url = p.GetServiceUrl query, true
       self.discover.invokeQuery url, true, callback
     invokeQuery: (url, moveToPlace = false, callback = null) ->
       self.search.enableSpinner()
@@ -128,17 +123,23 @@ Portcullis.Events.New =
         self.leaflet.address.box.removeData 'geodata'
         result = d
         result = d[0] if d.length?
-        callback.call(self, d) if callback?
         self.search.disableSpinner()
+        self.discover.presentDiscovery result
+        self.leaflet.handle.panTo [result.lat, result.lon], { animate: true } if moveToPlace is true
+        callback.call(self, d) if callback?
+    presentDiscovery: (result) ->
         if result?
-          self.leaflet.handle.panTo [result.lat, result.lon], { animate: true } if moveToPlace is true
+          console.log result
           $('#event_longitude').val result.lat
           $('#event_latitude').val result.lon
           bounds = L.latLngBounds result['polygonpoints']
           if bounds?
             self.leaflet.handle.removeLayer(self.leaflet.layers.search) if self.leaflet.layers.search?
+            console.log bounds
             self.leaflet.layers.search = L.rectangle bounds, {color: '#ff7800', weight: 1}
             self.leaflet.layers.search.addTo self.leaflet.handle
+          else
+            self.leaflet.handle.setZoom 19, animate: true
   form:
     pumpUpHiddenValues: ->
       dateStartElem = $('#event_date_start')
@@ -163,12 +164,6 @@ Portcullis.Events.New =
   bindLocationTools: ->
     self.leaflet.map.render()
     # Bind up the fields.
-
-    $('input#event_address').keyup =>
-      clearTimeout self.search.timeout
-      self.search.timeout = setTimeout( () =>
-        self.search.fromAddressBar()
-      , 250)
 
     $('#event_address_tool_fill').click (e) =>
       e.preventDefault()

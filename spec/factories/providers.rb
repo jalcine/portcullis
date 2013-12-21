@@ -1,6 +1,6 @@
 FactoryGirl.define do
   factory :provider do
-    name   'provider'
+    name   'developer'
     user   { FactoryGirl.create :user }
     uid    { Random.rand(1e8) }
     token  { Digest::SHA1.hexdigest(Random.rand(1e7).to_s + DateTime.now.to_s) }
