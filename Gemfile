@@ -25,6 +25,7 @@ gem 'backbone-on-rails', '~> 1.1.0.0'
 gem 'coffee-rails', '4.0.0'
 gem 'foundation-rails', '~> 5.0.2'
 gem 'haml', '4.0.3'
+gem 'font-awesome-sass', '~> 4.0.1'
 gem 'haml-rails', '~> 0.4'
 # }}}
 
@@ -41,7 +42,6 @@ gem 'omniauth-linkedin-oauth2', '~> 0.1.4'
 gem 'friendly_id', '~> 5.0.1'
 gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'newrelic_rpm', '~> 3.6.8'
-gem 'font-awesome-sass', '~> 4.0.1'
 gem 'kaminari', '~> 0.14.1'
 gem 'nokogiri', '~> 1.6.0'
 gem 'rails_12factor', '~> 0.0.2', group: [:production]
@@ -59,6 +59,7 @@ gem 'rails_config'
 gem 'sdoc', require: false, group: [:doc]
 gem 'rack-contrib', git: 'git://github.com/jalcine/rack-contrib.git'
 gem 'linkedin', '~> 0.4.4'
+gem 'rails-timeago', '~> 2.0'
 
 group :development do
   gem 'erb2haml', '~> 0.1.5'

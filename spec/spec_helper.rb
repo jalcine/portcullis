@@ -1,9 +1,6 @@
 ENV['RAILS_ENV'] = 'test'
 ENV['NEWRELIC_ENABLE'] = 'false'
 
-require 'rubygems'
-Bundler.require(:test)
-
 def prefork_some_jazz
   require File.expand_path('../../config/environment', __FILE__)
   Rails.logger.debug 'Test environment loaded.'

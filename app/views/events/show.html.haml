@@ -1,40 +1,31 @@
 - page_title @event.name
 %header.sticky#event_header{role: :content, data: { expanded: :expanded }}
-  #event_date
-    %time{datetime: @event.date_start.to_i}= @event.date_start.strftime("%^b %-d")
-  #event_title= @event.name
-  #event_actions
-    %a#event_rsvp_button{href: '#event_rsvp'}
-      %i.fa.fa-fw.fa-lg.fa-bullseye
-      RSVP
-      %span{data: {dropdown: :event_rsvp_menu}}
-    %ul#event_rsvp_menu.f-dropdown{data: {dropdown: {content: ''}}}
+  .packer
+    #event_date
+      %time{datetime: @event.date_start.to_i}= @event.date_start.strftime("%^b %-d")
+    #event_title= @event.name
+    #event_action
       - if can? :edit, @event
-        %li
-          = link_to edit_event_path(@event) do
-            %i.fa.fa-fw.fa-pencil-square
-            Edit Event
-      - if can? :destroy, @event
-        %li
-          = link_to destroy_event_path(@event) do
-            %i.fa.fa-fw.fa-trash-o
-            Delete Event
+        = link_to edit_event_path(@event), class: 'button' do
+          %i.fa.fa-fw.fa-pencil-square
+          Edit Event
+          Delete Event
 %section#event_content
   .banner{data: {event: true}}
     .block.social
       %ul.button-group
         %li
           %a.button.facebook{href: '#'}
-            %i.icon.fa-fw.fa-2x
-            Share
+            %i.icon.fa-fw
+            %span.hide-for-small Share
         %li
           %a.button.twitter{href: '#'}
-            %i.icon.fa-fw.fa-2x
-            Share
+            %i.icon.fa-fw
+            %span.hide-for-small Share
         %li
           %a.button.linkedin{href: '#'}
-            %i.icon.fa-fw.fa-2x
-            Share
+            %i.icon.fa-fw
+            %span.hide-for-small Share
     .block
       %i.fa.fa-fw.fa-group
       %b 3.5K
@@ -47,4 +38,3 @@
       %b 70K
       VIEWS
 %section#event_rsvp
-  .ticket

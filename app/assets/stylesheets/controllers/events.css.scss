@@ -15,75 +15,88 @@ $event-header-time-bg: #222;
 $event-header-time-fg: #ddd;
 $event-header-height:  rem-calc(60px);
 $event-header-speed:   0.75s;
+$event-content-height: $event-header-height * 2/3;
 
 body.events {
   section.main { 
     @include grid-row;
-    padding-top: rem-calc(32px);
+    padding: rem-calc(32px) 0rem;
   }
 
   &.show {
+    section.main {
+      padding: 0em;
+      max-width: none;
+    }
     header#event_header {
       @include grid-row;
-      position: sticky;
       height: $event-header-height * 6;
       background-color: $event-header-bg;
       background-image: url(http://placekitten.com/g/1600/1000);
       background-position: center center;
+      max-width: none;
 
-      > #event_date, #event_title, #event_actions {
-        background: $event-header-bg;
+      > .packer {
+        position: relative;
+        top: $event-header-height * 5;
+        background-color: $event-header-bg;
         height: $event-header-height;
-        line-height: $event-header-height;
-      }
-
-      > #event_date {
-        @include grid-column($columns: 2, $collapse: true);
-        border-top: $event-header-height solid $event-header-time-bg;
-        border-right: $event-header-height solid transparent;
-        border-left: none;
-        border-bottom: none;
-        color: $event-header-time-fg;
-        text-align: center;
-
-        @media #{large-up} {  & {
-            min-width: rem-calc(210px);
-        } }
-
-        > time:first-child {
-          display: inline-block;
-          position: relative;
-          top: $event-header-height * -1;
+        max-height: $event-header-height;
+        > #event_date, #event_title, #event_actions {
+          background: $event-header-bg;
+          height: $event-header-height;
           line-height: $event-header-height;
-          font-weight: 900;
-          overflow: hidden;
-          width: 100%;
         }
-      }
 
-      > #event_title {
-        @include grid-column($columns: 7, $collapse: true);
-        color: #fff;
-        font-size: 175%;
-        text-align: left;
-        font-family: 'Poiret One';
-        font-weight: 600;
-      }
+        > #event_date {
+          @include grid-column($columns: 2, $collapse: true);
+          border-top: $event-header-height solid $event-header-time-bg;
+          border-right: $event-header-height/2 solid transparent;
+          border-left: none;
+          border-bottom: none;
+          color: $event-header-time-fg;
+          text-align: center;
+          max-width: $event-header-height * 2;
 
-      > #event_actions {
-        @include grid-column($columns: 3, $collapse: false, $last-column: false);
+          @media #{large-up} {  & {
+              min-width: $event-header-height * 2;
+          } }
 
-        > a#event_rsvp_button {
-          @include inset-shadow();
-          @include single-transition();
-          @include block-glowing-effect();
-          @include button($padding: rem-calc(5px), $bg: lighten($success-color, 10%), $full-width: false, $radius: true);
-          @include split-button();
-          margin-top: $event-header-height * 0.1;
-          height: $event-header-height * 0.8;
-          line-height: $event-header-height * 0.8;
-          padding-top: 0rem;
-          float: right;
+          > time:first-child {
+            display: inline-block;
+            position: relative;
+            top: $event-header-height * -1;
+            line-height: $event-header-height;
+            font-weight: 900;
+            overflow: hidden;
+            width: 100%;
+          }
+        }
+
+        > #event_title {
+          @include grid-column($columns: 7, $collapse: true);
+          color: #fff;
+          font-size: 175%;
+          text-align: left;
+          font-family: 'Poiret One';
+          font-weight: 600;
+        }
+
+        > #event_actions {
+          @include grid-column($columns: 3, $collapse: false, $last-column: false);
+
+          > a#event_rsvp_button {
+            @include inset-shadow();
+            @include single-transition();
+            @include block-glowing-effect();
+            @include button($padding: rem-calc(5px), $bg: darken($success-color, 10%), $full-width: true, $radius: true);
+            @include split-button();
+            margin-top: $event-header-height * 0.1;
+            height: $event-header-height * 0.8;
+            line-height: $event-header-height * 0.8;
+            padding-top: 0rem;
+            float: right;
+          }
         }
       }
     }
@@ -92,16 +105,17 @@ body.events {
       @include grid-row;
       background: $event-header-time-bg;
       color: $event-header-time-fg;
+      max-width: none;
 
       > .banner[data-event] {
         @include grid-column($columns: 12, $center: true, $collapse: true);
-        height: $event-header-height;
-        line-height: $event-header-height;
+        height: $event-content-height;
+        line-height: $event-content-height;
 
         > .block {
           padding: 0em rem-calc(4px);
-          height: $event-header-height;
-          line-height: $event-header-height;
+          height: $event-content-height;
+          line-height: $event-content-height;
           display: inline-block;
           font-size: 90%;
 
@@ -115,8 +129,8 @@ body.events {
               a.button { 
                 padding-left: rem-calc(10px);
                 padding-right: rem-calc(10px);
-                height: $event-header-height;
-                line-height: $event-header-height;
+                height: $event-content-height;
+                line-height: $event-content-height;
                 padding-top: 0rem;
                 padding-bottom: 0rem;
                 margin-bottom: 0rem;
@@ -130,15 +144,6 @@ body.events {
 
     section#event_rsvp {
       @include grid-row;
-    }
-
-    &[data-full-width] {
-      section.main { padding-top: 0em; }
-      header#event_header { 
-        max-width: initial;
-        width: 90%;
-        margin: 0em 5%;
-      }
     }
   }
 
