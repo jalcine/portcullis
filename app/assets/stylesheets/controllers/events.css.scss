@@ -12,8 +12,6 @@
 
 $event-banner-bg:      #222;
 $event-banner-fg:      #fff;
-$event-banner-time-bg: $primary-color;
-$event-banner-time-fg: #ddd;
 $event-banner-height:  rem-calc(60px);
 
 body.events {
@@ -22,8 +20,58 @@ body.events {
     padding: rem-calc(32px) 0rem;
   }
 
-  &.new, &.create, &.edit, &.update {
+  &.show {
+    header#event_banner {
+      @include grid-row;
 
+      > #event_banner_topheavy {
+        @include grid-column($columns: 12, $collapse: false, $float: false);
+        background: $event-banner-bg;
+        color: $event-banner-fg;
+        height: $event-banner-height;
+
+        > #event_banner_date {
+          float: left;
+        }
+
+        > ul {
+          list-style: none;
+          display: inline-block;
+          margin: 0em; padding: 0em;
+
+          > li {
+            display: inline-block;
+
+            &.text {
+              line-height: $event-banner-height;
+              height: $event-banner-height;
+              text-align: center;
+            }
+
+            &.social {
+              span, a.button {
+                line-height: $event-banner-height;
+                height: $event-banner-height;
+              }
+
+              span { float: left; display: inline-block; }
+              ul.button-group { float: right; display: inline-block; }
+
+              a.button {
+                padding: rem-calc(6px) rem-calc(12px) rem-calc(9px) rem-calc(12px);
+                margin: 0em;
+              }
+            }
+          }
+        }
+      }
+      > #event_banner_content {
+        @include grid-column($columns: 12, $collapse: false, $float: false);
+      }
+    }
+  }
+
+  &.new, &.create, &.edit, &.update {
     [data-magellan-expedition=fixed] {
       text-align: center;
       &.fixed { left: 0px; }
@@ -44,5 +92,38 @@ body.events {
       min-width: rem-calc(300px);
       min-height: rem-calc(170px);
     }
+  }
+}
+
+$timebox-day-bg: #fff;
+$timebox-day-fg: #333;
+$timebox-month-bg: #cc333f;
+$timebox-month-fg: #fff;
+$timebox-width: rem-calc(96px);
+
+time.date_box {
+  width: $timebox-width;
+  max-width: $timebox-width;
+  text-align: center;
+
+  span.day, span.month { 
+    display: block;
+    width: $timebox-width;
+    border: 1px solid ligten($timebox-day-fg, 50%);
+  }
+
+  span.day {
+    font-size: 350%;
+    background-color: $timebox-day-bg;
+    color: $timebox-day-fg;
+    border-bottom: none;
+  }
+
+  span.month { 
+    background-color: $timebox-month-bg;
+    color: $timebox-month-fg;
+    padding: ($timebox-width / 10) 0rem;
+    border-bottom-right-radius: $timebox-width / 10;
+    border-top: none;
   }
 }
