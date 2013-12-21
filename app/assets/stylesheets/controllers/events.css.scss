@@ -10,140 +10,16 @@
 @import 'foundation/components/buttons';
 @import 'foundation/components/split-buttons';
 
-$event-header-bg:      $primary-color;
-$event-header-time-bg: #222;
-$event-header-time-fg: #ddd;
-$event-header-height:  rem-calc(60px);
-$event-header-speed:   0.75s;
-$event-content-height: $event-header-height * 2/3;
+$event-banner-bg:      #222;
+$event-banner-fg:      #fff;
+$event-banner-time-bg: $primary-color;
+$event-banner-time-fg: #ddd;
+$event-banner-height:  rem-calc(60px);
 
 body.events {
   section.main { 
     @include grid-row;
     padding: rem-calc(32px) 0rem;
-  }
-
-  &.show {
-    section.main {
-      padding: 0em;
-      max-width: none;
-    }
-    header#event_header {
-      height: $event-header-height * 6;
-      background-color: $event-header-bg;
-      background-image: url(http://placekitten.com/g/1600/1000);
-      background-position: center center;
-      max-width: none;
-      width: 100%;
-
-      > .packer {
-        position: relative;
-        top: $event-header-height * 5;
-        background-color: $event-header-bg;
-        height: $event-header-height;
-        max-height: $event-header-height;
-        > #event_date, #event_title, #event_actions {
-          background: $event-header-bg;
-          height: $event-header-height;
-          line-height: $event-header-height;
-        }
-
-        > #event_date {
-          border-top: $event-header-height solid $event-header-time-bg;
-          border-right: $event-header-height/2 solid transparent;
-          border-left: none;
-          border-bottom: none;
-          color: $event-header-time-fg;
-          text-align: center;
-          max-width: $event-header-height * 2;
-
-          @media #{large-up} {  & {
-              min-width: $event-header-height * 2;
-          } }
-
-          > time:first-child {
-            display: inline-block;
-            position: relative;
-            top: $event-header-height * -1;
-            line-height: $event-header-height;
-            font-weight: 900;
-            overflow: hidden;
-            width: 100%;
-          }
-        }
-
-        > #event_title {
-          color: #fff;
-          font-size: 175%;
-          text-align: left;
-          font-family: 'Poiret One';
-          font-weight: 600;
-          word-break: keep-all;
-          word-spacing: 0.1rem;
-          overflow: hidden;
-        }
-
-        > #event_actions {
-          > a#event_rsvp_button {
-            @include inset-shadow();
-            @include single-transition();
-            @include block-glowing-effect();
-            @include button($padding: rem-calc(5px), $bg: darken($success-color, 10%), $full-width: true, $radius: true);
-            @include split-button();
-            margin-top: $event-header-height * 0.1;
-            height: $event-header-height * 0.8;
-            line-height: $event-header-height * 0.8;
-            padding-top: 0rem;
-            float: right;
-          }
-        }
-      }
-    }
-
-    section#event_content {
-      @include grid-row;
-      background: $event-header-time-bg;
-      color: $event-header-time-fg;
-      max-width: none;
-
-      > .banner[data-event] {
-        @include grid-column($columns: 12, $center: true, $collapse: true);
-        height: $event-content-height;
-        line-height: $event-content-height;
-
-        > .block {
-          padding: 0em rem-calc(4px);
-          height: $event-content-height;
-          line-height: $event-content-height;
-          display: inline-block;
-          font-size: 90%;
-
-          &:nth-child(2) { padding-left: rem-calc(12px); }
-
-          &.social {
-            font-size: 125%;
-            padding-right: 0rem;
-            @extend .pull-right;
-            > ul.button-group {
-              a.button { 
-                padding-left: rem-calc(10px);
-                padding-right: rem-calc(10px);
-                height: $event-content-height;
-                line-height: $event-content-height;
-                padding-top: 0rem;
-                padding-bottom: 0rem;
-                margin-bottom: 0rem;
-                margin-top: 0rem;
-              }
-            }
-          }
-        }
-      }
-    }
-
-    section#event_rsvp {
-      @include grid-row;
-    }
   }
 
   &.new, &.create, &.edit, &.update {
