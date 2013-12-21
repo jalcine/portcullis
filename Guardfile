@@ -39,7 +39,7 @@ group :ui do
 end
 
 group :test do
-  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 30, retry_delay: 2 do
+  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 30, retry_delay: 2, bundler: true, notify_on_start: true, rspec: true do
     watch('Gemfile.lock')
     watch('config/unicorn/test.rb')
     watch('config/application.rb')
@@ -57,7 +57,7 @@ group :test do
     watch(%r{^spec/javascripts/.+_spec(\.js|\.js\.coffee)$})
   end
 
-  guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :none do
+  guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :none, cmd: 'bundle exec rspec --drb' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }
