@@ -29,12 +29,12 @@ body.events {
       max-width: none;
     }
     header#event_header {
-      @include grid-row;
       height: $event-header-height * 6;
       background-color: $event-header-bg;
       background-image: url(http://placekitten.com/g/1600/1000);
       background-position: center center;
       max-width: none;
+      width: 100%;
 
       > .packer {
         position: relative;
@@ -49,7 +49,6 @@ body.events {
         }
 
         > #event_date {
-          @include grid-column($columns: 2, $collapse: true);
           border-top: $event-header-height solid $event-header-time-bg;
           border-right: $event-header-height/2 solid transparent;
           border-left: none;
@@ -74,17 +73,17 @@ body.events {
         }
 
         > #event_title {
-          @include grid-column($columns: 7, $collapse: true);
           color: #fff;
           font-size: 175%;
           text-align: left;
           font-family: 'Poiret One';
           font-weight: 600;
+          word-break: keep-all;
+          word-spacing: 0.1rem;
+          overflow: hidden;
         }
 
         > #event_actions {
-          @include grid-column($columns: 3, $collapse: false, $last-column: false);
-
           > a#event_rsvp_button {
             @include inset-shadow();
             @include single-transition();
