@@ -1,0 +1,10 @@
+%li.ticket{data: {ticket: ticket.id}}
+  .numerical-box
+    %b.price.fit-text= number_to_currency(ticket.price, precision: 0)
+    = timeago_tag ticket.date_start
+  .contextual-box
+    %h2= ticket.name
+    %div= ticket.description
+  .actions-box
+    %a.fit-text{href: '#'}
+      Buy

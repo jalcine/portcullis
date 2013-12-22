@@ -1,0 +1,14 @@
+/***
+ * The underlying magic of our buttons are based on Foundation 5's buttons.
+ * But we'd want to add some tricks to buttons. In the future, I plan to
+ * extract this into a drop-in Gist for public use.
+ */
+
+// Call upon the Yeti.
+@import 'foundation/components/buttons';
+
+
+@mixin prt-button($bg: $primary-color, $padding: $padding, $bordering: true){
+  // Apply the foundation.
+  @include button($bg: $bg, $padding: $padding);
+}

@@ -1,0 +1,120 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01//EN" "http://www.w3.org/TR/html4/strict.dtd">
+<html>
+<head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+<title>~/Development/Work/Companies/Vettio/Portcullis/spec/controllers/events_controller_spec.rb.html</title>
+<meta name="Generator" content="Vim/7.4">
+<meta name="plugin-version" content="vim7.4_v1">
+<meta name="syntax" content="ruby">
+<meta name="settings" content="number_lines,use_css,pre_wrap,no_foldcolumn,expand_tabs,line_ids,prevent_copy=">
+<meta name="colorscheme" content="Tomorrow-Night">
+<style type="text/css">
+<!--
+pre { white-space: pre-wrap; font-family: monospace; color: #bcbcbc; background-color: #262626; }
+body { font-family: monospace; color: #bcbcbc; background-color: #262626; }
+* { font-size: 1em; }
+.Function { color: #87afaf; }
+.rubyInclude { color: #87afaf; }
+.rubyCurlyBlock { color: #d7875f; }
+.rubyStringDelimiter { color: #afaf5f; }
+.rubyControl { color: #af87af; }
+.String { color: #afaf5f; }
+.Type { color: #87afaf; }
+.Folded { color: #8a8a8a; background-color: #262626; padding-bottom: 1px; }
+.rubySymbol { color: #afaf5f; }
+.Conceal { color: #4e4e4e; }
+.LineNr { color: #4e4e4e; }
+.Constant { color: #d7875f; }
+-->
+</style>
+
+<script type='text/javascript'>
+<!--
+
+/* function to open any folds containing a jumped-to line before jumping to it */
+function JumpToLine()
+{
+  var lineNum;
+  lineNum = window.location.hash;
+  lineNum = lineNum.substr(1); /* strip off '#' */
+
+  if (lineNum.indexOf('L') == -1) {
+    lineNum = 'L'+lineNum;
+  }
+  lineElem = document.getElementById(lineNum);
+  /* Always jump to new location even if the line was hidden inside a fold, or
+   * we corrected the raw number to a line ID.
+   */
+  if (lineElem) {
+    lineElem.scrollIntoView(true);
+  }
+  return true;
+}
+if ('onhashchange' in window) {
+  window.onhashchange = JumpToLine;
+}
+
+-->
+</script>
+</head>
+<body onload='JumpToLine();'>
+<pre id='vimCodeElement'>
+<span id="L1" class="LineNr"> 1 </span><span class="rubyInclude">require</span> <span class="rubyStringDelimiter">'</span><span class="String">spec_helper</span><span class="rubyStringDelimiter">'</span>
+<span id="L2" class="LineNr"> 2 </span>
+<span id="L3" class="LineNr"> 3 </span><span class="Function">describe</span> <span class="Type">EventsController</span> <span class="rubyControl">do</span>
+<span id="L4" class="LineNr"> 4 </span><span class="Conceal">│</span> <span class="Function">before</span>(<span class="rubySymbol">:each</span>) <span class="rubyControl">do</span>
+<span id="L5" class="LineNr"> 5 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> login_user
+<span id="L6" class="LineNr"> 6 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> controller.current_user.add_role <span class="rubySymbol">:host</span>
+<span id="L7" class="LineNr"> 7 </span><span class="Conceal">│</span> <span class="rubyControl">end</span>
+<span id="L8" class="LineNr"> 8 </span>
+<span id="L9" class="LineNr"> 9 </span><span class="Conceal">│</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">GET index</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>
+<span id="L10" class="Folded">10 </span><span class="Folded">+---  6 lines: it 'handles a bunch of events' do----------------------------------------------------------------------------------------</span>
+<span id="L16" class="LineNr">16 </span><span class="Conceal">│</span> <span class="rubyControl">end</span>
+<span id="L17" class="LineNr">17 </span>
+<span id="L18" class="LineNr">18 </span><span class="Conceal">│</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">POST create</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>
+<span id="L19" class="LineNr">19 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">persists a new event</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>
+<span id="L20" class="LineNr">20 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">before</span>(<span class="rubySymbol">:each</span>) {<span class="rubyCurlyBlock"> </span><span class="Function">post</span><span class="rubyCurlyBlock"> </span><span class="rubySymbol">:create</span><span class="rubyCurlyBlock">, </span><span class="rubySymbol">event</span><span class="rubyCurlyBlock">: attributes_for(</span><span class="rubySymbol">:event</span><span class="rubyCurlyBlock">) </span>}
+<span id="L21" class="LineNr">21 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">it</span> {<span class="rubyCurlyBlock"> </span><span class="Function">expect</span><span class="rubyCurlyBlock">(</span><span class="Function">assigns</span><span class="rubyCurlyBlock">(</span><span class="rubySymbol">:event</span><span class="rubyCurlyBlock">)).to be_a </span><span class="Type">Event</span><span class="rubyCurlyBlock"> </span>}
+<span id="L22" class="LineNr">22 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">it</span> {<span class="rubyCurlyBlock"> </span><span class="Function">expect</span><span class="rubyCurlyBlock">(</span><span class="Function">assigns</span><span class="rubyCurlyBlock">(</span><span class="rubySymbol">:event</span><span class="rubyCurlyBlock">)).to_not be_nil </span>}
+<span id="L23" class="LineNr">23 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">it</span> {<span class="rubyCurlyBlock"> </span><span class="Function">expect</span><span class="rubyCurlyBlock">(</span><span class="Function">assigns</span><span class="rubyCurlyBlock">(</span><span class="rubySymbol">:event</span><span class="rubyCurlyBlock">)).to_not be_a_new_record </span>}
+<span id="L24" class="LineNr">24 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">it</span> {<span class="rubyCurlyBlock"> </span><span class="Function">expect</span><span class="rubyCurlyBlock">(</span><span class="Function">assigns</span><span class="rubyCurlyBlock">(</span><span class="rubySymbol">:event</span><span class="rubyCurlyBlock">)).to be_persisted </span>}
+<span id="L25" class="LineNr">25 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="rubyControl">end</span>
+<span id="L26" class="LineNr">26 </span><span class="Conceal">│</span> <span class="rubyControl">end</span>
+<span id="L27" class="LineNr">27 </span>
+<span id="L28" class="LineNr">28 </span><span class="Conceal">│</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">GET new</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>
+<span id="L29" class="Folded">29 </span><span class="Folded">+--- 14 lines: it 'requires authentication' do------------------------------------------------------------------------------------------</span>
+<span id="L43" class="LineNr">43 </span><span class="Conceal">│</span> <span class="rubyControl">end</span>
+<span id="L44" class="LineNr">44 </span>
+<span id="L45" class="LineNr">45 </span><span class="Conceal">│</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">GET edit</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>
+<span id="L46" class="Folded">46 </span><span class="Folded">+--- 22 lines: describe 'user owns' do--------------------------------------------------------------------------------------------------</span>
+<span id="L68" class="LineNr">68 </span><span class="Conceal">│</span> <span class="rubyControl">end</span>
+<span id="L69" class="LineNr">69 </span>
+<span id="L70" class="LineNr">70 </span><span class="Conceal">│</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">GET show</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>
+<span id="L71" class="LineNr">71 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">normal behavior</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>
+<span id="L72" class="Folded">72 </span><span class="Folded">+----  5 lines: subject { create :event }-----------------------------------------------------------------------------------------------</span>
+<span id="L77" class="LineNr">77 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="rubyControl">end</span>
+<span id="L78" class="LineNr">78 </span>
+<span id="L79" class="LineNr">79 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">locks password-protected events</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>
+<span id="L80" class="LineNr">80 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">subject</span> {<span class="rubyCurlyBlock"> create </span><span class="rubySymbol">:event</span><span class="rubyCurlyBlock">, </span><span class="rubySymbol">:protected</span><span class="rubyCurlyBlock"> </span>}
+<span id="L81" class="LineNr">81 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">before</span>(<span class="rubySymbol">:each</span>) {<span class="rubyCurlyBlock"> </span><span class="Function">get</span><span class="rubyCurlyBlock"> </span><span class="rubySymbol">:show</span><span class="rubyCurlyBlock">, </span><span class="rubySymbol">id</span><span class="rubyCurlyBlock">: </span><span class="Function">subject</span><span class="rubyCurlyBlock">.id </span>}
+<span id="L82" class="LineNr">82 </span>
+<span id="L83" class="LineNr">83 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">it</span> {<span class="rubyCurlyBlock"> </span><span class="Function">expect</span><span class="rubyCurlyBlock">(</span><span class="Function">response</span><span class="rubyCurlyBlock">).to render_template </span><span class="rubyStringDelimiter">'</span><span class="String">events/_gate</span><span class="rubyStringDelimiter">'</span><span class="rubyCurlyBlock"> </span>}
+<span id="L84" class="LineNr">84 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">it</span> {<span class="rubyCurlyBlock"> </span><span class="Function">expect</span><span class="rubyCurlyBlock">(</span><span class="Function">response</span><span class="rubyCurlyBlock">.status).to eq(</span><span class="Constant">401</span><span class="rubyCurlyBlock">) </span>}
+<span id="L85" class="LineNr">85 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="rubyControl">end</span>
+<span id="L86" class="LineNr">86 </span>
+<span id="L87" class="LineNr">87 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">includes tickets</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>
+<span id="L88" class="LineNr">88 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">subject</span> {<span class="rubyCurlyBlock"> create </span><span class="rubySymbol">:event</span><span class="rubyCurlyBlock">, </span><span class="rubySymbol">:with_tickets</span><span class="rubyCurlyBlock"> </span>}
+<span id="L89" class="LineNr">89 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">before</span>(<span class="rubySymbol">:each</span>) {<span class="rubyCurlyBlock"> </span><span class="Function">get</span><span class="rubyCurlyBlock"> </span><span class="rubySymbol">:show</span><span class="rubyCurlyBlock">, </span><span class="rubySymbol">id</span><span class="rubyCurlyBlock">: </span><span class="Function">subject</span><span class="rubyCurlyBlock">.id </span>}
+<span id="L90" class="LineNr">90 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">it</span> {<span class="rubyCurlyBlock"> </span><span class="Function">expect</span><span class="rubyCurlyBlock">(</span><span class="Function">response</span><span class="rubyCurlyBlock">).to render_template </span><span class="rubyStringDelimiter">'</span><span class="String">tickets/_stub_list</span><span class="rubyStringDelimiter">'</span><span class="rubyCurlyBlock"> </span>}
+<span id="L91" class="LineNr">91 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="Conceal">┆</span> <span class="Function">it</span> {<span class="rubyCurlyBlock"> </span><span class="Function">expect</span><span class="rubyCurlyBlock">(</span><span class="Function">response</span><span class="rubyCurlyBlock">).to render_template </span><span class="rubyStringDelimiter">'</span><span class="String">tickets/_stub</span><span class="rubyStringDelimiter">'</span><span class="rubyCurlyBlock"> </span>}
+<span id="L92" class="LineNr">92 </span><span class="Conceal">│</span> <span class="Conceal">┆</span> <span class="rubyControl">end</span>
+<span id="L93" class="LineNr">93 </span><span class="Conceal">│</span> <span class="rubyControl">end</span>
+<span id="L94" class="LineNr">94 </span>
+<span id="L95" class="LineNr">95 </span><span class="Conceal">│</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">PATCH/PUT update</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>; <span class="rubyControl">end</span>
+<span id="L96" class="LineNr">96 </span>
+<span id="L97" class="LineNr">97 </span><span class="Conceal">│</span> <span class="Function">describe</span> <span class="rubyStringDelimiter">'</span><span class="String">DELETE destroy</span><span class="rubyStringDelimiter">'</span> <span class="rubyControl">do</span>; <span class="rubyControl">end</span>
+<span id="L98" class="LineNr">98 </span><span class="rubyControl">end</span>
+</pre>
+</body>
+</html>
+<!-- vim: set foldmethod=manual : -->
