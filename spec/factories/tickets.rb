@@ -20,5 +20,14 @@ FactoryGirl.define do
     trait :donation do
       price { Random.rand(150).to_i + 20 * -1 }
     end
+
+    trait :expired do
+      date_start { 5.days.ago }
+      date_end { 2.days.ago }
+    end
+
+    trait :available do
+      date_start { 2.days.ago }
+    end
   end
 end
