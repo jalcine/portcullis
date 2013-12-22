@@ -1,5 +1,5 @@
 namespace :test do
   task :ci do
-    puts 'Nothing so far.'
+    `bundle exec rspec`
   end
 end
