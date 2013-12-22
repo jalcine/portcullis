@@ -1,0 +1,115 @@
+@import 'foundation/components/grid';
+@import 'foundation/components/buttons';
+@import 'compass/css3/transition';
+@import 'compass/css3/border-radius';
+@import 'compass/css3/transform';
+@import 'compass/css3/opacity';
+
+$ticket-stub-height: rem-calc(90px);
+
+ul.ticket-list {
+  margin: 0rem;
+  padding: 0rem;
+
+  > li.ticket {
+    @include grid-row;
+    display: block;
+    list-style: none;
+    height: $ticket-stub-height;
+    clear: both;
+    margin: rem-calc(8px) auto;
+    overflow: hidden;
+
+    > .numerical-box {
+      @include grid-column($columns: 3, $collapse: true);
+
+      > b.price, > time {
+        display: block;
+        text-align: center;
+      }
+
+      > b.price {
+        height: $ticket-stub-height * 3/4;
+        line-height: $ticket-stub-height * 3/4;
+        font-size: 350%;
+        background: darken($success-color, 25%);
+        color: #fff;
+      }
+
+      > time {
+        height: $ticket-stub-height / 4;
+        line-height: $ticket-stub-height / 4;
+        font-size: 75%;
+        background: lighten($success-color, 10%);
+        color: #ffffff;
+      }
+    }
+
+    > .contextual-box {
+      @include grid-column($columns: 6, $collapse: false);
+      min-height: $ticket-stub-height;
+      height: $ticket-stub-height;
+
+      > h2 {
+        margin: 0rem;
+        padding: 0rem;
+        font-size: rem-calc(24px);
+        line-height: rem-calc(24px);
+      }
+
+      > div {
+        font-size: rem-calc(14px);
+      }
+    }
+
+    > .actions-box {
+      @include grid-column($columns: 3, $collapse: true);
+      height: $ticket-stub-height;
+      line-height: $ticket-stub-height;
+      text-align: center;
+
+      i.fa {
+        @include transition(0.2s text-indent, 0.2s opacity);
+        text-indent: -100px;
+        overflow: hidden;
+        opacity: 0;
+      }
+
+      a {
+        @include single-transition;
+        @include button($padding: rem-calc(10px), $bg: $success-color,
+          $full-width: true);
+        @include border-radius(0.3rem);
+        @include inset-shadow;
+        border-bottom-width: 0.3rem;
+        line-height: $ticket-stub-height;
+        height: $ticket-stub-height;
+        position: relative;
+        padding-top: 0rem;
+        overflow: hidden;
+
+        &:before {
+          @extend .fa;
+          @extend .fa-shopping-cart;
+          position: relative;
+          left: -50%;
+        }
+
+        &:hover {
+          &:before {
+            left: 0%;
+          }
+        }
+      }
+    }
+
+    &.disabled {
+      > .numerical-box {
+        > b.price { 
+          background-color: $disabled-color;
+        }
+      }
+    }
+  }
+}
+
