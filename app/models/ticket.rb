@@ -8,8 +8,12 @@ class Ticket < ActiveRecord::Base
     end
 
     def expired?
-      # TODO: Do check on ticket.
-      event.expired?
+      return true if event.expired?
+      return true if Time.now > date_end
+    end
+
+    def available?
+      Time.now >= date_start && Time.now <= date_end
     end
 
     def purchase_for(user)
