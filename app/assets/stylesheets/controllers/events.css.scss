@@ -5,6 +5,7 @@
 @import 'compass/css3/box-shadow';
 @import 'compass/css3/border-radius';
 @import 'compass/css3/text-shadow';
+@import 'compass/css3/images';
 @import 'leaflet/main';
 @import 'foundation/components/grid';
 @import 'foundation/components/buttons';
@@ -13,6 +14,7 @@
 $event-banner-bg:      #222;
 $event-banner-fg:      #fff;
 $event-banner-height:  rem-calc(60px);
+$event-ticket-height:  $event-banner-height * 1.5;
 
 body.events {
   section.main { 
@@ -23,14 +25,18 @@ body.events {
   &.show {
     header#event_banner {
       @include grid-row;
+      @include box-shadow(0px rem-calc(5px) rem-calc(8px) #aaa); 
+      margin-bottom: rem-calc(10px);
 
       > #event_banner_topheavy {
         @include grid-column($columns: 12, $collapse: true, $float: false);
+        @include box-shadow(0px 5px 5px #222); 
         background: $event-banner-bg;
         color: $event-banner-fg;
         height: $event-banner-height;
 
         #event_banner_date {
+          position: sticky;
           width: rem-calc(80px);
           > .day {
             border-top: rem-calc(1px) solid $event-banner-bg;
@@ -53,6 +59,7 @@ body.events {
             float: left;
 
             &.text {
+              @extend .hide-for-small;
               line-height: $event-banner-height;
               height: $event-banner-height;
               text-align: center;
@@ -85,27 +92,105 @@ body.events {
       }
 
       > #event_banner_content {
-        @include grid-column($columns: 12, $collapse: false, $float: false);
-        display: table;
-        background: url(http://placekitten.com/g/2000/1400) $event-banner-bg center center;
-        width: 100%;
-        height: $event-banner-height * 5;
+        background: $event-banner-bg center center url(http://flickholdr.com/1600/1000);
+        height: $event-banner-height * 7;
+        text-align: center;
 
-         > h2 {
-           display: table-cell;
-           width: 100%;
-           vertical-align: middle;
-           text-align: center;
-           height: $event-banner-height * 4;
-         }
+        > h2 {
+          @include background(
+            radial-gradient(
+              rgba(#fff, 0.8), transparent ($event-banner-height * 6)
+            )
+          );
+          @include text-shadow(0px 0px 6px #000);
+          padding: rem-calc(2px) rem-calc(8px) 0rem rem-calc(8px);
+          margin: 0em;
+          height: ($event-banner-height * 7);
+          color: #fff;
+          text-align: center;
+          display: table-cell;
+          vertical-align: middle;
+        }
+      }
+    }
 
-         > #event_banner_actions {
-           height: $event-banner-height;
-           display: table-cell;
-           width: 100%;
-           vertical-align: middle;
-           text-align: center;
-         }
+    section#event_navigation {
+      text-align: center;
+      > dl {
+        @include sub-nav;
+        text-align: center;
+        > dd, > dt { float: none; }
+
+        dd.active {
+          i.fa-inverse { color: $primary-color; }
+        }
+      }
+    }
+
+    section.event_panel {
+      @include grid-row;
+      min-height: $event-banner-height * 5;
+      border: rem-calc(1px) solid rgba($event-banner-bg, 0.4);
+      margin: rem-calc(8px) auto;
+
+      &#tickets {
+        > ul.ticket-list {
+          margin: 0rem; padding: 0rem;
+
+          > li.ticket {
+            @include grid-row;
+            display: block;
+            list-style: none;
+            height: $event-ticket-height;
+            clear: both;
+            margin: rem-calc(8px) auto;
+
+            > .numerical-box {
+              @include grid-column($columns: 3, $collapse: false);
+
+              > b.price, > time {
+                display: block;
+                text-align: center;
+              }
+
+              > b.price {
+                height: $event-ticket-height * 3/4;
+                line-height: $event-ticket-height * 3/4;
+                font-size: 350%;
+                background: $success-color;
+                color: #fff;
+              }
+
+              > time {
+                height: $event-ticket-height / 4;
+                line-height: $event-ticket-height / 4;
+                font-size: 75%;
+              }
+            }
+
+            > .contextual-box {
+              @include grid-column($columns: 6, $collapse: false);
+
+              > h2 {
+                margin: 0rem;
+                padding: 0rem;
+                font-size: rem-calc(24px);
+                line-height: rem-calc(24px);
+              }
+
+              > div {
+                font-size: rem-calc(14px);
+              }
+            }
+
+            > .actions-box {
+              @include grid-column($columns: 3, $collapse: false);
+              height: $event-ticket-height;
+              line-height: $event-ticket-height;
+              text-align: center;
+            }
+          }
+        }
       }
     }
   }
