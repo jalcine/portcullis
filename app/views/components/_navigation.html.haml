@@ -1,12 +1,20 @@
 .sticky
-  %nav.top-bar
-    %ul.title-area
-      %li.name
+  %nav.top-bar{data: {topbar: '', options: ''}}
+    %ul.title-area.hide-for-small
+      %li.name 
         %h1
           %a{href: root_url}
-            %img{src: asset_url('logo/slogan.png')}
+            %img{src: asset_url('logo/slogan.png'), title: 'Vettio', data: { interchange: "default #{asset_url('logo/slogan.png')}, small #{asset_url('logo/button.png')}" } }
+            %noscript
+              %img{src: asset_url('logo/slogan.png')}
     %section.top-bar-section
       %ul.left
+        %li.has-form
+          .row.collapse
+            .large-8.small-9.columns
+              %input{type: :search, placeholder: 'Look for events'}
+            .large-4.small-3.columns
+              %a.alert.button.expand{href: '#'} Search
         %li#nav_link_create_event
           = link_to new_event_path do
             %i.fa.fa-fw.fa-fw.fa-plus-square
@@ -16,15 +24,6 @@
             = link_to events_path(scope: :my) do
               %i.fa.fa-fw.fa-glass
               My Events
-        %li#omnisearch.has-form
-          %form{method: :get, action: search_url}
-            .row.collapse
-              .small-9.large-10.columns
-                %input{type: :text, placeholder: 'Events, places, people; search it all!', name: :query}
-              .small-3.large-2.columns
-                %button.button.expand{type: :submit}
-                  %i.fa.fa-fw.fa-search.fa-fw
-                  Search
       %ul.right
         - unless user_signed_in?
           %li

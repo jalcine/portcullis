@@ -1,4 +1,4 @@
-# vim: ft=guard.ruby fdm=syntax
+# vim: ft=guard.ruby fdm=marker
 source 'https://rubygems.org'
 ruby '2.0.0'
 
@@ -61,8 +61,10 @@ gem 'sdoc', require: false, group: [:doc]
 gem 'rack-contrib', git: 'git://github.com/jalcine/rack-contrib.git'
 gem 'linkedin', '~> 0.4.4'
 gem 'rails-timeago', '~> 2.0'
+gem 'gretel'
 
 group :development do
+  gem 'rails_best_practices', '~> 1.14.4'
   gem 'erb2haml', '~> 0.1.5'
   gem 'debugger', '~> 1.6.2'
   gem 'binding_of_caller', '~> 0.7.2'

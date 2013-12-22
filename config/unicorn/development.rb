@@ -1,16 +1,17 @@
 # TODO: Add some stuff here.
 APP_ROOT = Dir.pwd.gsub(/\/config*.+$/, '')
 
-# You have a good computer.
+# You have a good computer so shut up.
 worker_processes 1
 
 working_directory APP_ROOT
 
 listen "#{APP_ROOT}/tmp/unicorn.socket", backlog: 64
 
-timeout 60
+# Take all the time you need.
+timeout 90
 
-pid "#{APP_ROOT}/tmp/pids/unicorn.pid"
+pid "#{APP_ROOT}/tmp/pids/unicorn-development.pid"
 
 stderr_path(APP_ROOT + '/log/unicorn.stderr.log')
 stdout_path(APP_ROOT + '/log/unicorn.stdout.log')

@@ -16,11 +16,8 @@ describe EventsController do
   end
 
   describe 'POST create' do
-    before(:each) do
-      post :create, event: attributes_for(:event)
-    end
-
     describe 'persists a new event' do
+      before(:each) { post :create, event: attributes_for(:event) }
       it { expect(assigns(:event)).to be_a Event }
       it { expect(assigns(:event)).to_not be_nil }
       it { expect(assigns(:event)).to_not be_a_new_record }
@@ -85,6 +82,13 @@ describe EventsController do
 
       it { expect(response).to render_template 'events/_gate' }
       it { expect(response.status).to eq(401) }
+    end
+
+    describe 'includes tickets' do
+      subject { create :event, :with_tickets }
+      before(:each) { get :show, id: subject.id }
+      it { expect(response).to render_template 'tickets/_stub_list' }
+      it { expect(response).to render_template 'tickets/_stub' }
     end
   end
 

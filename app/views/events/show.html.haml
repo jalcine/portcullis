@@ -2,7 +2,7 @@
 %header#event_banner
   #event_banner_topheavy
     %ul
-      %li.text
+      %li.text{data: {always: :true}}
         %time#event_banner_date.date_box
           %span.day= @event.date_start.strftime '%-d'
           %span.month= @event.date_start.strftime '%^B'
@@ -38,30 +38,31 @@
     %dd{data: {magellan: {arrival: 'tickets'}}}
       %a{href: '#tickets'}
         %span.fa-stack
-          %i.fa.fa-stack-2x.fa-square.fa-inverse
-          %i.fa.fa-stack-1x.fa-ticket
+          %i.fa.fa-stack-2x.fa-square
+          %i.fa.fa-stack-1x.fa-ticket.fa-inverse
         Tickets
     %dd{data: {magellan: {arrival: 'description'}}}
       %a{href: '#description'}
         %span.fa-stack
-          %i.fa.fa-stack-2x.fa-square.fa-inverse
-          %i.fa.fa-stack-1x.fa-comments
+          %i.fa.fa-stack-2x.fa-square
+          %i.fa.fa-stack-1x.fa-comments.fa-inverse
         Description
     %dd{data: {magellan: {arrival: 'attendees'}}}
       %a{href: '#attendees'}
         %span.fa-stack
-          %i.fa.fa-stack-2x.fa-square.fa-inverse
-          %i.fa.fa-stack-1x.fa-group
+          %i.fa.fa-stack-2x.fa-square
+          %i.fa.fa-stack-1x.fa-group.fa-inverse
         Attendees
     %dd{data: {magellan: {arrival: 'schedule'}}}
       %a{href: '#schedule'}
         %span.fa-stack
-          %i.fa.fa-stack-2x.fa-square.fa-inverse
-          %i.fa.fa-fw.fa-stack-1x.fa-calendar-o
+          %i.fa.fa-stack-2x.fa-square
+          %i.fa.fa-fw.fa-stack-1x.fa-calendar-o.fa-inverse
         Schedule
 
 %section#tickets.event_panel{data: {magellan: {destination: :tickets}}}
-  In the works.
+  = render 'tickets/stub_list', tickets: @event.tickets
+
 %section#description.event_panel{data: {magellan: {destination: :description}}}
   %h1.title Description
   = @event.description
