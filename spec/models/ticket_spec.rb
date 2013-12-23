@@ -14,6 +14,18 @@ describe Ticket do
     it { expect(subject).to have(:no).errors_on(:date_) }
   end
 
+  describe '.expired?' do
+    subject { create :ticket, :expired }
+    it { expect(subject).to be_expired }
+    it { expect(subject).to_not be_available }
+  end
+
+  describe '.available?' do
+    subject { create :ticket, :available }
+    it { expect(subject).to_not be_expired }
+    it { expect(subject).to be_available }
+  end
+
   describe '.purchase' do
     let(:user) { create :attendee_user }
     subject { create :ticket, :priced }

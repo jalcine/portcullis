@@ -118,7 +118,7 @@ ul.ticket-list {
 
     &.disabled {
       > .numerical-box {
-        > b.price { 
+        > b.price, > time { 
           background-color: $disabled-color;
         }
       }

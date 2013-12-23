@@ -1,3 +1,4 @@
+# vim: set ft=guard.ruby :
 scope groups: [:ui, :test, :core]
 notification :libnotify, timeout: 3
 
@@ -6,15 +7,14 @@ group :core do
     watch('Gemfile')
   end
 
+  guard 'ctags-bundler', stdlib: true, src_path: ['app', 'lib', 'spec/support', 'spec/acceptance/steps', 'vendor'] do
+    watch(/^(app|lib|config)\/.*\.(rb|haml|scss|sass|coffee|js)$/)
+    watch('Gemfile')
+  end
+
   guard :migrate do
     watch(%r{^db/migrate/(\d+).+\.rb})
     watch('db/seeds.rb')
-  end
-
-  guard 'ctags-bundler' do
-    watch(/^(app|lib)\/.*\.rb$/)
-    watch('Gemfile.lock')
-    watch('gem.tags')
   end
 end
 

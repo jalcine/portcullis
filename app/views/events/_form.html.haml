@@ -24,7 +24,7 @@
   
 .row
   .small-12.columns
-    = form_for @event, class: :custom do |f|
+    = form_for @event, class: :custom, data: {adibe: true} do |f|
       = f.hidden_field :date_start, value: @event.date_start.to_s
       = f.hidden_field :date_end, value: @event.date_end.to_s
       = f.hidden_field :longitude, value: @event.longitude
@@ -70,9 +70,9 @@
               .large-6.small-12.columns
                 .row
                   .small-12.columns
-                    %input#event_address_title{type: :text, placeholder: 'Name of Location'}
+                    %input#event_address_title{type: :text, placeholder: t('events.create.form.address_title')}
                   .small-12.columns
-                    %input#event_address_line{type: :text, placeholder: 'Address Line'}
+                    %input#event_address_line{type: :text, placeholder: t('events.create.form.address_line')}
                 .row.collapse
                   .small-4.columns
                     %input#event_address_city{type: :text, placeholder: 'City'}

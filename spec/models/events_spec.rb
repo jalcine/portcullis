@@ -14,6 +14,11 @@ describe Event do
     it { expect(subject).to have(:no).errors_on(:access_key) }
   end
 
+  describe '.draft?' do
+    subject { create :event, :draft }
+    it { expect(subject).to be_draft }
+  end
+
   describe '.tickets' do
     it 'saves tickets' do
       params = FactoryGirl.attributes_for :event, :with_tickets
