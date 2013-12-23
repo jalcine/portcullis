@@ -1,8 +1,6 @@
-# vim: ft=guard.ruby fdm=marker
+# vim: ft=guard.ruby fdm=syntax
 source 'https://rubygems.org'
 ruby '2.0.0'
-
-# {{{ Core Jazz
 
 # We use Rails 4. We bout that life.
 gem 'rails', '4.0.0'
@@ -16,7 +14,6 @@ gem 'unf', '~> 0.1.3'
 # Searching support via ElasticSearch.
 gem 'tire'
 
-# {{{ Frontend
 gem 'compass-rails', '~> 1.1.2'
 gem 'sass-rails', '4.0.0'
 gem 'jquery-rails-cdn', '~> 1.0.1'
@@ -28,7 +25,6 @@ gem 'foundation-rails', '~> 5.0.2'
 gem 'haml', '4.0.3'
 gem 'font-awesome-sass', '~> 4.0.1'
 gem 'haml-rails', '~> 0.4'
-# }}}
 
 gem 'jbuilder', '~> 1.5.2'
 gem 'yajl-ruby', '~> 1.1.0'
@@ -66,6 +62,7 @@ gem 'gretel'
 group :development do
   gem 'rails_best_practices', '~> 1.14.4'
   gem 'erb2haml', '~> 0.1.5'
+  gem 'CoffeeTags'
   gem 'debugger', '~> 1.6.2'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
