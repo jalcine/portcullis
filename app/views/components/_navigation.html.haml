@@ -1,12 +1,12 @@
 .sticky
-  %nav.top-bar{data: {topbar: '', options: ''}}
+  %nav.top-bar{data: {topbar: '', options: ''}, role: :navigation}
     %ul.title-area.hide-for-small
       %li.name 
         %h1
           %a{href: root_url}
             %img{src: asset_url('logo/slogan.png'), title: 'Vettio', data: { interchange: "default #{asset_url('logo/slogan.png')}, small #{asset_url('logo/button.png')}" } }
             %noscript
-              %img{src: asset_url('logo/slogan.png')}
+              %img{src: asset_url('logo/button.png')}
     %section.top-bar-section
       %ul.left
         %li.has-form

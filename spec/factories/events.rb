@@ -22,5 +22,16 @@ FactoryGirl.define do
     trait :expired do
       date_start { Time.now - 5.days }
     end
+
+    trait :draft do
+      name nil
+      description nil
+      access_key nil
+      date_end nil
+      date_start nil
+      address nil
+      longitude 0.0
+      latitude 0.0
+    end
   end
 end

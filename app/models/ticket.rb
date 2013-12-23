@@ -1,5 +1,6 @@
 class Ticket < ActiveRecord::Base
   resourcify
+  has_paper_trail
   belongs_to :event, inverse_of: :tickets
 
   public
@@ -10,10 +11,12 @@ class Ticket < ActiveRecord::Base
     def expired?
       return true if event.expired?
       return true if Time.now > date_end
+      false
     end
 
     def available?
-      Time.now >= date_start && Time.now <= date_end
+      return false if expired?
+      Time.now > date_start && Time.now < date_end
     end
 
     def purchase_for(user)
@@ -27,7 +30,7 @@ class Ticket < ActiveRecord::Base
 
       order
     end
-      
+
     def to_builder
       Jbuilder.new do | ticket |
         ticket.(self, :name, :description, :price, :quantity, :event)

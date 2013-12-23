@@ -1,0 +1,54 @@
+@import 'compass/css3/transition';
+@import 'compass/css3/transform';
+@import 'compass/css3/border-radius';
+
+figure.user-square {
+  overflow: hidden;
+  position: relative;
+  margin: 0rem;
+  background-color: rgba($gray, 0.6);
+
+  > img {
+    @include transition(transform 0.4s);
+    @include border-radius(0px);
+    max-width: 100%;
+    max-height: 100%;
+    display: block;
+    position: relative;
+  }
+
+  > figcaption {
+    h3 {
+      margin: 0;
+      padding: 0;
+      color: $white;
+    }
+
+    span { font-size: 80%; }
+    a.button { margin-bottom: 0rem; }
+
+    @include transform(translateY(100%));
+    @include transition(all 0.3s);
+    position: absolute;
+    padding: rem-calc(5px);
+    height: rem-calc(135px);
+    width: 100%;
+    top: auto;
+    bottom: 0;
+    opacity: 0;
+    overflow: hidden;
+    background-color: rgba($gray, 0.6);
+    color: $white;
+  }
+
+  &:hover, [data-expanded=expanded] {
+    > img { 
+      @include transform(translateY(-50));
+      @include border-radius(10px);
+    }
+    > figcaption {
+      @include transform(translateY(0px));
+      opacity: 1;
+    }
+  }
+}

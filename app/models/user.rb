@@ -34,8 +34,11 @@ class User < ActiveRecord::Base
       provider.token = oauth_data['credentials']['token'].to_s
       provider.uid = oauth_data['uid'].to_s
       provider.user = user
-      provider.save!
-      raise StandardError, 'User cannot be created with provided values.' if user.nil?
+      begin
+        provider.save!
+      rescue
+        raise ArgumentError, 'User cannot be created with provided values.' if user.nil?
+      end
       user
     end
 
@@ -45,6 +48,7 @@ class User < ActiveRecord::Base
       return nil unless (oauth_data.keys.include? 'uid' or oauth_data.keys.include? :uid)
       provider = Provider.where({name: oauth_data['provider'].to_s, uid: oauth_data['uid']}).first
       return provider.user unless provider.nil?
+      nil
     end
   end
 end

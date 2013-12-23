@@ -1,11 +1,12 @@
 require 'spec_helper'
 
 describe Event do
-  describe 'validations' do
+  describe :validations do
     subject { FactoryGirl.create :event }
     it { expect(subject).to have(:no).errors_on(:name) }
     it { expect(subject).to have(:no).errors_on(:description) }
     it { expect(subject).to have(:no).errors_on(:user) }
+    it { expect(subject).to have(:no).errors_on(:banner) }
     it { expect(subject).to have(:no).errors_on(:address) }
     it { expect(subject).to have(:no).errors_on(:longitude) }
     it { expect(subject).to have(:no).errors_on(:latitude) }
@@ -17,6 +18,11 @@ describe Event do
   describe '.draft?' do
     subject { create :event, :draft }
     it { expect(subject).to be_draft }
+  end
+
+  describe '.expired?' do
+    subject { create :event, :expired }
+    it { expect(subject).to be_expired }
   end
 
   describe '.tickets' do

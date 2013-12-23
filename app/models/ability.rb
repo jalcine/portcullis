@@ -24,6 +24,9 @@ class Ability
 
   def guest
     cannot :view, Order
+    cannot :view, Event do | event |
+      event.access_key.present?
+    end
   end
 
   def administrator
@@ -38,14 +41,20 @@ class Ability
 
   def host
     can :create, Event
-    can [:crud, :modify, :edit], Event.find_by(user_id: @user.id.to_s)
+    can [:crud, :modify], Event do | event |
+      event.owner == @user
+    end
 
     can :crud, Ticket do | ticket |
-      ticket.event.owner == @user
+      can? :crud, ticket.event
+    end
+
+    can :modify, Ticket do | ticket |
+      can? :modify, ticket.event
     end
 
     can :crud, Order do | order |
-      puts can? :modify, order.ticket.event
+      can? :modify, order.ticket
     end
   end
 

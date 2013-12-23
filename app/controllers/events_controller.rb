@@ -29,7 +29,6 @@ class EventsController < ApplicationController
   def new
     @event = Event.create! owner: current_user
     current_user.grant :host, @event
-    authorize! :create, @event
   end
 
   # GET /events/1/edit
@@ -61,7 +60,6 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     authorize! :create, @event
-    puts params.to_yaml
 
     respond_to do |format|
       if @event.update(event_params)
@@ -93,14 +91,15 @@ class EventsController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
     def set_event
-      @event = Event.find(params[:id])
+      if params.include? :id and params[:id].present?
+        @event = Event.includes(:tickets, :owner).find(params[:id])
+      end
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def event_params
-      params.require(:event).permit(:name, :description, :date_start,
+      params.require(:event).permit(:name, :description, :date_start, :banner,
         :date_end, :address, :longitude, :latitude, :age_groups, :access_key,
         :primary_category_id, :secondary_category_id)
   end

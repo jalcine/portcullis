@@ -1,0 +1,33 @@
+$datebox-day-bg: $white;
+$datebox-day-fg: $black;
+$datebox-month-bg: $red;
+$datebox-month-fg: $white;
+$datebox-width: rem-calc(96px);
+
+@mixin date-box($width: $datebox-width, $day-bg: $datebox-day-bg,
+  $day-fg: $datebox-day-fg, $month-bg: $datebox-month-bg,
+  $month-fg: $datebox-month-fg){
+  width: $datebox-width;
+  max-width: $datebox-width;
+  text-align: center;
+
+  span.day, span.month { 
+    display: block;
+    width: $datebox-width;
+  }
+
+  span.day {
+    font-size: 350%;
+    background-color: $datebox-day-bg;
+    color: $datebox-day-fg;
+  }
+
+  span.month { 
+    background-color: $datebox-month-bg;
+    color: $datebox-month-fg;
+    padding: ($datebox-width / 10) 0rem;
+    border-bottom-right-radius: $datebox-width / 10;
+  }
+}
+
+time.date-box { @include date-box; }

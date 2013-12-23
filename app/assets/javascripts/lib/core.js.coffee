@@ -19,7 +19,6 @@ if window.Portcullis is undefined
         timeFields.pickatime()
         dateFields.pickadate()
 
-      console.debug '[MELODY] Booted for first-run.'
       Portcullis.trigger 'boot'
       Portcullis.boot = null
 

@@ -1,4 +1,10 @@
 class ApplicationController < ActionController::Base
+  # If enabled, handle Vanity testing.
+  #use_vanity :current_user
+
+  # Get our mobylette.
+  include Mobylette::RespondToMobileRequests
+
   # Ensure CanCan logic is employed.
   rescue_from CanCan::AccessDenied do |exception|
     message = 'You aren\'t authorized to invoke that action.' 

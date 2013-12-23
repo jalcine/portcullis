@@ -1,4 +1,5 @@
 toggles:
+  ab: true
   in_beta: true
 
 search:

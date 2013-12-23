@@ -1,7 +1,7 @@
 - unless flash.empty?
   .flash_gordon
     - flash.each do | level, message |
-      %p{class: "alert-box #{level.to_s} radius", data: {alert: true}}
+      %p{class: "alert-box #{level.to_s} radius", data: {alert: :autohide}}
         %i.icon
         = message
         %a.close{href: '#'}

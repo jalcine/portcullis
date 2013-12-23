@@ -18,6 +18,7 @@ describe :host do
         subject.grant(:host, ticket.event)
         ticket.event.owner = subject
       end
+      it { expect(ability.can?(:modify, ticket)).to eq(true) }
       it { expect(ability.can?(:crud, ticket)).to eq(true) }
     end
 

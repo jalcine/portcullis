@@ -7,11 +7,12 @@
 #= require_tree ./controllers
 
 # Force timeago to publish times in a future tense (nearly all of them will be
-# anyways.
+# anyways, so why not?)
 jQuery.timeago.settings.allowFuture = true
 
 $ ->
   doc = $ document
+  doc.foundation()
   doc.foundation {
     tooltips: {
       selector: '.has-tip, *[data-tooltip]'
@@ -25,5 +26,5 @@ $ ->
     minFontSize: '14px'
   })
   setTimeout ->
-    $('.alert-box').fadeOut()
+    $('.alert-box[data-alert=autohide]').foundation('alert-box', 'hide')
   , 3000

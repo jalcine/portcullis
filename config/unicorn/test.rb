@@ -6,14 +6,14 @@ worker_processes 1
 
 working_directory APP_ROOT
 
-listen "#{APP_ROOT}/tmp/unicorn.socket", backlog: 64
+listen "#{APP_ROOT}/tmp/unicorn-test.socket", backlog: 64
 
 timeout 15
 
-pid "#{APP_ROOT}/tmp/pids/unicorn.pid"
+pid "#{APP_ROOT}/tmp/pids/unicorn-test.pid"
 
-stderr_path(APP_ROOT + '/log/unicorn.stderr.log')
-stdout_path(APP_ROOT + '/log/unicorn.stdout.log')
+stderr_path(APP_ROOT + '/log/unicorn-test.stderr.log')
+stdout_path(APP_ROOT + '/log/unicorn-test.stdout.log')
 
 preload_app true
 GC.respond_to?(:copy_on_write_friendly=) and

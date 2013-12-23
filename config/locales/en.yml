@@ -3,6 +3,6 @@ en:
   events:
     create:
       form:
-        address_title: 'Address title'
+        address_title: 'Landmark name'
         address_line: 'Address line'
       success: 'Event draft created! Go jazz it up!'

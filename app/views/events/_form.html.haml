@@ -24,12 +24,12 @@
   
 .row
   .small-12.columns
-    = form_for @event, class: :custom, data: {adibe: true} do |f|
+    = form_for @event, class: :custom do | f |
       = f.hidden_field :date_start, value: @event.date_start.to_s
-      = f.hidden_field :date_end, value: @event.date_end.to_s
-      = f.hidden_field :longitude, value: @event.longitude
-      = f.hidden_field :latitude, value: @event.latitude
-      = f.hidden_field :address, value: @event.address
+      = f.hidden_field :date_end,   value: @event.date_end.to_s
+      = f.hidden_field :longitude,  value: @event.longitude
+      = f.hidden_field :latitude,   value: @event.latitude
+      = f.hidden_field :address,    value: @event.address
       .row
         .small-10.large-8.columns.large-centered.small-centered
           %div{'data-magellan-expedition' => 'fixed'}
@@ -94,10 +94,10 @@
             %small Make it worthwhile! Make it last. <b>Describe</b>.
         .row
           .small-12.large-2.columns
-            = f.label :brand, class: 'inline' do
+            = f.label :banner, class: :inline do
               Banner Image
           .small-12.large-10.columns
-            = f.file_field :brand
+            = f.file_field :banner
         .row
           .small-12.large-3.columns
             %small.label.pull-right required
@@ -218,7 +218,7 @@
           .large-2.columns
             %span.inline Tickets
           .large-10.columns
-            %ul#ticket_list
+            %ul.ticket-list#event_ticket_list
             %a{href: '#', data: {'reveal-id' => 'modal_add_ticket', 'reveal-ajax' => new_event_ticket_url(@event)}}
               %i.fa.fa-fw.fa-ticket
               Add Tickets

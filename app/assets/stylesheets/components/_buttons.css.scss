@@ -7,3 +7,35 @@ ul.button-group > li {
 
   &:first-child { margin: 0em; }
 }
+
+p.alert-box.has-button {
+  line-height: rem-calc(36px);
+
+  > .button, > .label {
+    margin-bottom: 0rem;
+  }
+}
+
+@mixin animated-icon-button($fa, $bg, $height: rem-calc(32px),
+  $padding: rem-calc(10px)){
+  @include button($padding: $padding, $bg: $bg, $full-width: true);
+  line-height: $height;
+  height: $height;
+  position: relative;
+  padding-top: 0rem;
+  overflow: hidden;
+
+  &:before {
+    @include transition(left 0.35s);
+    @extend .fa;
+    @extend .#{$fa};
+    position: relative;
+    left: -50%;
+  }
+
+  &:hover {
+    &:before {
+      left: 0%;
+    }
+  }
+}

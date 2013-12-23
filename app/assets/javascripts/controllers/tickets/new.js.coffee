@@ -7,6 +7,7 @@ Portcullis.Tickets.New =
     self.bindPricingType()
 
   injectNewEntry: (jsonData) ->
+    console.log jsonData
 
   bindSubmission: ->
     repairValues = ->

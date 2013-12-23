@@ -55,6 +55,7 @@ ul.ticket-list {
         padding: 0rem;
         font-size: rem-calc(24px);
         line-height: rem-calc(24px);
+        text-align: center;
       }
 
       > div {
@@ -65,7 +66,6 @@ ul.ticket-list {
     > .actions-box {
       @include grid-column($columns: 3, $collapse: true);
       height: $ticket-stub-height;
-      line-height: $ticket-stub-height;
       text-align: center;
 
       i.fa {
@@ -75,44 +75,25 @@ ul.ticket-list {
         opacity: 0;
       }
 
-      a {
-        @include single-transition;
-        @include button($padding: rem-calc(10px), $bg: $success-color,
-          $full-width: true);
-        @include border-radius(0.3rem);
-        @include inset-shadow;
-        border-bottom-width: 0.3rem;
-        line-height: $ticket-stub-height;
-        height: $ticket-stub-height;
-        position: relative;
-        padding-top: 0rem;
-        overflow: hidden;
-
-        &:before {
-          @include transition(left 0.35s);
-          @extend .fa;
-          @extend .fa-shopping-cart;
-          position: relative;
-          left: -50%;
-        }
-
-        &:after {
-          background: #fff;
-          width: 100%;
-          height: 100%;
-          opacity: 0;
-        }
-
-        &:hover {
-          &:before {
-            left: 0%;
-          }
-
-          &:after {
-            @include transform(translateX(0%) translateY(0%) rotate(45deg));
-            opacity: 1;
-          }
-        }
+      a[data-ticket-action=buy] {
+        @include animated-icon-button($fa: 'fa-shopping-cart',
+        $padding: rem-calc(10px), $bg: $success-color,
+        $height: $ticket-stub-height);
+        margin: 0rem;
+      }
+      a[data-ticket-action=edit] {
+        @include animated-icon-button($fa: 'fa-pencil',
+        $padding: rem-calc(5px), $bg: $primary-color,
+        $height: $ticket-stub-height / 2);
+        margin: 0rem;
+        display: block;
+      }
+      a[data-ticket-action=delete] {
+        @include animated-icon-button($fa: 'fa-trash-o',
+        $padding: rem-calc(5px), $bg: $warning-color,
+        $height: $ticket-stub-height / 2);
+        margin: 0rem;
+        display: block;
       }
     }
 

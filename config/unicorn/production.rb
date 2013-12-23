@@ -8,7 +8,7 @@ working_directory APP_ROOT
 
 listen "#{APP_ROOT}/tmp/unicorn.socket", backlog: 64
 
-timeout 15
+timeout 20
 
 pid "#{APP_ROOT}/tmp/pids/unicorn.pid"
 
@@ -58,7 +58,7 @@ after_fork do |server, worker|
   # the following is *required* for Rails + "preload_app true",
   defined?(ActiveRecord::Base) and
     ActiveRecord::Base.establish_connection
-
+    #Vanity.playground.establish_connection
   # if preload_app is true, then you may also want to check and
   # restart any other shared sockets/descriptors such as Memcached,
   # and Redis.  TokyoCabinet file handles are safe to reuse

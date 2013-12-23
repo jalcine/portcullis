@@ -11,132 +11,16 @@
 @import 'foundation/components/buttons';
 @import 'foundation/components/split-buttons';
 
-$event-banner-bg:      #222;
-$event-banner-fg:      #fff;
+$event-banner-bg:      $gray;
+$event-banner-fg:      $white;
 $event-banner-height:  rem-calc(60px);
+
+@import 'controllers/events/show';
 
 body.events {
   section.main { 
     @include grid-row;
     padding: rem-calc(32px) 0rem;
-  }
-
-  &.show {
-    header#event_banner {
-      @include grid-row;
-      @include box-shadow(0px rem-calc(5px) rem-calc(8px) #aaa); 
-      margin-bottom: rem-calc(10px);
-
-      > #event_banner_topheavy {
-        @include grid-column($columns: 12, $collapse: true, $float: false);
-        @include box-shadow(0px 5px 5px #222); 
-        background: $event-banner-bg;
-        color: $event-banner-fg;
-        height: $event-banner-height;
-
-        #event_banner_date {
-          position: sticky;
-          width: rem-calc(80px);
-          > .day {
-            border-top: rem-calc(1px) solid $event-banner-bg;
-          }
-          > .month {
-            line-height: rem-calc(16px);
-            height: rem-calc(32px);
-          }
-        }
-
-        > ul {
-          list-style: none;
-          display: inline-block;
-          height: $event-banner-height;
-          margin: 0em; padding: 0em;
-          width: 100%;
-
-          > li {
-            display: inline-block;
-            float: left;
-
-            &.text {
-              line-height: $event-banner-height;
-              height: $event-banner-height;
-              text-align: center;
-              padding: 0em rem-calc(10px);
-
-              &:not([data-always]) {
-                @extend .hide-for-small;
-              }
-            }
-
-            &.social {
-              float: right;
-              padding-right: rem-calc(6px);
-
-              ul.button-group {
-                float: right;
-                display: inline-block;
-
-                > li {
-                  line-height: $event-banner-height;
-                }
-              }
-
-              a.button {
-                padding: 0em rem-calc(12px);
-                line-height: $event-banner-height * 2/3;
-                height: $event-banner-height * 2/3;
-                margin: 0em;
-                border-color: transparent;
-              }
-            }
-          }
-        }
-      }
-
-      > #event_banner_content {
-        background: $event-banner-bg center center url(http://flickholdr.com/1600/1000);
-        height: $event-banner-height * 7;
-        text-align: center;
-
-        > h2 {
-          @include background(
-          radial-gradient(
-          rgba(#fff, 0.8), transparent ($event-banner-height * 6)
-          )
-          );
-          @include text-shadow(0px 0px 6px #000);
-          padding: rem-calc(2px) rem-calc(8px) 0rem rem-calc(8px);
-          margin: 0em;
-          height: ($event-banner-height * 7);
-          color: #fff;
-          text-align: center;
-          display: table-cell;
-          vertical-align: middle;
-        }
-      }
-    }
-
-    section#event_navigation {
-      text-align: center;
-      > dl {
-        @include sub-nav;
-        text-align: center;
-        > dd, > dt { float: none; }
-
-        dd.active {
-          i.fa-inverse { color: $primary-color; }
-        }
-      }
-    }
-
-    section.event_panel {
-      @include grid-row;
-      min-height: $event-banner-height * 5;
-      margin: rem-calc(8px) auto;
-
-      &#tickets {
-      }
-    }
   }
 
   &.new, &.create, &.edit, &.update {
@@ -158,7 +42,8 @@ body.events {
       width: 100%;
       height: 100%;
       min-width: rem-calc(300px);
-      min-height: rem-calc(170px);
+      min-height: rem-calc(200px);
+      margin-bottom: rem-calc(8px);
     }
   }
 }

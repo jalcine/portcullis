@@ -62,10 +62,11 @@ Portcullis.Events.New =
             reset: false
         }).addTo self.leaflet.handle
   search:
+    legend: $('legend > h3[data-magellan-destination=location]')
     enableSpinner: ->
-      $('#event_full_address > i.fa').removeClass('fa-cross-hairs').addClass('fa-spinner fa-spin')
+      self.search.legend.find('i.fa').removeClass('fa-cross-hairs').addClass('fa-spinner fa-spin')
     disableSpinner: ->
-      $('#event_full_address > i.fa').removeClass('fa-spinner fa-spin').addClass('fa-cross-hairs')
+      self.search.legend.find('i.fa').removeClass('fa-spinner fa-spin').addClass('fa-cross-hairs')
     timeout: 0
     polygon: null
     fromAddressTool: =>
@@ -90,7 +91,6 @@ Portcullis.Events.New =
     data = self.leaflet.address.box.data 'geodata'
     address = self.leaflet.address.tool
     if data?
-      self.leaflet.handle.setView { lat: data['lat'], lon: data['lon'] }
       address.address.val "#{data['address']['road'] || data['address']['pedestrian']}"
       address.address.val "#{data['address']['house_number']} " + self.leaflet.address.tool.line.val() if data['type'] == 'house'
       address.city.val data['address']['county'] || data['address']['state_district'] || data['address']['city']
@@ -132,14 +132,7 @@ Portcullis.Events.New =
           console.log result
           $('#event_longitude').val result.lat
           $('#event_latitude').val result.lon
-          bounds = L.latLngBounds result['polygonpoints']
-          if bounds?
-            self.leaflet.handle.removeLayer(self.leaflet.layers.search) if self.leaflet.layers.search?
-            console.log bounds
-            self.leaflet.layers.search = L.rectangle bounds, {color: '#ff7800', weight: 1}
-            self.leaflet.layers.search.addTo self.leaflet.handle
-          else
-            self.leaflet.handle.setZoom 19, animate: true
+          # TODO: Box up on a bounding area.
   form:
     pumpUpHiddenValues: ->
       dateStartElem = $('#event_date_start')
