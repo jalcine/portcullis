@@ -1,0 +1,159 @@
+@import 'compass/css3/box-shadow';
+@import 'compass/css3/border-radius';
+@import 'compass/css3/text-shadow';
+@import 'compass/css3/images';
+@import 'foundation/components/grid';
+@import 'foundation/components/buttons';
+@import 'foundation/components/split-buttons';
+
+body.events.show {
+  header#event_banner {
+    @include grid-row;
+    margin-bottom: rem-calc(10px);
+    max-width: none;
+
+    > #event_banner_topheavy {
+      @include grid-column($columns: 11, $collapse: true, $float: false,
+        $center: true);
+      @include box-shadow(0px 2px 5px $event-banner-bg); 
+      background: $event-banner-bg;
+      color: $event-banner-fg;
+      height: $event-banner-height;
+
+      #event_banner_date {
+        position: sticky;
+        width: rem-calc(80px);
+        > .day {
+          border-top: rem-calc(1px) solid $event-banner-bg;
+        }
+        > .month {
+          line-height: rem-calc(16px);
+          height: rem-calc(32px);
+        }
+      }
+
+      > ul {
+        list-style: none;
+        display: inline-block;
+        height: $event-banner-height;
+        margin: 0em; padding: 0em;
+        width: 100%;
+
+        > li {
+          display: inline-block;
+          float: left;
+
+          &.text, &.controls {
+            line-height: $event-banner-height;
+            height: $event-banner-height;
+            text-align: center;
+            padding: 0em rem-calc(10px);
+
+            &:not([data-always]) {
+              @extend .hide-for-small;
+            }
+          }
+
+          &.controls {
+            @extend .right;
+            padding: 0rem;
+
+            a#event_draft_button {
+              @include button($bg: lighten($event-banner-bg, 10%));
+              @include single-transition;
+              overflow: hidden;
+              height: $event-banner-height;
+              line-height: $event-banner-height * 8/15;
+              position: relative;
+
+              &:after {
+                @include single-transition;
+                box-sizing: border-box;
+                position: absolute;
+                width: 100%;
+                height: $event-banner-height;
+                top: 0;
+                left: -100%;
+                background-color: $primary-color;
+                content: attr(title);
+                color: #fff;
+                line-height: $event-banner-height;
+              }
+
+              &:hover {
+                color: $event-banner-bg;
+                &:after {
+                  left: 0px;
+                }
+              }
+            }
+          }
+
+          &.social {
+            float: right;
+            padding-right: rem-calc(6px);
+
+            ul.button-group {
+              float: right;
+              display: inline-block;
+
+              > li {
+                line-height: $event-banner-height;
+              }
+            }
+
+            a.button {
+              padding: 0em rem-calc(12px);
+              line-height: $event-banner-height * 2/3;
+              height: $event-banner-height * 2/3;
+              margin: 0em;
+              border-color: transparent;
+            }
+          }
+        }
+      }
+    }
+
+    > #event_banner_content {
+      @include box-shadow(0px 5px 8px $event-banner-bg); 
+      @include border-radius(0rem rem-calc(5px) 0rem rem-calc(5px));
+      background-color: $event-banner-bg;
+      background-position: center center;
+      background-size: cover;
+      background-repeat: no-repeat;
+      height: $event-banner-height * 7;
+      text-align: center;
+      display: table;
+
+      > h1 {
+        @include text-shadow(0px 0px 6px #000);
+        @include background(radial-gradient(
+          rgba($event-banner-bg, 0.8), transparent ($event-banner-height * 7)
+        ));
+        padding: rem-calc(2px) rem-calc(8px) 0rem rem-calc(8px);
+        margin: 0em;
+        height: ($event-banner-height * 7);
+        color: #fff;
+        text-align: center;
+        display: table-cell;
+        vertical-align: middle;
+        width: 100%;
+      }
+    }
+  }
+
+  section#event_navigation {
+    > dl {
+      @include sub-nav;
+      text-align: left;
+
+      dd.active > i.fa-inverse { color: $primary-color; }
+    }
+  }
+
+  section.event_panel {
+    @include grid-row;
+    min-height: $event-banner-height;
+    margin: rem-calc(16px) auto;
+  }
+}
