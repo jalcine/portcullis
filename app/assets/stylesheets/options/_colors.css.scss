@@ -1,16 +1,38 @@
-$body-bg: #f6f8f8;
+@import 'compass/css3/images';
+/*** Our color palette of the rainbow **/
+$red: #E74C3C;
+$yellow: #F1C40F;
+$orange: #F39C12;
+$green: #2ecc71;
+$blue: #3b9cdc;
+$purple: #8e44ad;
+$black: #111111;
+$white: #f6f8f8;
+$gray: #333333;
 
-$topbar-bg-color: #33363b;
-$topbar-bg: linear-gradient($topbar-bg-color, darken($topbar-bg-color, 5%));
-$topbar-link-color: #fff;
-$topbar-link-color-hover: $topbar-link-color;
-$topbar-link-color-active: $topbar-link-color;
-$topbar-link-bg-hover: linear-gradient(darken($topbar-bg-color, 5%), darken($topbar-bg-color, 15%));
-$topbar-dropdown-bg: $topbar-bg;
-$topbar-dropdown-link-color: $topbar-link-color;
+/** Our branding colors **/
+$vettio-blue: #007eff;
+$vettio-black: $black;
+$vettio-white: $white;
 
-$primary-color: #007eff;
-$secondary-color: #b39980;
-$warning-color: #f38630;
-$alert-color: #cc333f;
-$disabled-color: #455560;
+/** Colors to change in Foundaton */
+
+$primary-color: $vettio-blue;
+$secondary-color: $blue;
+$warning-color: $red;
+$alert-color: $orange;
+$disabled-color: $gray;
+
+/** Rest of ze site **/
+
+$body-bg: $white;
+$topbar-bg-color: $body-bg;
+$topbar-bg: linear-gradient(lighten($topbar-bg-color, 5%), $topbar-bg-color);
+$topbar-link-color: $black;
+$topbar-link-color-hover: $vettio-white;
+$topbar-link-color-active: $vettio-white;
+$topbar-link-bg-hover: linear-gradient(darken($vettio-blue, 5%), darken($vettio-blue, 15%));
+$topbar-dropdown-bg: $black;
+$topbar-dropdown-link-color: $white;
+
+
