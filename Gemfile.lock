@@ -8,6 +8,7 @@ GIT
 GEM
   remote: https://rubygems.org/
   specs:
+    CoffeeTags (0.1.3)
     actionmailer (4.0.0)
       actionpack (= 4.0.0)
       mail (~> 2.5.3)
@@ -17,6 +18,17 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
+    active_utils (2.0.1)
+      activesupport (>= 2.3.11)
+      i18n
+    activemerchant (1.42.3)
+      active_utils (~> 2.0, >= 2.0.1)
+      activesupport (>= 2.3.14, < 5.0.0)
+      builder (>= 2.1.2, < 4.0.0)
+      i18n (~> 0.5)
+      json (~> 1.7)
+      money (< 7.0.0)
+      nokogiri (~> 1.4)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -33,6 +45,9 @@ GEM
       thread_safe (~> 0.1)
       tzinfo (~> 0.3.37)
     addressable (2.3.5)
+    airbrake (3.1.14)
+      builder
+      json
     ansi (1.4.3)
     arel (4.0.1)
     atomic (1.1.14)
@@ -48,7 +63,6 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
-    browser (0.2.1)
     builder (3.1.4)
     callsite (0.0.11)
     cancan (1.6.10)
@@ -81,12 +95,13 @@ GEM
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
       railties (>= 4.0.0.beta, < 5.0)
+    coffee-rails-source-maps (1.4.0)
+      coffee-script-source (>= 1.6.1)
     coffee-script (2.2.0)
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
     colored (1.2)
-    colorize (0.6.0)
     columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
@@ -180,9 +195,6 @@ GEM
       guard (~> 2.2)
     guard-ctags-bundler (1.0.1)
       guard (~> 2.0)
-    guard-konacha (1.0.3)
-      guard (>= 1.1)
-      konacha (>= 3.0)
     guard-livereload (2.0.0)
       em-websocket (~> 0.5)
       guard (~> 2.0)
@@ -221,6 +233,7 @@ GEM
     http_parser.rb (0.5.3)
     httpauth (0.2.0)
     i18n (0.6.5)
+    icalendar (1.5.0)
     jazz_hands (0.5.2)
       awesome_print (~> 1.2)
       coolline (>= 0.4.2)
@@ -248,13 +261,6 @@ GEM
       actionpack (>= 3.0.0)
       activesupport (>= 3.0.0)
     kgio (2.8.1)
-    konacha (3.0.0)
-      actionpack (>= 3.1, < 5)
-      capybara
-      colorize
-      railties (>= 3.1, < 5)
-      sprockets
-    konacha-chai-matchers (0.1.5)
     launchy (2.4.0)
       addressable (~> 2.3)
     libnotify (0.8.2)
@@ -283,7 +289,11 @@ GEM
     mime-types (1.25)
     mini_portile (0.5.2)
     minitest (4.7.5)
+    mobylette (3.5)
+      actionpack (>= 3.0)
     modernizr-rails (2.7.0)
+    money (6.0.0)
+      i18n (~> 0.6.4)
     multi_json (1.8.2)
     multipart-post (1.2.0)
     net-scp (1.1.2)
@@ -315,6 +325,9 @@ GEM
       oauth2 (~> 0.8.0)
       omniauth (~> 1.0)
     orm_adapter (0.5.0)
+    paper_trail (3.0.0)
+      activerecord (>= 3.0, < 5.0)
+      activesupport (>= 3.0, < 5.0)
     pg (0.17.0)
     poltergeist (1.4.1)
       capybara (~> 2.1.0)
@@ -350,8 +363,11 @@ GEM
     rack (1.5.2)
     rack-livereload (0.3.15)
       rack
+    rack-referrals (0.0.2)
+      rack
     rack-test (0.6.2)
       rack (>= 1.0)
+    railroady (1.1.1)
     rails (4.0.0)
       actionmailer (= 4.0.0)
       actionpack (= 4.0.0)
@@ -399,6 +415,9 @@ GEM
       mime-types (>= 1.16)
     rmagick (2.13.2)
     rolify (3.3.0.rc4)
+    rqrcode (0.4.2)
+    rqrcode-rails3 (0.1.7)
+      rqrcode (>= 0.4.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -433,6 +452,8 @@ GEM
       json
       redis (>= 3.0.4)
       redis-namespace (>= 1.3.1)
+    sidekiq-middleware (0.1.4)
+      sidekiq (>= 2.12.4, < 3)
     simplecov (0.8.2)
       docile (~> 1.1.0)
       multi_json
@@ -471,6 +492,9 @@ GEM
     turnip (1.1.0)
       gherkin (>= 2.5)
       rspec (~> 2.0)
+    turnout (0.2.5)
+      nokogiri (~> 1.3)
+      rack
     tzinfo (0.3.38)
     uglifier (2.3.0)
       execjs (>= 0.3.0)
@@ -498,12 +522,14 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  CoffeeTags
+  activemerchant
+  airbrake
   awesome_print (~> 1.2.0)
   backbone-on-rails (~> 1.1.0.0)
   bcrypt-ruby (~> 3.1.2)
   better_errors (~> 1.0.1)
   binding_of_caller (~> 0.7.2)
-  browser (= 0.2.1)
   cancan (~> 1.6.10)
   capybara
   capybara-screenshot
@@ -511,6 +537,7 @@ DEPENDENCIES
   carrierwave-processing (~> 0.0.2)
   ci_reporter (~> 1.9.0)
   coffee-rails (= 4.0.0)
+  coffee-rails-source-maps
   compass-rails (~> 1.1.2)
   database_cleaner (~> 1.2.0)
   debugger (~> 1.6.2)
@@ -530,7 +557,6 @@ DEPENDENCIES
   guard (= 2.2.2)
   guard-bundler (~> 2.0.0)
   guard-ctags-bundler (~> 1.0.1)
-  guard-konacha (~> 1.0.03)
   guard-livereload (~> 2.0.0)
   guard-migrate (~> 0.2.1)
   guard-rails (~> 0.4.7)
@@ -539,16 +565,16 @@ DEPENDENCIES
   guard-spork (~> 1.5.1)
   haml (= 4.0.3)
   haml-rails (~> 0.4)
+  icalendar
   jazz_hands (~> 0.5.2)
   jbuilder (~> 1.5.2)
   jquery-rails-cdn (~> 1.0.1)
   kaminari (~> 0.14.1)
-  konacha
-  konacha-chai-matchers
   libnotify
   linkedin (~> 0.4.4)
   mailboxer (~> 0.11.0)
   meta_request (~> 0.2.8)
+  mobylette
   modernizr-rails (~> 2.7.0)
   newrelic_rpm (~> 3.6.8)
   nokogiri (~> 1.6.0)
@@ -557,12 +583,15 @@ DEPENDENCIES
   omniauth-facebook (~> 1.4.1)
   omniauth-gplus (~> 1.2.0)
   omniauth-linkedin-oauth2 (~> 0.1.4)
+  paper_trail (~> 3.0.0)
   pg (= 0.17.0)
   poltergeist
   pry (= 0.9.12.2)
   quiet_assets (~> 1.0.2)
   rack-contrib!
   rack-livereload (~> 0.3.15)
+  rack-referrals
+  railroady
   rails (= 4.0.0)
   rails-timeago (~> 2.0)
   rails_12factor (~> 0.0.2)
@@ -572,17 +601,21 @@ DEPENDENCIES
   rb-inotify
   rmagick (~> 2.13.2)
   rolify (~> 3.3.0.rc4)
+  rqrcode-rails3
   rspec (~> 2.14)
   rspec-expectations (~> 2.14)
   rspec-mocks (~> 2.14)
   rspec-rails (~> 2.14)
   sass-rails (= 4.0.0)
   sdoc
+  sidekiq
+  sidekiq-middleware
   simplecov
   simplecov-html
   spork-rails (~> 4.0.0)
   tire
   turnip
+  turnout
   uglifier (= 2.3.0)
   underscore-rails (~> 1.5.2)
   unf (~> 0.1.3)
