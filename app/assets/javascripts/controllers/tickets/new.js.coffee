@@ -2,22 +2,23 @@
 # TODO: Add logic for unlimited ticket sales.
 Portcullis.Tickets.New =
   bind: ->
+    self.bindSubmission()
     self.bindSalesWindow()
     self.bindPricingType()
-    self.bindSubmission()
 
   injectNewEntry: (jsonData) ->
 
   bindSubmission: ->
-    $('form#new_ticket').on 'ajax:before', ->
+    repairValues = ->
+      # TODO: Update sales window start time.
+      # TODO: Update sales window end time.
       thePrice = $('input#ticket_price').val()
       thePrice *= -1 if thePrice < 0
       thePrice *= -1 if $('span#price_donation[data-checked]').length isnt 0
       thePrice = 0   if $('span#price_free[data-checked]').length isnt 0
       $('input#ticket_price').val thePrice
-      # TODO: Update sales window start time.
-      # TODO: Update sales window end time.
 
+    $('form#new_ticket').on 'ajax:before', repairValues
     $('form#new_ticket').on 'ajax:complete', (event, data, status, xhr) =>
       $('#modal_add_ticket').foundation('reveal', 'close')
       self.injectNewEntry data
