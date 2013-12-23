@@ -61,15 +61,14 @@ Portcullis.Tickets.New =
     buttonPriceFree.click()
 
   bindSalesWindow: ->
-    console.log $('input#start_day').val()
     ticketDayStart = $('#ticket_day_start').pickadate().pickadate('picker')
     ticketTimeStart = $('#ticket_time_start').pickatime().pickatime('picker')
     ticketDayEnd = $('#ticket_day_end').pickadate().pickadate('picker')
     ticketTimeEnd = $('#ticket_time_end').pickatime().pickatime('picker')
-    ticketDayStart.set('select', $('input#start_day').pickadate().pickadate('picker').get('select'))
-    ticketTimeStart.set('select', $('input#start_time').pickatime().pickatime('picker').get('select'))
-    ticketDayEnd.set('select', $('input#end_day').pickadate().pickadate('picker').get('select'))
-    ticketTimeEnd.set('select', $('input#end_time').pickatime().pickatime('picker').get('select'))
+    ticketDayStart.set('select', new Date())
+    ticketTimeStart.set('select', new Date())
+    ticketDayEnd.set('select', $('input#start_day').pickadate().pickadate('picker').get('select'))
+    ticketTimeEnd.set('select', $('input#start_time').pickatime().pickatime('picker').get('select'))
 
 self = Portcullis.Tickets.New
 
