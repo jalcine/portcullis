@@ -23,7 +23,7 @@ config/settings.local.yml
 config/settings/*.local.yml
 
 /public/uploads/*
-/public/assets/*
+/public/assets/source_maps/
 
 config/settings.local.yml
 config/settings/*.local.yml
