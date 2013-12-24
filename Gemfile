@@ -65,9 +65,9 @@ gem 'airbrake'
 gem 'rqrcode-rails3'
 #gem 'vanity'
 gem 'icalendar'
-gem 'mobylette'
+#gem 'mobylette'
 gem 'rack-referrals'
-#gem 'rack-attack'
+gem 'rack-attack'
 gem 'paper_trail', '~> 3.0.0'
 
 group :development do
@@ -83,6 +83,7 @@ group :development do
   gem 'guard-migrate', '~> 0.2.1'
   gem 'guard-ctags-bundler', '~> 1.0.1'
   gem 'guard-livereload', '~> 2.0.0'
+  gem 'chrome_logger' , :require => 'chrome_logger/railtie'
   gem 'guard-rspec', '~> 4.0.0'
   gem 'guard-sidekiq', '~> 0.0.11'
   gem 'guard-spork', '~> 1.5.1', require: false

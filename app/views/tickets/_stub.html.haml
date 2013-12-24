@@ -9,8 +9,8 @@
     %div= ticket.description
   .actions-box
     - if can? :destroy, ticket
-        %a.fit-text{href: event_ticket_url(ticket.event, ticket),rel: :nofollow, data: {ticket: {action: :delete}, method: :delete}}
-          Delete
+      %a.fit-text{href: event_ticket_url(ticket.event, ticket),rel: :nofollow, data: {ticket: {action: :delete}, method: :delete}}
+        Delete
     - if can? :modify, ticket
       %a.fit-text{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}}
         Edit
