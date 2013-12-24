@@ -63,6 +63,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bond (0.4.3)
     builder (3.1.4)
     callsite (0.0.11)
     cancan (1.6.10)
@@ -85,6 +86,8 @@ GEM
       timers (~> 1.1.0)
     childprocess (0.3.9)
       ffi (~> 1.0, >= 1.0.11)
+    chrome_logger (0.1.2)
+      multi_json (>= 1.3.0)
     chunky_png (1.2.9)
     ci_reporter (1.9.0)
       builder (>= 2.1.2)
@@ -117,7 +120,13 @@ GEM
       columnize (>= 0.3.1)
       debugger-linecache (~> 1.2.0)
       debugger-ruby_core_source (~> 1.2.3)
+    debugger-completion (1.0.0)
+      bond (>= 0.4.2)
+      debugger (~> 1.1)
     debugger-linecache (1.2.0)
+    debugger-pry (0.1.1)
+      debugger (~> 1)
+      pry (>= 0.9.9)
     debugger-ruby_core_source (1.2.4)
     devise (3.0.3)
       bcrypt-ruby (~> 3.0)
@@ -289,8 +298,6 @@ GEM
     mime-types (1.25)
     mini_portile (0.5.2)
     minitest (4.7.5)
-    mobylette (3.5)
-      actionpack (>= 3.0)
     modernizr-rails (2.7.0)
     money (6.0.0)
       i18n (~> 0.6.4)
@@ -361,6 +368,8 @@ GEM
     quiet_assets (1.0.2)
       railties (>= 3.1, < 5.0)
     rack (1.5.2)
+    rack-attack (2.3.0)
+      rack
     rack-livereload (0.3.15)
       rack
     rack-referrals (0.0.2)
@@ -535,12 +544,15 @@ DEPENDENCIES
   capybara-screenshot
   carrierwave (~> 0.9.0)
   carrierwave-processing (~> 0.0.2)
+  chrome_logger
   ci_reporter (~> 1.9.0)
   coffee-rails (= 4.0.0)
   coffee-rails-source-maps
   compass-rails (~> 1.1.2)
   database_cleaner (~> 1.2.0)
   debugger (~> 1.6.2)
+  debugger-completion
+  debugger-pry
   devise (~> 3.0.0rc)
   dotenv
   ejs (~> 1.1.1)
@@ -574,7 +586,6 @@ DEPENDENCIES
   linkedin (~> 0.4.4)
   mailboxer (~> 0.11.0)
   meta_request (~> 0.2.8)
-  mobylette
   modernizr-rails (~> 2.7.0)
   newrelic_rpm (~> 3.6.8)
   nokogiri (~> 1.6.0)
@@ -588,6 +599,7 @@ DEPENDENCIES
   poltergeist
   pry (= 0.9.12.2)
   quiet_assets (~> 1.0.2)
+  rack-attack
   rack-contrib!
   rack-livereload (~> 0.3.15)
   rack-referrals

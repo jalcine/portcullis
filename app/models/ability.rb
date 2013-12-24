@@ -11,10 +11,9 @@ class Ability
   end
 
   def attach_aliases
-    alias_action :show, to: [:read, :view]
     alias_action :edit, to: :update
-    alias_action [:update, :destroy], to: :modify
-    alias_action [:create, :read, :update, :destroy], to: :crud
+    alias_action :update, :destroy, to: :modify
+    alias_action :create, :read, :update, :destroy, to: :crud
   end
 
   def general
@@ -30,27 +29,18 @@ class Ability
   end
 
   def administrator
-    guest
-    host
-    attendee
-    can :manage, Event
-    can :manage, Ticket
-    can :manage, Order
-    can :manage, User
+    can :manage, :all
   end
 
   def host
     can :create, Event
-    can [:crud, :modify], Event do | event |
-      event.owner == @user
+    can [:crud, :modify], Event.find_by_user_id(@user.id.to_s) do | event |
+      puts event.to_yaml
+      puts @user.to_yaml
     end
 
     can :crud, Ticket do | ticket |
       can? :crud, ticket.event
-    end
-
-    can :modify, Ticket do | ticket |
-      can? :modify, ticket.event
     end
 
     can :crud, Order do | order |

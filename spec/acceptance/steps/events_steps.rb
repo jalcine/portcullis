@@ -46,9 +46,8 @@ module EventSteps
     fill_in 'ticket[name]',        with: ticket
     fill_in 'ticket[quantity]',    with: number
     fill_in 'ticket[description]', with: Faker::Lorem.paragraphs(3).join("\n")
-    find_link 'Create Ticket'
     screenshot_and_open_image
-    click_link 'Create Ticket'
+    find_button('Create Ticket').trigger 'click'
   end
 
   step 'I have should :number tickets' do | count |
@@ -60,7 +59,7 @@ module EventSteps
   end
 
   step 'it should create a new event' do
-    pending
+    expect(page).to have_content 'successfully updated'
   end
 
   step 'I confirm creation of the event' do
@@ -70,7 +69,7 @@ module EventSteps
   end
 
   step 'It should show the new event page' do
-    pending
+    expect(page).to have_content 'New Event'
   end
 end
 

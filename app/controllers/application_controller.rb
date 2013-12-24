@@ -2,9 +2,6 @@ class ApplicationController < ActionController::Base
   # If enabled, handle Vanity testing.
   #use_vanity :current_user
 
-  # Get our mobylette.
-  include Mobylette::RespondToMobileRequests
-
   # Ensure CanCan logic is employed.
   rescue_from CanCan::AccessDenied do |exception|
     message = 'You aren\'t authorized to invoke that action.' 
@@ -24,7 +21,8 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_in_path_for(resource)
-    root_url
+    request.referrer if request.referrer.present?
+    events_url(scope: :recommended)
   end
 
   def user_for_paper_trail

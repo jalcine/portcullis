@@ -1,6 +1,7 @@
 - page_title 'Events for College'
 - disable_navigation
 - disable_header
+- disable_flash_gordon
 %header{role: :page}
   .row
     .small-12.large-10.large-centered.small-centered.columns.center-text
@@ -10,14 +11,7 @@
       %h2 Events Made for Humans, <i> By Humans</i>
   .row.collapse
     .small-12.columns
-      %form.custom{method: :get}
-        .row.collapse
-          .small-10.columns
-            %input{type: :text, placeholder: 'Events, places, people; search it all!'}
-          .small-2.columns
-            %button{type: :submit, class: 'button postfix round'}
-              %i.fa.fa-search
-              Search
+      = render 'components/flash_gordon'
 = render 'components/navigation'
 %section#howto{role: :page}
   .row

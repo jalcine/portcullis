@@ -4,8 +4,9 @@
 nav.top-bar {
   margin: 0em;
   padding: 0em;
+
   li > a {
-    @include transition(0.4s background, 0.4 color);
+    @include transition(all 0.4s);
   }
 
   li.name {
@@ -14,23 +15,4 @@ nav.top-bar {
       margin-bottom: $topbar-height * 0.05;
     }
   }
-
-  li#omnisearch { 
-    @media #{$medium-up} {
-      & {
-        width: 370px;
-      }
-    }
-
-    @media #{$large-up} {
-      & {
-        width: 710px;
-      }
-    }
-  }
-}
-
-#nav_link_create_event {
-  text-transform: uppercase;
-  font-size: 1.2;
 }

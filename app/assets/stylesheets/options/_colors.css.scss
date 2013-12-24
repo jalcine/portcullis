@@ -26,13 +26,19 @@ $disabled-color: $gray;
 /** Rest of ze site **/
 
 $body-bg: $white;
-$topbar-bg-color: $body-bg;
-$topbar-bg: linear-gradient(lighten($topbar-bg-color, 5%), $topbar-bg-color);
-$topbar-link-color: $black;
+$topbar-bg-color: $black;
+$topbar-bg: $topbar-bg-color;
+$topbar-link-color: $white;
 $topbar-link-color-hover: $vettio-white;
 $topbar-link-color-active: $vettio-white;
-$topbar-link-bg-hover: linear-gradient(darken($vettio-blue, 5%), darken($vettio-blue, 15%));
-$topbar-dropdown-bg: $black;
+$topbar-link-bg-hover: darken($vettio-blue, 15%);
+$topbar-dropdown-bg: darken($vettio-blue, 5%);
 $topbar-dropdown-link-color: $white;
+$sub-nav-active-bg: $white;
+$sub-nav-active-color: $primary-color;
 
+$colors: red yellow orange green blue purple black white gray;
 
+@each $a_color in $colors {
+  .fa-#{$a_color} { color: #{$a_color}; }
+}

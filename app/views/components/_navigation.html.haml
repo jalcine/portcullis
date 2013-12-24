@@ -4,26 +4,41 @@
       %li.name 
         %h1
           %a{href: root_url}
+            .show-for-small Vettio
             %img{src: asset_url('logo/slogan.png'), title: 'Vettio', data: { interchange: "default #{asset_url('logo/slogan.png')}, small #{asset_url('logo/button.png')}" } }
             %noscript
               %img{src: asset_url('logo/button.png')}
     %section.top-bar-section
       %ul.left
-        %li.has-form
-          .row.collapse
-            .large-8.small-9.columns
-              %input{type: :search, placeholder: 'Look for events'}
-            .large-4.small-3.columns
-              %a.alert.button.expand{href: '#'} Search
-        %li#nav_link_create_event
-          = link_to new_event_path do
-            %i.fa.fa-fw.fa-fw.fa-plus-square
+        %li
+          %a{href: new_event_path}
+            %i.fa.fa-plus-square.fa-lg
             Create Event
-        - if user_signed_in?
-          %li
-            = link_to events_path(scope: :my) do
-              %i.fa.fa-fw.fa-glass
-              My Events
+        %li.has-dropdown
+          %a{href: '#'}
+            %span.fa-stack.fa-fw
+              %i.fa.fa-square.fa-stack-2x
+              %i.fa.fa-calendar-o.fa-stack-1x.fa-black
+            Events
+          %ul.dropdown
+            %li
+              %label
+                %i.fa.fa-fw.fa-calendar-o
+                Upcoming Events
+            %li
+              = link_to events_path(scope: :upcoming_week) do
+                Upcoming This Week
+            %li
+              = link_to events_path(scope: :upcoming_month) do
+                Upcoming This Month
+            %li
+              = link_to events_path(scope: :upcoming_year) do
+                Upcoming This Year
+            - if user_signed_in?
+              %li.divider
+              %li
+                = link_to events_path(scope: :my) do
+                  My Events
       %ul.right
         - unless user_signed_in?
           %li

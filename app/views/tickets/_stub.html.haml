@@ -1,16 +1,19 @@
 %li.ticket{data: {ticket: ticket.id}}
   .numerical-box
     %b.price.fit-text= number_to_currency(ticket.price, precision: 2)
-    = timeago_tag (ticket.date_end.present? ? ticket.event.date_end : ticket.date_end)
+    = timeago_tag ticket.date_end if ticket.date_end.present?
+    = timeago_tag ticket.event.date_end if ticket.event.date_end.present?
+    = timeago_tag Time.now.midnight unless ticket.date_end.present? or ticket.event.date_end.present?
   .contextual-box
     %h2= ticket.name
     %div= ticket.description
   .actions-box
-    %a.fit-text{href: event_ticket_url(ticket.event, ticket),rel: :nofollow, data: {ticket: {action: :delete}, method: :delete}}
-      Delete
-    %a.fit-text{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}}
-
-      Edit
+    - if can? :destroy, ticket
+      %a.fit-text{href: event_ticket_url(ticket.event, ticket),rel: :nofollow, data: {ticket: {action: :delete}, method: :delete}}
+        Delete
+    - if can? :modify, ticket
+      %a.fit-text{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}}
+        Edit
     - if can? :order, ticket 
       %a.buy.fit-text{href: '#', data: {ticket: {action: :buy}}}
         Buy

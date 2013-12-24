@@ -11,15 +11,10 @@ class ImageUploader < CarrierWave::Uploader::Base
   end
 
   def default_url
-    ActionController::Base.helpers.asset_path('fallback/default.png')
+    ActionController::Base.helpers.asset_path('hazy_circle.jpg')
   end
 
   def extension_white_list
     %w(jpg jpeg gif png bmp tiff)
-  end
-
-  def filename
-    return super.chomp(File.extname(super)) + '.png' unless super.nil?
-    default_url.chomp(File.extname(default_url)) + '.png'
   end
 end

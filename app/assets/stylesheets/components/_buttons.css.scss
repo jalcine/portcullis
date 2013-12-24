@@ -19,23 +19,28 @@ p.alert-box.has-button {
 @mixin animated-icon-button($fa, $bg, $height: rem-calc(32px),
   $padding: rem-calc(10px)){
   @include button($padding: $padding, $bg: $bg, $full-width: true);
+  @include transition(text-indent 0.4s);
   line-height: $height;
   height: $height;
   position: relative;
   padding-top: 0rem;
   overflow: hidden;
+  text-indent: -10px;
 
   &:before {
-    @include transition(left 0.35s);
+    @include transition(left 0.35s, top 0.35s);
     @extend .fa;
     @extend .#{$fa};
     position: relative;
-    left: -50%;
+    top: 100%;
+    left: -50px;
   }
 
   &:hover {
+    text-indent: 0;
     &:before {
       left: 0%;
+      top: 0%;
     }
   }
 }

@@ -67,7 +67,7 @@
         Schedule
 
 %section#tickets.event_panel{data: {magellan: {destination: :tickets}}}
-  - if @event.tickets.empty?
+  - if @event.tickets.empty? and can? :modify, @event
     .row
       %p.alert-box.warning.clearfix.has-button.radius.large-9.large-centered.small-12.large-centered.columns
         %span.label.round.alert

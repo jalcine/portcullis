@@ -3,14 +3,17 @@
 @import 'compass/css3/border-radius';
 
 figure.user-square {
+  @include border-radius(0px);
+  @include transition(border-radius 0.3s);
   overflow: hidden;
   position: relative;
   margin: 0rem;
   background-color: rgba($gray, 0.6);
 
   > img {
-    @include transition(transform 0.4s);
+    @include transition(transform 0.4s, opacity 0.2s);
     @include border-radius(0px);
+    @include opacity(1);
     max-width: 100%;
     max-height: 100%;
     display: block;
@@ -42,12 +45,16 @@ figure.user-square {
   }
 
   &:hover, [data-expanded=expanded] {
+    @include border-radius(10px);
     > img { 
-      @include transform(translateY(-50));
+      @include transform(translateY(-50) scaleX(0.8) scaleY(0.8));
       @include border-radius(10px);
+      @include opacity(0.8);
     }
+
     > figcaption {
       @include transform(translateY(0px));
+      @include border-radius(10px);
       opacity: 1;
     }
   }
