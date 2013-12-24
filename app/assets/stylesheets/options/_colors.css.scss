@@ -27,12 +27,12 @@ $disabled-color: $gray;
 
 $body-bg: $white;
 $topbar-bg-color: $black;
-$topbar-bg: linear-gradient(lighten($topbar-bg-color, 9%), $topbar-bg-color);
+$topbar-bg: $topbar-bg-color;
 $topbar-link-color: $white;
 $topbar-link-color-hover: $vettio-white;
 $topbar-link-color-active: $vettio-white;
-$topbar-link-bg-hover: linear-gradient(darken($vettio-blue, 5%), darken($vettio-blue, 15%));
+$topbar-link-bg-hover: darken($vettio-blue, 15%);
 $topbar-dropdown-bg: $black;
 $topbar-dropdown-link-color: $white;
-
-
+$sub-nav-active-bg: $white;
+$sub-nav-active-color: $primary-color;
