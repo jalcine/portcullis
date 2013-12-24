@@ -6,9 +6,12 @@
 body.home.landing {
   > section.main {
     > header[role=page] {
+      @include transition(all 0.4s);
       background-image: asset-url('hazy_circle.jpg');
       background-position: center center;
       background-size: cover;
+      min-height: rem-calc(536px);
+      line-height: 25;
 
       > .row:nth-child(1) {
         img {

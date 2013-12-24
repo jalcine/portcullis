@@ -1,8 +1,8 @@
 #= require jquery_ujs
-#= require rails-timeago-all
-#= require foundation
 #= require jquery/fitText
 #= require jquery/number.min
+#= require rails-timeago
+#= require foundation
 #= require_tree ./lib
 #= require_tree ./controllers
 
@@ -13,15 +13,13 @@ jQuery.timeago.settings.allowFuture = true
 $ ->
   doc = $ document
   doc.foundation()
-  doc.foundation {
-    tooltips: {
+  doc.foundation
+    tooltips:
       selector: '.has-tip, *[data-tooltip]'
-    },
-    topbar: {
+    topbar:
       is_hover: false
       mobile_show_parent_link: true
-    }
-  }
-  $('.fit-text').fitText(0.7, {
+      sticky_class: 'topbar'
+  $('.fit-text').fitText(0.7,
     minFontSize: '14px'
-  })
+  )

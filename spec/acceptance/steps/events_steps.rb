@@ -71,6 +71,16 @@ module EventSteps
   step 'It should show the new event page' do
     expect(page).to have_content 'New Event'
   end
+
+  step 'there is an unlisted event named :name' do | name |
+    puts name
+    pending
+  end
+
+  step "there is a password-protected event I don't own" do
+    @event = create :event, :protected
+    expect(can?(:modify, @event)).to be_false
+  end
 end
 
 RSpec.configure { |config| config.include EventSteps }

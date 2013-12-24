@@ -34,13 +34,13 @@ class Ability
 
   def host
     can :create, Event
-    can [:crud, :modify], Event.find_by_user_id(@user.id.to_s) do | event |
-      puts event.to_yaml
-      puts @user.to_yaml
-    end
+    can [:crud, :modify], Event, {owner: @user}
 
     can :crud, Ticket do | ticket |
       can? :crud, ticket.event
+    end
+    can :modify, Ticket do | ticket |
+      can? :modify, ticket.event
     end
 
     can :crud, Order do | order |
