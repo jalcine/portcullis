@@ -46,9 +46,8 @@ module EventSteps
     fill_in 'ticket[name]',        with: ticket
     fill_in 'ticket[quantity]',    with: number
     fill_in 'ticket[description]', with: Faker::Lorem.paragraphs(3).join("\n")
-    find_link 'Create Ticket'
     screenshot_and_open_image
-    click_link 'Create Ticket'
+    click_button 'Create Ticket'
   end
 
   step 'I have should :number tickets' do | count |
