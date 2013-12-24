@@ -26,9 +26,9 @@ $disabled-color: $gray;
 /** Rest of ze site **/
 
 $body-bg: $white;
-$topbar-bg-color: $body-bg;
-$topbar-bg: linear-gradient(lighten($topbar-bg-color, 5%), $topbar-bg-color);
-$topbar-link-color: $black;
+$topbar-bg-color: $black;
+$topbar-bg: linear-gradient(lighten($topbar-bg-color, 9%), $topbar-bg-color);
+$topbar-link-color: $white;
 $topbar-link-color-hover: $vettio-white;
 $topbar-link-color-active: $vettio-white;
 $topbar-link-bg-hover: linear-gradient(darken($vettio-blue, 5%), darken($vettio-blue, 15%));

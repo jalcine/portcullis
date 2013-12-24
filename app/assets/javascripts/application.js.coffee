@@ -25,6 +25,3 @@ $ ->
   $('.fit-text').fitText(0.7, {
     minFontSize: '14px'
   })
-  setTimeout ->
-    $('.alert-box[data-alert=autohide]').foundation('alert-box', 'hide')
-  , 3000

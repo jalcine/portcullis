@@ -3,7 +3,7 @@ module ApplicationHelper
     Settings.toggles.in_beta == true
   end
 
-  ['navigation', 'footer', 'header'].each do | section |
+  ['flash_gordon', 'navigation', 'footer', 'header'].each do | section |
     module_eval <<-METHODS, __FILE__, __LINE__ +1
       def #{section}_visible?
         @#{section}_visible = true if @#{section}_visible.nil?
