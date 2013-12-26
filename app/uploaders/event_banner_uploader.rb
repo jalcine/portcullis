@@ -5,4 +5,8 @@ class EventBannerUploader < ImageUploader
 
    version :masthead do
    end
+
+  def default_url
+    ActionController::Base.helpers.asset_path('hazy_circle.jpg')
+  end
 end
