@@ -1,4 +1,4 @@
-Feature: Events
+Feature: Editing Events
   Background:
     Given a host is signed in
 

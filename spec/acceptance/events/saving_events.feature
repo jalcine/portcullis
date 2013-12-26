@@ -1,4 +1,4 @@
-Feature: Events
+Feature: Saving Events
   Background:
     Given a host is signed in
 

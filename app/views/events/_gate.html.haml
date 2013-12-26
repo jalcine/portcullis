@@ -1,1 +1,14 @@
-%h2 No Man Fi Enter Here
+- page_title 'Enter Password for Event'
+- disable_navigation
+- disable_footer
+.row
+  .large-10.columns.large-centered.center-text
+    %p.alert-box.info.radius{data: {alert: :autohide}}
+      %span.label.warning
+        %i.fa.fa-fw.fa-key
+        %b PASSWORD REQUIRED
+      %a.close{href: '#'} &times;
+      This event's organizer requires that you enter a password before viewing this event.
+.row
+  .large-7.columns.large-centered.center-text
+    %input.center-text{type: :password, placeholder: 'Enter password to view event.'}

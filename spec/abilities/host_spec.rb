@@ -8,8 +8,10 @@ describe :host do
     describe Event do
       let(:event) { FactoryGirl.create :event, owner: subject }
       before(:each) { subject.grant(:host, event) }
-      it { expect(ability.can?(:modify, event)).to eq(true) }
-      it { expect(ability.can?(:crud, event)).to eq(true) }
+      describe 'has permission to change' do
+        it { expect(ability.can?(:modify, event)).to eq(true) }
+        it { expect(ability.can?(:crud, event)).to eq(true) }
+      end
     end
 
     describe Ticket do
@@ -18,8 +20,10 @@ describe :host do
         subject.grant(:host, ticket.event)
         ticket.event.owner = subject
       end
-      it { expect(ability.can?(:modify, ticket)).to eq(true) }
-      it { expect(ability.can?(:crud, ticket)).to eq(true) }
+      describe 'has permission to change' do
+        it { expect(ability.can?(:modify, ticket)).to eq(true) }
+        it { expect(ability.can?(:crud, ticket)).to eq(true) }
+      end
     end
 
     describe Order do
