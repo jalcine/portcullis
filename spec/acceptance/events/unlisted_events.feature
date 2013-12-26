@@ -2,6 +2,7 @@ Feature: Unlisted Events
   Background:
     Given a host is signed in
 
+  @wip
   Scenario:
     When there is an unlisted event I don't own
     And I go to the search page

@@ -4,11 +4,9 @@ Feature: Password Protected Events
     And there is a password-protected event I don't own
     And I go to view the event
 
-  @wip
   Scenario: Prevents access to password-protected events for foreign users
     Then I should be required to enter a password to view the event
 
-  @backlog
   Scenario: Permits access to password-protected events for those with key
     When I enter the key for the password-protected event
     Then I should be redirected to the event
