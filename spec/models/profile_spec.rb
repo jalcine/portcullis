@@ -49,8 +49,8 @@ describe Profile do
           profile.save!
         end
 
-        it { expect(profile.avatar.url).to_not be_eql('/fallback/default.png') }
-        it { expect(profile.avatar.filename).to be_eql('kittykat.png') }
+        it { expect(profile.avatar.url).to_not eql('/fallback/default.png') }
+        it { expect(profile.avatar.filename).to eql('kittykat.jpg') }
       end
 
       describe 'removing' do
@@ -59,7 +59,7 @@ describe Profile do
           profile.save!
         end
 
-        it { expect(profile.avatar.url).to be_eql('/fallback/default.png') }
+        it { expect(profile.avatar.url).to eql('/users/default_avatar.png') }
         it { expect(profile.avatar.file).to be_nil }
       end
 
