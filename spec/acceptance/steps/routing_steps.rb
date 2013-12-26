@@ -1,4 +1,8 @@
 module RoutingSteps
+  step 'I should be redirected' do
+    expect(page).to be_a_redirect
+  end
+
   step 'I go to the sign-in page' do
     visit new_user_session_path
     expect(page).to have_content 'Sign In'
@@ -15,6 +19,10 @@ module RoutingSteps
 
   step 'I go to the password recovery page' do
     visit new_user_password_path
+  end
+
+  step 'I go to view the event' do
+    visit event_path(@event)
   end
 end
 
