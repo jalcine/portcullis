@@ -72,18 +72,12 @@ module EventSteps
     expect(page).to have_content 'New Event'
   end
 
-  step 'there is an unlisted event named :name' do | name |
-    puts name
-    pending
-  end
-
   step "there is a password-protected event I don't own" do
     @event = create :event, :protected
     expect(Ability.new(@current_user).can?(:modify, @event)).to be_false
   end
 
   step "there is an unlisted event I don't own" do
-    pending
     @event = create :event, :unlisted
     expect(Ability.new(@current_user).can?(:modify, @event)).to be_false
   end

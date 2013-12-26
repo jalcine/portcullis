@@ -24,6 +24,10 @@ module RoutingSteps
   step 'I go to view the event' do
     visit event_path(@event)
   end
+
+  step 'I go to the search page' do
+    visit search_path
+  end
 end
 
 RSpec.configure { |c| c.include RoutingSteps  }
