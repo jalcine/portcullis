@@ -11,4 +11,12 @@
       This event's organizer requires that you enter a password before viewing this event.
 .row
   .large-7.columns.large-centered.center-text
-    %input.center-text{type: :password, placeholder: 'Enter password to view event.'}
+    = form_for @event, method: :post, class: :custom do | f |
+      .row.collapse
+        .small-3.columns
+          = f.label :access_key, class: :inline do
+            Password
+        .small-6.columns
+          = f.text_field :access_key, placeholder: 'Enter access key to view event'
+        .small-3.columns
+          = f.submit 'Enter Event', class: 'inline button expand primary'
