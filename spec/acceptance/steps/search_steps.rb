@@ -11,6 +11,7 @@ module SearchSteps
   end
 
   step 'I search for :query' do |query|
+<<<<<<< Updated upstream
     #puts find('form#omnisearch input[name=query]')
     #click_button 'Search'
   end
@@ -34,6 +35,15 @@ module SearchSteps
     within '#event_list' do
       expect(page).to have_content :event_name
     end
+=======
+    expect(page).to have_content 'Search'
+    fill_in 'query', with: :query
+    click_on 'Search'
+  end
+
+  step 'I should see a message indicating no events were found' do
+    expect(page).to have_content t('en.search.no_results')
+>>>>>>> Stashed changes
   end
 end
 
