@@ -8,6 +8,7 @@ FactoryGirl.define do
     date_start  { Time.now + 6.days }
     date_end    { date_start }
     address     Faker::Address.street_address(include_secondary: true)
+    publicity   { :public }
 
     trait :with_tickets do
       after(:create) do | event, evaluator |
@@ -21,6 +22,10 @@ FactoryGirl.define do
 
     trait :expired do
       date_start { Time.now - 5.days }
+    end
+
+    trait :unlisted do
+      publicity { :unlisted }
     end
 
     trait :draft do
