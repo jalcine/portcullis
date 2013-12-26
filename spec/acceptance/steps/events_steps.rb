@@ -79,7 +79,28 @@ module EventSteps
 
   step "there is a password-protected event I don't own" do
     @event = create :event, :protected
-    expect(can?(:modify, @event)).to be_false
+    expect(Ability.new(@current_user).can?(:modify, @event)).to be_false
+  end
+
+  step "there is an unlisted event I don't own" do
+    pending
+    @event = create :event, :unlisted
+    expect(Ability.new(@current_user).can?(:modify, @event)).to be_false
+  end
+
+  step 'I enter the key for the password-protected event' do
+    fill_in 'event[access_key]', with: @event.access_key
+    click_on 'Submit Key'
+  end
+
+  step 'I should be able to view the event' do
+    expect(page).to have_content @event.description
+    expect(page).to have_content @event.name
+  end
+
+  step 'I should be able to view the password-protected event' do
+    send 'I should be able to view the event'
+    expect(page).to have_content 'protected event'
   end
 end
 
