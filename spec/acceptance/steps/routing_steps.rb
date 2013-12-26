@@ -1,6 +1,6 @@
 module RoutingSteps
-  step 'I should be redirected' do
-    expect(page).to be_a_redirect
+  step 'I should be redirected to :url' do | url |
+    expect(current_url).to eq(url)
   end
 
   step 'I go to the sign-in page' do
