@@ -21,7 +21,7 @@ Portcullis::Application.routes.draw do
   put '/u/edit',      to: 'users/profiles#update'
 
   resources :events do
-    resources :tickets, shallow: true
+    resources :tickets
   end
   post '/events/:id', to: 'events#show'
 
