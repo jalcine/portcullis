@@ -21,8 +21,9 @@ Portcullis::Application.routes.draw do
   put '/u/edit',      to: 'users/profiles#update'
 
   resources :events do
-    resources :tickets
+    resources :tickets, shallow: true
   end
+  post '/events/:id', to: 'events#show'
 
   match '/vanity/:action/:id', controller: :vanity, via: [:get, :post, :patch, :put, :delete]
   match '*a', to: 'home#rescue_from_routing_error', via: [:get, :post, :patch, :put, :delete] if Rails.env.production?

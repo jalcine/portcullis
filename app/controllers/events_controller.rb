@@ -9,13 +9,14 @@ class EventsController < ApplicationController
     @events = Event.all
   end
 
-  # GET /events/1
-  # GET /events/1.json
+  # GET/POST /events/1
+  # GET/POST /events/1.json
   def show
     authorize! :view, @event
     if @event.access_key.present?
-      valid_key = params[:access_key] == @event.access_key
-      if !params.include? :access_key or !valid_key
+      valid_key = false
+      valid_key = params[:event][:access_key] == @event.access_key if params.include? :event
+      if !valid_key 
         respond_to do | format |
           format.html { render 'events/_gate', status: 401 }
           format.js   { render nothing: true,  status: 401 }
