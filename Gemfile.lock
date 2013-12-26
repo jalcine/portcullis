@@ -501,6 +501,8 @@ GEM
     turnip (1.1.0)
       gherkin (>= 2.5)
       rspec (~> 2.0)
+    turnip-kanban (0.0.1)
+      turnip
     turnout (0.2.5)
       nokogiri (~> 1.3)
       rack
@@ -627,6 +629,7 @@ DEPENDENCIES
   spork-rails (~> 4.0.0)
   tire
   turnip
+  turnip-kanban
   turnout
   uglifier (= 2.3.0)
   underscore-rails (~> 1.5.2)
