@@ -28,7 +28,7 @@ group :ui do
     watch(%r{^config/settings/.+\.yml$})
   end 
 
-  guard :livereload, apply_css_live: false, grace_period: 0.1, override_url: false do
+  guard :livereload, apply_css_live: true, grace_period: 0.1, override_url: true do
     watch('config/routes.rb')
     watch(%r{app/views/.+\.haml$})
     watch(%r{app/helpers/.+\.rb})
@@ -51,7 +51,7 @@ group :test do
     watch(%w{^spec/support/prefork)/(.+)\.rb$}) { [:spork, 'spec'] }
   end
 
-  guard :rspec, all_on_pass: true, all_on_start: false, failed_mode: :none, cmd: 'bundle exec rspec --drb' do
+  guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :none, cmd: 'bundle exec rspec --drb' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }
