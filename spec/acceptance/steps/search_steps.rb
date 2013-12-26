@@ -11,29 +11,20 @@ module SearchSteps
   end
 
   step 'I search for :query' do |query|
-    #puts find('form#omnisearch input[name=query]')
-    #click_button 'Search'
+    expect(page).to have_content 'Search'
+    fill_in 
   end
 
   step 'I should see a message indicating no events were found' do
     pending
-    within '#event_list' do
-      expect(page).to have_content('No events were found')
-    end
   end
   
   step 'I should not see the event called :event_name in the event list' do | event_name |
     pending
-    within '#event_list' do
-      expect(page).to_not have_content :event_name
-    end
   end
 
   step 'I should see the event called :event_name in the event list' do | event_name |
     pending
-    within '#event_list' do
-      expect(page).to have_content :event_name
-    end
   end
 end
 
