@@ -21,7 +21,7 @@
     Nope, I'm Good
 
 #modal_add_ticket.reveal-modal.medium{'data-reveal' => true}
-  
+
 .row
   .small-12.columns
     = form_for @event, class: :custom do | f |
@@ -176,6 +176,12 @@
               Key
           .small-12.large-10.columns
             = f.password_field :access_key
+        .row
+          .small-12.large-10.large-centered.columns
+            = f.label :publicity, class: :inline do
+              = f.check_box :publicity, checked: true
+              %i.fa.fa-fw.fa-eye
+              Allow this event to be discoverable in search results?
         .row
           .small-12.large-2.columns
             = f.label :age_group, class: :inline do
