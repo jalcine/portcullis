@@ -116,6 +116,7 @@ group :test, :development do
   gem 'poltergeist', require: false
   gem 'nyan-cat-formatter', require: false
   gem 'turnip', require: false
+  gem 'turnip-kanban', require: false
   gem 'libnotify', require: false
   gem 'growl', require: false
   gem 'rb-inotify', require: false

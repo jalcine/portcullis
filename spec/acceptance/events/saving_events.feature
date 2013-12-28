@@ -2,6 +2,7 @@ Feature: Saving Events
   Background:
     Given a host is signed in
 
+  @backlog
   Scenario: Saves a new event properly
     When I go to the new events page
     And I set the event's title with "Captain Underpants: The Reunion"

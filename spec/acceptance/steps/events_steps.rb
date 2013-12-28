@@ -105,7 +105,20 @@ module EventSteps
 
   step 'I should be able to view the password-protected event' do
     send 'I should be able to view the event'
-    expect(page).to have_content 'protected event'
+    #expect(page).to have_content 'protected event'
+  end
+
+  step 'I should be required to enter a password to view the event' do
+    step 'I should see the text "Password" on the page'
+  end
+
+  step 'I enter the key for the password-protected event' do
+    fill_in 'Password', with: @event.access_key
+    click_on 'Enter Event'
+  end
+
+  step 'I should be redirected to the event' do
+    expect(current_path).to eq(event_path(@event))
   end
 end
 
