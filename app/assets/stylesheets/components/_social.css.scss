@@ -6,19 +6,19 @@ $googleplus-color : #dd4b39;
 a.button {
   > i.icon { @extend .fa; }
   &.facebook    { 
-    @include button($bg: $facebook-color);
+    @include button-style($bg: $facebook-color);
     > i.icon { @extend .fa-facebook-square; }
   }
   &.twitter { 
-    @include button($bg: $twitter-color);
+    @include button-style($bg: $twitter-color);
     > i.icon { @extend .fa-twitter-square; }
   }
   &.linkedin    {
-    @include button($bg: $linkedin-color);
+    @include button-style($bg: $linkedin-color);
     > i.icon { @extend .fa-linkedin-square; }
   }
   &.gplus       {
-    @include button($bg: $googleplus-color);
+    @include button-style($bg: $googleplus-color);
     > i.icon { @extend .fa-google-plus-square; }
   }
 }

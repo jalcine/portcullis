@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe :administrator do
-  subject { FactoryGirl.create :administrator_user }
+  subject { FactoryGirl.create :user, :administrator }
   let(:ability) { Ability.new(subject) }
 
   describe Event do

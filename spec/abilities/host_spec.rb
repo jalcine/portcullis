@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe :host do
-  subject { FactoryGirl.create :host_user }
+  subject { FactoryGirl.create :user, :host }
   let(:ability) { Ability.new(subject) }
 
   describe 'its own' do

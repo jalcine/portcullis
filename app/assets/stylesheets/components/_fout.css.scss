@@ -1,24 +1,42 @@
-html {
+html.wf-loading, html.wf-inactive {
+  body, a, p, nav.top-bar, ul, ol,
+  blockquote, address, a.button,
+  input[type=submit], input[type=reset],
+  .top-bar-section ul li > a, button
+  {
+    font-family: $basic-body-font-family;
+  }
+
+  h1, h2, h3,
+  h4, h5, h6 
+  {
+    font-family: $basic-header-font-family;
+  }
+}
+
+html.wf-active {
+  &.wf-lato-n2-active {
+    body, a, p, nav.top-bar, ul, ol,
+    blockquote, address, a.button,
+    input[type=submit], input[type=reset],
+    button
+    {
+      font-family: 'Lato';
+    }
+  }
+
+  &.wf-lato-n5-active {
+    .top-bar-section ul li > a
+    {
+      font-family: 'Lato';
+    }
+  }
+
   &.wf-raleway-n3-active {
     h1, h2, h3,
     h4, h5, h6
     {
-      font-family: "Raleway";
-    }
-  }
-
-  &.wf-opensans-n2-active {
-    p, nav.top-bar, ul, ol, 
-    blockquote, address
-    {
-      font-family: "Open Sans";
-    }
-  }
-
-  &.wf-opensans-n5-active {
-    .top-bar-section ul li > a
-    {
-      font-family: "Open Sans";
+      font-family: 'Raleway';
     }
   }
 }

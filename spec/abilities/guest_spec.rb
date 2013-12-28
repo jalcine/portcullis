@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 describe :guest do
-  subject { FactoryGirl.create :guest_user }
+  subject { FactoryGirl.create :user, :guest }
   let(:ability) { Ability.new(subject) }
 
   describe Event do
