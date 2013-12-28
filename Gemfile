@@ -77,8 +77,6 @@ group :development do
   gem 'erb2haml', '~> 0.1.5'
   gem 'CoffeeTags'
   gem 'debugger', '~> 1.6.2'
-  gem 'debugger-completion', require: 'debugger/completion'
-  gem 'debugger-pry', require: 'debugger/pry'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
   gem 'guard-bundler', '~> 2.0.0'

@@ -1,10 +1,7 @@
 require 'spec_helper'
 
 describe EventsController do
-  before(:each) do
-    login_user
-    controller.current_user.add_role :host
-  end
+  before(:each) { login_user }
 
   describe 'GET index' do
     it 'handles a bunch of events' do
@@ -17,7 +14,9 @@ describe EventsController do
 
   describe 'POST create' do
     describe 'persists a new event' do
+      before(:all) { controller.current_user.grant :host }
       before(:each) { post :create, event: attributes_for(:event, :with_tickets) }
+      after(:all) { controller.current_user.revoke :host }
       it { expect(response).to redirect_to(event_path(assigns(:event))) }
     end
   end
@@ -33,7 +32,6 @@ describe EventsController do
     describe 'proper viewing' do
       before(:each) { get :new }
       it { expect(assigns(:event)).to be_a Event }
-      #it { expect(assigns(:event)).to be_a_new_record }
       it { expect(response).to render_template 'events/new' }
       it { expect(response).to render_template 'events/_form' }
     end
@@ -55,7 +53,7 @@ describe EventsController do
     end
 
     describe 'user does not owns' do
-      subject { FactoryGirl.create :event, owner: FactoryGirl.create(:host_user) }
+      subject { FactoryGirl.create :event, owner: FactoryGirl.create(:user, :host) }
       before(:each) do
         get :edit, id: subject.id
       end
@@ -90,7 +88,19 @@ describe EventsController do
     end
   end
 
-  describe 'PATCH/PUT update' do; end
+  @wip
+  describe 'PATCH/PUT update' do
+    subject { create :event }
+
+    describe 'updates own evet' do
+      before(:each) do
+        put :update, id: subject.id, event: attributes_for(:event)
+      end
+
+      it { expect(assigns(:event)).to be_a Event }
+      it { expect(response).to be_a_redirect }
+    end
+  end
 
   describe 'DELETE destroy' do; end
 end
