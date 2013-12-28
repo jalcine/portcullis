@@ -92,9 +92,9 @@ module EventSteps
     expect(Ability.new(@current_user).can?(:modify, @event)).to be_false
   end
 
-  step 'I enter the key for the password-protected event' do
-    fill_in 'event[access_key]', with: @event.access_key
-    click_on 'Submit Key'
+  step 'I enter the password for the password-protected event' do
+    fill_in 'event[password]', with: @event.password
+    click_on 'Submit Password'
   end
 
   step 'I should be able to view the event' do
@@ -111,8 +111,8 @@ module EventSteps
     step 'I should see the text "Password" on the page'
   end
 
-  step 'I enter the key for the password-protected event' do
-    fill_in 'Password', with: @event.access_key
+  step 'I enter the password for the password-protected event' do
+    fill_in 'Password', with: @event.password
     click_on 'Enter Event'
   end
 
