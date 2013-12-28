@@ -22,7 +22,6 @@ describe Ticket do
 
   describe '.available?' do
     subject { create :ticket, :available }
-    it { expect(subject).to_not be_expired }
     it { expect(subject).to be_available }
   end
 

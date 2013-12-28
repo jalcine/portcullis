@@ -78,7 +78,7 @@ module EventSteps
     expect(page).to have_content 'New Event'
   end
 
-  step 'there is an unlisted event named :name' do | name |
+  step 'there should be an unlisted event named :name' do | name |
     puts name
     pending
   end

@@ -2,13 +2,14 @@ Feature: Unlisted Events
   Background:
     Given a host is signed in
 
+  @wip
   Scenario: creating unlisted events
     When I go to the new events page
     And I set the event's title with "Snow White"
     And I set the event's description to some placeholder text
     And I populate the time range for the event
     And I confirm creation of the event
-    Then I should have an unlisted event named "Snow White"
+    Then there should be an unlisted event named "Snow White"
 
   @backlog
   Scenario: searching for unlisted events doesn't procur results

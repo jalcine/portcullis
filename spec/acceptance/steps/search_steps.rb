@@ -12,13 +12,12 @@ module SearchSteps
 
   step 'I search for :query' do |query|
     expect(page).to have_content 'Search'
-    fill_in 
   end
 
   step 'I should see a message indicating no events were found' do
     pending
   end
-  
+
   step 'I should not see the event called :event_name in the event list' do | event_name |
     pending
   end

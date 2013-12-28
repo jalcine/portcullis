@@ -2,6 +2,7 @@ Feature: Deleting Events
   Background:
     Given a host is signed in
 
+  @backlog
   Scenario: Deletes an event
     When I have a pre-existing event
     And I go to view my pre-exisiting event
