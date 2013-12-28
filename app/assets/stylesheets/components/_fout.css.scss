@@ -1,16 +1,24 @@
 html {
   &.wf-raleway-n3-active {
     h1, h2, h3,
-    h4, h5, h6 { font-family: "Raleway", $apple-fonts, $microsoft-fonts, serif; }
+    h4, h5, h6
+    {
+      font-family: "Raleway";
+    }
   }
 
   &.wf-opensans-n2-active {
     p, nav.top-bar, ul, ol, 
     blockquote, address
+    {
+      font-family: "Open Sans";
+    }
   }
 
   &.wf-opensans-n5-active {
     .top-bar-section ul li > a
-    { font-family: "Open Sans", $apple-fonts, $microsoft-fonts, sans-serif; }
+    {
+      font-family: "Open Sans";
+    }
   }
 }
