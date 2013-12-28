@@ -37,7 +37,7 @@
   #event_banner_content{data: {event: {banner: @event.banner.url}}}
     %div{style: 'display: table'}
     %h1= @event.name.present? ? @event.name : 'Untitled Event'
-- if user_signed_in? and current_user.has_role :host, @event
+- if user_signed_in? and can? :update, @event and @event.publicity == :unlisted
   %p.alert-box.info.radius.center-text
     %span.label.round.primary
       %i.fa.fa-fw.fa-bell
