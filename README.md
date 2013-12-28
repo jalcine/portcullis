@@ -1,3 +1,9 @@
-# Portcullis
-![Codeship Status for Portcullis @ master](https://www.codeship.io/projects/3a9f6390-459e-0131-2f24-36c050b0fd20/status?branch=master)]
-![Codeship Status for Portcullis @ develop](https://www.codeship.io/projects/3a9f6390-459e-0131-2f24-36c050b0fd20/status?branch=develop)]
+# Vettio
+This serves as the Web service that powers **Vettio**, written using the Ruby
+On Rails framework (check the Gemfile for the jazz we use).
+
+## Setting Up
+TODO: Write a setup thing.
+
+## Starting
+TODO: Write about working the repository.
