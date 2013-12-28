@@ -1,0 +1,17 @@
+// TODO: Edit foundation to handle FOUT-like jazz.
+
+html.wf-active {
+
+  &.wf-raleway-n3-active {
+    h1, h2, h3,
+    h4, h5, h6 { font-family: "Raleway", $apple-fonts, $microsoft-fonts, serif; }
+  }
+
+
+  &.wf-opensans-n2-active {
+    p, nav.top-bar, ul, ol, 
+    blockquote, address, 
+    .top-bar-section ul li > a
+    { font-family: "Open Sans", $apple-fonts, $microsoft-fonts, sans-serif; }
+  }
+}
