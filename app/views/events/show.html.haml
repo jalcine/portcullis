@@ -7,20 +7,19 @@
           %span.day= @event.date_start.nil? ? '?' : @event.date_start.strftime('%-d')
           %span.month= @event.date_end.nil? ? '?' : @event.date_start.strftime('%^B')
       %li.text.tip-bottom{data: {tooltip: true}, title: '39,212 views'}
-        %i.fa.fa-fw.fa-lg.fa-eye
-        %b 39.2k
+        %i.fa.fa-fw.fa-lg.fa-eye.fa-yellow
+        %b 39.2K
       %li.text.tip-bottom{data: {tooltip: true}, title: 'Trending NOW'}
-        %i.fa.fa-fw.fa-lg.fa-bar-chart-o
-        %b NOW
+        %i.fa.fa-fw.fa-lg.fa-bar-chart-o.fa-red
+        %b Now 
       %li.text.tip-bottom{data: {tooltip: true}, title: '10,211 attendees'}
-        %i.fa.fa-fw.fa-lg.fa-group
-        %b 10.2k
+        %i.fa.fa-fw.fa-lg.fa-group.fa-blue
+        %b 10.2K
       %li.controls
         - if can? :modify, @event
           - if @event.draft?
             %a#event_draft_button{href: edit_event_path(@event), title: 'Edit Event'}
               Draft
-
       %li.social
         %ul.button-group
           %li
@@ -38,33 +37,21 @@
   #event_banner_content{data: {event: {banner: @event.banner.url}}}
     %div{style: 'display: table'}
     %h1= @event.name.present? ? @event.name : 'Untitled Event'
-
+- if user_signed_in? and current_user.has_role :host, @event
+  %p.alert-box.info.radius.center-text
+    %span.label.round.primary
+      %i.fa.fa-fw.fa-bell
+      %b UNLISTED EVENT
+    This event is unlisted, making it invisible in search results on our platform and on the Web (as much as possible).
 %section#event_navigation{data: {magellan: {expedition: :fixed}}}
   %dl
-    %dd{data: {magellan: {arrival: 'tickets'}}}
-      %a{href: '#tickets'}
-        %span.fa-stack
-          %i.fa.fa-stack-2x.fa-square
-          %i.fa.fa-stack-1x.fa-ticket.fa-inverse
-        Tickets
-    %dd{data: {magellan: {arrival: 'description'}}}
-      %a{href: '#description'}
-        %span.fa-stack
-          %i.fa.fa-stack-2x.fa-square
-          %i.fa.fa-stack-1x.fa-comments.fa-inverse
-        Description
-    %dd{data: {magellan: {arrival: 'attendees'}}}
-      %a{href: '#attendees'}
-        %span.fa-stack
-          %i.fa.fa-stack-2x.fa-square
-          %i.fa.fa-stack-1x.fa-group.fa-inverse
-        Attendees
-    %dd{data: {magellan: {arrival: 'schedule'}}}
-      %a{href: '#schedule'}
-        %span.fa-stack
-          %i.fa.fa-stack-2x.fa-square
-          %i.fa.fa-fw.fa-stack-1x.fa-calendar-o.fa-inverse
-        Schedule
+    - ['tickets', 'description', 'attendees', 'schedule'].each do | portion |
+      %dd{data: {magellan: {arrival: portion}}}
+        %a{href: "##{portion}"}
+          %span.fa-stack
+            %i.fa.fa-stack-2x.fa-square
+            %i.fa.fa-stack-1x.fa-inverse
+          = portion.capitalize
 
 %section#tickets.event_panel{data: {magellan: {destination: :tickets}}}
   - if @event.tickets.empty? and can? :modify, @event
