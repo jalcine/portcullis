@@ -43,11 +43,14 @@ class EventsController < ApplicationController
     authorize! :update, Event
     @event = Event.new event_params
     @event.owner = current_user
+    authorize! :create, Event 
     current_user.grant :host, @event
-    authorize! :create, @event
+    was_saved = @event.save
+
+    check_event_changes if was_saved
 
     respond_to do |format|
-      if @event.save
+      if was_saved
         format.html { redirect_to @event, notice: t('events.create.success') }
         format.json { render action: :show, status: :created, location: @event }
       else
@@ -61,9 +64,11 @@ class EventsController < ApplicationController
   # PATCH/PUT /events/1.json
   def update
     authorize! :create, @event
+    was_updated = @event.update(event_params)
+    check_event_changes if was_updated
 
     respond_to do |format|
-      if @event.update(event_params)
+      if was_updated
         format.html { redirect_to @event, notice: 'Event was successfully updated.' }
         format.json { head :no_content }
       else
@@ -88,20 +93,26 @@ class EventsController < ApplicationController
         format.html { render nil }
         format.json { render nil }
       end
-   end
+    end
   end
 
   private
-    def set_event
-      if params.include? :id and params[:id].present?
-        @event = Event.includes(:tickets, :owner).find(params[:id])
-      end
+  def set_event
+    if params.include? :id and params[:id].present?
+      @event = Event.includes(:tickets, :owner).find(params[:id])
     end
+  end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def event_params
-      params.require(:event).permit(:name, :description, :date_start, :banner,
-        :date_end, :address, :longitude, :latitude, :age_groups, :access_key,
-        :primary_category_id, :secondary_category_id, :publicity)
+  def check_event_changes
+    if @event.publicity_changed? and @event.publicity == :unlisted
+      flash[:info] = 'This event is now unlisted. It will not appear in search results.'
+    end
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def event_params
+    params.require(:event).permit(:name, :description, :date_start, :banner,
+                                  :date_end, :address, :longitude, :latitude, :age_groups, :access_key,
+                                  :primary_category_id, :secondary_category_id, :publicity)
   end
 end
