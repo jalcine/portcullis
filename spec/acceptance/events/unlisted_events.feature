@@ -2,7 +2,7 @@ Feature: Unlisted Events
   Background:
     Given a host is signed in
 
-  @wip
+  @backlog
   Scenario: creating unlisted events
     When I go to the new events page
     And I set the event's title with "Snow White"
@@ -11,7 +11,7 @@ Feature: Unlisted Events
     And I confirm creation of the event
     Then there should be an unlisted event named "Snow White"
 
-  @backlog
+  @wip
   Scenario: searching for unlisted events doesn't procur results
     When there is an unlisted event I don't own
     And I go to the search page
