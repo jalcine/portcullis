@@ -1,5 +1,3 @@
-// TODO: Edit foundation to handle FOUT-like jazz.
-
 html {
   &.wf-raleway-n3-active {
     h1, h2, h3,
@@ -8,7 +6,10 @@ html {
 
   &.wf-opensans-n2-active {
     p, nav.top-bar, ul, ol, 
-    blockquote, address, 
+    blockquote, address
+  }
+
+  &.wf-opensans-n5-active {
     .top-bar-section ul li > a
     { font-family: "Open Sans", $apple-fonts, $microsoft-fonts, sans-serif; }
   }

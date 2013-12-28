@@ -1,3 +1,3 @@
 window.WebFontConfig =
   google:
-    families: ["Open Sans:200", "Raleway:300"]
+    families: ["Open Sans:200,500", "Raleway:300"]
