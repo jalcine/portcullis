@@ -90,7 +90,6 @@ describe EventsController do
     end
   end
 
-  @wip
   describe 'PATCH/PUT update' do
     subject { create :event }
 
@@ -115,5 +114,7 @@ describe EventsController do
     end
   end
 
-  describe 'DELETE destroy' do; end
+  describe 'DELETE destroy' do
+    pending 'work on deleting events'
+  end
 end
