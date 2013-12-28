@@ -79,8 +79,7 @@ module EventSteps
   end
 
   step 'there should be an unlisted event named :name' do | name |
-    puts name
-    pending
+    expect(page).to have_content 'event is unlisted'
   end
 
   step "there is a password-protected event I don't own" do
