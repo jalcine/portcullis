@@ -1,15 +1,14 @@
 @import "font-awesome";
-@import url(http://fonts.googleapis.com/css?family=Poiret+One|Raleway:100,400,700);
 
 $apple-fonts: 'Helvetica Neue', 'Helvetica', 'Lucida Grande';
 $microsoft-fonts: 'Segoe UI', 'Trebuchet MS', Arial;
 
-$body-font-family: 'Open Sans', $apple-fonts, $microsoft-fonts, sans-serif;
-$body-font-weight: 300;
-$header-font-family: 'Raleway', $apple-fonts, $microsoft-fonts, serif;
-$header-font-weight: 700;
+$paragraph-font-family: $apple-fonts, $microsoft-fonts, sans-serif;
+$paragraph-font-weight: 200;
+$header-font-family: $apple-fonts, $microsoft-fonts, serif;
+$header-font-weight: 300;
 
 /** Some helpers **/
-.center-text { text-align: center; }
-.right-text  { text-align: right; }
-.left-text   { text-align: left; }
+.center-text { @extend .text-center; }
+.right-text  { @extend .text-right; }
+.left-text   { @extend .text-left; }
