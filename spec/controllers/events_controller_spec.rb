@@ -73,14 +73,13 @@ describe EventsController do
 
     describe 'locks password-protected events' do
       subject { create :event, :protected, owner: create(:user, :host) }
-      before(:each) do 
-        controller.current_user.revoke :host, subject
-        subject.password = Faker::Lorem.word
+
+      before(:each) do
         get :show, id: subject.id
       end
 
-      xit { expect(response).to render_template 'events/_gate' }
-      xit { expect(response.status).to eq(401) }
+      it { expect(response).to render_template 'events/_gate' }
+      it { expect(response.status).to eq(401) }
     end
 
     describe 'includes tickets' do
@@ -95,14 +94,14 @@ describe EventsController do
   describe 'PATCH/PUT update' do
     subject { create :event }
 
-    describe 'updates own evet' do
+    describe 'updates own event' do
       before(:each) do
         controller.current_user.grant :host, subject
         put :update, id: subject.id, event: attributes_for(:event)
       end
 
       it { expect(assigns(:event)).to be_a Event }
-      it { expect(response).to be_a_redirect }
+      it { expect(response.status).to eq(302) }
     end
 
     describe 'updates other event' do

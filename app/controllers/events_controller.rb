@@ -13,7 +13,7 @@ class EventsController < ApplicationController
   # GET/POST /events/1.json
   def show
     authorize! :view, @event
-    if @event.password.present? and can?(:crud, @event)
+    if @event.password.present? and cannot?(:crud, @event)
       valid_key = false
       valid_key = params[:event][:password] == @event.password if params.include? :event
       if !valid_key 

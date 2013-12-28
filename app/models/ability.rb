@@ -23,8 +23,8 @@ class Ability
 
   def guest
     cannot :view, Order
-    cannot :view, Event do | event |
-      event.password.present?
+    can :view, Event do | event |
+      !event.password.present?
     end
   end
 
