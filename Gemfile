@@ -28,6 +28,7 @@ gem 'haml-rails', '~> 0.4'
 
 gem 'jbuilder', '~> 1.5.2'
 gem 'yajl-ruby', '~> 1.1.0'
+gem 'attr_encrypted', '~> 1.3.1'
 gem 'uglifier', '2.3.0'
 gem 'geocoder', '~> 1.1.0'
 gem 'devise', '~> 3.0.0rc'

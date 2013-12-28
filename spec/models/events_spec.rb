@@ -12,7 +12,7 @@ describe Event do
     it { expect(subject).to have(:no).errors_on(:latitude) }
     it { expect(subject).to have(:no).errors_on(:date_start) }
     it { expect(subject).to have(:no).errors_on(:date_end) }
-    it { expect(subject).to have(:no).errors_on(:access_key) }
+    it { expect(subject).to have(:no).errors_on(:password) }
   end
 
   describe '.draft?' do

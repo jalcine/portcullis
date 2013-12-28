@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131226032211) do
+ActiveRecord::Schema.define(version: 20131228100158) do
 
   create_table "age_groups", force: true do |t|
     t.string   "name"
@@ -52,7 +52,7 @@ ActiveRecord::Schema.define(version: 20131226032211) do
     t.decimal  "latitude"
     t.decimal  "longitude"
     t.integer  "secondary_category_id"
-    t.string   "access_key"
+    t.string   "password"
     t.integer  "primary_category_id"
     t.string   "banner"
     t.boolean  "publicity"
