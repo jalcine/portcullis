@@ -17,12 +17,11 @@ class Ticket < ActiveRecord::Base
     def available?
       return false if expired?
       time_now = Time.now
-      raise "SON #{date_start}"
       time_now > date_start && time_now < date_end
     end
 
+    # TODO: Form transaction data for purchases of orders.
     def purchase_for(user)
-      # TODO: Form transaction data for purchases of orders.
       return nil if event.expired? or user.nil?
       transaction_data = {type: :credit}
       order = Order.new ticket: self, user: user
