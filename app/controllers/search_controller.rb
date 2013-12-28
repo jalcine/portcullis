@@ -3,11 +3,6 @@ class SearchController < ApplicationController
   end
 
   def present
-    query = params[:query]
-    @results = Event.unscoped.all
-
-    #@results = Event.tire.search load: true do 
-      #query { string query }
-    #end
+    @events = Event.unscoped.all
   end
 end

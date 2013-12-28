@@ -8,7 +8,7 @@ group :core do
   end
 
   guard 'ctags-bundler', stdlib: true, src_path: ['app', 'lib', 'spec/support', 'spec/acceptance/steps', 'vendor'] do
-    watch(/^(app|lib|config)\/.*\.(rb|haml|scss|sass|coffee|js)$/)
+    watch(/^(app|lib|config|spec)\/.*\.(rb|haml|scss|sass|coffee|js)$/)
     watch('Gemfile')
   end
 

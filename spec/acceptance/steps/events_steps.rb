@@ -6,12 +6,22 @@ module EventSteps
       expect(page).to have_content region 
     end
   end
- 
+
   step 'I go to the edit events page' do
     visit edit_event_path(@event)
     expect(find('form.edit_event')).to_not be_nil
   end
- 
+
+  step "I set the event's title with :title" do | title |
+    fill_in 'event[name]', with: title
+    expect(find('#event_name').value).to eq title
+  end
+
+  step "I fill in the event's content" do
+    step "I set the event's title to be \"#{Faker::Lorem.sentence}\""
+    step "I set the event's description to some placeholder text"
+  end
+
   step 'I set the event\'s description to some placeholder text' do
     awesome_description_text = Faker::Lorem.paragraphs.join("\n")
     fill_in 'Description', with: awesome_description_text
@@ -25,10 +35,6 @@ module EventSteps
     screenshot_and_open_image
   end
 
-  step "I set the event's title with :title" do | title |
-    fill_in 'event[name]', with: title
-    expect(find('#event_name').value).to eq title
-  end
 
   step 'I add :number :type tickets to the event named :ticket' do | number, type, ticket |
     click_link 'Add Tickets'
@@ -72,9 +78,8 @@ module EventSteps
     expect(page).to have_content 'New Event'
   end
 
-  step 'there is an unlisted event named :name' do | name |
-    puts name
-    pending
+  step 'there should be an unlisted event named :name' do | name |
+    expect(page).to have_content 'event is unlisted'
   end
 
   step "there is a password-protected event I don't own" do
@@ -83,7 +88,6 @@ module EventSteps
   end
 
   step "there is an unlisted event I don't own" do
-    pending
     @event = create :event, :unlisted
     expect(Ability.new(@current_user).can?(:modify, @event)).to be_false
   end

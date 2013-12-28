@@ -34,6 +34,34 @@ class Event < ActiveRecord::Base
   include Geocodable
   resourcify
 
+  def public?
+    publicity == :public
+  end
+
+  def publicity
+    case read_attribute(:publicity)
+    when true
+      return :public
+    when false
+      return :unlisted
+    end
+
+    :public
+  end
+
+  def publicity=(public_state)
+    case public_state
+      when :public
+        write_attribute :publicity, true
+      when :unlisted
+        write_attribute :publicity, false 
+    end
+  end
+
+  def unlisted?
+    !public?
+  end
+
   def expired?
     date_start < DateTime.now && date_end < DateTime.now
   end

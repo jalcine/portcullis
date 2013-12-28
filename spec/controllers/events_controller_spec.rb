@@ -18,7 +18,7 @@ describe EventsController do
   describe 'POST create' do
     describe 'persists a new event' do
       before(:each) { post :create, event: attributes_for(:event, :with_tickets) }
-      xit { expect(response).to redirect_to(event_path(assigns(:event))) }
+      it { expect(response).to redirect_to(event_path(assigns(:event))) }
     end
   end
 

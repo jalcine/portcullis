@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131223110210) do
+ActiveRecord::Schema.define(version: 20131226032211) do
 
   create_table "age_groups", force: true do |t|
     t.string   "name"
@@ -55,6 +55,7 @@ ActiveRecord::Schema.define(version: 20131223110210) do
     t.string   "access_key"
     t.integer  "primary_category_id"
     t.string   "banner"
+    t.boolean  "publicity"
   end
 
   add_index "events", ["primary_category_id"], name: "index_events_on_primary_category_id", using: :btree
