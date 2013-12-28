@@ -73,7 +73,7 @@ describe User do
 
     describe '.roles' do
       it 'always has a role' do
-        u = FactoryGirl.create :guest_user
+        u = FactoryGirl.create :user, :guest
         u.remove_role :guest
         u.save!
         expect(u.roles).to have(1).records

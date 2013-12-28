@@ -26,7 +26,7 @@ describe Ticket do
   end
 
   describe '.purchase' do
-    let(:user) { create :attendee_user }
+    let(:user) { create :user, :attendee }
     subject { create :ticket, :priced }
     it 'produces a new order before the event starts' do
       subject.event = create :event
@@ -44,7 +44,7 @@ describe Ticket do
   end
 
   describe '.refund' do
-    let(:user) { FactoryGirl.create :attendee_user }
+    let(:user) { FactoryGirl.create :user, :attendee }
     let(:order) { order = subject.purchase_for user }
     subject { FactoryGirl.create :ticket, :priced }
 
