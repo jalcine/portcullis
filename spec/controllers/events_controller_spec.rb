@@ -74,7 +74,8 @@ describe EventsController do
     end
 
     describe 'locks password-protected events' do
-      subject { create :event, :protected }
+      let(:buddy) { create :user, :host }
+      subject { create :event, :protected, owner: buddy }
       before(:each) { get :show, id: subject.id }
 
       it { expect(response).to render_template 'events/_gate' }

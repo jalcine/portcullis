@@ -5,7 +5,7 @@ FactoryGirl.define do
     password_confirmation  { password }
 
     [:guest, :host, :attendee, :administrator].each do | role |
-      factory "#{role}_user".to_sym do
+      trait role do
         after(:create) do | user, env |
           user.revoke :guest
           user.grant role.to_sym

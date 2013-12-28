@@ -11,7 +11,7 @@
       This event's organizer requires that you enter a password before viewing this event.
 .row
   .large-7.columns.large-centered.center-text
-    = form_for @event, method: :post, class: :custom do | f |
+    = form_for @event, method: :post, class: :custom, id: :enter_event do | f |
       .row.collapse
         .small-3.columns
           = f.label :password, class: :inline do
