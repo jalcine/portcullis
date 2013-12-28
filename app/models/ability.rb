@@ -24,7 +24,10 @@ class Ability
   def guest
     cannot :view, Order
     cannot :view, Event do | event |
-      event.access_key.present?
+      event.publicity == :unlisted
+    end
+    cannot :view, Event do | event |
+      event.password.present?
     end
   end
 
