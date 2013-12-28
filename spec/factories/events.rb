@@ -2,7 +2,7 @@ FactoryGirl.define do
   factory :event do
     longitude   48.8582
     latitude    2.2945
-    access_key  nil
+    password    nil
     name        Faker::Lorem.sentence
     description Faker::Lorem.paragraph(3)
     date_start  { Time.now + 6.days }
@@ -17,7 +17,7 @@ FactoryGirl.define do
     end
 
     trait :protected do
-      access_key Faker::Lorem.sentence
+      password Faker::Lorem.sentence
     end
 
     trait :expired do
@@ -31,7 +31,7 @@ FactoryGirl.define do
     trait :draft do
       name nil
       description nil
-      access_key nil
+      password nil
       date_end nil
       date_start nil
       address nil

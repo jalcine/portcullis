@@ -14,6 +14,7 @@ class Event < ActiveRecord::Base
   has_and_belongs_to_many :age_groups
   accepts_nested_attributes_for :tickets, allow_destroy: true
   mount_uploader :banner, EventBannerUploader
+  attr_encrypted :password, key: 'eventpassword'
 
   # Scopes
   scope :in_future,  -> (time = DateTime.now) { where('date_start > ?', time) }

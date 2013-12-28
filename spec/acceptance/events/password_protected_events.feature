@@ -7,7 +7,7 @@ Feature: Password Protected Events
   Scenario: Prevents access to password-protected events for foreign users
     Then I should be required to enter a password to view the event
 
-  Scenario: Permits access to password-protected events for those with key
-    When I enter the key for the password-protected event
+  Scenario: Permits access to password-protected events for those with the password
+    When I enter the password for the password-protected event
     Then I should be redirected to the event
     Then I should be able to view the password-protected event
