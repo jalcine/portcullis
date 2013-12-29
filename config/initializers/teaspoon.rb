@@ -7,7 +7,13 @@ Teaspoon.setup do |config|
   config.suite do |suite|
     suite.matcher = "{spec/javascripts,app/assets}/**/*_spec.{js,js.coffee,coffee}"
     suite.helper = "spec_helper"
-    suite.javascripts = ['teaspoon/mocha', 'support/chai']
+    suite.javascripts = ['teaspoon/mocha', 'support/chai', 'jquery']
+#= require teaspoon/mocha
+#= require support/chai
+#= require support/chai-backbone
+#= require support/chai-datetime
+#= require support/chai-jquery
+
     suite.stylesheets = ["teaspoon"]
     suite.no_coverage = [%r{/lib/ruby/gems/}, %r{/vendor/assets/}, %r{/support/}, %r{/(.+)_helper.}]
     suite.no_coverage << "jquery.js" # excludes jquery from coverage reports

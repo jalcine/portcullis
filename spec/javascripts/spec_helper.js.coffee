@@ -1,10 +1,3 @@
-#= require jquery
-#= require teaspoon/mocha
-#= require support/chai
-#= require support/chai-backbone
-#= require support/chai-datetime
-#= require support/chai-jquery
-
 # Make Chai the master.
 window.assert = chai.assert
 window.expect = chai.expect

@@ -1,4 +1,5 @@
 #= require spec_helper
+#= require jquery
 #= require controllers/events/new
 
 describe 'events/new', ->
@@ -8,7 +9,8 @@ describe 'events/new', ->
 
   describe 'widgets', ->
     fixture.load('events/new.html.haml')
-    Portcullis.Events.New.bindEvents()
+    $('#teaspoon_fixtures').appendChild fixture.el
+    #Portcullis.Events.New.bindEvents()
     it 'sets up time widgets', ->
       timeWidgets = $ 'input[type=time]'
       expect(timeWidgets.pickadate()).to.be.null

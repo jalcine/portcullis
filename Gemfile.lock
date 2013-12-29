@@ -226,9 +226,6 @@ GEM
       childprocess (>= 0.2.3)
       guard (>= 1.1)
       spork (>= 0.8.4)
-    guard-teaspoon (0.0.4)
-      guard (>= 1.6.1)
-      teaspoon (>= 0.5.3)
     haml (4.0.3)
       tilt
     haml-rails (0.5.1)
@@ -592,7 +589,6 @@ DEPENDENCIES
   guard-rspec (~> 4.0.0)
   guard-sidekiq (~> 0.0.11)
   guard-spork (~> 1.5.1)
-  guard-teaspoon (~> 0.0.4)
   haml (= 4.0.3)
   haml-rails (~> 0.4)
   icalendar

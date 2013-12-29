@@ -89,7 +89,6 @@ group :development do
   gem 'guard-sidekiq', '~> 0.0.11'
   gem 'guard-spork', '~> 1.5.1', require: false
   gem 'guard-rails', '~> 0.4.7'
-  gem 'guard-teaspoon', '~> 0.0.4'
   gem 'rack-livereload', '~> 0.3.15'
   #gem 'bullet'
   gem 'quiet_assets', '~> 1.0.2'
