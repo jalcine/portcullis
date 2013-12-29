@@ -106,12 +106,12 @@
           .small-12.large-9.columns
             = f.text_field :name, autocomplete: :off, placeholder: 'Awesome Event at Main St', value: @event.name
         .row
-          .small-12.large-3.columns
+          .small-12.columns
             %small.label.pull-right required
             = f.label :description, class: 'inline has-tip tip-top', title: 'Let your attending viewers know!', data: {tooltip: :description} do
               Description
-          .small-12.large-9.columns
-            = f.text_area :description, placeholder: 'Bring popcorn.', rows: 30, value: @event.description
+          .small-12.columns
+            = f.text_area :description, class: 'tinymce', placeholder: 'Bring popcorn.', rows: 60, value: @event.description
       %fieldset#timing
         %a{name: 'timing'}
         %legend

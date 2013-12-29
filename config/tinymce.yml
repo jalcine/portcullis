@@ -1,0 +1,19 @@
+theme_advanced_toolbar_align: left
+theme_advanced_resizing: true
+plugins:
+  - emotions
+  - autolink
+  - autoresize
+  - autosave
+  - insertdatetime
+  - lists
+  - media
+  - noneditable
+  - paste
+  - preview
+  - save
+  - searchreplace
+  - spellchecker
+  - style
+  - visualchars
+  - xhtmlxtras

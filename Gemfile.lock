@@ -5,6 +5,14 @@ GIT
     rack-contrib (1.2.0)
       rack (>= 0.9.1)
 
+GIT
+  remote: git://github.com/spohlenz/tinymce-rails
+  revision: b398df1b434d56e20d1c2ae65fa0715cb6bf16e5
+  ref: b398df1b43
+  specs:
+    tinymce-rails (4.0.12)
+      railties (>= 3.1.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -625,6 +633,7 @@ DEPENDENCIES
   simplecov-html
   spork-rails (~> 4.0.0)
   sprockets-image_compressor
+  tinymce-rails!
   tire
   turnip
   turnip-kanban
