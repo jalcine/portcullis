@@ -51,6 +51,11 @@ group :test do
     watch(%w{^spec/support/prefork/*\.rb$}) { [:spork, 'spec'] }
   end
 
+  guard :teaspoon do
+    watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
+    watch(%r{spec/javascripts/(.*)})
+  end
+
   guard :rspec, all_on_pass: false, all_on_start: false, failed_mode: :none, cmd: 'bundle exec rspec --drb' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
@@ -75,3 +80,5 @@ group :test do
     watch(%r{^spec/acceptance/(.+)\.feature$})          { |m| "spec/acceptance/#{m[1]}.feature" }
   end
 end
+
+
