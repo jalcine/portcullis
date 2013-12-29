@@ -1,22 +1,24 @@
 module AuthenticationSteps
   step 'I sign in with :provider' do | provider |
+    send 'I go to the sign-in page'
     expect(find("a.#{provider.downcase}")).to_not be_nil
     find("a.#{provider.downcase}").trigger 'click'
   end
 
   step 'I sign up with :provider' do | provider |
+    send 'I go to the sign-up page'
     expect(find("a.#{provider.downcase}")).to_not be_nil
     find("a.#{provider.downcase}").trigger 'click'
   end
 
   step 'a :role is signed in' do | role = 'guest' |
-    @current_user_data = attributes_for "#{role}_user".to_sym
+    @current_user_data = attributes_for :user, role.to_sym
     send 'I go to the sign-in page'
     send 'I sign in with an existing account'
   end
 
   step 'a :role is signed up' do | role = 'guest' |
-    @current_user_data = attributes_for "#{role}_user".to_sym
+    @current_user_data = attributes_for :user, role.to_sym
     send 'I go to the sign-up page'
     send 'I sign up with a new account'
   end
