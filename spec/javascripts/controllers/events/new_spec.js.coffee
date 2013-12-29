@@ -5,8 +5,9 @@ describe 'events/new', ->
   describe 'core', ->
     it 'exists', ->
       expect(Portcullis.Events.New).to.be.ok
-  
+
   describe 'widgets', ->
+    fixture.load('events/new.html.haml')
     Portcullis.Events.New.bindEvents()
     it 'sets up time widgets', ->
       timeWidgets = $ 'input[type=time]'

@@ -1,5 +1,9 @@
 #= require underscore
 #= require backbone
+#= require jquery/picker
+#= require jquery/picker.date
+#= require jquery/picker.time
+#= require jquery/number.min
 # This is where the skeleton of Portcullis is supposed to happen. Like don't fuck
 # with this. I'll find you. Seriously, most of the core JavaScript things like
 # Backbone and Underscore would be found here.

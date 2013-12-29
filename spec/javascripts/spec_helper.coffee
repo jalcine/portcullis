@@ -1,4 +1,9 @@
-#= require_tree ./support
+#= require jquery
+#= require teaspoon/mocha
+#= require support/chai
+#= require support/chai-backbone
+#= require support/chai-datetime
+#= require support/chai-jquery
 
 # Make Chai the master.
 window.assert = chai.assert
@@ -10,6 +15,5 @@ $.fx.off = true
 
 # Lemme see what's going on.
 chai.Assertion.includeStack = true
-ENV = { TESTING: true }
 
-console.log "FALL Back"
+ENV = { TESTING: true }

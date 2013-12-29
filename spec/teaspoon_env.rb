@@ -9,11 +9,11 @@ Teaspoon.setup do |config|
 
   # Output
   config.formatters = "tap"
-  config.suppress_log = true
+  config.suppress_log = false
   config.color = true
 
   # Coverage
-  config.coverage = true
+  config.coverage = false
   config.coverage_reports = "text,html,cobertura"
   config.coverage_output_dir = "coverage"
   config.statements_coverage_threshold = 50
