@@ -1,5 +1,10 @@
 theme_advanced_toolbar_align: left
+theme_advanced_toolbar_location: bottom
 theme_advanced_resizing: true
+menubar: false
+resize: true
+statusbar: false
+toolbar: 'paste preview | undo redo | textcolor | bold italic underline strikethrough | emotions | link anchor uploadimage media'
 plugins:
   - emotions
   - autolink
@@ -15,5 +20,6 @@ plugins:
   - searchreplace
   - spellchecker
   - style
+  - uploadimage
   - visualchars
   - xhtmlxtras
