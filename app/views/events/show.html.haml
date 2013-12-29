@@ -67,7 +67,9 @@
     = render 'tickets/stub_list', tickets: @event.tickets unless @event.tickets.empty?
 
 %section#description.event_panel{data: {magellan: {destination: :description}}}
-  = @event.description.present? ? @event.description : 'No description provided.'
+  - if @event.description.present?
+    :erb
+      <%= raw @event.description %>
 %section#attendees.event_panel{data: {magellan: {destination: :attendees}}}
   -# TODO: Implement a proper means of sifting throught attendees.
   %ul.small-block-grid-2.medium-block-grid-3.large-block-grid-4
