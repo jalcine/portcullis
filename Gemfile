@@ -80,6 +80,7 @@ group :development do
   gem 'debugger', '~> 1.6.2'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
+  gem 'teaspoon', '~> 0.7.8'
   gem 'guard-bundler', '~> 2.0.0'
   gem 'guard-migrate', '~> 0.2.1'
   gem 'guard-ctags-bundler', '~> 1.0.1'
@@ -89,6 +90,7 @@ group :development do
   gem 'guard-sidekiq', '~> 0.0.11'
   gem 'guard-spork', '~> 1.5.1', require: false
   gem 'guard-rails', '~> 0.4.7'
+  gem 'guard-teaspoon', '~> 0.0.4'
   gem 'rack-livereload', '~> 0.3.15'
   #gem 'bullet'
   gem 'quiet_assets', '~> 1.0.2'
