@@ -11,9 +11,9 @@
 
 Portcullis =
   boot : ->
-    #$('input[type=date]').pickadate()
-    #$('input[type=time]').pickatime()
-    #$('input[type=number], .number').number(true, 2)
+    $('input[type=date]').pickadate()
+    $('input[type=time]').pickatime()
+    $('input[type=number], .number').number(true, 2)
 
     $(document).on 'opened', '[data-reveal]', ->
       obj = $(this)
