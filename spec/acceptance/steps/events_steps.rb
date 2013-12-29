@@ -12,6 +12,10 @@ module EventSteps
     expect(find('form.edit_event')).to_not be_nil
   end
 
+  step "there shouldn't be any HTML code on the event page" do
+    description = first 'section#description'
+  end
+
   step "I set the event's title with :title" do | title |
     fill_in 'event[name]', with: title
     expect(find('#event_name').value).to eq title
@@ -24,8 +28,6 @@ module EventSteps
 
   step 'I set the event\'s description to some placeholder text' do
     awesome_description_text = Faker::Lorem.paragraphs.join("\n")
-    fill_in 'Description', with: awesome_description_text
-    expect(find('#event_description').value).to eq awesome_description_text
   end
 
   step 'I populate the time range for the event' do
