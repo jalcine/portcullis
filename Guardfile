@@ -52,8 +52,9 @@ group :test do
   end
 
   guard :teaspoon do
-    watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
+    watch(%r{app/assets/javascripts/(.+).js}) { |m| "spec/javascripts/#{m[1]}_spec*" }
     watch(%r{spec/javascripts/(.*)})
+    watch('config/initializers/teaspoon.rb')
   end
 
   guard :rspec, all_on_pass: false, all_on_start: false, failed_mode: :none, cmd: 'bundle exec rspec --drb' do
@@ -80,5 +81,3 @@ group :test do
     watch(%r{^spec/acceptance/(.+)\.feature$})          { |m| "spec/acceptance/#{m[1]}.feature" }
   end
 end
-
-
