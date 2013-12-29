@@ -492,6 +492,9 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
+    tapout (0.4.5)
+      ansi
+      json
     teaspoon (0.7.8)
       phantomjs (>= 1.8.1.1)
       railties (>= 3.2.5, < 5)
@@ -641,6 +644,7 @@ DEPENDENCIES
   simplecov-html
   spork-rails (~> 4.0.0)
   sprockets-image_compressor
+  tapout (~> 0.4.5)
   teaspoon (~> 0.7.8)
   tinymce-rails!
   tire

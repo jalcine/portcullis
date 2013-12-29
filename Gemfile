@@ -80,7 +80,6 @@ group :development do
   gem 'debugger', '~> 1.6.2'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
-  gem 'teaspoon', '~> 0.7.8'
   gem 'guard-bundler', '~> 2.0.0'
   gem 'guard-migrate', '~> 0.2.1'
   gem 'guard-ctags-bundler', '~> 1.0.1'
@@ -105,6 +104,8 @@ end
 group :test, :development do
   gem 'ci_reporter', '~> 1.9.0'
   gem 'ejs', '~> 1.1.1'
+  gem 'teaspoon', '~> 0.7.8'
+  gem 'tapout', '~> 0.4.5'
   gem 'awesome_print', '~> 1.2.0', require: false
   gem 'faker', '~> 1.1.2', require: false
   gem 'rspec', '~> 2.14', require: false
