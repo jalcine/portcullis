@@ -48,7 +48,7 @@ group :test do
     watch('spec/spec_helper.rb')
     watch(%r{config/settings/test\.*\.yml})
     watch(%r{^config/initializers/.+\.rb$})
-    watch(%w{^spec/support/prefork)/(.+)\.rb$}) { [:spork, 'spec'] }
+    watch(%w{^spec/support/prefork/*\.rb$}) { [:spork, 'spec'] }
   end
 
   guard :rspec, all_on_pass: false, all_on_start: false, failed_mode: :none, cmd: 'bundle exec rspec --drb' do
