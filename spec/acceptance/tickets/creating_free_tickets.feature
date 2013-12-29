@@ -7,4 +7,4 @@ Feature: Creating Free Tickets
   Scenario: Creating the free ticket
     When I add 30 free tickets to the event named "Patrick Loves Me"
     And I confirm creation of the event
-    Then it should have a free ticket named "Patrick Loves Me"
+    Then the event has a free ticket named "Patrick Loves Me"
