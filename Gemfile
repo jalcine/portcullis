@@ -26,6 +26,7 @@ gem 'haml', '4.0.3'
 gem 'font-awesome-sass', '~> 4.0.1'
 gem 'haml-rails', '~> 0.4'
 gem 'sprockets-image_compressor'
+gem 'tinymce-rails', git: 'git://github.com/spohlenz/tinymce-rails', ref: 'b398df1b43'
 
 gem 'jbuilder', '~> 1.5.2'
 gem 'yajl-ruby', '~> 1.1.0'
