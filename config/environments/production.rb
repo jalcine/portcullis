@@ -80,6 +80,9 @@ Portcullis::Application.configure do
   # Use default logging formatter so that PID and timestamp are not suppressed.
   #config.log_formatter = ::Logger::Formatter.new
 
+  # No need to start up the application.
+  config.assets.initialize_on_precompile = false
+
   # Flatten jazz.
   config.middleware.use Rack::Deflater
 end
