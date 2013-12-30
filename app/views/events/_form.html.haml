@@ -10,6 +10,9 @@
         %li= msg
 
 #modal_all_day.reveal-modal.small.center-text
+  .alert-box.radius.alert{'data-alert' => ''}
+    %a.close{href: '#'}
+      %i.fa.fa-times-circle.fa-fw
   %h2
     %i.fa.fa-clock-o
     Going All Day
@@ -20,7 +23,8 @@
   %a#modal_ignore_all_day.pull-left.button.medium.secondary
     Nope, I'm Good
 
-#modal_add_ticket.reveal-modal.medium{'data-reveal' => true}
+#modal_add_ticket.reveal-modal.large{'data-reveal' => true}
+#modal_edit_ticket.reveal-modal.large{'data-reveal' => true}
 
 .row
   .small-12.columns
@@ -222,12 +226,15 @@
                   Split Fees
         .row
           .large-2.columns
-            %span.inline Tickets
-          .large-10.columns
-            %ul.ticket-list#event_ticket_list
-            %a{href: '#', data: {'reveal-id' => 'modal_add_ticket', 'reveal-ajax' => new_event_ticket_url(@event)}}
+            = f.label :tickets do
+              %span.inline Tickets
+            %a{href: '#', data: {reveal: {id: :modal_add_ticket, ajax: new_event_ticket_url(@event)}}}
               %i.fa.fa-fw.fa-ticket
               Add Tickets
+          .large-10.columns
+            %ul.ticket-list#event_ticket_list
+              - @event.tickets.each do | ticket |
+                = render partial: 'tickets/stub', locals: { ticket: ticket }
       %hr
       .row
         .small-10.small-centered.large-6.large-centered.columns.center-text
