@@ -51,8 +51,9 @@ module EventSteps
 
   step 'I confirm creation of the event' do
     within 'form.edit_event' do
-      click_on 'Create Event'
+      click_on 'Save Event'
     end
+    expect(response).to be_success
   end
 
   step 'It should show the new event page' do

@@ -3,14 +3,16 @@ class Ticket < ActiveRecord::Base
   has_paper_trail
   belongs_to :event, inverse_of: :tickets
 
+  validates_presence_of :date_end, :date_start
+
   public
     def is_free?
       price == 0
     end
 
     def expired?
-      return true if event.expired?
       return true if Time.now > date_end
+      return true if event.expired?
       false
     end
 

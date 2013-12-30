@@ -3,7 +3,6 @@
 #= require jquery/picker
 #= require jquery/picker.date
 #= require jquery/picker.time
-#= require jquery/picker.legacy
 #= require jquery/number.min
 # This is where the skeleton of Portcullis is supposed to happen. Like don't fuck
 # with this. I'll find you. Seriously, most of the core JavaScript things like
@@ -17,11 +16,9 @@ Portcullis =
 
     $(document).on 'opened', '[data-reveal]', ->
       obj = $(this)
-      timeFields = obj.find('input[type=time]')
-      dateFields = obj.find('input[type=date]')
-      console.log timeFields, dateFields
-      timeFields.pickatime()
-      dateFields.pickadate()
+      obj.find('input[type=time]').pickatime()
+      obj.find('input[type=date]').pickadate()
+      obj.find('input[type=number], .number').number(true, 2)
 
     Portcullis.trigger 'boot'
     Portcullis.boot = null

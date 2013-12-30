@@ -18,7 +18,7 @@ module TicketSteps
     find_button('Create Ticket').trigger 'click'
   end
 
-  step "It should have a :type ticket named :name" do | type, name |
+  step "the event has a :type ticket named :name" do | type, name |
     expect(page).to have_content(name)
   end
 end

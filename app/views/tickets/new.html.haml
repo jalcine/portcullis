@@ -1,6 +1,6 @@
 %a.close-reveal-modal
   %i.fa.fa-fw.fa-times
-= form_for [@event, @ticket], remote: true, class: :edit_ticket do | f |
+= form_for [@event, @ticket], remote: true, class: :edit_ticket, data: { type: :json } do | f |
   = f.hidden_field :date_start, value: @ticket.date_start
   = f.hidden_field :date_end, value: @ticket.date_end
   %h2.center-text Add Ticket For Event

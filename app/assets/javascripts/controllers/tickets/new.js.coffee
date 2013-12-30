@@ -12,6 +12,7 @@ Portcullis.Tickets.New =
       day_end: null
       time_start: null
       time_end: null
+
   bind: ->
     self.bindElements()
     self.bindSubmission()
@@ -40,7 +41,9 @@ Portcullis.Tickets.New =
         elem.find('+ small.error').remove()
 
   injectNewEntry: (jsonData) ->
-    console.log jsonData
+    ticketList = $ '#event_ticket_list'
+    console.log jsonData.html
+    ticketList.prepend jsonData.html
 
   bindElements : ->
     self.elems.price                 = $('input#ticket_price')
@@ -53,14 +56,12 @@ Portcullis.Tickets.New =
     self.elems.date.time_end         = $ '#ticket_time_end'
 
   synchronization:
-    
     updatePrice: ->
       thePrice = self.elems.price.val()
       thePrice *= -1 if thePrice < 0
       thePrice *= -1 if $('span#price_donation[data-checked]').length isnt 0
       thePrice = 0   if $('span#price_free[data-checked]').length isnt 0
       self.elems.price.val thePrice
-
     updateDate : ->
       ticketDayStart = self.elems.date.day_start.pickadate().pickadate('picker')
       ticketTimeStart = self.elems.date.time_start.pickatime().pickatime('picker')
@@ -68,8 +69,8 @@ Portcullis.Tickets.New =
       ticketTimeEnd = self.elems.date.time_end.pickatime().pickatime('picker')
       date_start = $('input[type=hidden]#ticket_date_start')
       date_end = $('input[type=hidden]#ticket_date_end')
-      date_start.val(ticketDayStart.get('select').pick + ticketTimeStart.get('select').pick)
-      date_end.val(ticketDayEnd.get('select').pick + ticketTimeEnd.get('select').pick)
+      date_start.val(new Date(ticketDayStart.get('select').pick + ticketTimeStart.get('select').pick))
+      date_end.val(new Date(ticketDayEnd.get('select').pick + ticketTimeEnd.get('select').pick))
 
   bindSubmission: ->
     $('form#new_ticket').on 'ajax:before', () ->
