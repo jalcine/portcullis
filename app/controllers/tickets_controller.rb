@@ -12,7 +12,11 @@ class TicketsController < ApplicationController
 
   # GET /events/:event_id/tickets/new
   def new
-    @ticket = @event.tickets.build {}
+    @ticket = @event.tickets.build({ 
+      price: 0,
+      date_start: @event.date_start,
+      date_end: @event.date_end
+    })
 
     respond_to do | format |
       format.html { render layout: nil }
