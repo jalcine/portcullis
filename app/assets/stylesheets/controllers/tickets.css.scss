@@ -1,4 +1,4 @@
-form.new_ticket {
+form[data-ticket] {
   ul#pricing {
     @include button-group-container($float: false);
     & > li { @include button-group-style($radius: true); }
@@ -16,10 +16,6 @@ form.new_ticket {
     margin: 0em;
     line-height: 1;
     display: inline-block;
-  }
-
-  textarea#ticket_description {
-    height: 8em;
   }
 
   div#pricer.row { display: none; }

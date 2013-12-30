@@ -9,11 +9,11 @@ RSpec.configure do | config |
 
   Capybara.register_driver :poltergeist do | app |
     Capybara::Poltergeist::Driver.new app, {
-      debug: false,
+      debug: true,
       server: true,
       js_errors: false,
-      timeout: 30 * 3,
-      #logger: test_log,
+      inspector: true,
+      logger: test_log,
       phantomjs_logger: test_log,
       window_size: [1366, 768]
     }
@@ -29,6 +29,4 @@ RSpec.configure do | config |
   config.include Capybara::RSpecMatchers, type: :views
   config.include Capybara::RSpecMatchers, type: :helpers
   config.include Capybara::RSpecMatchers, type: :feature
-
-  config.before(:each) { Rails.application.reload_routes! }
 end

@@ -151,6 +151,9 @@ Portcullis.Events.New =
     @bindDateTimeTools()
     @bindLocationTools()
 
+    $('a#modal_make_all_day, a#modal_ignore_all_day').on 'click', ->
+      $('#modal_all_day').foundation 'reveal', 'close'
+
     # Bind the submission.
     $('form#new_event').submit (e) =>
       @form.pumpUpHiddenValues()
@@ -179,17 +182,19 @@ Portcullis.Events.New =
     endDayPicker   = endDayElem.pickadate('picker')
     endTimePicker   = endTimeElem.pickatime('picker')
 
-    startDayPicker.on
-      close: ->
-        if startDayPicker.get('select').pick is 0
-          startDayPicker.set 'select', Date.new
-      set: ->
-        self.timing.updateHiddenStart()
+    if startDayPicker?
+      startDayPicker.on
+        close: ->
+          if startDayPicker.get('select').pick is 0
+            startDayPicker.set 'select', Date.new
+        set: ->
+          self.timing.updateHiddenStart()
 
-    startTimePicker.on
-      set: ->
-        self.timing.updateHiddenStart()
-    
+    if startTimePicker?
+      startTimePicker.on
+        set: ->
+          self.timing.updateHiddenStart()
+
     endDayPicker.on
       set: ->
         self.timing.updateHiddenEnd()

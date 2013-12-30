@@ -1,7 +1,7 @@
 module EventSteps
-  step 'I go to the new events page' do
+  step 'I start making a new event' do
     expect(@current_user).to_not be_nil
-    visit new_event_path
+    send 'I go to create an event'
     ['Location', 'Content', 'Timing', 'Classification', 'Tickets'].each do | region |
       expect(page).to have_content region 
     end
@@ -37,28 +37,7 @@ module EventSteps
     screenshot_and_open_image
   end
 
-
-  step 'I add :number :type tickets to the event named :ticket' do | number, type, ticket |
-    click_link 'Add Tickets'
-    expect(page).to have_content 'Add Ticket For Event'
-
-    case type.downcase.to_s
-    when :free
-      click_link 'Free', exact: true
-    when :paid
-      click_link 'Paid', exact: true
-    when :donation
-      click_link 'Donation', exact: true
-    end
-
-    fill_in 'ticket[name]',        with: ticket
-    fill_in 'ticket[quantity]',    with: number
-    fill_in 'ticket[description]', with: Faker::Lorem.paragraphs(3).join("\n")
-    screenshot_and_open_image
-    find_button('Create Ticket').trigger 'click'
-  end
-
-  step 'I have should :number tickets' do | count |
+  step 'I have should :number tickets for the event' do | count |
     expect(assign(:event).tickets.count).to eq(count)
   end
 
@@ -72,8 +51,9 @@ module EventSteps
 
   step 'I confirm creation of the event' do
     within 'form.edit_event' do
-      click_on 'Create Event'
+      click_on 'Save Event'
     end
+    expect(response).to be_success
   end
 
   step 'It should show the new event page' do
