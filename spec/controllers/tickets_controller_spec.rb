@@ -19,6 +19,13 @@ describe TicketsController do
     it { expect(assigns(:ticket)).to_not be_nil }
   end
 
+  describe 'GET /events/:event_id/tickets/:id/edit' do
+    let(:ticket) { Ticket.create subject }
+    before(:each){ get :edit, { event_id: event.id, id: ticket.id } }
+    it { expect(assigns(:event)).to_not be_nil } 
+    it { expect(assigns(:ticket)).to_not be_nil }
+  end
+
   describe 'GET /events/:event_id/tickets/:id' do
     describe 'shows the ticket' do
       let(:ticket) { Ticket.create subject }
