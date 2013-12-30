@@ -19,6 +19,13 @@ class TicketsController < ApplicationController
     end
   end
 
+  # GET /events/:event_id/tickets/:id/edit
+  def edit
+    respond_to do | format |
+      format.html { render layout: nil }
+    end
+  end
+
   # GET /events/:event_id/tickets/:id
   def show
     respond_to do | format |
