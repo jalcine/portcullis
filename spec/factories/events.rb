@@ -17,10 +17,6 @@ FactoryGirl.define do
       end
     end
 
-    trait :protected do
-      password Faker::Lorem.sentence
-    end
-
     trait :expired do
       date_start { Time.now - 5.days }
     end
