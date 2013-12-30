@@ -27,7 +27,6 @@ FactoryGirl.define do
     trait :draft do
       name nil
       description nil
-      password nil
       date_end nil
       date_start nil
       address nil
