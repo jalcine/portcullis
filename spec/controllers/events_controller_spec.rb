@@ -71,17 +71,6 @@ describe EventsController do
       it { expect(response).to render_template 'events/show' }
     end
 
-    describe 'locks password-protected events' do
-      subject { create :event, :protected, owner: create(:user, :host) }
-
-      before(:each) do
-        get :show, id: subject.id
-      end
-
-      it { expect(response).to render_template 'events/_gate' }
-      it { expect(response.status).to eq(401) }
-    end
-
     describe 'includes tickets' do
       subject { create :event, :with_tickets }
       before(:each) { get :show, id: subject.id }
