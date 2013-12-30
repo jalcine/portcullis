@@ -1,7 +1,7 @@
 module TicketSteps
   step 'I add :number :type tickets to the event named :ticket' do | number, type, ticket |
     click_link 'Add Tickets'
-    expect(page).to have_content 'Create Ticket For Event'
+    expect(page).to have_content 'Ticket For Event'
 
     case type.downcase.to_s
     when :free
@@ -15,7 +15,7 @@ module TicketSteps
     fill_in 'ticket[name]',        with: ticket
     fill_in 'ticket[quantity]',    with: number
     fill_in 'ticket[description]', with: Faker::Lorem.paragraphs(3).join("\n")
-    find_button('Ticket').trigger 'click'
+    find('form[data-ticket] button[type=submit]').trigger 'click'
   end
 
   step 'the event has a :type ticket named :name' do | type, name |
