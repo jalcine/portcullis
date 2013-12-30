@@ -6,5 +6,4 @@ Feature: Creating Free Tickets
   @wip
   Scenario: Creating the free ticket
     When I add 30 free tickets to the event named "Patrick Loves Me"
-    And I confirm creation of the event
     Then the event has a free ticket named "Patrick Loves Me"
