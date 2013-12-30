@@ -42,8 +42,12 @@ Portcullis.Tickets.New =
 
   injectNewEntry: (jsonData) ->
     ticketList = $ '#event_ticket_list'
-    console.log jsonData.html
-    ticketList.prepend jsonData.html
+    ticketElem = $("li[data-ticket=#{jsonData.id}]")
+
+    if ticketElem.length is 0
+      ticketList.prepend jsonData.html
+    else
+      ticketElem.replaceWith jsonData.html
 
   bindElements : ->
     self.elems.price                 = $('input#ticket_price')
@@ -54,6 +58,7 @@ Portcullis.Tickets.New =
     self.elems.date.day_end          = $ '#ticket_day_end'
     self.elems.date.time_start       = $ '#ticket_time_start'
     self.elems.date.time_end         = $ '#ticket_time_end'
+    $('#ticket_description').tinymce()
 
   synchronization:
     updatePrice: ->
