@@ -1,6 +1,6 @@
 require 'spec_helper'
 
-describe 'tickets/new.html.haml' do
+describe 'tickets/_form.html.haml' do
   let(:event)   { FactoryGirl.create :event }
   let(:ticket)  { FactoryGirl.create(:ticket, event: event) }
 
@@ -11,11 +11,8 @@ describe 'tickets/new.html.haml' do
   end
 
   describe 'visual cues' do
-    it 'has a rendered' do
+    it 'has a rendered form' do
       expect(rendered).to have_selector 'form'
-    end
-    it 'has a title' do
-      expect(rendered).to have_selector 'form > h2'
     end
   end
 
