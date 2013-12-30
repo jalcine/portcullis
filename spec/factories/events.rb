@@ -13,6 +13,7 @@ FactoryGirl.define do
     trait :with_tickets do
       after(:create) do | event, evaluator |
         10.times.each { event.tickets << FactoryGirl.create(:ticket) }
+        event.save!
       end
     end
 
