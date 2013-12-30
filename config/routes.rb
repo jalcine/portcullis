@@ -16,6 +16,8 @@ Portcullis::Application.routes.draw do
 
   get '/search', to: 'search#present', as: :search
 
+  post '/tinymce_assets', to: 'tinymce_assets#create'
+
   get '/u/:id',       to: 'users/profiles#view', as: :view_profile
   get '/u/edit',      to: 'users/profiles#edit', as: :edit_profile
   put '/u/edit',      to: 'users/profiles#update'
