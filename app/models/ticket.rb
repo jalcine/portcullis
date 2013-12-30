@@ -6,6 +6,8 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :date_start, message: 'must include a starting window'
   validates_presence_of :date_end, message: 'must include an ending window'
   validates_presence_of :name, message: 'must include a name for the ticket'
+  validates_presence_of :price, message: 'must set a price'
+  validates_numericality_of :price, message: 'must use a number for the price'
 
   public
     def is_free?
@@ -13,7 +15,7 @@ class Ticket < ActiveRecord::Base
     end
 
     def is_donation?
-      price <= -1
+      price * -1 != 0
     end
 
     def is_priced?
