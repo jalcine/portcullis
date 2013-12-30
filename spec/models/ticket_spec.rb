@@ -33,7 +33,6 @@ describe Ticket do
       order = subject.purchase_for user
       expect(order).to_not be_nil
       expect(order.ticket).to be(subject)
-      #expect(order).to be_payment_pending
     end
 
     it 'prevents expired tickets from being sold' do
@@ -58,5 +57,20 @@ describe Ticket do
       refund = subject.issue_refund_for order
       expect(refund).to be_nil
     end
+  end
+
+  describe '.priced?' do
+    subject { create(:ticket, :priced) }
+    it { expect(subject).to be_priced }
+  end
+
+  describe '.free?' do
+    subject { create(:ticket, :free) }
+    it { expect(subject).to be_free }
+  end
+
+  describe '.donation?' do
+    subject { create(:ticket, :donation) }
+    it { expect(subject).to be_donation }
   end
 end
