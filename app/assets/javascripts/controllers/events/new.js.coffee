@@ -151,6 +151,9 @@ Portcullis.Events.New =
     @bindDateTimeTools()
     @bindLocationTools()
 
+    $('a#modal_make_all_day, a#modal_ignore_all_day').on 'click', ->
+      $('#modal_all_day').foundation 'reveal', 'close'
+
     # Bind the submission.
     $('form#new_event').submit (e) =>
       @form.pumpUpHiddenValues()

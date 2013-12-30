@@ -49,6 +49,8 @@ Portcullis.Tickets.New =
     else
       ticketElem.replaceWith jsonData.html
 
+    $('form[data-ticket]').parent('[data-reveal]').foundation('reveal', 'close')
+
   bindElements : ->
     self.elems.price                 = $('input#ticket_price')
     self.elems.buttons.priceFree     = $ '#price_free'
@@ -78,18 +80,17 @@ Portcullis.Tickets.New =
       date_end.val(new Date(ticketDayEnd.get('select').pick + ticketTimeEnd.get('select').pick))
 
   bindSubmission: ->
-    $('form#new_ticket').on 'ajax:before', () ->
-      $('form#new_ticket small.error').remove()
-      $('form#new_ticket input.error').removeClass('error')
+    $('form[data-ticket]').on 'ajax:before', () ->
+      $('form[data-ticket] small.error').remove()
+      $('form[data-ticket] input.error').removeClass('error')
       self.synchronization.updatePrice()
       self.synchronization.updateDate()
 
-    $('form#new_ticket').on 'ajax:error', (event, xhr, status) =>
+    $('form[data-ticket]').on('ajax:error', (event, xhr, status) =>
       self.handleErrors event, xhr, status
-
-    $('form#new_ticket').on 'ajax:success', (event, data, status, xhr) =>
-      self.injectNewEntry data 
-
+    ).on('ajax:success', (event, data, status, xhr) =>
+      self.injectNewEntry(data)
+    )
   bindPricingType: ->
     $('#pricing > input[type=number]').number(true, 2)
 
