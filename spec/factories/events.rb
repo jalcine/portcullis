@@ -2,7 +2,6 @@ FactoryGirl.define do
   factory :event do
     longitude   48.8582
     latitude    2.2945
-    password    nil
     name        Faker::Lorem.sentence
     description Faker::Lorem.paragraph(3)
     date_start  { Time.now + 6.days }
