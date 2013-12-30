@@ -1,9 +1,9 @@
-Feature: Creating Free Tickets
+Feature: Creating Tickets
   Background:
     Given a host is signed in
     And I go to create an event 
 
   @wip
-  Scenario: Creating the free ticket
-    When I add 30 free tickets to the event named "Patrick Loves Me"
+  Scenario: Creating free tickets
+    When I add 3 free tickets to the event named "Patrick Loves Me"
     Then the event has a free ticket named "Patrick Loves Me"
