@@ -13,51 +13,79 @@ Portcullis.Tickets.New =
       time_start: null
       time_end: null
   bind: ->
+    self.bindElements()
     self.bindSubmission()
     self.bindSalesWindow()
     self.bindPricingType()
+
+  handleErrors: (event, xhr, status) ->
+    data = JSON.parse(xhr.responseText)
+    elem = null
+
+    getDateElem = (name) ->
+      parentElem = $ ".row[data-ticket=#{name}]"
+      parentElem.find 'input[type=text]'
+
+    for key, value of data
+      switch key
+        when "date_start", "date_end"
+          elem = getDateElem key
+        else
+          elem = $ "#ticket_#{key}"
+
+      elem.addClass 'error'
+      elem.after "<small class='error'>#{value}</small>"
+      elem.one 'focus', -> =>
+        elem.removeClass 'error'
+        elem.find('+ small.error').remove()
 
   injectNewEntry: (jsonData) ->
     console.log jsonData
 
   bindElements : ->
-    self.elems.price = $('input#ticket_price')
-    self.elems.buttons.priceFree = $ '#price_free'
+    self.elems.price                 = $('input#ticket_price')
+    self.elems.buttons.priceFree     = $ '#price_free'
     self.elems.buttons.priceDonation = $ '#price_donation'
-    self.elems.buttons.priceFixed = $ '#price_fixed'
-    self.elems.date.day_start = $ '#ticket_day_start'
-    self.elems.date.day_end   = $ '#ticket_day_end'
-    self.elems.date.time_start = $ '#ticket_time_start'
-    self.elems.date.time_end   = $ '#ticket_time_end'
+    self.elems.buttons.priceFixed    = $ '#price_fixed'
+    self.elems.date.day_start        = $ '#ticket_day_start'
+    self.elems.date.day_end          = $ '#ticket_day_end'
+    self.elems.date.time_start       = $ '#ticket_time_start'
+    self.elems.date.time_end         = $ '#ticket_time_end'
 
-  synchronization: ->
+  synchronization:
+    
     updatePrice: ->
       thePrice = self.elems.price.val()
       thePrice *= -1 if thePrice < 0
       thePrice *= -1 if $('span#price_donation[data-checked]').length isnt 0
       thePrice = 0   if $('span#price_free[data-checked]').length isnt 0
       self.elems.price.val thePrice
+
     updateDate : ->
+      ticketDayStart = self.elems.date.day_start.pickadate().pickadate('picker')
+      ticketTimeStart = self.elems.date.time_start.pickatime().pickatime('picker')
+      ticketDayEnd = self.elems.date.day_end.pickadate().pickadate('picker')
+      ticketTimeEnd = self.elems.date.time_end.pickatime().pickatime('picker')
       date_start = $('input[type=hidden]#ticket_date_start')
-      date_end = $('input[type=hidden]#ticket_date_start')
-      date_start.val(ticketDayStart.get('select') + ticketTimeStart.get('select'))
-      date_end.val(ticketDayEnd.get('select') + ticketTimeEnd.get('select'))
-      console.debug date_start.val()
+      date_end = $('input[type=hidden]#ticket_date_end')
+      date_start.val(ticketDayStart.get('select').pick + ticketTimeStart.get('select').pick)
+      date_end.val(ticketDayEnd.get('select').pick + ticketTimeEnd.get('select').pick)
 
   bindSubmission: ->
-    $('form#new_ticket').on 'ajax:before', ->
+    $('form#new_ticket').on 'ajax:before', () ->
+      $('form#new_ticket small.error').remove()
+      $('form#new_ticket input.error').removeClass('error')
       self.synchronization.updatePrice()
       self.synchronization.updateDate()
 
-    $('form#new_ticket').on 'ajax:complete', (event, data, status, xhr) =>
-      if status is 'error'
-        alert xhr.responseText
-      else if status is 'success'
-        $('#modal_add_ticket').foundation('reveal', 'close')
-        self.injectNewEntry data 
+    $('form#new_ticket').on 'ajax:error', (event, xhr, status) =>
+      self.handleErrors event, xhr, status
+
+    $('form#new_ticket').on 'ajax:success', (event, data, status, xhr) =>
+      self.injectNewEntry data 
 
   bindPricingType: ->
-    $('input[type=number]').number(true, 2)
+    $('#pricing > input[type=number]').number(true, 2)
 
     enableButton = (element) =>
       element = $(element)
@@ -70,15 +98,15 @@ Portcullis.Tickets.New =
         element.removeAttr 'data-checked'
         element.find('i.fa').removeClass('fa-check-circle')
 
-    buttonPriceFree.click (e) ->
+    self.elems.buttons.priceFree.click (e) ->
       $('#pricer').slideUp()
       $('input#ticket_payment_type').val('free')
 
-    buttonPriceFixed.click ->
+    self.elems.buttons.priceFixed.click ->
       $('#pricer').slideDown()
       $('input#ticket_payment_type').val('fixed')
 
-    buttonPriceDonation.click ->
+    self.elems.buttons.priceDonation.click ->
       $('#pricer').slideDown()
       $('input#ticket_payment_type').val('donation')
 
@@ -88,15 +116,16 @@ Portcullis.Tickets.New =
         enableButton(e.target)
       , 200)
 
-    self.elemes.buttons.priceFree.click()
+    self.elems.buttons.priceFree.click()
 
   bindSalesWindow: ->
     ticketDayStart = self.elems.date.day_start.pickadate().pickadate('picker')
-    ticketTimeStart = $self.elems.date.day_end.pickatime().pickatime('picker')
-    ticketDayEnd = self.elems.date.time_start.pickadate().pickadate('picker')
+    ticketTimeStart = self.elems.date.time_start.pickatime().pickatime('picker')
+    ticketDayEnd = self.elems.date.day_end.pickadate().pickadate('picker')
     ticketTimeEnd = self.elems.date.time_end.pickatime().pickatime('picker')
     ticketDayEnd.set('select', new Date())
     ticketTimeEnd.set('select', new Date())
+    # Pulls it from the form.
     ticketDayStart.set('select', $('input#start_day').pickadate().pickadate('picker').get('select'))
     ticketTimeStart.set('select', $('input#start_time').pickatime().pickatime('picker').get('select'))
 
