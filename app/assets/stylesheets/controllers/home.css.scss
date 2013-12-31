@@ -4,7 +4,7 @@
 @import 'options/colors';
 
 body.home.landing {
-  > section.main {
+  section.main {
     > header[role=page] {
       @include transition(all 0.4s);
       background-image: asset-url('hazy_circle.jpg');

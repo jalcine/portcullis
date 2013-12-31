@@ -11,10 +11,13 @@
     = render 'components/ios'
     = javascript_include_tag :modernizr
   %body{class: page_classes(params)}
-    = render 'components/navigation' if navigation_visible?
-    = render 'components/header' if header_visible?
-    %section.main{role: :contentinfo}
-      = render 'components/flash_gordon' if flash_gordon_visible?
-      = yield
-    = render 'components/footer' if footer_visible?
+    .off-canvas-wrap
+      .inner-wrap
+        = render 'components/header' if header_visible?
+        = render 'components/navigation' if navigation_visible?
+        %section.main{role: :contentinfo}
+          = render 'components/flash_gordon' if flash_gordon_visible?
+          = yield
+        %a.exit-off-canvas
+        = render 'components/footer' if footer_visible?
     = render 'components/javascript'
