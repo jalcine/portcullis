@@ -82,6 +82,14 @@ describe User do
   end
 
   describe '.permissions_for' do
-    pending 'determine if polled permissions are accurate'
+    describe 'facebook' do
+      pending 'implement testing of facebook permissions check'
+    end
+
+    [:linkedin].each do | provider |
+      describe provider do
+        pending "implement testing of #{provider} permissions check"
+      end
+    end
   end
 end
