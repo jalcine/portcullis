@@ -80,4 +80,8 @@ describe User do
       end
     end
   end
+
+  describe '.permissions_for' do
+    pending 'determine if polled permissions are accurate'
+  end
 end

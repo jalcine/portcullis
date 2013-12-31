@@ -51,4 +51,25 @@ class User < ActiveRecord::Base
       nil
     end
   end
+
+  public
+    def permissions_for(provider_name)
+      # NOTE: This only applied for Facebook. If we don't have the provider
+      # for any other service, we assume that we couldn't get any data.
+      provider = providers.where(name: provider_name)
+      return nil if provider.nil?
+
+      if provider_name.to_sym == :facebook then
+        querying_uri = Settings.authentication.providers[provider_name][:permissions_uri]
+        querying_uri = querying_uri.replace '%uid', provider.uid
+        querying_uri = querying_uri.replace '%token', provider.token
+
+        ret = HTTParty.get(querying_uri)
+        return ret.parsed_response['data']
+      else
+        return Settings.authentication.providers[provider_name][:scope]
+      end
+
+      nil
+    end
 end
