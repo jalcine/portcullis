@@ -39,7 +39,7 @@
       .row.collapse
         .large-12.columns
           = f.label :description do
-            = f.text_area :description, rows: 20, placeholder: 'Ticket escription', class: 'tinymce', value: @ticket.description
+            = f.text_area :description, rows: 20, placeholder: 'Ticket description', class: 'tinymce', value: @ticket.description
     .large-6.columns
       #pricer.row.collapse
         .large-12.columns
@@ -63,10 +63,10 @@
 
   .row.collapse
     .small-3.small-centered.columns
-      %button.right.button.small.success.radius{type: :submit, data: {'disable-with' => 'Making the Awesome...'}}
-        = "Create Ticket" if @ticket.new_record?
-        = "Update Ticket" unless @ticket.new_record?
+      %button.right.button.small.success.radius{type: :submit, data: {'disable-with' => 'Saving Ticket...'}}
+        Save Ticket
 
 :coffeescript
   $ ->
     Portcullis.Tickets.New.bind()
+    $('form[data-ticket] textarea').tinymce()

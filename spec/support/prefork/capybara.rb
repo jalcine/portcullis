@@ -5,23 +5,25 @@ require 'capybara-screenshot'
 require 'capybara-screenshot/rspec'
 
 RSpec.configure do | config |
-  test_log = File.new "#{Rails.root}/log/test.log", 'a'
+  phantomjs_logger = File.new "#{Rails.root}/log/test.log", 'a'
+  test_log = File.new "#{Rails.root}/log/phantomjs.log", 'a'
 
+  # TODO: Register three drivers, each for different device sizes.
   Capybara.register_driver :poltergeist do | app |
     Capybara::Poltergeist::Driver.new app, {
-      debug: true,
+      debug: false,
       server: true,
       js_errors: false,
       inspector: true,
       logger: test_log,
-      phantomjs_logger: test_log,
-      window_size: [1366, 768]
+      phantomjs_logger: phantomjs_logger,
+      window_size: [1400, 900]
     }
   end
 
   Capybara.default_driver                  = :poltergeist
   Capybara.javascript_driver               = :poltergeist
-  Capybara.ignore_hidden_elements          = false
+  Capybara.ignore_hidden_elements          = false 
   Capybara.default_wait_time               = 10
   Capybara::Screenshot.autosave_on_failure = true
 
