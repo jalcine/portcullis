@@ -1,44 +1,53 @@
 @import 'compass/css3/images';
-/*** Our color palette of the rainbow **/
-$red: #E74C3C;
-$yellow: #F1C40F;
-$orange: #F39C12;
-$green: #2ecc71;
-$blue: #3b9cdc;
-$purple: #8e44ad;
-$black: #111111;
-$white: #f6f8f8;
-$gray: #333333;
+$vettio-blue:  #007eff;
+$vettio-black: #333333;
+$vettio-white: #ededed;
 
-/** Our branding colors **/
-$vettio-blue: #007eff;
-$vettio-black: $black;
-$vettio-white: $white;
+$offset: 15%;
+
+$base-red: #e60d42;
+$light-red: saturate($base-red, $offset);
+$dark-red:  desaturate($base-red, $offset);
+
+$base-yellow: #ffe900;
+$light-yellow: saturate($base-yellow, $offset);
+$dark-yellow:  desaturate($base-yellow, $offset);
+
+$base-blue: $vettio-blue;
+$light-blue: saturate($base-blue, $offset);
+$dark-blue:  desaturate($base-blue, $offset);
+
+$base-green: #00ff67;
+$light-green: saturate($base-green, $offset);
+$dark-green:  desaturate($base-green, $offset);
+
+$black: $vettio-black;
+$white: $vettio-white;
+$gray: mix($black, $white, 80%);
+$red: $base-red;
+$yellow: $base-yellow;
+$green: $base-green;
+$blue: $base-blue;
 
 /** Colors to change in Foundaton */
 
-$primary-color: $vettio-blue;
-$secondary-color: $blue;
-$warning-color: $red;
-$alert-color: $orange;
-$disabled-color: $gray;
+$primary-color: $base-blue;
+$secondary-color: $light-blue;
+$warning-color: $dark-red;
+$alert-color: $dark-yellow;
+$disabled-color: $dark-blue;
 
 /** Rest of ze site **/
 
 $body-bg: $white;
+$body-font-color: $black;
 $topbar-bg-color: $black;
 $topbar-bg: $topbar-bg-color;
 $topbar-link-color: $white;
 $topbar-link-color-hover: $vettio-white;
 $topbar-link-color-active: $vettio-white;
-$topbar-link-bg-hover: darken($vettio-blue, 15%);
-$topbar-dropdown-bg: darken($vettio-blue, 5%);
+$topbar-link-bg-hover: $light-blue;
+$topbar-dropdown-bg: $vettio-blue;
 $topbar-dropdown-link-color: $white;
-$sub-nav-active-bg: $white;
-$sub-nav-active-color: $primary-color;
-
-$colors: red yellow orange green blue purple black white gray;
-
-@each $a_color in $colors {
-  .fa-#{$a_color} { color: #{$a_color}; }
-}
+$sub-nav-active-bg: $dark-blue;
+$sub-nav-active-color: $white;
