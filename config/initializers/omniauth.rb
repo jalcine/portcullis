@@ -26,3 +26,5 @@ unless Rails.env.production?
     })
   end
 end
+
+OmniAuth.config.logger = Rails.logger
