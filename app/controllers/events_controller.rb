@@ -13,17 +13,6 @@ class EventsController < ApplicationController
   # GET/POST /events/1.json
   def show
     authorize! :view, @event
-    if @event.password.present? and cannot?(:crud, @event)
-      valid_key = false
-      valid_key = params[:event][:password] == @event.password if params.include? :event
-      if !valid_key 
-        respond_to do | format |
-          format.html { render 'events/_gate', status: 401 }
-          format.js   { render nothing: true,  status: 401 }
-          format.json { render nothing: true,  status: 401 }
-        end and return
-      end
-    end
   end
 
   # GET /events/new
@@ -112,7 +101,7 @@ class EventsController < ApplicationController
   # Never trust parameters from the scary internet, only allow the white list through.
   def event_params
     params.require(:event).permit(:name, :description, :date_start, :banner,
-                                  :date_end, :address, :longitude, :latitude, :age_groups, :password,
-                                  :primary_category_id, :secondary_category_id, :publicity)
+      :date_end, :address, :longitude, :latitude, :age_groups,
+      :primary_category_id, :secondary_category_id, :publicity)
   end
 end

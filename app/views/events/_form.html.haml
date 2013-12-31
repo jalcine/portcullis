@@ -174,13 +174,6 @@
                   - parent_category.categories.each do | category |
                     %option{value: category.id}= category.name
         .row
-          .small-12.large-2.columns
-            = f.label :password, class: :inline do
-              %i.fa.fa-fw.fa-lock
-              Password
-          .small-12.large-10.columns
-            = f.password_field :password
-        .row
           .small-12.large-10.large-centered.columns
             = f.label :publicity, class: :inline do
               = f.check_box :publicity, checked: (@event.publicity == :public ? true : false)
