@@ -1,4 +1,12 @@
 GIT
+  remote: git://github.com/jalcine/foundation-rails
+  revision: 85490224ec8e8838ed753cad66afb1d8a33a01d4
+  specs:
+    foundation-rails (5.0.2.0)
+      railties (>= 3.1.0)
+      sass (>= 3.2.0)
+
+GIT
   remote: git://github.com/jalcine/rack-contrib.git
   revision: d8849c98675b37eca7f2770f58efc9307cfe388f
   specs:
@@ -181,9 +189,6 @@ GEM
     foreigner (1.6.0)
       activerecord (>= 3.0.0)
     formatador (0.2.4)
-    foundation-rails (5.0.2.0)
-      railties (>= 3.1.0)
-      sass (>= 3.2.0)
     friendly_id (5.0.2)
       activerecord (~> 4.0.0)
     fssm (0.2.10)
@@ -575,7 +580,7 @@ DEPENDENCIES
   faker (~> 1.1.2)
   fog
   font-awesome-sass (~> 4.0.1)
-  foundation-rails (~> 5.0.1)
+  foundation-rails (~> 5.0.2)!
   friendly_id (~> 5.0.1)
   geocoder (~> 1.1.0)
   gretel
