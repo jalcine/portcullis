@@ -18,14 +18,27 @@ module TicketSteps
       fill_in 'ticket[description]', with: Faker::Lorem.paragraphs(3).join("\n")
 
       first('#ticket_day_start').click
+      expect(find('#ticket_day_start + .picker')).to be_visible
       screenshot_and_open_image
-      click_link '10'
+      puts ".picker__day[data-pick='#{Time.now.midnight.to_i}']"
+      find(".picker__day[data-pick='#{Time.now.midnight.to_i}]'").trigger 'click'
+      expect(find('.picker')).to_not be_visible
+
       first('#ticket_time_start').click
+      expect(find('.picker')).to be_visible
+      find(".picker__list-iem[data-pick=60]}").trigger 'click'
       click_link '8:00 AM'
+      expect(find('.picker')).to_not be_visible
+
       first('#ticket_day_end').click
-      click_link '10'
+      expect(find('.picker')).to be_visible
+      find(".picker__day[data-pick=#{(Time.now + 2.days).midnight.to_i}]").trigger 'click'
+      expect(find('.picker')).to_not be_visible
+
       first('#ticket_time_end').click
-      click_link '5:00 PM'
+      expect(find('.picker')).to be_visible
+      find(".picker__list-iem[data-pick=60]}").trigger 'click'
+      expect(find('.picker')).to_not be_visible
 
       find_button('Save Ticket').trigger 'click'
       expect(page).to have_content 'Saving Ticket'
