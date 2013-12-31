@@ -25,6 +25,10 @@ module SearchSteps
   step 'I should see the event called :event_name in the event list' do | event_name |
     pending
   end
+
+  step 'I should see a message indicating no events were found' do
+    expect(page).to have_content t('en.search.no_results')
+  end
 end
 
 RSpec.configure do | config |
