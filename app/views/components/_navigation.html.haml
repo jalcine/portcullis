@@ -4,9 +4,7 @@
       %li.name 
         %h1
           %a{href: root_url}
-            %img{src: asset_url('logo/slogan.png'), title: 'Vettio', data: { interchange: "default #{asset_url('logo/slogan.png')}, small #{asset_url('logo/button.png')}" } }
-            %noscript
-              %img{src: asset_url('logo/button.png')}
+            %img{src: asset_url('logo/slogan.png'), title: 'Vettio'}
     %section.top-bar-section
       %ul.left
         %li
@@ -65,21 +63,55 @@
       %a.right-off-canvas-toggle
         %i.fa.fa-fw.fa-lg.fa-ellipsis-v
 
-.sticky
 %aside.left-off-canvas-menu
   %ul.off-canvas-list
     %li
       %label Events
-    %li
-      - if can?(:create, Event)
+    - if can?(:create, Event)
+      %li
         %a{href: new_event_path} Create an Event
+    %li
+      %a{href: events_url} All Events
 
 %aside.right-off-canvas-menu
   %ul.off-canvas-list
-    - unless user_signed_in?
+    - if !user_signed_in?
       %li
-        %label AcceSS
+        %label New User
       %li
-        %a{href: new_user_session_path} Sign In
+        = link_to new_user_session_path do
+          %i.fa.fa-fw.fa-asterisk
+          Sign Up
       %li
-        %a{href: user_omniauth_authorize_path(provider: :facebook, task: :find)} Sign In with Facebook
+        = link_to user_omniauth_authorize_path(provider: :facebook, task: :new) do
+          %i.fa.fa-fw.fa-facebook-square
+          Sign Up with Facebook
+      %li
+        = link_to user_omniauth_authorize_path(provider: :linkedin, task: :new) do
+          %i.fa.fa-fw.fa-linkedin-square
+          Sign Up with LinkedIn
+      %li
+        %label Returning User
+      %li
+        = link_to new_user_session_path do
+          %i.fa.fa-fw.fa-lock
+          Sign In
+      %li
+        = link_to user_omniauth_authorize_path(provider: :facebook, task: :find) do
+          %i.fa.fa-fw.fa-facebook-square
+          Sign In with Facebook
+      %li
+        = link_to user_omniauth_authorize_path(provider: :linkedin, task: :find) do
+          %i.fa.fa-fw.fa-linkedin-square
+          Sign In with LinkedIn
+    - else
+      %li
+        %label Account
+      %li
+        %a{href: '#'}
+          %i.fa.fa-fw.fa-cog
+          Settings
+      %li
+        = link_to destroy_user_session_path, method: :delete do
+          %i.fa.fa-fw.fa-lock
+          Sign Out
