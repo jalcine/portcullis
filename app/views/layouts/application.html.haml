@@ -13,7 +13,8 @@
   %body{class: page_classes(params)}
     .off-canvas-wrap
       .inner-wrap
-        = render 'components/navigation' if navigation_visible?
+        = render 'components/off_canvas' if browser.mobile?
+        = render 'components/navigation' if navigation_visible? and !browser.mobile?
         = render 'components/flash_gordon' if flash_gordon_visible?
         = render 'components/header' if header_visible?
         %section.main{role: :contentinfo}
