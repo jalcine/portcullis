@@ -3,42 +3,38 @@ module ApplicationHelper
     Settings.toggles.in_beta == true
   end
 
-  ['flash_gordon', 'navigation', 'footer', 'header'].each do | section |
-    module_eval <<-METHODS, __FILE__, __LINE__ +1
-      def #{section}_visible?
-        @#{section}_visible = true if @#{section}_visible.nil?
-        @#{section}_visible
-      end
-
-      def disable_#{section}
-        @#{section}_visible = false
-      end
-
-      def enable_#{section}
-        @#{section}_visible = true 
-      end
-    METHODS
-  end
-
-  def show_error_page(code = :internal_server_error, message = 'Awh shucks')
-    # TODO: Change error page depending on status code.
-    flash[:error] = message
-    render status: code, template: 'errors/500' 
+  def browser
+    Browser.new accept_language: request.headers['Accept-Language'],
+      ua: request.headers['User-Agent']
   end
 
   def page_title(subtitle = nil)
-    @view_flow.content.delete :title
-    content_for :title do
-      "#{subtitle} - Vettio"
+    if subtitle.nil?
+      a_title = content_for(:title)
+      a_title = 'Vettio' if a_title.nil?
+      return a_title
+    else
+      if subtitle.blank? or !subtitle.is_a? String
+        subtitle = 'Vettio'
+      else
+        subtitle = "#{subtitle} - Vettio"
+      end
+
+      content_for :title, flush: true do
+        subtitle
+      end
     end
   end
 
   def page_classes(params = nil)
-    if params.is_a? String
+    return content_for(:page_classes) if params.nil?
+
+
+    if params.is_a? String then
       content_for(:page_classes) do
         params
       end
-    else if params.is_a? Hash
+    else if params.is_a? Hash then
       santizied_params = "#{params[:controller]} #{params[:action]}".gsub('/', '_').gsub('-','_').downcase
       return "#{santizied_params} #{content_for(:page_classes)}"
     end
