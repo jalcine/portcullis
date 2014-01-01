@@ -2,6 +2,9 @@ class ApplicationController < ActionController::Base
   # If enabled, handle Vanity testing.
   #use_vanity :current_user
 
+  # Include logic to pick up browser information.
+  extend Browser::ActionController
+
   # Ensure CanCan logic is employed.
   rescue_from CanCan::AccessDenied do |exception|
     message = 'You aren\'t authorized to invoke that action.' 
