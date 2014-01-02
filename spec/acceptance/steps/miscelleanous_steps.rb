@@ -10,6 +10,14 @@ module MiscelleanousSteps
     end
   end
 
+  step "I click on the :button button" do | button |
+    click_button button
+  end
+
+  step "I click on the :link link" do | link |
+    click_link link
+  end
+
   step 'I should not see the text :content on the page' do | content |
     expect(page).to_not have_content(content)
   end

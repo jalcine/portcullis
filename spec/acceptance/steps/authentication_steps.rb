@@ -56,6 +56,15 @@ module AuthenticationSteps
   step 'A new user should be created from data from :provider' do | provider |
     pending "Handle logic for determing existence from #{provider} data."
   end
+
+  step 'I enter my e-mail address and password' do
+    fill_in 'Email', with: Faker::Internet.email
+    fill_in 'Password', with: "#{Faker::Lorem.word}#\$/%#{Random.rand(Time.now.year * Time.now.hour)}"
+  end
+
+  step 'I should be signed in' do
+    pending 'determine if the user is signed in'
+  end
 end
 
 RSpec.configure { |c| c.include AuthenticationSteps  }
