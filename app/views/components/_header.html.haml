@@ -1,1 +1,3 @@
-%header.main
+%header.main{role: :contentinfo}
+  = render 'components/flash_gordon' if flash_gordon_visible?
+  = yield :header

@@ -12,21 +12,6 @@ describe 'layouts/application.html.haml' do
 
   let(:params)  { controller.request.params }
 
-  describe 'displaying flash messages' do
-    [:notice, :alert, :error].each do | flash_type |
-      before(:each) do
-        flash[flash_type] = "This is a #{flash_type.to_s}."
-        allow(view).to receive(:resource_name).and_return(:user)
-        render template: 'layouts/application', locals: { }
-      end
-
-      it { expect(rendered).to have_selector 'body > section.main > .flash_gordon' }
-      it { expect(rendered).to have_selector "body > section.main > .flash_gordon > .#{flash_type}" }
-      it { expect(rendered).to match /This is a / }
-      it { expect(rendered).to match flash_type.to_s }
-    end
-  end
-  
   describe 'title' do
     it 'has a subtitle' do
       view.page_title 'Subtitle'
@@ -59,9 +44,9 @@ describe 'layouts/application.html.haml' do
       render template: 'layouts/application', locals: { params: {} }
     end
 
-    it { expect(rendered).to have_selector 'body > .sticky > nav.top-bar' }
-    it { expect(rendered).to have_selector 'body > footer.main' }
-    it { expect(rendered).to have_selector 'body > section.main' }
-    it { expect(rendered).to have_selector 'body > header.main' }
+    it { expect(rendered).to have_selector '.sticky > nav.top-bar' }
+    it { expect(rendered).to have_selector 'body footer.main[role=contentinfo]' }
+    it { expect(rendered).to have_selector 'body section.main[role=contentinfo]' }
+    it { expect(rendered).to have_selector 'body header.main[role=contentinfo]' }
   end
 end
