@@ -58,12 +58,23 @@ module AuthenticationSteps
   end
 
   step 'I enter my e-mail address and password' do
-    fill_in 'Email', with: Faker::Internet.email
-    fill_in 'Password', with: "#{Faker::Lorem.word}#\$/%#{Random.rand(Time.now.year * Time.now.hour)}"
+    @user = create :user, { 
+      email: Faker::Internet.email,
+      password: "#{Faker::Lorem.word}#\$/%#{Random.rand(Time.now.year * Time.now.hour)}"
+    }
+
+    fill_in 'Email', with: @user.email
+    fill_in 'Password', with: @user.password
   end
 
-  step 'I should be signed in' do
-    pending 'determine if the user is signed in'
+  step 'I enter my password confirmation' do
+    fill_in 'Password confirmation', with: @user.password
+  end
+
+  step 'I am signed in' do
+    send 'I see a success message saying "Signed in successfully"'
+    expect(page).to have_content 'Sign Out'
+    screenshot_and_open_image
   end
 end
 

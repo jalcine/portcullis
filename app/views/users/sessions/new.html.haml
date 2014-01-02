@@ -26,16 +26,13 @@
               = f.password_field :password, placeholder: '********'
           - if devise_mapping.rememberable?
             .row
-            .small-9.columns.row
-              .small-2.columns
-                = f.check_box :remember_me
-              .small-10.columns
-                = f.label :remember_me
-            .small-3.columns
-              .small-12
+              .small-8.columns
+                = f.label :remember_me do
+                  = f.check_box :remember_me
+                  Remember Me
+              .small-4.columns
                 = f.button type: :submit, class: 'button success shiny radius small', title: 'Sign In' do
                   Sign In
-                  %i.fa.fa-arrow-right
   .row
     .small-10.columns.small-centered.center-text
       = render 'users/shared/links'
