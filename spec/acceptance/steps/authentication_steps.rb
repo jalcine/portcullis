@@ -1,47 +1,31 @@
 module AuthenticationSteps
-  step 'I sign in with :provider' do | provider |
-    send 'I go to the sign-in page'
-    expect(find("a.#{provider.downcase}")).to_not be_nil
-    find("a.#{provider.downcase}").trigger 'click'
-  end
-
-  step 'I sign up with :provider' do | provider |
-    send 'I go to the sign-up page'
-    expect(find("a.#{provider.downcase}")).to_not be_nil
-    find("a.#{provider.downcase}").trigger 'click'
-  end
-
   step 'a :role is signed in' do | role = 'guest' |
-    @current_user_data = attributes_for :user, role.to_sym
+    @user = create :user, role.to_sym
     send 'I go to the sign-in page'
     send 'I sign in with an existing account'
   end
 
   step 'a :role is signed up' do | role = 'guest' |
-    @current_user_data = attributes_for :user, role.to_sym
+    @user = build :user, role.to_sym
     send 'I go to the sign-up page'
     send 'I sign up with a new account'
-  end
-
-  step 'I sign up for a new account' do
-    ['email', 'password', 'password_confirmation'].each do | field |
-      fill_in "user[#{field}]", with: @current_user_data[field.to_sym]
-      expect(find("#user_#{field}").value).to eq @current_user_data[field.to_sym]
-    end
-
-    find_button('Sign Up').click
-    @current_user = User.create! @current_user_data
+    @user.add_role role
   end
 
   step 'I sign in with an existing account' do
-    @current_user = User.create! @current_user_data
-    ['email', 'password'].each do | field |
-      fill_in "user[#{field}]", with: @current_user_data[field.to_sym]
-      expect(find("#user_#{field}").value).to eq @current_user_data[field.to_sym]
-    end
+    send 'I go to the sign-in page'
+    send 'I enter my e-mail address and password'
+    send 'I click the "Sign In" button'
+    send 'I am signed in'
+  end
 
-    click_button 'Sign In'
-    expect(page).to have_content 'Signed in'
+  step 'I sign up with a new account' do
+    send 'I go to the sign-up page'
+    send 'I enter my e-mail address and password'
+    send 'I enter my name'
+    send 'I enter my password confirmation'
+    step 'I click the "Sign Up" button'
+    send 'I am signed up'
   end
 
   step 'the user signs out' do
@@ -49,12 +33,36 @@ module AuthenticationSteps
     session.reset_sessions!
   end
 
-  step 'the provider is bound to fail' do
-    pending 'make provider creation fail'
+  step 'I have a pre-existing user account' do
+    @user = create :user
   end
 
-  step 'A new user should be created from data from :provider' do | provider |
-    pending "Handle logic for determing existence from #{provider} data."
+  step 'I enter my e-mail address and password' do
+    @user = build :user, { 
+      email: Faker::Internet.email,
+      password: "#{Faker::Lorem.sentence}**%#{Random.rand(Time.now.year * Time.now.hour)}"
+    } if @user.nil?
+
+    fill_in 'user[email]', with: @user.email
+    fill_in 'user[password]', with: @user.password
+  end
+
+  step 'I enter my password confirmation' do
+    fill_in 'user[password_confirmation]', with: @user.password
+  end
+
+  step 'I am signed in' do
+    expect(page).to have_content 'Sign Out'
+    expect(page).to have_content 'Signed in successfully.'
+    @user = User.find_by_email(@user.email)
+    expect(@user).to_not be_nil
+  end
+
+  step 'I am signed up' do
+    expect(page).to have_content 'Sign Out'
+    expect(page).to have_content 'signed up successfully.'
+    @user = User.find_by_email(@user.email)
+    expect(@user).to_not be_nil
   end
 end
 
