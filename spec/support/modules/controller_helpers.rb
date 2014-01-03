@@ -12,6 +12,9 @@ module ControllerHelpers
     request.env['devise.mapping'] = Devise.mappings[user_role]
   end
 
+  def stub_env_for_omniauth_error(provider)
+  end
+
   def stub_env_for_omniauth(provider)
     oa = FactoryGirl.build(:oauth_data, provider)
     denv = {

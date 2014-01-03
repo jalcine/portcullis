@@ -105,7 +105,7 @@ describe Users::OmniauthController do
             get provider
           end
 
-          it { expect(response.status).to eq(302) }
+          it { expect(response.status).to eq(500) }
           it { expect(flash).to_not be_empty }
           it { expect(flash.keys).to include :error }
           it { expect(flash.keys).to_not include :notice }
