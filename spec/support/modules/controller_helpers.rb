@@ -20,10 +20,9 @@ module ControllerHelpers
     denv = {
       'provider'    => provider.to_s,
       'uid'         => (Random.rand(8.8e5) + 1.1e6).round,
-      'info'        => oa,
+      'info'        => oa.except!( 'credentials' ),
       'credentials' => oa['credentials']
     }
-    denv['info'] = denv['info'].except! 'credentials'
     request.env['omniauth.auth'] = denv
   end
 
