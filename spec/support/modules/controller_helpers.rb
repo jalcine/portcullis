@@ -13,6 +13,7 @@ module ControllerHelpers
   end
 
   def stub_env_for_omniauth_error(provider)
+    OmniAuth.config.mock_auth[provider.to_sym] = :invalid_credentials
   end
 
   def stub_env_for_omniauth(provider)
