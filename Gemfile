@@ -11,9 +11,6 @@ gem 'pg', '0.17.0'
 # Unicode normalization in Ruby/jRuby
 gem 'unf', '~> 0.1.3'
 
-# Searching support via ElasticSearch.
-gem 'tire'
-
 gem 'haml', '4.0.3'
 gem 'haml-rails', '~> 0.4'
 gem 'sprockets-image_compressor'
