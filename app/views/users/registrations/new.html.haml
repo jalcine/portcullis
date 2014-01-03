@@ -11,35 +11,33 @@
           %i.fa-fw.icon
           = "Sign Up With #{provider_name.capitalize}"
   .page.classical.large-8.small-12.columns
-    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { 'data-abide'=> true, class: 'custom' }) do |f|
+    = form_for(resource, as: resource_name, url: registration_path(resource_name), html: { class: 'custom' }) do |f|
+      = devise_error_messages! unless resource.errors.empty?
       %fieldset
         .row.collapse
           .small-4.columns
             = f.label :email, class: 'prefix'
           .small-8.columns
-            = f.email_field :email, autofocus: true, placeholder: 'joinus@vettio.com', required: true
+            = f.email_field :email, autofocus: true, placeholder: 'joinus@vettio.com'
         .row.collapse
           .small-4.columns
             = f.label :password, class: 'prefix'
           .small-8.columns
-            = f.password_field :password, placeholder: '********', required: true
+            = f.password_field :password, placeholder: 'supersekretpassword'
         .row.collapse
           .small-4.columns
             = f.label :password_confirmation, class: 'prefix'
           .small-8.columns
-            = f.password_field :password_confirmation, placeholder: '********', required: true
+            = f.password_field :password_confirmation, placeholder: 'supersekretpassword'
         - if devise_mapping.rememberable?
           .row
-            .small-9.columns.row
-              .small-10.small-centered.columns
-                = f.label :remember_me do
-                  = f.check_box :remember_me, checked: true
-                  Remember Me
-            .small-3.columns
-              .small-12
-                = f.button type: :submit, class: 'button success shiny radius small', title: 'Sign Up' do
-                  Sign Up
-                  %i.fa.fa-arrow-right
+            .small-8.columns
+              = f.label :remember_me do
+                = f.check_box :remember_me
+                Remember Me
+            .small-4.columns
+              = f.button type: :submit, class: 'button success shiny radius small', title: 'Sign Up', data: {'disable-with' => 'Signing Up...'} do
+                Sign Up
   .row
     .small-10.columns.small-centered.center-text
       = render 'users/shared/links'

@@ -12,41 +12,24 @@ module AuthenticationSteps
   end
 
   step 'a :role is signed in' do | role = 'guest' |
-    @current_user_data = attributes_for :user, role.to_sym
+    @user = create :user, role.to_sym
     send 'I go to the sign-in page'
     send 'I sign in with an existing account'
   end
 
   step 'a :role is signed up' do | role = 'guest' |
-    @current_user_data = attributes_for :user, role.to_sym
+    @user = build :user, role.to_sym
     send 'I go to the sign-up page'
     send 'I sign up with a new account'
-  end
-
-  step 'I sign up for a new account' do
-    ['email', 'password', 'password_confirmation'].each do | field |
-      fill_in "user[#{field}]", with: @current_user_data[field.to_sym]
-      expect(find("#user_#{field}").value).to eq @current_user_data[field.to_sym]
-    end
-
-    find_button('Sign Up').click
-    @current_user = User.create! @current_user_data
-  end
-
-  step 'I sign in with an existing account' do
-    @current_user = User.create! @current_user_data
-    ['email', 'password'].each do | field |
-      fill_in "user[#{field}]", with: @current_user_data[field.to_sym]
-      expect(find("#user_#{field}").value).to eq @current_user_data[field.to_sym]
-    end
-
-    click_button 'Sign In'
-    expect(page).to have_content 'Signed in'
   end
 
   step 'the user signs out' do
     visit destroy_user_sessions_path
     session.reset_sessions!
+  end
+
+  step 'I have a pre-existing user account' do
+    @user = create :user
   end
 
   step 'the provider is bound to fail' do
@@ -58,23 +41,40 @@ module AuthenticationSteps
   end
 
   step 'I enter my e-mail address and password' do
-    @user = create :user, { 
+    @user = build :user, { 
       email: Faker::Internet.email,
-      password: "#{Faker::Lorem.word}#\$/%#{Random.rand(Time.now.year * Time.now.hour)}"
-    }
+      password: "#{Faker::Lorem.sentence}**%#{Random.rand(Time.now.year * Time.now.hour)}"
+    } if @user.nil?
 
-    fill_in 'Email', with: @user.email
-    fill_in 'Password', with: @user.password
+    fill_in 'user[email]', with: @user.email
+    fill_in 'user[password]', with: @user.password
   end
 
   step 'I enter my password confirmation' do
     fill_in 'Password confirmation', with: @user.password
   end
 
+  step 'I sign up for a new account' do
+    send 'I enter my e-mail address and password'
+    send 'I enter my password confirmation'
+    send 'I click the "Sign Up" button'
+    send 'I am signed up'
+  end
+
+  step 'I sign in with an existing account' do
+    send 'I enter my e-mail address and password'
+    send 'I click the "Sign In" button'
+    send 'I am signed in'
+  end
+
   step 'I am signed in' do
-    send 'I see a success message saying "Signed in successfully"'
     expect(page).to have_content 'Sign Out'
-    screenshot_and_open_image
+    expect(page).to have_content 'Signed in successfully.'
+  end
+
+  step 'I am signed up' do
+    expect(page).to have_content 'Sign Out'
+    expect(page).to have_content 'signed up successfully.'
   end
 end
 

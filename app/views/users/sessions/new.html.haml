@@ -1,38 +1,38 @@
 - page_title 'Join the Awesome'
-%section
-  .row.center-text
-    .large-8.small-10.columns.large-centered.small-centered
-      %h1 Sign In
-      %p Get into Vettio by reconnecting with one of the mediums below. It's easy!
-  .row.collapse
-    .page.buttons.large-4.small-12.columns
-      - Settings.authentication.providers.each do | provider_name, _ |
-        - if Settings.toggles.features.include? "auth:#{provider_name}"
-          %a{href: omniauth_authorize_path(resource_name, provider_name, task: :new), class: provider_name}
-            %i.fa-fw.icon
-            = "Sign In With #{provider_name.capitalize}"
-    .page.classical.large-8.small-12.columns
-      = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'custom' }) do |f|
-        %fieldset
-          .row.collapse
-            .large-4.small-12.columns
-              = f.label :email, class: 'prefix'
-            .large-8.small-12.columns
-              = f.email_field :email, autofocus: true, placeholder: 'awesome@yourback.com'
-          .row.collapse
-            .large-4.small-12.columns
-              = f.label :password, class: 'prefix'
-            .large-8.small-12.columns
-              = f.password_field :password, placeholder: '********'
-          - if devise_mapping.rememberable?
-            .row
-              .small-8.columns
-                = f.label :remember_me do
-                  = f.check_box :remember_me
-                  Remember Me
-              .small-4.columns
-                = f.button type: :submit, class: 'button success shiny radius small', title: 'Sign In' do
-                  Sign In
-  .row
-    .small-10.columns.small-centered.center-text
-      = render 'users/shared/links'
+.row.center-text
+  .large-8.small-10.columns.large-centered.small-centered
+    %h1 Sign In
+    %p Get into Vettio by reconnecting with one of the mediums below. It's easy!
+.row.collapse
+  .page.buttons.large-4.small-12.columns
+    - Settings.authentication.providers.each do | provider_name, _ |
+      - if Settings.toggles.features.include? "auth:#{provider_name}"
+        %a{href: omniauth_authorize_path(resource_name, provider_name, task: :new), class: provider_name}
+          %i.fa-fw.icon
+          = "Sign In With #{provider_name.capitalize}"
+  .page.classical.large-8.small-12.columns
+    = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'custom' }) do |f|
+      = devise_error_messages! unless resource.errors.empty?
+      %fieldset
+        .row.collapse
+          .small-4columns
+            = f.label :email, class: 'prefix'
+          .small-8.small-12.columns
+            = f.email_field :email, autofocus: true, placeholder: 'awesome@yourback.com'
+        .row.collapse
+          .small-4.columns
+            = f.label :password, class: 'prefix'
+          .small-8.columns
+            = f.password_field :password, placeholder: 'supersekretpassword'
+        - if devise_mapping.rememberable?
+          .row
+            .small-8.columns
+              = f.label :remember_me do
+                = f.check_box :remember_me
+                Remember Me
+            .small-4.columns
+              = f.button type: :submit, class: 'button success shiny radius small', title: 'Sign In' do
+                Sign In
+.row
+  .small-10.columns.small-centered.center-text
+    = render 'users/shared/links'

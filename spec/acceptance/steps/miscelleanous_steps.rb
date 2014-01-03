@@ -1,5 +1,5 @@
 module MiscelleanousSteps
-  step 'I see a :message_status message saying :message' do | state, message |
+  step 'I see a :state message saying :message' do | state, message |
     expect(page.find(".flash_gordon > .#{state}")).to have_content(message)
   end
 
@@ -17,12 +17,6 @@ module MiscelleanousSteps
 
   step 'I see the text :content on the page' do | content |
     expect(page).to have_content(content)
-  end
-
-  placeholder :message_status do
-    match /(success|info|warning|error)/ do | state |
-      state
-    end
   end
 end
 
