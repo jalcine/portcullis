@@ -75,7 +75,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
       when :error_user_is_malformed
         flash[:error] = 'A bit of a slip up trying to make your account. Try again?'
         redirect_to new_user_registration_path, status: :internal_server_error, 
-          error: t('auth.create_failure')
+          error: t('auth.create_failure') and return
       when :error_user_exists
         @user = User.find_by_email(omniauth_auth['info']['email'])
       end
@@ -83,7 +83,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
       case find_user_from_oauth(provider)
       when :error_not_found
         redirect_to new_user_session_path, status: :internal_server_error,
-          error: t('auth.failure')
+          error: t('auth.failure') and return
       when :user_found
         flash[:notice] = t('auth.welcome')
       end
@@ -96,7 +96,6 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
   def complete_the_deed
     flash[:notice] = "Welcome #{@user.profile.first_name}!"
     sign_in_and_redirect @user and return true unless @user.nil?
-    redirect_to new_user_session_path, error: t('auth.failure') and return false
   end
 
   Settings.authentication.providers.each do | provider, _ |
