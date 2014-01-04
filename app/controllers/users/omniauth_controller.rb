@@ -53,16 +53,14 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
 
   private
   def validate_parameters!
+    redirect_to new_user_session_path, error: t('auth.failure'), status: 500 and return false if omniauth_params.nil?
+
     @user = nil
     @task = omniauth_params['task'].to_s if omniauth_params.keys.include? 'task'
     no_good = (@task.nil? || omniauth_params.empty?)
 
-    redirect_to new_user_registration_path,
-      flash: { error: "Invalid values from OAuth. #{omniauth_params.to_yaml}" } and return false if no_good
-
-    redirect_to new_user_session_path,
-      flash: { error: 'Missing data from OAuth.' } and return false if is_omniauth_auth_malformed?
-
+    redirect_to new_user_registration_path, error: t('auth.failure'), status: 500 and return false if no_good
+    redirect_to new_user_session_path, error: t('auth.failure'), status: 500 and return false if is_omniauth_auth_malformed?
     true
   end
 
@@ -96,7 +94,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
   def complete_the_deed
     flash[:notice] = "Welcome #{@user.email}!"
     sign_in_and_redirect @user and return true unless @user.nil?
-    redirect_to new_user_session_path, notice: "Unknown error with #{provider}." and return false
+    redirect_to new_user_session_path, error: "Unknown error with #{provider}." and return false
   end
 
   Settings.authentication.providers.each do | provider, _ |
