@@ -1,6 +1,5 @@
 class Users::OmniauthController < Devise::OmniauthCallbacksController
-  private
-  def omniauth_auth
+  private def omniauth_auth
     request.env['omniauth.auth']
   end
 
@@ -32,6 +31,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
     @provider.name = provider.to_sym
     @provider.token = omniauth_auth['credentials']['token'].to_s
     @provider.uid = omniauth_auth['uid'].to_s
+    @provider.import_from_oauth omniauth_auth['info']
     @user.grant :attendee
 
     begin
@@ -73,17 +73,18 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
       case create_user_with_oauth(provider)
       when :error_user_is_malformed
         flash[:error] = 'A bit of a slip up trying to make your account. Try again?'
-        redirect_to new_user_registration_path, status: :internal_server_error and return
+        redirect_to new_user_registration_path, status: :internal_server_error, 
+          error: t('auth.create_failure')
       when :error_user_exists
         @user = User.find_by_email(omniauth_auth['info']['email'])
       end
     when 'find'
       case find_user_from_oauth(provider)
       when :error_not_found
-        flash[:error] = "We couldn't find a user account with #{provider}. Please try something else."
-        redirect_to new_user_session_path, status: :internal_server_error and return
+        redirect_to new_user_session_path, status: :internal_server_error,
+          error: t('auth.failure')
       when :user_found
-        flash[:notice] = "Hey there good looking!"
+        flash[:notice] = t('auth.welcome')
       end
     end
 
@@ -92,9 +93,9 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
 
   private
   def complete_the_deed
-    flash[:notice] = "Welcome #{@user.email}!"
+    flash[:notice] = "Welcome #{@user.profile.first_name}!"
     sign_in_and_redirect @user and return true unless @user.nil?
-    redirect_to new_user_session_path, error: "Unknown error with #{provider}." and return false
+    redirect_to new_user_session_path, error: t('auth.failure') and return false
   end
 
   Settings.authentication.providers.each do | provider, _ |
@@ -104,5 +105,10 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
       return do_the_deed('#{provider}')
     end
     METHODS
+  end
+
+  public
+  def failure
+    redirect_to new_user_session_path, status: 401, alert: t('auth.failure') and return
   end
 end
