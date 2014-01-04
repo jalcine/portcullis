@@ -75,6 +75,7 @@ group :development do
   gem 'erb2haml', '~> 0.1.5'
   gem 'CoffeeTags'
   gem 'debugger', '~> 1.6.2'
+  gem 'debugger-xml', '~> 0.3.3'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
   gem 'guard-bundler', '~> 2.0.0'
@@ -114,9 +115,7 @@ group :test, :development do
   gem 'capybara', require: false
   gem 'capybara-screenshot', require: false
   gem 'poltergeist', require: false
-  gem 'nyan-cat-formatter', require: false
   gem 'turnip', require: false
-  gem 'turnip-kanban', require: false
   gem 'libnotify', require: false
   gem 'growl', require: false
   gem 'rb-inotify', require: false
