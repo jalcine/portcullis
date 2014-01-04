@@ -1,5 +1,6 @@
 class Users::OmniauthController < Devise::OmniauthCallbacksController
-  private def omniauth_auth
+  private
+  def omniauth_auth
     request.env['omniauth.auth']
   end
 
