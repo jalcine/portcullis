@@ -1,5 +1,7 @@
 # TODO: Make site translateable.
 en:
+  auth:
+    failure: Failed to authenticate.
   events:
     create:
       form:
@@ -8,3 +10,5 @@ en:
       success: 'Event draft created! Go jazz it up!'
     update:
       success: 'Event updated!'
+  search:
+    no_results: 'No results was found.'
