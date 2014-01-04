@@ -9,6 +9,7 @@ def prefork_some_jazz
   Rails.logger.debug 'Auxillary modules loaded.'
 
   RSpec.configure do | config |
+    config.include ModelHelpers
     config.include ViewHelpers, type: :view
     config.include ViewHelpers, type: :feature
     config.include ControllerHelpers, type: :controller

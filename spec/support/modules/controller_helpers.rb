@@ -13,19 +13,11 @@ module ControllerHelpers
   end
 
   def stub_env_for_omniauth_error(provider)
-    OmniAuth.config.mock_auth[provider.to_sym] = :invalid_credentials
+    OmniAuth.config.mock_auth[provider.downcase.to_sym] = :invalid_credentials
   end
 
   def stub_env_for_omniauth(provider)
-    oa = FactoryGirl.build(:oauth_data, provider)
-    denv = {
-      'provider'    => provider.to_s,
-      'uid'         => (Random.rand(8.8e5) + 1.1e6).round,
-      'info'        => oa,
-      'credentials' => oa['credentials']
-    }
-    denv['info'] = denv['info'].except! 'credentials'
-    request.env['omniauth.auth'] = denv
+    request.env['omniauth.auth'] = oauth_hash(provider)
   end
 
   def stub_env_for_omniauth_params(paramaters = {})

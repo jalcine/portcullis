@@ -15,7 +15,8 @@ module AuthenticationSteps
   step 'I sign in with an existing account' do
     send 'I go to the sign-in page'
     send 'I enter my e-mail address and password'
-    send 'I click the "Sign In" button'
+    click_button 'Sign In'
+    #send 'I click the "Sign In" button'
     send 'I am signed in'
   end
 
