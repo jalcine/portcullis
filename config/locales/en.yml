@@ -1,7 +1,9 @@
 # TODO: Make site translateable.
 en:
   auth:
-    failure: Failed to authenticate.
+    create_failure: Couldn't make an account for you, our bad! Try again.
+    failure: Failed to authenticate. Please try again.
+    welcome: Hey there, good looking!
   events:
     create:
       form:

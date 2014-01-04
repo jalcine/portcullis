@@ -28,3 +28,4 @@ unless Rails.env.production?
 end
 
 OmniAuth.config.logger = Rails.logger
+OmniAuth.config.on_failure = Users::OmniauthController.action(:failure)
