@@ -9,6 +9,7 @@ module ProfileSteps
   end
 
   step 'I should have a profile' do
+    expect(@user).to_not be_nil
     expect(@user.profile).to_not be_nil
   end
 end
