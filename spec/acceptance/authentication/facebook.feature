@@ -1,8 +1,13 @@
 Feature: Authentication with Facebook
-  Background:
-    When I go to the sign-up page
 
   @wip
   Scenario: works like a charm
-    When I sign up with Facebook 
-    Then A new user should be created from data from facebook
+    When I go to the sign-up page
+    And I sign up with Facebook 
+    Then I can sign in using Facebook
+
+  @wip
+  Scenario: gives me a profile
+    When I go to the sign-up page
+    And I sign up with Facebook 
+    Then I should have a profile
