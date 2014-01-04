@@ -9,7 +9,6 @@ module ProfileSteps
   end
 
   step 'I should have a profile' do
-    puts @user.profile.to_yaml
     expect(@user.profile).to_not be_nil
   end
 end

@@ -12,5 +12,6 @@ Feature: Classic Authentication
     When I go to the sign-up page
     And I enter my e-mail address and password
     And I enter my password confirmation
+    And I enter my name
     And I click the "Sign Up" button
     Then I am signed up

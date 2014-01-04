@@ -15,7 +15,7 @@ describe User do
   end
 
   describe '.new' do
-    it 'can create a valid user with no providers'  do
+    it 'can create a valid user with no providers' do
       params = ActionController::Parameters.new(FactoryGirl.attributes_for :user)
       u = User.create params.permit!
       expect(u).to_not be_nil
@@ -27,15 +27,14 @@ describe User do
     describe '.find_by_oauth' do
       describe 'lookup on malformed data' do
         ['provider','uid'].each do | key |
-          let(:oauth_data)  { OmniAuth.config.mock_auth[provider_name.to_sym].clone.extract! key, :info, :credentials }
-          subject { User.build_with_oauth(oauth_data) }
+          let(:oauth)  { oauth_hash(provider_name).extract! key, 'info', 'credentials' }
+          subject { User.build_with_oauth oauth }
           it { expect(subject).to be_nil }
         end
       end
 
       describe "oauth data from #{provider_name}" do
-        let(:oauth_data)  { OmniAuth.config.mock_auth[provider_name.to_sym].clone }
-        subject { User.build_with_oauth(oauth_data) }
+        subject { User.build_with_oauth oauth_hash(provider_name) }
         it { expect(subject).to_not be_nil }
         it { expect(subject).to be_persisted }
         it { expect(subject.email).to_not be_nil }
@@ -45,18 +44,18 @@ describe User do
 
     describe '.build_with_oauth' do
       describe "can create an user with data from #{provider_name}" do
-        let(:good_oauth_data)  { OmniAuth.config.mock_auth[provider_name.to_sym].clone }
-        subject { User.build_with_oauth(good_oauth_data) }
-        it { expect(User.build_with_oauth(good_oauth_data)).to_not be_nil }
+        let(:oauth)  { oauth_hash(provider_name) }
+        subject { User.build_with_oauth(oauth) }
+        it { expect(User.build_with_oauth(oauth)).to_not be_nil }
         it { expect(subject).to_not be_nil }
         it { expect(subject).to be_persisted }
         it { expect(subject.providers.first.name.to_sym).to be_eql(provider_name.to_sym) }
         it { expect(subject.providers).to have(1).records }
-        it { expect(subject.email).to be_eql(good_oauth_data[:info][:email]) }
+        it { expect(subject.email).to be_eql(oauth['info']['email']) }
       end
 
       describe "can find an user from a #{provider_name}-built provider" do
-        let(:provider) { FactoryGirl.create "#{provider_name}_provider" }
+        let(:provider) { create(:provider, provider_name) }
         let(:user) { provider.user }
         it { expect(user).to_not be_nil }
         it { expect(user.providers.first.name.to_s).to include(provider_name.to_s)}
