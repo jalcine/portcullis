@@ -9,7 +9,7 @@ describe Provider do
     it { expect(subject).to respond_to(:user) }
   end
 
-  describe '.save!' do
+  describe '#save!' do
     context 'when checking uniqueness of fields' do
       Settings.authentication.providers.each do | provider, _ |
         subject { FactoryGirl.create :provider, provider }
@@ -24,7 +24,7 @@ describe Provider do
 
   describe '.import_from_oauth' do
     Settings.authentication.providers.each do | provider, data |
-      let(:oauth_data) { FactoryGirl.build :oauth_data, provider }
+      let(:oauth) { oauth_hash provider }
       describe "import from #{provider}" do
         subject { FactoryGirl.create :provider, provider }
         before(:each) do
@@ -32,7 +32,7 @@ describe Provider do
           subject.user.providers << subject
           subject.user.save!
           subject.save!
-          subject.import_from_oauth provider, oauth_data
+          subject.import_from_oauth oauth['info']
         end
 
         it 'has a profile' do

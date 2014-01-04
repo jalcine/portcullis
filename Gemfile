@@ -24,7 +24,6 @@ gem 'backbone-on-rails', '~> 1.1.0.0'
 gem 'modernizr-rails', '~> 2.7.0'
 gem 'coffee-rails', '4.0.0'
 gem 'tinymce-rails', git: 'git://github.com/spohlenz/tinymce-rails', branch: 'tinymce-4'
-
 gem 'jbuilder', '~> 1.5.2'
 gem 'yajl-ruby', '~> 1.1.0'
 gem 'attr_encrypted', '~> 1.3.1'
@@ -62,7 +61,6 @@ gem 'linkedin', '~> 0.4.4'
 gem 'rails-timeago', '~> 2.0'
 gem 'gretel'
 gem 'turnout'
-gem 'airbrake'
 gem 'rqrcode-rails3'
 #gem 'vanity'
 gem 'icalendar'
@@ -75,6 +73,7 @@ group :development do
   gem 'erb2haml', '~> 0.1.5'
   gem 'CoffeeTags'
   gem 'debugger', '~> 1.6.2'
+  gem 'debugger-xml', '~> 0.3.3'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
   gem 'guard-bundler', '~> 2.0.0'
@@ -114,9 +113,7 @@ group :test, :development do
   gem 'capybara', require: false
   gem 'capybara-screenshot', require: false
   gem 'poltergeist', require: false
-  gem 'nyan-cat-formatter', require: false
   gem 'turnip', require: false
-  gem 'turnip-kanban', require: false
   gem 'libnotify', require: false
   gem 'growl', require: false
   gem 'rb-inotify', require: false

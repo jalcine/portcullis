@@ -1,15 +1,13 @@
-Feature: Authentication
-  Background:
+Feature: Authentication with Facebook
+
+  @wip
+  Scenario: works like a charm
     When I go to the sign-up page
+    And I sign up with Facebook 
+    Then I can sign in using Facebook
 
-  @backlog
-  Scenario: works with Facebook
-    When I sign up with Facebook 
-    Then A new user should be created from data from facebook
-
-  @backlog
-  Scenario: fails with Facebook
-    When I sign up with Facebook
-    And the provider is bound to fail
-    Then I should see an error
-
+  @wip
+  Scenario: gives me a profile
+    When I go to the sign-up page
+    And I sign up with Facebook 
+    Then I should have a profile

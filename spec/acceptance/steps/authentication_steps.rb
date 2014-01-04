@@ -15,8 +15,9 @@ module AuthenticationSteps
   step 'I sign in with an existing account' do
     send 'I go to the sign-in page'
     send 'I enter my e-mail address and password'
-    send 'I click the "Sign In" button'
-    send 'I am signed in'
+    click_button 'Sign In'
+    #send 'I click the "Sign In" button'
+    send 'I am signed in/up'
   end
 
   step 'I sign up with a new account' do
@@ -25,7 +26,7 @@ module AuthenticationSteps
     send 'I enter my name'
     send 'I enter my password confirmation'
     step 'I click the "Sign Up" button'
-    send 'I am signed up'
+    send 'I am signed in/up'
   end
 
   step 'the user signs out' do
@@ -51,16 +52,8 @@ module AuthenticationSteps
     fill_in 'user[password_confirmation]', with: @user.password
   end
 
-  step 'I am signed in' do
+  step 'I am signed in/up' do
     expect(page).to have_content 'Sign Out'
-    expect(page).to have_content 'Signed in successfully.'
-    @user = User.find_by_email(@user.email)
-    expect(@user).to_not be_nil
-  end
-
-  step 'I am signed up' do
-    expect(page).to have_content 'Sign Out'
-    expect(page).to have_content 'signed up successfully.'
     @user = User.find_by_email(@user.email)
     expect(@user).to_not be_nil
   end

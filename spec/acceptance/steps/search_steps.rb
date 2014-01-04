@@ -27,7 +27,8 @@ module SearchSteps
   end
 
   step 'I should see a message indicating no events were found' do
-    expect(page).to have_content t('en.search.no_results')
+    pending 'Show no results.'
+    expect(page).to have_content I18n.t('search.no_results')
   end
 end
 

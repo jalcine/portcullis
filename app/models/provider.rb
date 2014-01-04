@@ -6,9 +6,10 @@ class Provider < ActiveRecord::Base
   validates :uid,    presence: { message: 'authentication service user ID is required.' }
 
   public
-  def import_from_oauth(provider, oauth_data)
-    profile = self.user.create_profile
-    case provider.to_sym
+  def import_from_oauth(oauth_data)
+    profile = self.user.build_profile
+
+    case name.to_sym
     when :facebook
       profile.first_name = oauth_data['first_name']
       profile.last_name = oauth_data['first_name']
@@ -19,6 +20,7 @@ class Provider < ActiveRecord::Base
       profile.first_name = oauth_data['first_name']
       profile.last_name = oauth_data['last_name']
     end
+
     profile.save!
     user.save!
   end

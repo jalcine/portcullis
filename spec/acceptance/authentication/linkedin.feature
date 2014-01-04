@@ -1,14 +1,13 @@
-Feature: Authentication
-  Background:
+Feature: Authentication with LinkedIn
+
+  @wip
+  Scenario: works like a charm
     When I go to the sign-up page
-
-  @backlog
-  Scenario: works with LinkedIn
-    When I sign up with LinkedIn 
-    Then A new user should be created from data from linkedin
-
-  @backlog
-  Scenario: fails with LinkedIn
     When I sign up with LinkedIn
-    And the provider is bound to fail
-    Then I should see an error
+    Then I can sign in using LinkedIn
+
+  @wip
+  Scenario: gives me a profile
+    When I go to the sign-up page
+    When I sign up with LinkedIn
+    Then I should have a profile
