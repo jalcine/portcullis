@@ -29,7 +29,6 @@ module ApplicationHelper
   def page_classes(params = nil)
     return content_for(:page_classes) if params.nil?
 
-
     if params.is_a? String then
       content_for(:page_classes) do
         params

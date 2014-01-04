@@ -35,5 +35,5 @@ Portcullis::Application.configure do
   config.active_support.deprecation = :stderr
 
   # Make logging mad verbose.
-  config.log_level = :info
+  config.log_level = :debug
 end
