@@ -116,9 +116,6 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
 
   private
   def complete_the_deed(user = @user)
-    Rails.logger.ap @user
-    Rails.logger.ap @user.profile
-    Rails.logger.ap @user.providers
     flash[:notice] = "Welcome #{@user.profile.first_name}!"
     sign_in_and_redirect @user and return true unless @user.nil?
     redirect_to new_user_session_path, error: 500, error: t('auth.failure') and return true if @user.nil
