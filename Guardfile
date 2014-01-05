@@ -23,8 +23,9 @@ group :ui do
     watch('Gemfile.lock')
     watch('config/application.rb')
     watch('config/environment.rb')
+    watch('config/environments/development.rb')
     watch('config/unicorn/development.rb')
-    watch(%r{^config/(initializers|environments)/.+\.rb$})
+    watch(%r{^config/(initializers)/.+\.rb$})
     watch(%r{^config/settings/.+\.yml$})
   end 
 
@@ -39,16 +40,15 @@ group :ui do
 end
 
 group :test do
-  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 30, retry_delay: 2, bundler: true, notify_on_start: true, rspec: true do
+  guard :spork, rspec_env: { RAILS_ENV: :test }, wait: 90, retry_delay: 2, bundler: true, notify_on_start: true, rspec: true do
     watch('Gemfile.lock')
     watch('config/unicorn/test.rb')
     watch('config/application.rb')
-    watch('config/environment.rb')
     watch('config/environments/test.rb')
     watch('spec/spec_helper.rb')
     watch(%r{config/settings/test\.*\.yml})
     watch(%r{^config/initializers/.+\.rb$})
-    watch(%w{^spec/support/prefork/*\.rb$}) { [:spork, 'spec'] }
+    watch(%w{^spec/support/prefork/*\.rb$}) { [:spork, :rspec] }
   end
 
   guard :rspec, all_on_pass: false, all_on_start: false, failed_mode: :keep, cmd: 'bundle exec rspec --drb' do
