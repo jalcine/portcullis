@@ -2,9 +2,6 @@ toggles:
   ab: true
   in_beta: true
 
-search:
-  uri: 'http://localhost:9200'
-
 authentication:
   providers:
     linkedin:
