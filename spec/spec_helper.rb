@@ -3,10 +3,10 @@ ENV['NEWRELIC_ENABLE'] = 'false'
 
 def prefork_some_jazz
   require File.expand_path('../../config/environment', __FILE__)
-  Rails.logger.debug 'Test environment loaded.'
+  Rails.logger.debug '[INFO] Test environment loaded.'
   Dir[Rails.root.join('spec/support/modules/**/*.rb')].each { |f| require f }
   Dir[Rails.root.join('spec/support/prefork/**/*.rb')].each { |f| require f }
-  Rails.logger.debug 'Auxillary modules loaded.'
+  Rails.logger.debug '[INFO] Auxillary modules loaded.'
 
   RSpec.configure do | config |
     config.include ModelHelpers

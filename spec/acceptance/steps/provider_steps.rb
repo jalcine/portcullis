@@ -23,6 +23,13 @@ module ProviderSteps
     expect(providers).to_not be_nil
     expect(providers).to_not be_empty
   end
+
+  step 'I have a pre-existing account with :provider' do | provider |
+    @user = create(:user)
+    provider = @user.providers.create attributes_for(:provider, provider.to_sym)
+    @user.profile = create(:profile)
+    @user.save!
+  end
 end
 
 RSpec.configure { |c| c.include ProviderSteps }

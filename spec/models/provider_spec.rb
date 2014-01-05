@@ -32,7 +32,7 @@ describe Provider do
           subject.user.providers << subject
           subject.user.save!
           subject.save!
-          subject.import_from_oauth oauth['info']
+          subject.import_from_oauth oauth[:info]
         end
 
         it 'has a profile' do

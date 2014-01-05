@@ -29,7 +29,7 @@ module AuthenticationSteps
     send 'I am signed in/up'
   end
 
-  step 'the user signs out' do
+  step 'I sign out' do
     visit destroy_user_sessions_path
     session.reset_sessions!
   end
@@ -54,8 +54,6 @@ module AuthenticationSteps
 
   step 'I am signed in/up' do
     expect(page).to have_content 'Sign Out'
-    @user = User.find_by_email(@user.email)
-    expect(@user).to_not be_nil
   end
 end
 

@@ -23,4 +23,12 @@ module ControllerHelpers
   def stub_env_for_omniauth_params(paramaters = {})
     request.env['omniauth.params'] = paramaters
   end
+
+  def omniauth_auth
+    request.env['omniauth.auth']
+  end
+
+  def omniauth_params
+    request.env['omniauth.params']
+  end
 end

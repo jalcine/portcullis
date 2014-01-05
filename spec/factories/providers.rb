@@ -16,9 +16,5 @@ FactoryGirl.define do
     trait :linkedin do
       name 'linkedin'
     end
-
-    factory :facebook_provider, traits: [:facebook]
-    factory :gplus_provider, traits: [:gplus]
-    factory :linkedin_provider, traits: [:linkedin]
   end
 end
