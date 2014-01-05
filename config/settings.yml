@@ -12,10 +12,7 @@ authentication:
         scope: 
           - r_network
           - r_contactinfo
-          - r_fullprofile
           - r_emailaddress
-          - rw_company_admin
-          - rw_groups
         fields:
           - id
           - email-address
