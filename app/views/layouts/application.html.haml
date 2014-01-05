@@ -10,6 +10,7 @@
     = render 'components/seo'
     = render 'components/mobile'
     = render 'components/ios'
+    = airbrake_javascript_notifier
     = javascript_include_tag :modernizr
   %body{class: page_classes(params)}
     .off-canvas-wrap
