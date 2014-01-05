@@ -11,10 +11,8 @@ RSpec.configure do | config |
   # TODO: Register three drivers, each for different device sizes.
   Capybara.register_driver :poltergeist do | app |
     Capybara::Poltergeist::Driver.new app, {
-      debug: false,
-      server: true,
       js_errors: false,
-      inspector: true,
+      server: false,
       logger: test_log,
       phantomjs_logger: phantomjs_logger
     }
@@ -27,5 +25,8 @@ RSpec.configure do | config |
   Capybara::Screenshot.autosave_on_failure = false
 
   config.include Capybara::DSL
-  config.include Capybara::RSpecMatchers
+  config.include Capybara::RSpecMatchers, type: :views
+  config.include Capybara::RSpecMatchers, type: :helpers
+  config.include Capybara::RSpecMatchers, type: :feature
+  config.include ApplicationHelper, type: :feature
 end
