@@ -52,14 +52,14 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
 
   private
   def validate_parameters!
-    redirect_to new_user_session_path, error: t('auth.failure'), status: 500 and return false if omniauth_params.nil?
+    redirect_to new_user_session_path, error: t('auth.failure') and return false if omniauth_params.nil?
 
     @user = nil
     @task = omniauth_params['task'].to_s if omniauth_params.keys.include? 'task'
     no_good = (@task.nil? || omniauth_params.empty?)
 
-    redirect_to new_user_registration_path, error: t('auth.failure'), status: 500 and return false if no_good
-    redirect_to new_user_registration_path, error: t('auth.failure'), status: 500 and return false if is_omniauth_auth_malformed?
+    redirect_to new_user_registration_path, error: t('auth.failure') and return false if no_good
+    redirect_to new_user_registration_path, error: t('auth.failure') and return false if is_omniauth_auth_malformed?
     true
   end
 
@@ -118,7 +118,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
   def complete_the_deed(user = @user)
     flash[:notice] = "Welcome #{@user.profile.first_name}!"
     sign_in_and_redirect @user and return true unless @user.nil?
-    redirect_to new_user_session_path, error: 500, error: t('auth.failure') and return true if @user.nil
+    redirect_to new_user_session_path,  error: t('auth.failure') and return true if @user.nil
   end
 
   Settings.authentication.providers.each do | provider, _ |
