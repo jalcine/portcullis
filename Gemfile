@@ -67,6 +67,7 @@ gem 'icalendar'
 gem 'rack-referrals'
 gem 'rack-attack'
 gem 'paper_trail', '~> 3.0.0'
+gem 'airbrake', '~> 3.1.15'
 
 group :development do
   gem 'rails_best_practices', '~> 1.14.4'
