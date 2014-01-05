@@ -4,6 +4,7 @@ en:
     create_failure: Couldn't make an account for you, our bad! Try again.
     failure: Failed to authenticate. Please try again.
     welcome: Hey there, good looking!
+    error_profile: We couldn't make an account for you just now; try again!
   events:
     create:
       form:
