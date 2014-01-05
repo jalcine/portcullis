@@ -25,8 +25,11 @@ module AuthenticationSteps
     send 'I enter my e-mail address and password'
     send 'I enter my name'
     send 'I enter my password confirmation'
+    email = @user.email
+    @user = nil
     step 'I click the "Sign Up" button'
     send 'I am signed in/up'
+    @user = User.find_by_email email
   end
 
   step 'I sign out' do

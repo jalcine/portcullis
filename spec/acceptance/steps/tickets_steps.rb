@@ -7,9 +7,9 @@ module TicketSteps
       case type.downcase.to_s
       when :free
         click_link 'Free', exact: true
-      when :paid
+      when :priced
         click_link 'Paid', exact: true
-      when :donation
+      when :donational
         click_link 'Donation', exact: true
       end
 
@@ -17,35 +17,32 @@ module TicketSteps
       fill_in 'ticket[quantity]',    with: number
       fill_in 'ticket[description]', with: Faker::Lorem.paragraphs(3).join("\n")
 
-      first('#ticket_day_start').click
-      expect(find('#ticket_day_start + .picker')).to be_visible
-      screenshot_and_open_image
-      puts ".picker__day[data-pick='#{Time.now.midnight.to_i}']"
-      find(".picker__day[data-pick='#{Time.now.midnight.to_i}]'").trigger 'click'
-      expect(find('.picker')).to_not be_visible
+      within('#pricer + .row') do
+        first('#ticket_day_start').click
+        expect(find('#ticket_day_start + .picker')).to be_visible
+        find(".picker__day.picker__day--today[data-pick='#{Time.now.midnight.to_i * 1e3.to_i}']").trigger 'click'
 
-      first('#ticket_time_start').click
-      expect(find('.picker')).to be_visible
-      find(".picker__list-iem[data-pick=60]}").trigger 'click'
-      click_link '8:00 AM'
-      expect(find('.picker')).to_not be_visible
+        first('#ticket_time_start').click
+        expect(find('#ticket_time_start + .picker')).to be_visible
+        find(".picker__list-item[data-pick='480']}").trigger 'click'
+      end
 
-      first('#ticket_day_end').click
-      expect(find('.picker')).to be_visible
-      find(".picker__day[data-pick=#{(Time.now + 2.days).midnight.to_i}]").trigger 'click'
-      expect(find('.picker')).to_not be_visible
+      within('#pricer + .row + .row') do
+        first('#ticket_day_end').click
+        expect(find('#ticket_day_end + .picker')).to be_visible
+        find(".picker__day[data-pick='#{Time.now.midnight.to_i * 1e3.to_i}']").trigger 'click'
 
-      first('#ticket_time_end').click
-      expect(find('.picker')).to be_visible
-      find(".picker__list-iem[data-pick=60]}").trigger 'click'
-      expect(find('.picker')).to_not be_visible
+        first('#ticket_time_end').click
+        expect(find('#ticket_time_end + .picker')).to be_visible
+        find(".picker__list-item[data-pick='900']}").trigger 'click'
+      end
 
       find_button('Save Ticket').trigger 'click'
       expect(page).to have_content 'Saving Ticket'
       expect(page).to_not have_content 'Save Ticket'
     end
-    expect('form[data-ticket]').to_not be_visible
-    screenshot_and_open_image
+
+    expect(find('form[data-ticket]')).to_not be_visible
   end
 
   step 'the event has a :type ticket named :name' do | type, name |

@@ -16,8 +16,7 @@ RSpec.configure do | config |
       js_errors: false,
       inspector: true,
       logger: test_log,
-      phantomjs_logger: phantomjs_logger,
-      window_size: [1400, 900]
+      phantomjs_logger: phantomjs_logger
     }
   end
 
@@ -25,10 +24,8 @@ RSpec.configure do | config |
   Capybara.javascript_driver               = :poltergeist
   Capybara.ignore_hidden_elements          = false 
   Capybara.default_wait_time               = 10
-  Capybara::Screenshot.autosave_on_failure = true
+  Capybara::Screenshot.autosave_on_failure = false
 
   config.include Capybara::DSL
-  config.include Capybara::RSpecMatchers, type: :views
-  config.include Capybara::RSpecMatchers, type: :helpers
-  config.include Capybara::RSpecMatchers, type: :feature
+  config.include Capybara::RSpecMatchers
 end
