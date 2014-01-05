@@ -2,6 +2,11 @@ toggles:
   ab: true
   in_beta: true
 
+errbit:
+  host: 'idontgive.nofucks.in'
+  port: 80
+  api_key: '1754f4a6c99192570c95ab3a3356dc3c'
+
 authentication:
   providers:
     linkedin:
