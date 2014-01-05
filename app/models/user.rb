@@ -6,7 +6,7 @@ class User < ActiveRecord::Base
     :omniauthable, :omniauth_providers => Settings.authentication.providers.map { |i, __| i.to_sym }
 
   validates :password, presence: true, allow_nil: false, allow_blank: true, if: :password_required?
-  validates 'email', presence: true, if: :email_required?
+  validates :email, presence: true, if: :email_required?
 
   def password_required?
     self.providers.empty?

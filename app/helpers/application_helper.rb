@@ -1,13 +1,16 @@
 module ApplicationHelper
+  public
   def is_in_beta?
     Settings.toggles.in_beta == true
   end
 
+  public
   def browser
     Browser.new accept_language: request.headers['Accept-Language'],
       ua: request.headers['User-Agent']
   end
 
+  public
   def page_title(subtitle = nil)
     if subtitle.nil?
       a_title = content_for(:title)
@@ -26,6 +29,7 @@ module ApplicationHelper
     end
   end
 
+  public
   def page_classes(params = nil)
     return content_for(:page_classes) if params.nil?
 

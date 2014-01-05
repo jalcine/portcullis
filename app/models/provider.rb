@@ -7,21 +7,26 @@ class Provider < ActiveRecord::Base
 
   public
   def import_from_oauth(oauth_data)
-    profile = self.user.build_profile
+    attrs = {}
 
     case name.to_sym
     when :facebook
-      profile.first_name = oauth_data['first_name']
-      profile.last_name = oauth_data['first_name']
+      attrs = {
+        first_name: oauth_data['first_name'],
+        last_name: oauth_data['first_name']
+      }
     when :gplus
-      profile.first_name = oauth_data['first_name']
-      profile.last_name = oauth_data['first_name']
+      attrs = {
+        first_name: oauth_data['first_name'],
+        last_name: oauth_data['first_name']
+      }
     when :linkedin
-      profile.first_name = oauth_data['first_name']
-      profile.last_name = oauth_data['last_name']
+      attrs = {
+        first_name: oauth_data['first_name'],
+        last_name: oauth_data['first_name']
+      }
     end
 
-    profile.save!
-    user.save!
+    user.create_profile! attrs
   end
 end

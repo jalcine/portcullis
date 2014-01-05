@@ -24,15 +24,13 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
   private
   def create_user_with_oauth(provider)
     info = omniauth_auth['info']
-    return :error_user_exists unless User.find_by_email(info['email']).nil?
+    @user = User.find_by_email(info['email'])
+    return :error_user_exists if @user.present?
 
     @user = User.new email: info['email']
-    @provider = @user.providers.build
-    @provider.user = @user
-    @provider.name = provider.to_sym
-    @provider.token = omniauth_auth['credentials']['token'].to_s
-    @provider.uid = omniauth_auth['uid'].to_s
+    add_provider_to_user(provider)
     @provider.import_from_oauth omniauth_auth['info']
+    return :error_profile_missing if @provider.nil?
     @user.grant :attendee
 
     begin
@@ -61,23 +59,42 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
     no_good = (@task.nil? || omniauth_params.empty?)
 
     redirect_to new_user_registration_path, error: t('auth.failure'), status: 500 and return false if no_good
-    redirect_to new_user_session_path, error: t('auth.failure'), status: 500 and return false if is_omniauth_auth_malformed?
+    redirect_to new_user_registration_path, error: t('auth.failure'), status: 500 and return false if is_omniauth_auth_malformed?
     true
   end
 
-  private 
+  private
+  def add_provider_to_user(provider)
+    return if @user.providers.where(name: provider.to_s).present?
+    @provider = @user.providers.build name: provider.to_sym,
+      token: omniauth_auth['credentials']['token'].to_s,
+      uid: omniauth_auth['uid'].to_s,
+      user: @user
+  end
+
+  private
   def do_the_deed(provider)
     return unless validate_parameters!
 
     case @task
     when 'new'
-      case create_user_with_oauth(provider)
-      when :error_user_is_malformed
-        flash[:error] = 'A bit of a slip up trying to make your account. Try again?'
-        redirect_to new_user_registration_path, status: :internal_server_error, 
-          error: t('auth.create_failure') and return
-      when :error_user_exists
+      case find_user_from_oauth(provider)
+      when :error_not_found
+        status = create_user_with_oauth(provider)
+        case status
+        when :error_user_is_malformed
+          redirect_to new_user_registration_path, 
+            status: :internal_server_error, error: t('auth.create_failure') and return
+        when :error_profile_missing
+          redirect_to new_user_registration_path, status: :not_found,
+            error: t('auth.error_profile') and return
+        when :user_created
+          flash[:notice] = t('auth.create')
+        end
+      when :user_found
         @user = User.find_by_email(omniauth_auth['info']['email'])
+        add_provider_to_user(provider)
+        @provider.import_from_oauth(omniauth_auth['info']) if @user.profile.nil?
       end
     when 'find'
       case find_user_from_oauth(provider)
@@ -86,16 +103,25 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
           error: t('auth.failure') and return
       when :user_found
         flash[:notice] = t('auth.welcome')
+        @provider = @user.providers.where(name: provider)
+        @provider.import_from_oauth(omniauth_auth['info']) if @user.profile.nil?
       end
+    else
+      redirect_to new_user_session_path, status: :not_found,
+        error: t('auth.failure') and return
     end
 
-    return complete_the_deed
+    return complete_the_deed(@user)
   end
 
   private
-  def complete_the_deed
+  def complete_the_deed(user = @user)
+    Rails.logger.ap @user
+    Rails.logger.ap @user.profile
+    Rails.logger.ap @user.providers
     flash[:notice] = "Welcome #{@user.profile.first_name}!"
     sign_in_and_redirect @user and return true unless @user.nil?
+    redirect_to new_user_session_path, error: 500, error: t('auth.failure') and return true if @user.nil
   end
 
   Settings.authentication.providers.each do | provider, _ |
