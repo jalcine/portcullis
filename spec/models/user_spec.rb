@@ -34,7 +34,8 @@ describe User do
       end
 
       describe "oauth data from #{provider_name}" do
-        subject { User.build_with_oauth oauth_hash(provider_name) }
+        let(:oauth) { oauth_hash(provider_name) }
+        subject { User.build_with_oauth oauth }
         it { expect(subject).to_not be_nil }
         it { expect(subject).to be_persisted }
         it { expect(subject.email).to_not be_nil }
@@ -46,7 +47,6 @@ describe User do
       describe "can create an user with data from #{provider_name}" do
         let(:oauth)  { oauth_hash(provider_name) }
         subject { User.build_with_oauth(oauth) }
-        it { expect(User.build_with_oauth(oauth)).to_not be_nil }
         it { expect(subject).to_not be_nil }
         it { expect(subject).to be_persisted }
         it { expect(subject.providers.first.name.to_sym).to be_eql(provider_name.to_sym) }

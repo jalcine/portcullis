@@ -74,13 +74,13 @@ Portcullis.Tickets.New =
       ticketTimeStart = self.elems.date.time_start.pickatime().pickatime('picker')
       ticketDayEnd = self.elems.date.day_end.pickadate().pickadate('picker')
       ticketTimeEnd = self.elems.date.time_end.pickatime().pickatime('picker')
-      date_start = $('input[type=hidden]#ticket_date_start')
-      date_end = $('input[type=hidden]#ticket_date_end')
+      date_start = $('input#ticket_date_start')
+      date_end = $('input#ticket_date_end')
       date_start.val(new Date(ticketDayStart.get('select').pick + ticketTimeStart.get('select').pick))
       date_end.val(new Date(ticketDayEnd.get('select').pick + ticketTimeEnd.get('select').pick))
 
   bindSubmission: ->
-    $('form[data-ticket]').on 'ajax:before', () ->
+    $('form[data-ticket]').on 'ajax:before', () =>
       $('form[data-ticket] small.error').remove()
       $('form[data-ticket] input.error').removeClass('error')
       self.synchronization.updatePrice()

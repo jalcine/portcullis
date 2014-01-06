@@ -47,7 +47,7 @@ class TicketsController < ApplicationController
 
   # PUT /events/:event_id/tickets/:id
   def create
-    @ticket = Ticket.new ticket_params
+    @ticket = Ticket.create! ticket_params
     @ticket.event = @event
 
     respond_to do | format |

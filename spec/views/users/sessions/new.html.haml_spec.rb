@@ -12,7 +12,7 @@ describe 'users/sessions/new.html.haml' do
       next unless Settings.toggles.features.include? "auth:#{provider}"
       before(:each) { render }
       it { expect(rendered).to have_selector 'i.icon' }
-      it { expect(rendered).to match /Sign In/ }
+      it { expect(rendered).to match /Sign In With/ }
       it { expect(rendered).to have_selector ".page.buttons > a.#{provider}" }
     end
   end

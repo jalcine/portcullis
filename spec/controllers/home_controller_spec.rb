@@ -31,15 +31,4 @@ describe HomeController do
       expect(response).to render_template('home/about')
     end
   end
-
-  describe 'GET *a' do
-    before(:each) do
-      allow(Rails.env).to receive(:production?).and_return(true)
-    end
-
-    it 'returns http success' do
-      visit 'foobar'
-      expect(response.status).to be(200)
-    end
-  end
 end

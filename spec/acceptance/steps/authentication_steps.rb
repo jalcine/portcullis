@@ -1,23 +1,16 @@
 module AuthenticationSteps
   step 'a :role is signed in' do | role = 'guest' |
-    @user = create :user, role.to_sym
+    role = role.to_sym
     send 'I go to the sign-in page'
     send 'I sign in with an existing account'
-  end
-
-  step 'a :role is signed up' do | role = 'guest' |
-    @user = build :user, role.to_sym
-    send 'I go to the sign-up page'
-    send 'I sign up with a new account'
     @user.add_role role
   end
 
   step 'I sign in with an existing account' do
     send 'I go to the sign-in page'
     send 'I enter my e-mail address and password'
+    @user.save!
     click_button 'Sign In'
-    #send 'I click the "Sign In" button'
-    send 'I am signed in/up'
   end
 
   step 'I sign up with a new account' do
@@ -25,11 +18,9 @@ module AuthenticationSteps
     send 'I enter my e-mail address and password'
     send 'I enter my name'
     send 'I enter my password confirmation'
-    email = @user.email
-    @user = nil
     step 'I click the "Sign Up" button'
     send 'I am signed in/up'
-    @user = User.find_by_email email
+    @user = User.find_by_email @user.email
   end
 
   step 'I sign out' do

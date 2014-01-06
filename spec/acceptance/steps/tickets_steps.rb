@@ -9,6 +9,7 @@ module TicketSteps
         click_link 'Free', exact: true
       when :priced
         click_link 'Paid', exact: true
+        fill_in 'ticket[price]', with: Random.rand(Time.now.year).to_i
       when :donational
         click_link 'Donation', exact: true
       end
@@ -37,18 +38,21 @@ module TicketSteps
         find(".picker__list-item[data-pick='900']}").trigger 'click'
       end
 
-      find_button('Save Ticket').trigger 'click'
-      expect(page).to have_content 'Saving Ticket'
-      expect(page).to_not have_content 'Save Ticket'
+      fill_in 'ticket[date_start]', with: Time.zone.now.to_s
+      fill_in 'ticket[date_end]', with: Time.zone.now.to_s
+      page.save_screenshot selector: 'form[data-ticket]'
+      click_button 'Save Ticket'
     end
 
-    expect(find('form[data-ticket]')).to_not be_visible
+    find('body').synchronize do
+      page.evaluate_script('$.active') == 0
+    end
   end
 
-  step 'the event has a :type ticket named :name' do | type, name |
-    within 'li[data-ticket]' do
+  step 'the event has a ticket named :name' do | name |
+    #within 'ul.ticket-list' do
       expect(page).to have_content(name)
-    end
+    #end
   end
 
   step 'I click to edit the ticket named :name' do | name |
