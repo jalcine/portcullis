@@ -54,13 +54,18 @@ class Ability
       !ticket.expired?
     end
 
+    can :view, Order do | order |
+      return true if @user.has_role?(:host, order.ticket.event)
+      order.user == @user
+    end
+
     can :rsvp, Event do | event |
       # TODO: Check if users have ordered already.
       !event.expired?
     end
 
     can [:create, :modify], Order do | order |
-      return false if @user.has_role? :host, order.ticket.event
+      return false if can? :update, order.ticket
       !order.ticket.expired?
     end
 
