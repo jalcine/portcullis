@@ -25,7 +25,8 @@ Portcullis::Application.routes.draw do
   resources :events do
     resources :tickets
   end
-  post '/events/:id', to: 'events#show'
+
+  resources :orders
 
   #match '/vanity/:action/:id', controller: :vanity, via: [:get, :post, :patch, :put, :delete]
 end
