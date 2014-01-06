@@ -182,18 +182,16 @@ Portcullis.Events.New =
     endDayPicker   = endDayElem.pickadate('picker')
     endTimePicker   = endTimeElem.pickatime('picker')
 
-    if startDayPicker?
-      startDayPicker.on
-        close: ->
-          if startDayPicker.get('select').pick is 0
-            startDayPicker.set 'select', Date.new
-        set: ->
-          self.timing.updateHiddenStart()
+    startDayPicker.on
+      close: ->
+        if startDayPicker.get('select').pick is 0
+          startDayPicker.set 'select', Date.new
+      set: ->
+        self.timing.updateHiddenStart()
 
-    if startTimePicker?
-      startTimePicker.on
-        set: ->
-          self.timing.updateHiddenStart()
+    startTimePicker.on
+      set: ->
+        self.timing.updateHiddenStart()
 
     endDayPicker.on
       set: ->
@@ -269,7 +267,8 @@ Portcullis.Events.New =
 self = Portcullis.Events.New
 
 Portcullis.bind 'boot', ->
-  Portcullis.Events.New.bindEvents() if $('body').hasClass 'new'
-  Portcullis.Events.New.bindEvents() if $('body').hasClass 'create'
-  Portcullis.Events.New.bindEvents() if $('body').hasClass 'edit'
-  Portcullis.Events.New.bindEvents() if $('body').hasClass 'update'
+  if $('body').hasClass 'events'
+    Portcullis.Events.New.bindEvents() if $('body').hasClass 'new'
+    Portcullis.Events.New.bindEvents() if $('body').hasClass 'create'
+    Portcullis.Events.New.bindEvents() if $('body').hasClass 'edit'
+    Portcullis.Events.New.bindEvents() if $('body').hasClass 'update'

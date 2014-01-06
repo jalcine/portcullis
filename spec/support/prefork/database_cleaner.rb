@@ -1,4 +1,4 @@
-require 'database_cleaner'
+#require 'database_cleaner'
 
 RSpec.configure do | config |
   DatabaseCleaner.logger = Rails.logger
@@ -8,13 +8,13 @@ RSpec.configure do | config |
     DatabaseCleaner.clean_with :truncation
   end
 
-  config.before(:each) do | a_run |
-    is_turnip = a_run.example.metadata[:turnip]
-    DatabaseCleaner.start if is_turnip == false
+  config.before(:each) do | run |
+    turnip = run.example.metadata[:turnip]
+    DatabaseCleaner.start unless turnip
   end
 
-  config.after(:each) do | a_run |
-    is_turnip = a_run.example.metadata[:turnip]
-    DatabaseCleaner.clean if is_turnip == false
+  config.after(:each) do | example |
+    turnip = run.example.metadata[:turnip]
+    DatabaseCleaner.clean unless turnip
   end
-end
+end if defined?(DatabaseCleaner)

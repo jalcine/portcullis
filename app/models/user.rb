@@ -29,16 +29,12 @@ class User < ActiveRecord::Base
 
       params = ActionController::Parameters.new(email: oauth_data['info']['email'])
       user = User.new params.permit!
-
-      provider = user.providers.build name: oauth_data['provider'].to_s
-      provider.token = oauth_data['credentials']['token'].to_s
-      provider.uid = oauth_data['uid'].to_s
+      provider = user.providers.build name: oauth_data['provider'].to_s,
+        token: oauth_data['credentials']['token'].to_s,
+        uid: oauth_data['uid'].to_s
       provider.user = user
-      begin
-        provider.save!
-      rescue
-        raise ArgumentError, 'User cannot be created with provided values.' if user.nil?
-      end
+      provider.save!
+      user.save!
       user
     end
 

@@ -10,6 +10,7 @@ module ProfileSteps
 
   step 'I should have a profile' do
     expect(@user).to_not be_nil
+    puts ap(@user.providers) if @user.profile.nil?
     expect(@user.profile).to_not be_nil
   end
 end

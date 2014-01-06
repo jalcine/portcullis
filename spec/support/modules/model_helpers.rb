@@ -12,8 +12,8 @@ module ModelHelpers
         location:    Faker::Address.street_address
       }),
       credentials:  { 
-        token:       Digest::SHA256.hexdigest(Time.now.to_s),
-        secret:      Digest::SHA256.hexdigest(Time.now.to_s)
+        token:       Digest::SHA256.hexdigest("#{Time.now.to_s}#{Faker::Internet.user_name}"),
+        secret:      Digest::SHA256.hexdigest("#{Time.now.to_s}#{Faker::Lorem.sentence}")
       }
     })
   end
