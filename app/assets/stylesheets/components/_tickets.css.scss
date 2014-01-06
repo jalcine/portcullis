@@ -5,7 +5,7 @@
 @import 'compass/css3/transform';
 @import 'compass/css3/opacity';
 
-$ticket-stub-height: rem-calc(90px);
+$ticket-stub-height: rem-calc(144px);
 
 ul.ticket-list {
   margin: 0rem;
@@ -13,94 +13,123 @@ ul.ticket-list {
 
   > li.ticket {
     @include grid-row;
-    display: block;
+    @include box-shadow(0px 0px 10px $gray);
     list-style: none;
+    display: inline-block;
     height: $ticket-stub-height;
     clear: both;
     margin: rem-calc(8px) auto;
     overflow: hidden;
 
-    > .numerical-box {
-      @include grid-column($columns: 3, $collapse: true);
-
-      > b.price, > time {
-        display: block;
-        text-align: center;
-      }
-
-      > b.price {
-        height: $ticket-stub-height * 3/4;
-        line-height: $ticket-stub-height * 3/4;
-        font-size: 350%;
-        background: darken($success-color, 25%);
-        color: #fff;
-      }
-
-      > time {
-        height: $ticket-stub-height / 4;
-        line-height: $ticket-stub-height / 4;
-        font-size: 75%;
-        background: lighten($success-color, 10%);
-        color: #ffffff;
-      }
-    }
-
-    > .contextual-box {
-      @include grid-column($columns: 6, $collapse: false);
-      min-height: $ticket-stub-height;
+    > .status-region {
+      width: 2.5%;
+      display: inline-block;
+      float: left;
       height: $ticket-stub-height;
-
-      > h2 {
-        margin: 0rem;
-        padding: 0rem;
-        font-size: rem-calc(24px);
-        line-height: rem-calc(24px);
-        text-align: center;
-      }
-
-      > div {
-        font-size: rem-calc(14px);
-      }
-    }
-
-    > .actions-box {
-      @include grid-column($columns: 3, $collapse: true);
-      height: $ticket-stub-height;
+      line-height: $ticket-stub-height;
       text-align: center;
 
-      i.fa {
-        @include transition(0.2s text-indent, 0.2s opacity);
-        text-indent: -100px;
-        overflow: hidden;
-        opacity: 0;
-      }
-
-      a[data-ticket-action=buy] {
-        @include animated-icon-button($fa: 'fa-shopping-cart',
-        $padding: rem-calc(10px), $bg: $success-color,
-        $height: $ticket-stub-height);
-        margin: 0rem;
-      }
-      a[data-ticket-action=edit] {
-        @include animated-icon-button($fa: 'fa-pencil',
-        $padding: rem-calc(5px), $bg: $primary-color,
-        $height: $ticket-stub-height / 2);
-        margin: 0rem;
-        display: block;
-      }
-      a[data-ticket-action=delete] {
-        @include animated-icon-button($fa: 'fa-trash-o',
-        $padding: rem-calc(5px), $bg: $warning-color,
-        $height: $ticket-stub-height / 2);
-        margin: 0rem;
-        display: block;
+      > i.fa {
+        height: $ticket-stub-height;
+        line-height: $ticket-stub-height;
+        padding: 0rem; margin: 0rem;
+        position: relative;
+        width: 100%;
+        top: -1px;
+        display: inline-block;
+        background-color: $blue;
+        color: $white;
       }
     }
 
-    &.disabled {
-      > .numerical-box {
-        > b.price, > time { 
-          background-color: $disabled-color;
+    > .content-region {
+      width: 82.5%;
+      display: inline-block;
+      float: left;
+      height: $ticket-stub-height;
+
+      > .titlebar {
+        background-color: $black;
+        color: $white;
+        height: $ticket-stub-height * 0.3;
+
+        > h2 {
+          color: $white;
+          line-height: $ticket-stub-height * 0.3;
+          height: $ticket-stub-height * 0.3;
+          padding: 0rem 0.7rem; margin: 0rem;
+          padding-left: 0rem;
+          font-weight: 900;
+          font-size: 1rem;
+
+          > span.price {
+            padding: 0rem 0.5rem;
+            margin: 0rem 0.5rem 0rem 0.0rem;
+            background-color: darken($green, 25%);
+            color: $white;
+            font-size: 1.5rem;
+            float: left;
+          }
+
+          > time {
+            &::before {
+              @extend .fa;
+              @extend .fa-fw;
+              content: '\f017';
+            }
+
+            float: right;
+            padding: 0rem 0.5rem;
+            margin-right: -0.7rem;
+            background-color: $gray;
+            color: $white;
+          }
+        }
+      }
+      > .metadata {
+        background-color: $white;
+        height: $ticket-stub-height * 0.7;
+        line-height: inherit;
+        display: table;
+        font-size: inherit;
+        text-align: left;
+        width: 100%;
+
+        > div {
+          display: table-cell;
+          vertical-align: middle;
+          padding: 0rem 1rem;
+        }
+      }
+    }
+
+    > .actions-region {
+      width: 15%;
+      float: right;
+      height: $ticket-stub-height;
+      background-color: $black;
+      text-align: center;
+      font-size: 1.3rem;
+
+      > label {
+        vertical-align: middle;
+        height: $ticket-stub-height;
+
+        > input[data-ticket=quantity] {
+          width: 90%;
+          text-align: center;
+          height: rem-calc(74px);
+          padding: 0rem;
+          border: none;
+          outline: none;
+          background-color: $black;
+          color: $white;
+          padding-left: rem-calc(8px);
+          margin: (($ticket-stub-height - rem-calc(74px)) / 2) auto;
+          font-size: rem-calc(48px);
+          font-weight: lighter;
+
+          &:focus, &:hover { @include box-shadow(none); }
         }
       }
     }
