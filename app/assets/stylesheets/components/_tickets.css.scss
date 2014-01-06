@@ -6,6 +6,7 @@
 @import 'compass/css3/opacity';
 
 $ticket-stub-height: rem-calc(144px);
+$money-green: darken($green, 25%);
 
 ul.ticket-list {
   margin: 0rem;
@@ -30,6 +31,7 @@ ul.ticket-list {
       text-align: center;
 
       > i.fa {
+        @extend .fa-asterisk;
         height: $ticket-stub-height;
         line-height: $ticket-stub-height;
         padding: 0rem; margin: 0rem;
@@ -65,17 +67,17 @@ ul.ticket-list {
           > span.price {
             padding: 0rem 0.5rem;
             margin: 0rem 0.5rem 0rem 0.0rem;
-            background-color: darken($green, 25%);
+            background-color: $money-green;
             color: $white;
             font-size: 1.5rem;
             float: left;
           }
 
-          > time {
+          > span.time {
             &::before {
               @extend .fa;
               @extend .fa-fw;
-              content: '\f017';
+              @extend .fa-clock-o;
             }
 
             float: right;
@@ -123,6 +125,7 @@ ul.ticket-list {
           border: none;
           outline: none;
           background-color: $black;
+          background-color: transparent;
           color: $white;
           padding-left: rem-calc(8px);
           margin: (($ticket-stub-height - rem-calc(74px)) / 2) auto;
@@ -133,6 +136,43 @@ ul.ticket-list {
         }
       }
     }
+
+    &.future, &.past {
+      > .status-region > i.fa,
+      > .content-region > .titlebar,
+      > .content-region > .titlebar span.time,
+      > .content-region > .titlebar span.price,
+      > .actions-region {
+        background-color: lighten($gray, 10%);
+      }
+
+      > .status-region > i.fa {
+        @extend .fa-clock-o;
+      }
+    }
+
+    &.current {
+      > .status-region > i.fa,
+      > .content-region > .titlebar,
+      > .content-region span.time,
+      > .actions-region {
+        background-color: darken($blue, 30%);
+      }
+      > .status-region > i.fa {
+        @extend .fa-check-square;
+      }
+    }
+
+    &[data-ticket-purchased]{
+      > .status-region > i.fa,
+      > .content-region > .titlebar,
+      > .actions-region {
+        background-color: $money-green;
+      }
+      > .content-region span.time { display: none; }
+      > .status-region > i.fa {
+        @extend .fa-dollar;
+      }
+    }
   }
 }
-
