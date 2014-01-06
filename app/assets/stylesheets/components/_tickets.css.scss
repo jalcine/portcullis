@@ -138,6 +138,7 @@ ul.ticket-list {
     }
 
     &.future, &.past {
+      @include opacity(0.4);
       > .status-region > i.fa,
       > .content-region > .titlebar,
       > .content-region > .titlebar span.time,
@@ -156,7 +157,7 @@ ul.ticket-list {
       > .content-region > .titlebar,
       > .content-region > .titlebar span.time,
       > .actions-region {
-        background-color: $blue;
+        background-color: darken($blue, 15%);
       }
       > .status-region > i.fa {
         @extend .fa-check-square;
