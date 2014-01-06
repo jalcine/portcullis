@@ -65,6 +65,11 @@
           Add Tickets
   - unless @event.tickets.empty? 
     = render 'tickets/stub_list', tickets: @event.tickets unless @event.tickets.empty?
+    .row
+      .small-3.small-push-9.columns.right-text
+        %a#invoke_order.button.primary.large{href: '#'}
+          %i.fa.fa-fw.fa-dollar
+          Order Tickets
 
 %section#description.event_panel{data: {magellan: {destination: :description}}}
   - if @event.description.present?
