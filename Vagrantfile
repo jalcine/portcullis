@@ -9,7 +9,8 @@ Vagrant.configure(VAGRANTFILE_API_VERSION) do |config|
   config.vm.box_url = 'http://files.vagrantup.com/precise32.box'
   config.vm.synced_folder './', '/var/www/portcullis'
   config.vm.provision 'shell', path: 'vagrant/provision.bash'
-  config.vm.host_name = 'development.vettio.com'
+  config.dnsmasq.domain = '.dev'
+  config.dnsmasq.dnsmasqconf = '/etc/dnsmasq.conf'
   config.vm.provider :virtualbox do |vb|
     vb.customize ['modifyvm', :id, '--memory', 2048]
   end
