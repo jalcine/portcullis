@@ -40,7 +40,7 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'newrelic_rpm', '~> 3.6.8'
 gem 'kaminari', '~> 0.14.1'
 gem 'nokogiri', '~> 1.6.0'
-gem 'activemerchant'
+gem 'activemerchant', '~> 1.42.3'
 gem 'rails_12factor', '~> 0.0.2', group: [:production]
 gem 'cancan', '~> 1.6.10'
 gem 'carrierwave', '~> 0.9.0'
