@@ -10,7 +10,7 @@ RSpec.configure do | config |
   config.include Rails.application.routes.url_helpers
   config.filter_run_excluding :broken
   config.run_all_when_everything_filtered = true
-  #config.render_views
+  config.render_views
   config.expect_with(:rspec) do | ex |
     ex.syntax = [:expect]
   end
