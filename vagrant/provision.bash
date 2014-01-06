@@ -1,29 +1,30 @@
 #!/usr/bin/env bash
 #
 # Provisioning script for a Vagrant instance that'll run the Portcullis
-# application.
+# Web application.
 
-RBENV_RUBY_VERSION="2.0.0-p353"
+RBENV_RUBY_VERSION=2.0.0-p353
 
-echo "[info] Updating system..."
-apt-get update -y
-apt-get upgrade -y
 
-echo "[info] Installing packages..."
-apt-get install -y nodejs rbenv ruby-build postgresql\
-  build-essential automake git
+echo '[info] Updating system...'
+apt-get update -y 2>&1 >/dev/null
 
-echo "[info] Removing old Ruby..."
-apt-get remove -y ruby1.9 ruby1.8 ruby
+echo '[info] Installing packages...'
+apt-get install -y build-essential zlib1g-dev curl nginx \
+  postgresql nodejs git rbenv 2>&1 >/dev/null
 
-echo "[info] Installing Ruby..."
-git clone git://github.com/sstephenson/ruby-build\
- $HOME/.rbenv/plugins/ruby-build
-rbenv install $RBENV_RUBY_VERSION -vk
-gem install bundler
+echo '[info] Grabbing build dependencies for PostgreSQL and Ruby..'
+apt-get build-dep ruby postgresql 2>&1 >/dev/null
 
-echo "[info] Setting up environment..."
-bundle install --path vendor/cache
+echo "[info] Installing Ruby $RBENV_RUBY_VERSION ..."
+git clone git://github.com/jalcine/ruby-build ./ruby-build
+PREFIX=/usr ./ruby-build/install.sh
+rbenv install $RBENV_RUBY_VERSION -k
+echo "[info] Installed Ruby $(ruby -v)."
 
-echo "[info] Spinning up server..."
-cd /var/www/portcullis && bundle exec rails server
+echo "[info] Bundling application..."
+cd /var/www/portcullis
+bundle install --path=vendor/cache 2>&1 >/dev/null
+echo "[FIXME] Start the webapp."
+
+echo "[info] Visit http://localhost:4373 to view the web application."
