@@ -19,7 +19,7 @@ ul.ticket-list {
     display: inline-block;
     height: $ticket-stub-height;
     clear: both;
-    margin: rem-calc(8px) auto;
+    /*margin: rem-calc(8px) auto;*/
     overflow: hidden;
 
     > .status-region {
@@ -154,9 +154,9 @@ ul.ticket-list {
     &.current {
       > .status-region > i.fa,
       > .content-region > .titlebar,
-      > .content-region span.time,
+      > .content-region > .titlebar span.time,
       > .actions-region {
-        background-color: darken($blue, 30%);
+        background-color: $blue;
       }
       > .status-region > i.fa {
         @extend .fa-check-square;
