@@ -8,7 +8,7 @@ class ApplicationController < ActionController::Base
 
   # Ensure CanCan logic is employed.
   rescue_from CanCan::AccessDenied do |exception|
-    message = t('en.authorization.failure')
+    message = t('authorization.failure')
     respond_to do | format |
       format.html { redirect_to root_url, alert: message }
       format.json { render json: message, status: :forbidden }
