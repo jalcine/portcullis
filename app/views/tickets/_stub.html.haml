@@ -5,8 +5,10 @@
     .titlebar
       %h2
         = ticket.name
+        &emdash;
         %span.price= number_to_currency(ticket.price, precision: 2)
-        = timeago_tag ticket.date_end
+        = timeago_tag ticket.date_end if Time.zone.now >= ticket.date_start
+        = timeago_tag ticket.date_start if Time.zone.now < ticket.date_start
     .metadata
       %div= ticket.description.html_safe
   .actions-region
@@ -14,6 +16,6 @@
       %a{href: event_ticket_url(ticket.event, ticket), rel: :nofollow, data: {remote: true, ticket: {action: :delete}, method: :delete}} Delete
     - if can? :modify, ticket
       %a{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}} Edit
-    - if can? :order, ticket 
-      %input{type: :text, data: {ticket: :quantity}, value: 0}
-      -#%a{href: '#', data: {ticket: {action: :buy}}} Buy
+    - if can? :order, ticket
+      %label
+        %input{type: :number, min: 0, max: ticket.max_quantity.present? ? ticket.max_quantity : nil, data: {ticket: :quantity}, value: 0, placeholder: '#'}
