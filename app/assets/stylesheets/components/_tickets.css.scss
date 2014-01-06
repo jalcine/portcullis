@@ -5,7 +5,7 @@
 @import 'compass/css3/transform';
 @import 'compass/css3/opacity';
 
-$ticket-stub-height: rem-calc(128px);
+$ticket-stub-height: rem-calc(144px);
 
 ul.ticket-list {
   margin: 0rem;
@@ -13,32 +13,39 @@ ul.ticket-list {
 
   > li.ticket {
     @include grid-row;
-    display: block;
+    @include box-shadow(0px 0px 10px $gray);
     list-style: none;
+    display: inline-block;
     height: $ticket-stub-height;
     clear: both;
     margin: rem-calc(8px) auto;
     overflow: hidden;
 
     > .status-region {
-      width: rem-calc(32px);
+      width: 2.5%;
+      display: inline-block;
+      float: left;
       height: $ticket-stub-height;
       line-height: $ticket-stub-height;
-      display: inline-block;
-      position: relative;
-      right: rem-calc(24px);
+      text-align: center;
 
       > i.fa {
-        height: $ticket-stub-height * 0.8;
-        line-height: $ticket-stub-height * 0.8;
-        margin: $ticket-stub-height * 0.1 0rem;
+        height: $ticket-stub-height;
+        line-height: $ticket-stub-height;
+        padding: 0rem; margin: 0rem;
+        position: relative;
+        width: 100%;
+        top: -1px;
+        display: inline-block;
         background-color: $blue;
         color: $white;
       }
     }
 
     > .content-region {
-      @include grid-column($columns: 10, $collapse: true);
+      width: 82.5%;
+      display: inline-block;
+      float: left;
       height: $ticket-stub-height;
 
       > .titlebar {
@@ -49,21 +56,82 @@ ul.ticket-list {
         > h2 {
           color: $white;
           line-height: $ticket-stub-height * 0.3;
+          height: $ticket-stub-height * 0.3;
+          padding: 0rem 0.7rem; margin: 0rem;
+          padding-left: 0rem;
           font-weight: 900;
           font-size: 1rem;
 
-          > time {
-            float: right;
-            padding-right: 0.25rem;
+          > span.price {
+            padding: 0rem 0.5rem;
+            margin: 0rem 0.5rem 0rem 0.0rem;
+            background-color: darken($green, 25%);
+            color: $white;
+            font-size: 1.5rem;
+            float: left;
           }
+
+          > time {
+            &::before {
+              @extend .fa;
+              @extend .fa-fw;
+              content: '\f017';
+            }
+
+            float: right;
+            padding: 0rem 0.5rem;
+            margin-right: -0.7rem;
+            background-color: $gray;
+            color: $white;
+          }
+        }
+      }
+      > .metadata {
+        background-color: $white;
+        height: $ticket-stub-height * 0.7;
+        line-height: inherit;
+        display: table;
+        font-size: inherit;
+        text-align: left;
+        width: 100%;
+
+        > div {
+          display: table-cell;
+          vertical-align: middle;
+          padding: 0rem 1rem;
         }
       }
     }
 
     > .actions-region {
-      @include grid-column($columns: 2, $collapse: true);
-      line-height: $ticket-stub-height;
+      width: 15%;
+      float: right;
       height: $ticket-stub-height;
+      background-color: $black;
+      text-align: center;
+      font-size: 1.3rem;
+
+      > label {
+        vertical-align: middle;
+        height: $ticket-stub-height;
+
+        > input[data-ticket=quantity] {
+          width: 90%;
+          text-align: center;
+          height: rem-calc(74px);
+          padding: 0rem;
+          border: none;
+          outline: none;
+          background-color: $black;
+          color: $white;
+          padding-left: rem-calc(8px);
+          margin: (($ticket-stub-height - rem-calc(74px)) / 2) auto;
+          font-size: rem-calc(48px);
+          font-weight: lighter;
+
+          &:focus, &:hover { @include box-shadow(none); }
+        }
+      }
     }
   }
 }
