@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131230215820) do
+ActiveRecord::Schema.define(version: 20140106144013) do
 
   create_table "age_groups", force: true do |t|
     t.string   "name"
@@ -66,6 +66,8 @@ ActiveRecord::Schema.define(version: 20131230215820) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status",     default: 0
+    t.decimal  "charge",     default: 0.0
+    t.integer  "quantity",   default: 0
   end
 
   add_index "orders", ["ticket_id"], name: "index_orders_on_ticket_id", using: :btree
