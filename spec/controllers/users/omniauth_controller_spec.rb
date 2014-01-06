@@ -89,7 +89,7 @@ describe Users::OmniauthController do
               get provider
             end
 
-            it { expect(response.status).to eq(500) }
+            it { expect(response.status).to eq(302) }
             it { expect(request.env['devise.mapping']).to_not be_nil }
             it { expect(User.find_by_email(request.env['omniauth.auth']['info']['email'])).to be_nil }
             it { expect(controller.current_user).to be_nil }
@@ -118,10 +118,10 @@ describe Users::OmniauthController do
             stub_env_for_omniauth provider.to_sym
             stub_env_for_omniauth_params the_options
             stub_env_for_omniauth_error provider.to_sym
-            #get provider
+            get provider
           end
 
-          #it { expect(response.status).to eq(500) }
+          it { expect(response.status).to eq(302) }
         end
       end
 
@@ -131,7 +131,7 @@ describe Users::OmniauthController do
           get provider
         end
 
-        it { expect(response.status).to eq(500) }
+        it { expect(response.status).to eq(302) }
         it { expect(request.env['devise.mapping']).to_not be_nil }
         it { expect(controller.current_user).to be_nil }
       end

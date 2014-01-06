@@ -2,7 +2,6 @@
 
 Portcullis.Tickets.Delete =
   bind: ->
-    console.debug $('a[data-ticket-action=delete]')
     $('a[data-ticket-action=delete]').on 'ajax:beforeSend', ->
       $(@).addClass 'disabled'
     .on 'ajax:complete', (je, xhr, status) ->
