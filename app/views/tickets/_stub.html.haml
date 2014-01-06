@@ -1,14 +1,20 @@
-%li.ticket{data: {ticket: ticket.id}}
+%li.ticket{data: {ticket: {id:ticket.id, start: ticket.date_start, end: ticket.date_end, purchased: ticket.purchased?(current_user)}}}
   .status-region
     %i.fa.fa-asterisk
   .content-region
     .titlebar
       %h2
         = ticket.name
-        &emdash;
-        %span.price= number_to_currency(ticket.price, precision: 2)
-        = timeago_tag ticket.date_end if Time.zone.now >= ticket.date_start
-        = timeago_tag ticket.date_start if Time.zone.now < ticket.date_start
+        %span.price
+          = number_to_currency(ticket.price, precision: 2) if ticket.priced?
+          = "FREE" if ticket.free?
+        %span.time
+          - if Time.zone.now >= ticket.date_start
+            closes
+            = timeago_tag ticket.date_end
+          - else
+            opens
+            = timeago_tag ticket.date_start
     .metadata
       %div= ticket.description.html_safe
   .actions-region
