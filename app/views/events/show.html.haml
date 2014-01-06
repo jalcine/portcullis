@@ -65,18 +65,13 @@
           Add Tickets
   - unless @event.tickets.empty? 
     = render 'tickets/stub_list', tickets: @event.tickets unless @event.tickets.empty?
-    .row
-      .small-3.small-push-9.columns.right-text
-        %a#invoke_order.button.primary.large{href: '#'}
-          %i.fa.fa-fw.fa-dollar
-          Order Tickets
+    %a#invoke_order.button.primary.large{href: '#', data: {order: :checkout}}
+      %i.fa.fa-fw.fa-dollar
+      Order Tickets
 
 %section#description.event_panel{data: {magellan: {destination: :description}}}
-  - if @event.description.present?
-    :erb
-      <%= raw @event.description %>
+  = @event.description.html_safe
 %section#attendees.event_panel{data: {magellan: {destination: :attendees}}}
-  -# TODO: Implement a proper means of sifting throught attendees.
   %ul.small-block-grid-2.medium-block-grid-3.large-block-grid-4
     - 16.times.each do 
       %li= render 'users/square'
