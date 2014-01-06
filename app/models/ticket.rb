@@ -34,14 +34,14 @@ class Ticket < ActiveRecord::Base
       time_now > date_start && time_now < date_end
     end
 
+    def purchased?(user)
+      !Order.includes(:tickets, :users).where(ticket: self, user: user).empty?
+    end
+
     # TODO: Form transaction data for purchases of orders.
     def purchase_for(user)
       return nil if event.expired? or user.nil?
-      transaction_data = {type: :credit}
-      order = Order.new ticket: self, user: user
-      order.begin_processing transaction_data
-      order.save!
-
+      order = Order.create ticket: self, user: user
       order
     end
 

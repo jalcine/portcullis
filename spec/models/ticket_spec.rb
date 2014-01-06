@@ -22,17 +22,21 @@ describe Ticket do
 
   describe '.available?' do
     subject { create :ticket, :available }
-    #it { expect(subject).to be_available }
+    xit { expect(subject).to be_available }
   end
 
   describe '.purchase' do
     let(:user) { create :user, :attendee }
     subject { create :ticket, :priced }
-    it 'produces a new order before the event starts' do
-      subject.event = create :event
-      order = subject.purchase_for user
-      expect(order).to_not be_nil
-      expect(order.ticket).to be(subject)
+    describe 'produces a new order before the event starts' do
+      before(:each) do
+        subject.event = create :event
+        subject.purchase_for user
+      end
+
+      it 'should be purchased' do
+        expect(subject).to_not be_purchased(user)
+      end
     end
 
     it 'prevents expired tickets from being sold' do
