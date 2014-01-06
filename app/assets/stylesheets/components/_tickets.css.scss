@@ -5,7 +5,7 @@
 @import 'compass/css3/transform';
 @import 'compass/css3/opacity';
 
-$ticket-stub-height: rem-calc(90px);
+$ticket-stub-height: rem-calc(128px);
 
 ul.ticket-list {
   margin: 0rem;
@@ -20,89 +20,50 @@ ul.ticket-list {
     margin: rem-calc(8px) auto;
     overflow: hidden;
 
-    > .numerical-box {
-      @include grid-column($columns: 3, $collapse: true);
+    > .status-region {
+      width: rem-calc(32px);
+      height: $ticket-stub-height;
+      line-height: $ticket-stub-height;
+      display: inline-block;
+      position: relative;
+      right: rem-calc(24px);
 
-      > b.price, > time {
-        display: block;
-        text-align: center;
-      }
-
-      > b.price {
-        height: $ticket-stub-height * 3/4;
-        line-height: $ticket-stub-height * 3/4;
-        font-size: 350%;
-        background: darken($success-color, 25%);
-        color: #fff;
-      }
-
-      > time {
-        height: $ticket-stub-height / 4;
-        line-height: $ticket-stub-height / 4;
-        font-size: 75%;
-        background: lighten($success-color, 10%);
-        color: #ffffff;
+      > i.fa {
+        height: $ticket-stub-height * 0.8;
+        line-height: $ticket-stub-height * 0.8;
+        margin: $ticket-stub-height * 0.1 0rem;
+        background-color: $blue;
+        color: $white;
       }
     }
 
-    > .contextual-box {
-      @include grid-column($columns: 6, $collapse: false);
-      min-height: $ticket-stub-height;
+    > .content-region {
+      @include grid-column($columns: 10, $collapse: true);
       height: $ticket-stub-height;
 
-      > h2 {
-        margin: 0rem;
-        padding: 0rem;
-        font-size: rem-calc(24px);
-        line-height: rem-calc(24px);
-        text-align: center;
-      }
+      > .titlebar {
+        background-color: $black;
+        color: $white;
+        height: $ticket-stub-height * 0.3;
 
-      > div {
-        font-size: rem-calc(14px);
-      }
-    }
+        > h2 {
+          color: $white;
+          line-height: $ticket-stub-height * 0.3;
+          font-weight: 900;
+          font-size: 1rem;
 
-    > .actions-box {
-      @include grid-column($columns: 3, $collapse: true);
-      height: $ticket-stub-height;
-      text-align: center;
-
-      i.fa {
-        @include transition(0.2s text-indent, 0.2s opacity);
-        text-indent: -100px;
-        overflow: hidden;
-        opacity: 0;
-      }
-
-      a[data-ticket-action=buy] {
-        @include animated-icon-button($fa: 'fa-shopping-cart',
-        $padding: rem-calc(10px), $bg: $success-color,
-        $height: $ticket-stub-height);
-        margin: 0rem;
-      }
-      a[data-ticket-action=edit] {
-        @include animated-icon-button($fa: 'fa-pencil',
-        $padding: rem-calc(5px), $bg: $primary-color,
-        $height: $ticket-stub-height / 2);
-        margin: 0rem;
-        display: block;
-      }
-      a[data-ticket-action=delete] {
-        @include animated-icon-button($fa: 'fa-trash-o',
-        $padding: rem-calc(5px), $bg: $warning-color,
-        $height: $ticket-stub-height / 2);
-        margin: 0rem;
-        display: block;
-      }
-    }
-
-    &.disabled {
-      > .numerical-box {
-        > b.price, > time { 
-          background-color: $disabled-color;
+          > time {
+            float: right;
+            padding-right: 0.25rem;
+          }
         }
       }
+    }
+
+    > .actions-region {
+      @include grid-column($columns: 2, $collapse: true);
+      line-height: $ticket-stub-height;
+      height: $ticket-stub-height;
     }
   }
 }
