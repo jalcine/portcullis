@@ -28,6 +28,7 @@ class ApplicationController < ActionController::Base
 
   def after_sign_in_path_for(resource)
     request.referrer if request.referrer.present?
+    Rails.logger.debug "OAUTH GO BACK: #{request.env['omniauth.origin']}"
     request.env['omniauth.origin'] if request.env.include? 'omniauth.origin'
     events_url(scope: :recommended)
   end
