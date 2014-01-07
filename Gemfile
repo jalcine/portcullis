@@ -72,6 +72,7 @@ gem 'airbrake', '~> 3.1.15'
 group :development do
   gem 'rails_best_practices', '~> 1.14.4'
   gem 'erb2haml', '~> 0.1.5'
+  gem 'pry-rails', '~> 0.3.2'
   gem 'CoffeeTags'
   gem 'debugger', '~> 1.6.2'
   gem 'debugger-xml', '~> 0.3.3'

@@ -608,6 +608,7 @@ DEPENDENCIES
   pg (= 0.17.0)
   poltergeist
   pry (= 0.9.12.2)
+  pry-rails (~> 0.3.2)
   quiet_assets (~> 1.0.2)
   rack-attack
   rack-contrib!
