@@ -13,7 +13,7 @@ RSpec.configure do | config |
       js_errors: false,
       logger: test_log,
       phantomjs_logger: phantomjs_logger,
-      timeout: 90
+      timeout: 40
     }
   end
 
