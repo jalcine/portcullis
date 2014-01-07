@@ -11,7 +11,7 @@ describe :guest do
   end
 
   describe Ticket do
-    let(:ticket) { FactoryGirl.create :ticket }
+    let(:ticket) { FactoryGirl.create :ticket, :available }
     it { expect(ability.can?(:view, ticket)).to eq(true) }
     it { expect(ability.can?(:order, ticket)).to eq(true) }
     it { expect(ability.can?(:crud, ticket)).to eq(false) }
