@@ -321,6 +321,8 @@ GEM
     newrelic_rpm (3.6.9.171)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    nyan-cat-formatter (0.5.2)
+      rspec (>= 2.13)
     oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -600,6 +602,7 @@ DEPENDENCIES
   modernizr-rails (~> 2.7.0)
   newrelic_rpm (~> 3.6.8)
   nokogiri (~> 1.6.0)
+  nyan-cat-formatter
   omniauth (~> 1.1.4)
   omniauth-facebook (~> 1.4.1)
   omniauth-gplus (~> 1.2.0)

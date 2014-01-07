@@ -122,4 +122,5 @@ group :test, :development do
   gem 'rb-fsevent', require: false
   gem 'simplecov', require: false
   gem 'simplecov-html', require: false
+  gem 'nyan-cat-formatter', require: false
 end
