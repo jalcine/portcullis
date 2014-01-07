@@ -12,7 +12,8 @@ RSpec.configure do | config |
     Capybara::Poltergeist::Driver.new app, {
       js_errors: false,
       logger: test_log,
-      phantomjs_logger: phantomjs_logger
+      phantomjs_logger: phantomjs_logger,
+      timeout: 90
     }
   end
 

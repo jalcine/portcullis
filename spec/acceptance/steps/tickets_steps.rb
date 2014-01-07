@@ -49,14 +49,20 @@ module TicketSteps
     end
   end
 
+  step 'I pick the first ticke to order' do
+    within 'ul.ticket-list' do
+      page.evaluate_script 'console.log(this)'
+    end
+  end
+
   step 'the event has a ticket named :name' do | name |
-    #within 'ul.ticket-list' do
+    within 'ul.ticket-list' do
       expect(page).to have_content(name)
-    #end
+    end
   end
 
   step 'I click to edit the ticket named :name' do | name |
-    Rails.logger.debug Ticket.find_by_name(name)
+    pending
   end
 end
 
