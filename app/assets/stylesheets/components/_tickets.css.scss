@@ -138,14 +138,16 @@ ul.ticket-list {
     }
 
     &.future, &.past {
-      @include opacity(0.4);
+      @include opacity(0.6);
       > .status-region > i.fa,
       > .content-region > .titlebar,
       > .content-region > .titlebar span.time,
-      > .content-region > .titlebar span.price,
-      > .actions-region {
+      > .content-region > .titlebar span.price {
         background-color: lighten($gray, 10%);
       }
+
+      > .actions-region { display: none; }
+      > .content-region { width: 97.5%; }
 
       > .status-region > i.fa {
         @extend .fa-clock-o;
