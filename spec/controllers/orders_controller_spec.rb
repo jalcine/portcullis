@@ -26,7 +26,7 @@ describe OrdersController do
       let(:order) { create(:order, ticket: ticket) }
       before(:each) { get :show, id: order }
       it { expect(assigns(:order)).to eq(order) }
-      it { expect(response.status).to eql(200) }
+      it { expect(response.status).to eql(302) }
       it { expect(response).to render_template 'tickets/_slip' }
       it { expect(response).to render_template 'orders/_form' }
     end
