@@ -34,7 +34,7 @@
           %li
             %a.gplus.button.tiny
               %i.icon.fa-lg
-  #event_banner_content{data: {event: {banner: @event.banner.url}}}
+  #event_banner_content{data: {event: {banner: @event.banner.masthead.url}}}
     %div{style: 'display: table'}
     %h1= @event.name.present? ? @event.name : 'Untitled Event'
 - if user_signed_in? and can? :update, @event and @event.publicity == :unlisted
@@ -65,7 +65,7 @@
           Add Tickets
   - unless @event.tickets.empty? 
     = render 'tickets/stub_list', tickets: @event.tickets unless @event.tickets.empty?
-    %a#invoke_order.button.primary.large{href: '#', data: {order: :checkout}}
+    %a#invoke_order.button.primary.large.text-right{href: '#', data: {order: :checkout}}
       %i.fa.fa-fw.fa-dollar
       Order Tickets
 
