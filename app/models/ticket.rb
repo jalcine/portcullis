@@ -40,7 +40,7 @@ class Ticket < ActiveRecord::Base
 
     # TODO: Form transaction data for purchases of orders.
     def purchase_for(user)
-      return nil if event.expired? or user.nil?
+      return nil if !available? or user.nil?
       order = Order.create ticket: self, user: user
       order
     end

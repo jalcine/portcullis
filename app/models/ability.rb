@@ -22,9 +22,12 @@ class Ability
   end
 
   def guest
-    cannot :view, Order
-    can :view, Event do | event |
-      event.public?
+    can :view, Event
+    can :view, Order do | order |
+      order.user == @user
+    end
+    can :order, Ticket do | ticket |
+      ticket.available?
     end
   end
 

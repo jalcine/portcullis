@@ -10,9 +10,10 @@ class Event < ActiveRecord::Base
   has_many :tickets, inverse_of: :event
   has_one :primary_category, class_name: Category
   has_one :second_category, class_name: Category 
-  has_paper_trail
   has_and_belongs_to_many :age_groups
   accepts_nested_attributes_for :tickets, allow_destroy: true
+  resourcify
+  has_paper_trail
   mount_uploader :banner, EventBannerUploader
 
   # Scopes
@@ -21,6 +22,7 @@ class Event < ActiveRecord::Base
   scope :last_month, -> { where(date_start: (Time.now.midnight - 1.month)..Time.now.midnight) }
   scope :last_week,  -> { where(date_start: (Time.now.midnight - 1.week)..Time.now.midnight) }
   scope :last_year,  -> { where(date_start: (Time.now.midnight - 1.year)..Time.now.midnight) }
+  scope :public,     -> { where(publicity: true) }
 
   # Validations
   validates_presence_of :name, allow_blank: true, allow_nil: false
@@ -51,10 +53,12 @@ class Event < ActiveRecord::Base
 
   def publicity=(public_state)
     case public_state
-      when :public
-        write_attribute :publicity, true
       when :unlisted
         write_attribute :publicity, false 
+      when :public
+        write_attribute :publicity, true
+      else
+        write_attribute :publicity, true
     end
   end
 
@@ -78,5 +82,6 @@ class Event < ActiveRecord::Base
 
   def attendees
     # TODO: Get the users who have completed orders for tickets of this event.
+    # User.includes(:orders, :tickets).where(ticket: {event: })
   end
 end
