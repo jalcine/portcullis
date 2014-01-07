@@ -19,7 +19,6 @@ ul.ticket-list {
     display: inline-block;
     height: $ticket-stub-height;
     clear: both;
-    /*margin: rem-calc(8px) auto;*/
     overflow: hidden;
 
     > .status-region {
