@@ -34,7 +34,7 @@ describe Ticket do
         subject.purchase_for user
       end
 
-      it 'should be purchased' do
+      it 'should not be purchased' do
         expect(subject).to_not be_purchased(user)
       end
     end
