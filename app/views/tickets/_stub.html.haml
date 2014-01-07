@@ -1,4 +1,4 @@
-%li.ticket{data: {ticket: {id:ticket.id, start: ticket.date_start, end: ticket.date_end, purchased: ticket.purchased?(current_user)}}}
+%li.ticket{data: {ticket: {id:ticket.id, start: ticket.date_start, end: ticket.date_end, purchased: user_signed_in? ? ticket.purchased?(current_user) : false}}}
   .status-region
     %i.fa.fa-asterisk
   .content-region
