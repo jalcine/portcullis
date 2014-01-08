@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
   # If enabled, handle Vanity testing.
-  #use_vanity :current_user
+  # use_vanity :current_user
 
   # Include logic to pick up browser information.
   extend Browser::ActionController
@@ -20,7 +20,7 @@ class ApplicationController < ActionController::Base
   # For APIs, you may want to use :null_session instead.
   protect_from_forgery with: :exception
 
-  # TODO: Use a dedicated sign-out page.
+  # TODO Use a dedicated sign-out page.
   def after_sign_out_path_for(resource)
     request.env['omniauth.origin'] if request.env.include? 'omniauth.origin'
     root_url
