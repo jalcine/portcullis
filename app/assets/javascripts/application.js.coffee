@@ -12,14 +12,14 @@ jQuery.timeago.settings.allowFuture = true
 
 $ ->
   doc = $ document
-  doc.foundation()
   doc.foundation
     tooltips:
       selector: '.has-tip, *[data-tooltip]'
     topbar:
       is_hover: false
       mobile_show_parent_link: true
-      sticky_class: 'topbar'
+    reveal:
+      close_on_background_click: true
   $('.fit-text').fitText(0.7,
-    minFontSize: '14px'
+    minFontSize: '1rem'
   )

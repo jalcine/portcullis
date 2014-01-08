@@ -12,6 +12,6 @@ class Order < ActiveRecord::Base
   def update_charge
     # The event holder may change the price in the future. However, whatever
     # the attendee paid should be the resulting price; nothing more.
-    self.charge = ticket.price if ticket.price.nonzero? and charge.present?
+    self.charge = ticket.price if !ticket.free? and charge.empty?
   end
 end

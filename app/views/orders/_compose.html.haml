@@ -1,0 +1,27 @@
+%a.close-reveal-modal
+  &#215;
+%h2.text-center Confirm Order
+%table#orders
+  %thead
+    %tr
+      %th Ticket Name
+      %th{width: 100} Price + Fees
+      %th{width: 100} Quantity
+      %th{width: 100} Total
+  %tfoot
+    %tr
+      %td{colspan: 1}
+        %a.button.secondary.left.small
+          Go Back
+      %td{colspan: 3}
+        %a.button.success.right.large.radius
+          Confirm &amp; Pay
+  %tbody
+    %tr
+      %td{colspan: 4}
+        %b.text-center
+          %i.fa.fa-graph
+          Compiling your order...
+
+:coffeescript
+  Portcullis.Orders.Compose.compile()

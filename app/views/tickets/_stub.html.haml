@@ -3,11 +3,12 @@
     %i.fa.fa-asterisk
   .content-region
     .titlebar
-      %h2
+      %h2{title: ticket.name}
         = ticket.name
-        %span.price
+        %span.price{data: {price: ticket.donation? ? -1 : ticket.price }}
           = number_to_currency(ticket.price, precision: 2) if ticket.priced?
           = "FREE" if ticket.free?
+          = "DONATION" if ticket.donation?
         %span.time
           - if Time.zone.now >= ticket.date_start
             closes

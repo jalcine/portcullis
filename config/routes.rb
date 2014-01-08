@@ -22,11 +22,14 @@ Portcullis::Application.routes.draw do
   get '/u/edit',      to: 'users/profiles#edit', as: :edit_profile
   put '/u/edit',      to: 'users/profiles#update'
 
-  resources :events do
-    resources :tickets
+  resources :events, shallow: true do
+    member do
+      get :order, to: 'orders#compose', shallow: true, as: :bulk_order
+    end
+    resources :tickets, shallow: true do
+      resources :orders, shallow: true, except: [:index]
+    end
   end
-
-  resources :orders
 
   #match '/vanity/:action/:id', controller: :vanity, via: [:get, :post, :patch, :put, :delete]
 end

@@ -192,15 +192,15 @@
               Handling Fees
           .large-10.columns
             .row.collapse
-              .large-4.columns
+              .small-4.columns
                 = f.label :fee_handling do
                   = radio_button_tag :fee_handling, Event::FEE_PASS_ON, false
                   Pass On
-              .large-4.columns
+              .small-4.columns
                 = f.label :fee_handling do
                   = radio_button_tag :fee_handling, Event::FEE_TAKE_ON, false
                   Take On
-              .large-4.columns
+              .small-4.columns
                 = f.label :fee_handling do
                   = radio_button_tag :fee_handling, Event::FEE_SPLIT, false
                   Split Fees

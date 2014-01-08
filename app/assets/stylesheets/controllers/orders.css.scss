@@ -1,0 +1,7 @@
+table#orders {
+  width: 100%;
+
+  thead > tr > th:nth-child(3),
+  thead > tr > th:nth-child(4) { text-align: right; }
+  tbody > tr > td:nth-child(4) { text-align: center; }
+}

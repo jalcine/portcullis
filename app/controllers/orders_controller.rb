@@ -1,9 +1,16 @@
 class OrdersController < ApplicationController
-  before_action :set_ticket, except: [:update, :edit]
-  before_action :set_order, except: [:new, :create]
+  before_action :set_ticket, except: [:update, :edit, :compose]
+  before_action :set_order, except: [:new, :create, :compose]
 
   def new
-    authorize! :order, @ticket
+    @order = Order.new user: current_user, ticket: @ticket, quantity: params[:quantity]
+    authorize! :create, @order 
+    render partial: 'orders/_stub', template: nil
+  end
+
+  def compose
+    authorize! :order, Ticket
+    render partial: 'orders/compose', template: nil
   end
 
   def create

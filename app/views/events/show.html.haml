@@ -65,8 +65,9 @@
           Add Tickets
   - unless @event.tickets.empty? 
     = render 'tickets/stub_list', tickets: @event.tickets unless @event.tickets.empty?
-    %button.button.primary.large.text-right{href: '#', data: {order: :checkout}}
-      Order Tickets
+    #bulk_order_event.reveal-modal.large{data: {reveal: true}}
+    %a.button.large.right.success{href: '#', data: {reveal: {id: 'bulk_order_event', ajax: bulk_order_event_path(@event)}, event: @event.id}}
+      ORDER
 
 %section#description.event_panel{data: {magellan: {destination: :description}}}
   = @event.description.html_safe

@@ -11,11 +11,11 @@ class Ticket < ActiveRecord::Base
 
   public
     def is_free?
-      price == 0
+      price == 0.0
     end
 
     def is_donation?
-      price * -1 != 0
+      price < 0
     end
 
     def is_priced?
@@ -26,6 +26,14 @@ class Ticket < ActiveRecord::Base
       return true if Time.now > date_end
       return true if event.expired?
       false
+    end
+
+    def price=(value)
+      if value < -1
+        value = -1
+      end
+
+      write_attribute(:price, value)
     end
 
     def available?

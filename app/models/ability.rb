@@ -67,7 +67,8 @@ class Ability
       !event.expired?
     end
 
-    can [:create, :modify], Order do | order |
+    can :create, Order
+    can :modify, Order do | order |
       return false if can? :update, order.ticket
       !order.ticket.expired?
     end
