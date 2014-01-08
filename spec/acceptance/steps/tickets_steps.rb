@@ -49,9 +49,18 @@ module TicketSteps
     end
   end
 
-  step 'I pick the first ticke to order' do
+  step 'I pick the first ticket to order' do
+    id = 0
     within 'ul.ticket-list' do
-      page.evaluate_script 'console.log(this)'
+      id = page.evaluate_script "$('ul.ticket-list > li.ticket:first-child').attr('data-ticket-id')"
+    end
+    @ticket = Ticket.find(id)
+  end
+
+  step 'I choose to order :number ticket(s) on the event page' do | number |
+    within "li.ticket[data-ticket-id='#{@ticket.id}']" do
+      input_field = find('input[data-ticket=quantity]')
+      input_field.set number.to_i
     end
   end
 
@@ -59,6 +68,18 @@ module TicketSteps
     within 'ul.ticket-list' do
       expect(page).to have_content(name)
     end
+  end
+
+  step 'I pick multiple tickets to order' do
+    pending
+  end
+  
+  step 'I enter :number for donation' do | number |
+
+  end
+
+  step 'I see a confirmation to order the tickets' do
+    expect(page).to have_content 'Confirm Order'
   end
 
   step 'I click to edit the ticket named :name' do | name |
