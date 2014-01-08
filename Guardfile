@@ -30,7 +30,6 @@ group :ui do
   end 
 
   guard :livereload, apply_css_live: true, grace_period: 0.1, override_url: true do
-    watch('config/routes.rb')
     watch(%r{app/views/.+\.haml$})
     watch(%r{app/helpers/.+\.rb})
     watch(%r{public/.+\.(css|js|html)})
@@ -51,7 +50,7 @@ group :test do
     watch(%w{^spec/support/prefork/*\.rb$}) { [:spork, :rspec] }
   end
 
-  guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :keep,
+  guard :rspec, all_on_pass: true, all_on_start: false, failed_mode: :none,
     cmd: 'bundle exec rspec --drb --format NyanCatWideFormatter' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
