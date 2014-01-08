@@ -33,7 +33,7 @@ Portcullis.Orders =
 
 
   bindElements: ->
-    $('ul.ticket-list + a[data-order=checkout]').on 'click', ->
+    $('ul.ticket-list + button[data-order=checkout]').on 'click', ->
       self.submitOrder $(@) if self.validateOrder $(@)
 
 self = Portcullis.Orders
