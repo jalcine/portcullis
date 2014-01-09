@@ -50,7 +50,7 @@ group :test do
     watch(%w{^spec/support/prefork/*\.rb$}) { [:spork, :rspec] }
   end
 
-  guard :rspec, all_on_pass: true, all_on_start: false, failed_mode: :none,
+  guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :none,
     cmd: 'bundle exec rspec --drb --format NyanCatWideFormatter' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
