@@ -15,8 +15,11 @@ class Transaction < ActiveRecord::Base
 
     debugger
 
-    braintree_transaction_id = result.transaction.id if result.success?
-    save!
+    if result.success?
+      write_attribute(:braintree_transaction_id, result.transaction.id)
+      save!
+    end
+
     result.success?
   end
 
@@ -30,12 +33,13 @@ class Transaction < ActiveRecord::Base
 
   def authorized?
     puts ap(braintree_transaction)
-    braintree_transaction.status == :authorized
+    return false unless readonly?
+    braintree_transaction.status == 'authorized'
   end
 
   def settled?
     return false unless readonly?
-    braintree_transaction.status == :settled
+    braintree_transaction.status == 'settled'
   end
 
   def amount
@@ -46,7 +50,6 @@ class Transaction < ActiveRecord::Base
   def braintree_transaction
     return nil if braintree_transaction_id.nil?
     result = Braintree::Transaction.find(braintree_transaction_id)
-    puts ap(result)
     result
   end
 end
