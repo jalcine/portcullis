@@ -5,6 +5,7 @@ Portcullis.Orders.Compose =
     orders = Portcullis.Orders.collectOrders() 
     $('table#orders > tbody > tr:first-child').remove()
     for ticket in orders.tickets
+      # TODO Refactor the fuck outta this.
       ticketElem = $('li[data-ticket-id=' + ticket.id + ']')
       ticketName = ticketElem.find('.titlebar > h2').attr('title')
       ticketPrice = parseFloat(ticketElem.find('.titlebar span.price').attr('data-price'))
