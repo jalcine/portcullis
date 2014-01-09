@@ -10,7 +10,5 @@ Bundler.require(:default, Rails.env)
 module Portcullis
   class Application < Rails::Application
     config.time_zone = 'Eastern Time (US & Canada)'
-    config.middleware.use Rack::Runtime
-    config.middleware.use ActionDispatch::RemoteIp
   end
 end
