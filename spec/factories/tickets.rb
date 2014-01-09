@@ -14,11 +14,11 @@ FactoryGirl.define do
     end
 
     trait :priced do
-      price Random.rand(150)
+      price Random.rand(75)
     end
 
     trait :donation do
-      price Random.rand(150) * -1
+      price Random.rand(75) * -1
     end
 
     trait :expired do

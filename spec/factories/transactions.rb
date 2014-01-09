@@ -5,5 +5,9 @@ FactoryGirl.define do
     after(:build) do | trs, _ |
       3.times { trs.orders << create(:order) }
     end
+
+    trait :authorized do
+      after(:create) { | trs, _ | trs.authorize! }
+    end
   end
 end
