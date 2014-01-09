@@ -40,7 +40,7 @@ gem 'bcrypt-ruby', '~> 3.1.2'
 gem 'newrelic_rpm', '~> 3.6.8'
 gem 'kaminari', '~> 0.14.1'
 gem 'nokogiri', '~> 1.6.0'
-gem 'activemerchant', '~> 1.42.3'
+gem 'braintree', '~> 2.28.0'
 gem 'rails_12factor', '~> 0.0.2', group: [:production]
 gem 'cancan', '~> 1.6.10'
 gem 'carrierwave', '~> 0.9.0'
@@ -105,6 +105,7 @@ group :test, :development do
   #gem 'tapout', '~> 0.4.5'
   gem 'awesome_print', '~> 1.2.0'
   gem 'faker', '~> 1.1.2', require: false
+  gem 'fake_braintree', '~> 0.4', require: false
   gem 'rspec', '~> 2.14', require: false
   gem 'rspec-rails', '~> 2.14', require: false
   gem 'rspec-mocks', '~> 2.14', require: false
