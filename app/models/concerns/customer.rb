@@ -1,8 +1,7 @@
-module Roleable
+module Customer
   extend ActiveSupport::Concern
 
   included do
-    rolify
     after_create :connect_with_braintree
   end
 

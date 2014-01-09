@@ -29,6 +29,7 @@ class Ticket < ActiveRecord::Base
     end
 
     def price=(value)
+      value = value.to_i
       if value < -1
         value = -1
       end

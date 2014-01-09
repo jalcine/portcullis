@@ -13,8 +13,6 @@ class Transaction < ActiveRecord::Base
       }
     ) 
 
-    debugger
-
     if result.success?
       write_attribute(:braintree_transaction_id, result.transaction.id)
       save!
@@ -32,7 +30,6 @@ class Transaction < ActiveRecord::Base
   end
 
   def authorized?
-    puts ap(braintree_transaction)
     return false unless readonly?
     braintree_transaction.status == 'authorized'
   end

@@ -12,6 +12,7 @@ class Ability
 
   def attach_aliases
     alias_action :edit, to: :update
+    alias_action :show, :view, to: :read
     alias_action :update, :destroy, to: :modify
     alias_action :create, :read, :update, :destroy, to: :crud
   end
@@ -52,29 +53,20 @@ class Ability
   end
 
   def attendee
-    can :view, Ticket
-    can :order, Ticket do | ticket |
-      !ticket.expired?
-    end
-
-    can :view, Order do | order |
-      return true if @user.has_role?(:host, order.ticket.event)
-      order.user == @user
-    end
-
     can :rsvp, Event do | event |
-      # TODO: Check if users have ordered already.
       !event.expired?
     end
-
-    can :create, Order
-    can :modify, Order do | order |
-      return false if can? :update, order.ticket
-      !order.ticket.expired?
+    can :view, Ticket
+    can :order, Ticket do | ticket |
+      ticket.available?
     end
-
-    can :cancel, Order do | order |
-      !order.ticket.expired? or cannot?(:modify, order)
+    can :create, Order
+    can :read, Order do | order |
+      # TODO Fix this.
+      order.user == @user
+    end
+    can [:modify, :cancel], Order do | order |
+      order.ticket.available? and order.user == @user
     end
   end
 end
