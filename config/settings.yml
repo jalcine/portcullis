@@ -7,6 +7,13 @@ errbit:
   port: 80
   api_key: '1754f4a6c99192570c95ab3a3356dc3c'
 
+braintree:
+  env: 'sandbox'
+  merchant_id: <%= ENV['BRAINTREE_MERCHANT_ID'] %>
+  key:
+    public: <%= ENV['BRAINTREE_KEY_PUBLIC'] %>
+    private: <%= ENV['BRAINTREE_KEY_PRIVATE'] %>
+
 authentication:
   providers:
     linkedin:
