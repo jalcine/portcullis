@@ -1,6 +1,6 @@
 class ApplicationController < ActionController::Base
-  # If enabled, handle Vanity testing.
-  # use_vanity :current_user
+  # TODO: handle Vanity testing.
+  use_vanity :current_user if Settings.toggles.ab
 
   # Include logic to pick up browser information.
   extend Browser::ActionController
@@ -9,6 +9,8 @@ class ApplicationController < ActionController::Base
   # Ensure CanCan logic is employed.
   rescue_from CanCan::AccessDenied do |exception|
     message = t('authorization.failure')
+    Rails.logger.debug ap(exception)
+    Rails.logger.warn "Authorization failure!"
     respond_to do | format |
       format.html { redirect_to root_url, alert: message }
       format.json { render json: message, status: :forbidden }

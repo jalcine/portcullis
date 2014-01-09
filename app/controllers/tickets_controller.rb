@@ -81,12 +81,12 @@ class TicketsController < ApplicationController
     respond_to do | format |
       if @ticket.save
         format.html { 
-          redirect_to [@event, @ticket],
+          redirect_to @ticket,
           notice: 'Ticket was successfully updated.'
         }
         format.json {
           render action: :show,
-          location: event_tickets_url(@event, @ticket)
+          location: tickets_url(@ticket)
         }
         format.js { render action: :show }
       else
