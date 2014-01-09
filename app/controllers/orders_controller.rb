@@ -23,8 +23,8 @@ class OrdersController < ApplicationController
 
     respond_to do | format |
       if saved_order
-        format.html { redirect_to order_url(@order) }
-        format.json { render json: @order, status: 500 }
+        format.html { redirect_to complete_order_url(@order) }
+        format.json { render json: @order, status: 200 }
       else
         format.html { redirect_to new_order_url(@order), status: 500 }
         format.json { render json: @order.errors, status: 500 }

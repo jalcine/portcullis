@@ -1,6 +1,6 @@
 %a.close-reveal-modal
   %i.fa.fa-fw.fa-times
-= form_for [@event, @ticket], remote: true, data: { type: :json, ticket: @ticket.id }, html: {class: :custom} do | f |
+= form_for @ticket, remote: true, data: { type: :json, ticket: @ticket.id }, html: {class: :custom} do | f |
   = f.hidden_field :date_start, value: @ticket.date_start.present? ? @ticket.date_start.to_i : Time.zone.now.to_i
   = f.hidden_field :date_end, value: @ticket.date_end ? @ticket.date_end.to_i : Time.zone.now.to_i
 

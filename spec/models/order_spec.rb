@@ -7,6 +7,12 @@ describe Order do
     it { expect(subject).to have(:no).errors_on(:user) }
     it { expect(subject).to have(:no).errors_on(:transaction) }
     it { expect(subject).to have(:no).errors_on(:charge) }
+
+    describe '#update_charge' do
+      let(:ticket) { create(:ticket, :priced) }
+      subject { create(:order, ticket: ticket) }
+      it { expect(subject.charge).to eq(ticket.price) }
+    end
   end
 
   describe '.new' do
@@ -48,4 +54,5 @@ describe Order do
       end
     end
   end
+
 end
