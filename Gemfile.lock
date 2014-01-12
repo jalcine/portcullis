@@ -228,9 +228,6 @@ GEM
       childprocess (>= 0.2.3)
       guard (>= 1.1)
       spork (>= 0.8.4)
-    guard-teaspoon (0.0.4)
-      guard (>= 1.6.1)
-      teaspoon (>= 0.5.3)
     haml (4.0.3)
       tilt
     haml-rails (0.5.1)
@@ -337,7 +334,6 @@ GEM
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
     pg (0.17.0)
-    phantomjs (1.9.2.1)
     poltergeist (1.5.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -474,9 +470,6 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    teaspoon (0.7.8)
-      phantomjs (>= 1.8.1.1)
-      railties (>= 3.2.5, < 5)
     thin (1.6.1)
       daemons (>= 1.0.9)
       eventmachine (>= 1.0.0)
@@ -546,7 +539,7 @@ DEPENDENCIES
   dotenv-rails (~> 0.9.0)
   erb2haml (~> 0.1.5)
   factory_girl_rails (~> 4.2.1)
-  fake_braintree (~> 0.4)
+  fake_braintree (~> 0.4.0)
   faker (~> 1.1.2)
   fog
   font-awesome-sass (~> 4.0.1)
@@ -563,7 +556,6 @@ DEPENDENCIES
   guard-rspec (~> 4.0.0)
   guard-sidekiq (~> 0.0.11)
   guard-spork (~> 1.5.1)
-  guard-teaspoon (~> 0.0.4)
   haml (= 4.0.3)
   haml-rails (~> 0.4)
   jazz_hands (~> 0.5.2)
@@ -609,7 +601,6 @@ DEPENDENCIES
   simplecov-html
   spork-rails (~> 4.0.0)
   sprockets-image_compressor
-  teaspoon (~> 0.7.8)
   tinymce-rails!
   turnip
   uglifier (= 2.3.0)
