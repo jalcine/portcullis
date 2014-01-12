@@ -3,10 +3,9 @@ require 'spec_helper'
 describe 'tickets routes' do
   subject { FactoryGirl.create :ticket }
   it 'shows an ticket page' do
-    expect(get: "/events/#{subject.event.id}/tickets/#{subject.id}").to route_to({
+    expect(get: "/tickets/#{subject.id}").to route_to({
       action: 'show',
       controller: 'tickets',
-      event_id: subject.event.id.to_s,
       id: subject.id.to_s
     })
   end

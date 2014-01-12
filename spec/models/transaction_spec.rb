@@ -19,11 +19,13 @@ describe Transaction do
 
   describe '.settle!' do
     subject { create :transaction, :authorized }
+    before(:each) { subject.settle! }
     it { expect(subject).to be_settled }
   end
 
   describe '.declined?', decline_transactions: true do
     subject { create :transaction, :authorized }
+    before(:each) { subject.authorize! }
     it { expect(subject).to be_declined }
   end
 end

@@ -7,7 +7,9 @@ FactoryGirl.define do
     end
 
     trait :authorized do
-      after(:create) { | trs, _ | trs.authorize! }
+      after(:create) do | trs, _ |
+        trs.authorize!
+      end
     end
   end
 end
