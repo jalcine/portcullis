@@ -33,7 +33,7 @@ describe TicketsController do
       end
       it { expect(assigns(:event)).to_not be_nil }
       it { expect(assigns(:ticket)).to_not be_nil }
-      xit { expect(response.status).to be_success }
+      it { expect(response.status).to be(302) }
     end
   end
 
