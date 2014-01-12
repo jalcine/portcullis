@@ -113,8 +113,8 @@ describe EventsController do
         subject.save!
         delete :destroy, id: subject.id
       end
-      it { expect(subject).to be_destroyed }
-      it { expect(response).to_not be_a_redirect }
+      it { expect(assigns(:event)).to be_destroyed }
+      it { expect(response).to be_a_redirect }
     end
 
     describe 'deletes an event you dont own' do
@@ -125,7 +125,7 @@ describe EventsController do
         subject.save!
         delete :destroy, id: subject.id
       end
-      it { expect(subject).to be_destroyed }
+      it { expect(assigns(:event)).to_not be_destroyed }
       it { expect(response).to be_a_redirect }
     end
   end
