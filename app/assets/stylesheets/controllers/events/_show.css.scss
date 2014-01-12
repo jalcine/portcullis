@@ -13,15 +13,13 @@ body.events.show {
     max-width: none;
 
     > #event_banner_topheavy {
-      @include grid-column($columns: 11, $collapse: true, $float: false,
+      @include grid-column($columns: 12, $collapse: true, $float: false,
         $center: true);
-      @include box-shadow(0px 2px 5px $event-banner-bg); 
       background: $event-banner-bg;
       color: $event-banner-fg;
       height: $event-banner-height;
 
       #event_banner_date {
-        position: sticky;
         width: rem-calc(80px);
         > .day {
           border-top: rem-calc(1px) solid $event-banner-bg;
@@ -91,7 +89,6 @@ body.events.show {
 
           &.social {
             float: right;
-            padding-right: rem-calc(6px);
 
             ul.button-group {
               float: right;
@@ -103,11 +100,16 @@ body.events.show {
             }
 
             a.button {
-              padding: 0em rem-calc(12px);
-              line-height: $event-banner-height * 2/3;
-              height: $event-banner-height * 2/3;
+              padding: 0em rem-calc(18px);
+              line-height: $event-banner-height;
+              height: $event-banner-height;
               margin: 0em;
+              font-size: 1rem;
               border-color: transparent;
+
+              > i.fa {
+                font-size: rem-calc(32px);
+              }
             }
           }
         }
@@ -115,8 +117,6 @@ body.events.show {
     }
 
     > #event_banner_content {
-      @include box-shadow(0px 5px 8px $event-banner-bg); 
-      @include border-radius(0rem rem-calc(5px) 0rem rem-calc(5px));
       background-color: $event-banner-bg;
       background-position: center center;
       background-size: cover;
