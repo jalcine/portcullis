@@ -16,7 +16,7 @@ body.home.landing {
 
       > .row:nth-child(1) {
         > .columns {
-          @include background(radial-gradient($black, transparent 300px));
+          @include background(radial-gradient($black, transparent 100px));
           img {
             margin: 1.5em 0em;
             max-width: rem-calc(512px);

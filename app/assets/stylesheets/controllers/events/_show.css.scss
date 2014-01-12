@@ -7,6 +7,10 @@
 @import 'foundation/components/split-buttons';
 
 body.events.show {
+  section.main { 
+    max-width: none;
+    padding: 0rem;
+  }
   header#event_banner {
     @include grid-row;
     margin-bottom: rem-calc(10px);
