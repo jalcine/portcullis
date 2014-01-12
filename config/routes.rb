@@ -26,6 +26,7 @@ Portcullis::Application.routes.draw do
     member do
       get :order, to: 'orders#compose', shallow: true, as: :bulk_order
     end
+
     resources :tickets, shallow: true do
       resources :orders, shallow: true, except: [:index]
     end
