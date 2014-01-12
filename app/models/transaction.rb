@@ -16,13 +16,17 @@ class Transaction < ActiveRecord::Base
     if result.success?
       write_attribute(:braintree_transaction_id, result.transaction.id)
       save!
+    else
+      raise NoMethodError, result.errors.to_s
     end
 
     result.success?
   end
 
   def settle!
-    raise NotImplementedError
+    result = Braintree::Transaction.submit_for_settlement(braintree_transaction_id)
+    return true if result.success?
+    raise NoMethodError, result.errors.to_s
   end
 
   def service_fee
@@ -36,7 +40,13 @@ class Transaction < ActiveRecord::Base
 
   def settled?
     return false unless readonly?
+    puts ap(braintree_transaction)
     braintree_transaction.status == 'settled'
+  end
+
+  def declined?
+    return false unless readonly?
+    braintree_transaction.status == 'declined'
   end
 
   def amount
