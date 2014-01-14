@@ -72,15 +72,15 @@ class EventsController < ApplicationController
   def destroy
     unless @event.nil?
       authorize! :destroy, @event
-      @event.destroy
+      @event.destroy!
       respond_to do |format|
         format.html { redirect_to events_url }
-        format.json { head :no_content }
+        format.json { head :no_content, status: 301 }
       end
     else
       respond_to do |format|
-        format.html { render nil }
-        format.json { render nil }
+        format.html { render nil, status: 404 }
+        format.json { render nil, status: 404 }
       end
     end
   end

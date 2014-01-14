@@ -1,12 +1,8 @@
 class ApplicationController < ActionController::Base
-  # TODO: handle Vanity testing.
   use_vanity :current_user if Settings.toggles.ab
 
-  # Include logic to pick up browser information.
   extend Browser::ActionController
-  extend ApplicationHelper
 
-  # Ensure CanCan logic is employed.
   rescue_from CanCan::AccessDenied do |e|
     Rails.logger.warn "Authorization failure! Attempted to #{e.action} a #{e.subject}"
     respond_to do | format |
@@ -16,9 +12,7 @@ class ApplicationController < ActionController::Base
     end
   end
 
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
 
   # TODO Use a dedicated sign-out page.
   def after_sign_out_path_for(resource)

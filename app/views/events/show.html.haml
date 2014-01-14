@@ -8,13 +8,13 @@
           %span.month= @event.date_end.nil? ? '?' : @event.date_start.strftime('%^B')
       %li.text.tip-bottom{data: {tooltip: true}, title: '39,212 views'}
         %i.fa.fa-fw.fa-lg.fa-eye.fa-yellow
-        %b 39.2K
+        %b{data: {countup: {start: 0, end: 39212, places: 0, speed: 2}}} 39.2k
       %li.text.tip-bottom{data: {tooltip: true}, title: 'Trending NOW'}
         %i.fa.fa-fw.fa-lg.fa-bar-chart-o.fa-red
         %b Now 
       %li.text.tip-bottom{data: {tooltip: true}, title: '10,211 attendees'}
         %i.fa.fa-fw.fa-lg.fa-group.fa-blue
-        %b 10.2K
+        %b{data: {countup: {start: 0, end: 10200, places: 0, speed: 2}}} 10.2k
       %li.controls
         - if can? :modify, @event
           - if @event.draft?
@@ -67,7 +67,7 @@
     = render 'tickets/stub_list', tickets: @event.tickets unless @event.tickets.empty?
     #bulk_order_event.reveal-modal.large{data: {reveal: true}}
     %a.button.large.right.success{href: '#', data: {reveal: {id: 'bulk_order_event', ajax: bulk_order_event_path(@event)}, event: @event.id}}
-      ORDER
+      Order
 
 %section#description.event_panel{data: {magellan: {destination: :description}}}
   = @event.description.html_safe

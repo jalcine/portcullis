@@ -26,6 +26,7 @@ class OrdersController < ApplicationController
     end
   end
 
+  # TODO Don't delete them.
   def destroy
     authorize! :cancel, @order
     @event = @order.ticket.event
@@ -40,8 +41,6 @@ class OrdersController < ApplicationController
   def update
     authorize! :update, @order
     saved_order = @order.update_attributes order_params
-
-    Rails.logger.debug "ERRORS: #{@order.errors}"
 
     respond_to do | format |
       if saved_order
