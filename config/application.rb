@@ -10,5 +10,6 @@ Bundler.require(:default, Rails.env)
 module Portcullis
   class Application < Rails::Application
     config.time_zone = 'Eastern Time (US & Canada)'
+    config.autoload_paths += %W({config.root}/lib)
   end
 end
