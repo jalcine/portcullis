@@ -31,5 +31,6 @@ config/environments/*.local.yml
 
 /.sass-cache
 
-
 *.orig
+
+*.sublime-*
