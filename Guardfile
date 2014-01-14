@@ -45,9 +45,9 @@ group :test do
     watch('config/application.rb')
     watch('config/environments/test.rb')
     watch('spec/spec_helper.rb')
+    watch(%w{^spec/support/prefork/*\.rb$})
     watch(%r{config/settings/test\.*\.yml})
     watch(%r{^config/initializers/.+\.rb$})
-    watch(%w{^spec/support/prefork/*\.rb$}) { [:spork, :rspec] }
   end
 
   guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :none,
@@ -75,8 +75,8 @@ group :test do
     watch(%r{^spec/acceptance/(.+)\.feature$})          { |m| "spec/acceptance/#{m[1]}.feature" }
   end
 
-  guard :teaspoon do
-    watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
-    watch(%r{spec/javascripts/(.*)})
-  end
+  #guard :teaspoon do
+    #watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
+    #watch(%r{spec/javascripts/(.*)})
+  #end
 end
