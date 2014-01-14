@@ -3,7 +3,7 @@ require 'spec_helper'
 describe :attendee do
   subject { create :user, :attendee }
   let(:ability) { Ability.new(subject) }
-  
+
   describe Event do
     let(:event) { create :event }
     it { expect(ability.can?(:rsvp, event)).to eq(true) }
@@ -18,7 +18,7 @@ describe :attendee do
   end
 
   describe Order do
-    let(:order) { create :order, user: subject }
+    let(:order) { create :order, user: subject, ticket: create(:ticket, :available) }
     it { expect(ability.can?(:create, order)).to eq(true) }
     it { expect(ability.can?(:cancel, order)).to eq(true) }
   end

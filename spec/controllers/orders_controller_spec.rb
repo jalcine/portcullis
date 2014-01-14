@@ -57,11 +57,15 @@ describe OrdersController do
     end
 
     describe 'DELETE destroy' do
-      let(:order) { create(:order, ticket: ticket) }
-      before(:each) { delete :destroy, id: order }
+      let(:order) { create(:order, ticket: create(:ticket, :available)) }
+      before(:each) do
+        order.user = controller.current_user
+        order.save!
+        delete :destroy, id: order
+      end
 
       it { expect(assigns(:order)).to eq(order) }
-      xit { expect(order).to be_destroyed }
+      it { expect(assigns(:order)).to be_destroyed }
     end
   end
 end

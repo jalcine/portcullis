@@ -49,6 +49,14 @@ module TicketSteps
     end
   end
 
+  step 'all of the tickets for the event are available' do
+    @event.tickets.each do | ticket |
+      ticket.date_start = Time.zone.now - 2.days
+      ticket.date_end = @event.date_start
+      ticket.save!
+    end
+  end
+
   step 'I pick the first ticket to order' do
     id = 0
     within 'ul.ticket-list' do
@@ -58,9 +66,11 @@ module TicketSteps
   end
 
   step 'I choose to order :number ticket(s) on the event page' do | number |
-    within "li.ticket[data-ticket-id='#{@ticket.id}']" do
-      input_field = find('input[data-ticket=quantity]')
-      input_field.set number.to_i
+    selector = "li.ticket[data-ticket-id='#{@ticket.id}']"
+    the_ticket = find(selector)
+    within selector do
+      input_field = first('input[data-ticket=quantity]')
+      input_field.set number.to_i unless input_field.nil?
     end
   end
 
@@ -70,20 +80,18 @@ module TicketSteps
     end
   end
 
-  step 'I pick multiple tickets to order' do
-    pending
-  end
-  
-  step 'I enter :number for donation' do | number |
-
+  step 'I donate :number dollars to the :ticket ticket' do | number |
+    pending "Handle donations."
   end
 
   step 'I see a confirmation to order the tickets' do
+    expect(find("#bulk_order_event")).to be_visible
     expect(page).to have_content 'Confirm Order'
+    expect(page).to have_button 'Pay'
   end
 
   step 'I click to edit the ticket named :name' do | name |
-    pending
+    pending "Add ticket editing functionality."
   end
 end
 

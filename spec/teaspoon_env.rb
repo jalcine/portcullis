@@ -8,14 +8,14 @@ Teaspoon.setup do |config|
   config.fail_fast = true # abort after the first failing suite
 
   # Output
-  config.formatters = "tap"
+  #config.formatters = "tap"
   config.suppress_log = false
   config.color = true
 
   # Coverage
   config.coverage = false
-  config.coverage_reports = "text,html,cobertura"
-  config.coverage_output_dir = "coverage"
+  #config.coverage_reports = "text,html,cobertura"
+  #config.coverage_output_dir = "coverage"
   config.statements_coverage_threshold = 50
   config.functions_coverage_threshold = 50
   config.branches_coverage_threshold = 50

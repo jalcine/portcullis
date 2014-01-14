@@ -1,13 +1,13 @@
 require 'spec_helper'
 
 describe 'tickets/_form.html.haml' do
-  let(:event)   { FactoryGirl.create :event }
-  let(:ticket)  { FactoryGirl.create(:ticket, event: event) }
+  let(:event)   { create :event }
+  let(:ticket)  { create(:ticket, event: event) }
 
   before(:each) do
     assign(:event, event)
     assign(:ticket, ticket)
-    render
+    render partial: 'tickets/form', locals: { ticket: ticket, event: event }
   end
 
   describe 'visual cues' do
