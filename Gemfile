@@ -22,7 +22,6 @@ gem 'jquery-rails-cdn', '~> 1.0.1'
 gem 'underscore-rails', '~> 1.5.2'
 gem 'backbone-on-rails', '~> 1.1.0.0'
 gem 'modernizr-rails', '~> 2.7.0'
-gem 'coffee-rails', '4.0.0'
 gem 'tinymce-rails', git: 'git://github.com/spohlenz/tinymce-rails', branch: 'tinymce-4'
 gem 'jbuilder', '~> 1.5.2'
 gem 'yajl-ruby', '~> 1.1.0'
@@ -92,7 +91,6 @@ group :development do
   gem 'better_errors', '~> 1.0.1'
   gem 'jazz_hands', '~> 0.5.2'
   gem 'meta_request', '~> 0.2.8'
-  gem 'coffee-rails-source-maps'
   #gem 'railroady'
 end
 
