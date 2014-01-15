@@ -1,26 +1,20 @@
 class ApplicationController < ActionController::Base
-  # If enabled, handle Vanity testing.
-  #use_vanity :current_user
+  use_vanity :current_user if Settings.toggles.ab
 
-  # Include logic to pick up browser information.
   extend Browser::ActionController
-  extend ApplicationHelper
 
-  # Ensure CanCan logic is employed.
-  rescue_from CanCan::AccessDenied do |exception|
-    message = t('en.authorization.failure')
+  rescue_from CanCan::AccessDenied do |e|
+    Rails.logger.warn "Authorization failure! Attempted to #{e.action} a #{e.subject}"
     respond_to do | format |
-      format.html { redirect_to root_url, alert: message }
-      format.json { render json: message, status: :forbidden }
-      format.js   { render json: message, status: :forbidden }
+      format.html { redirect_to root_url, alert: e.message }
+      format.json { render json: e.message, status: :forbidden }
+      format.js   { render json: e.message, status: :forbidden }
     end
   end
 
-  # Prevent CSRF attacks by raising an exception.
-  # For APIs, you may want to use :null_session instead.
-  protect_from_forgery with: :exception
+  protect_from_forgery with: :null_session
 
-  # TODO: Use a dedicated sign-out page.
+  # TODO Use a dedicated sign-out page.
   def after_sign_out_path_for(resource)
     request.env['omniauth.origin'] if request.env.include? 'omniauth.origin'
     root_url

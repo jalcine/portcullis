@@ -104,6 +104,29 @@ describe EventsController do
   end
 
   describe 'DELETE destroy' do
-    pending 'work on deleting events'
+    subject { create :event }
+
+    describe 'deletes an event a host owns' do
+      before(:each) do 
+        controller.current_user.grant :host, subject
+        subject.owner = controller.current_user
+        subject.save!
+        delete :destroy, id: subject.id
+      end
+      it { expect(assigns(:event)).to be_destroyed }
+      it { expect(response).to be_a_redirect }
+    end
+
+    describe 'deletes an event you dont own' do
+      let(:event_owner) { create :user, :host }
+      before(:each) do 
+        event_owner.grant :host, subject
+        subject.owner = event_owner
+        subject.save!
+        delete :destroy, id: subject.id
+      end
+      it { expect(assigns(:event)).to_not be_destroyed }
+      it { expect(response).to be_a_redirect }
+    end
   end
 end

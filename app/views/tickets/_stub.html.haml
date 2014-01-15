@@ -1,16 +1,29 @@
-%li.ticket{data: {ticket: ticket.id}}
-  .numerical-box
-    %b.price.fit-text= number_to_currency(ticket.price, precision: 2)
-    = timeago_tag ticket.date_end if ticket.date_end.present?
-    = timeago_tag ticket.event.date_end if ticket.event.date_end.present?
-    = timeago_tag Time.now.midnight unless ticket.date_end.present? or ticket.event.date_end.present?
-  .contextual-box
-    %h2= ticket.name
-    %div= ticket.description
-  .actions-box
+%li.ticket{data: {ticket: {id:ticket.id, start: ticket.date_start, end: ticket.date_end, purchased: purchased_ticket?(ticket)}}}
+  .status-region
+    %i.fa.fa-asterisk
+  .content-region
+    .titlebar
+      %h2{title: ticket.name}
+        = ticket.name
+        %span.price{data: {price: ticket.donation? ? -1 : ticket.price }}
+          = number_to_currency(ticket.price, precision: 2) if ticket.priced?
+          = "FREE" if ticket.free?
+          = "DONATION" if ticket.donation?
+        %span.time
+          - if Time.zone.now >= ticket.date_start
+            closes
+            = timeago_tag ticket.date_end
+          - else
+            opens
+            = timeago_tag ticket.date_start
+    .metadata
+      %div= ticket.description.html_safe
+  .actions-region
     - if can? :destroy, ticket
-      %a.fit-text{href: event_ticket_url(ticket.event, ticket),rel: :nofollow, data: {remote: true, ticket: {action: :delete}, method: :delete}} Delete
+      %a{href: event_ticket_url(ticket.event, ticket), rel: :nofollow, data: {remote: true, ticket: {action: :delete}, method: :delete}} Delete
     - if can? :modify, ticket
-      %a.fit-text{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}} Edit
-    - if can? :order, ticket 
-      %a.buy.fit-text{href: '#', data: {ticket: {action: :buy}}} Buy
+      %a{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}} Edit
+    - Rails.logger.debug "NAH #{ticket.expired?}"
+    - if can? :order, ticket
+      %label
+        %input{type: :number, min: 0, max: ticket.max_quantity.present? ? ticket.max_quantity : nil, data: {ticket: :quantity}, value: 0, placeholder: '#'}

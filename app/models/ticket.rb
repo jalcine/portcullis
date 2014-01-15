@@ -11,11 +11,11 @@ class Ticket < ActiveRecord::Base
 
   public
     def is_free?
-      price == 0
+      price == 0.0
     end
 
     def is_donation?
-      price * -1 != 0
+      price < 0
     end
 
     def is_priced?
@@ -23,9 +23,18 @@ class Ticket < ActiveRecord::Base
     end
 
     def expired?
-      return true if Time.now > date_end
       return true if event.expired?
+      return true if Time.now >= date_end
       false
+    end
+
+    def price=(value)
+      value = value.to_i
+      if value < -1
+        value = -1
+      end
+
+      write_attribute(:price, value)
     end
 
     def available?
@@ -34,14 +43,14 @@ class Ticket < ActiveRecord::Base
       time_now > date_start && time_now < date_end
     end
 
+    def purchased?(user)
+      !Order.includes(:tickets, :users).where(ticket: self, user: user).empty?
+    end
+
     # TODO: Form transaction data for purchases of orders.
     def purchase_for(user)
-      return nil if event.expired? or user.nil?
-      transaction_data = {type: :credit}
-      order = Order.new ticket: self, user: user
-      order.begin_processing transaction_data
-      order.save!
-
+      return nil if !available? or user.nil?
+      order = Order.create ticket: self, user: user
       order
     end
 

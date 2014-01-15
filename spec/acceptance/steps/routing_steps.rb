@@ -29,6 +29,10 @@ module RoutingSteps
     visit new_event_path
   end
 
+  step 'I go to the new events page' do
+    send 'I go to create an event'
+  end
+
   step 'I go to the search page' do
     visit search_path
   end

@@ -10,6 +10,7 @@ RSpec.configure do | config |
 
   Capybara.register_driver :poltergeist do | app |
     Capybara::Poltergeist::Driver.new app, {
+      debug: true,
       js_errors: false,
       logger: test_log,
       phantomjs_logger: phantomjs_logger

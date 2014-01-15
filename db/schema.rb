@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131230215820) do
+ActiveRecord::Schema.define(version: 20140109083035) do
 
   create_table "age_groups", force: true do |t|
     t.string   "name"
@@ -65,10 +65,14 @@ ActiveRecord::Schema.define(version: 20131230215820) do
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "status",     default: 0
+    t.integer  "status",         default: 0
+    t.integer  "quantity",       default: 0
+    t.decimal  "charge",         default: 0.0
+    t.integer  "transaction_id"
   end
 
   add_index "orders", ["ticket_id"], name: "index_orders_on_ticket_id", using: :btree
+  add_index "orders", ["transaction_id"], name: "index_orders_on_transaction_id", using: :btree
   add_index "orders", ["user_id"], name: "index_orders_on_user_id", using: :btree
 
   create_table "profiles", force: true do |t|
@@ -122,6 +126,13 @@ ActiveRecord::Schema.define(version: 20131230215820) do
 
   add_index "tickets", ["event_id"], name: "index_tickets_on_event_id", using: :btree
 
+  create_table "transactions", force: true do |t|
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.integer  "merchant_id"
+    t.string   "braintree_transaction_id"
+  end
+
   create_table "users", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -135,6 +146,7 @@ ActiveRecord::Schema.define(version: 20131230215820) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.string   "braintree_customer_id"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

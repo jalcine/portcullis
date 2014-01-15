@@ -5,3 +5,6 @@ toggles:
     - auth:linkedin
     - auth:facebook
     - beta
+
+braintree:
+  env: 'sandbox'

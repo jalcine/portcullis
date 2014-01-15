@@ -5,7 +5,7 @@ describe TicketsController do
   let(:event) { FactoryGirl.create :event }
   before(:each) { login_user }
 
-  describe 'DELETE /events/:event_id/tickets/:id' do
+  describe 'DELETE /tickets/:id' do
     let(:ticket) { event.tickets.create FactoryGirl.attributes_for(:ticket) }
     before(:each) { delete :destroy, { id: ticket.id, event_id: event.id } }
     it { expect(assigns(:event)).to_not be_nil }
@@ -13,20 +13,18 @@ describe TicketsController do
     it { expect(response.status).to eql(301) }
   end
 
-  describe 'GET /events/:event_id/tickets/new' do
+  describe 'GET /tickets/new' do
     before(:each){ get :new, { event_id: event.id } }
-    it { expect(assigns(:event)).to_not be_nil } 
     it { expect(assigns(:ticket)).to_not be_nil }
   end
 
-  describe 'GET /events/:event_id/tickets/:id/edit' do
+  describe 'GET /tickets/:id/edit' do
     let(:ticket) { Ticket.create subject }
     before(:each){ get :edit, { event_id: event.id, id: ticket.id } }
-    it { expect(assigns(:event)).to_not be_nil } 
     it { expect(assigns(:ticket)).to_not be_nil }
   end
 
-  describe 'GET /events/:event_id/tickets/:id' do
+  describe 'GET /tickets/:id' do
     describe 'shows the ticket' do
       let(:ticket) { Ticket.create subject }
       before(:each) do 
@@ -35,11 +33,11 @@ describe TicketsController do
       end
       it { expect(assigns(:event)).to_not be_nil }
       it { expect(assigns(:ticket)).to_not be_nil }
-      xit { expect(response.status).to be_success }
+      it { expect(response.status).to be(302) }
     end
   end
 
-  describe 'PUT /events/:event_id/tickets/:id' do
+  describe 'PUT /tickets/:id' do
     let(:ticket) { Ticket.create subject }
     subject { FactoryGirl.attributes_for :ticket }
     before(:each) { put :update, { ticket: subject, event_id: event.id, id: ticket.id } }
@@ -49,7 +47,7 @@ describe TicketsController do
     it { expect(response.status).to be(302) }
   end
 
-  describe 'POST /events/:event_id/tickets' do
+  describe 'POST /tickets' do
     describe 'creates a new ticket' do
       before(:each) { post :create, { ticket: subject, event_id: event.id  } } 
       it { expect(response.status).to be(200) }
@@ -59,6 +57,4 @@ describe TicketsController do
       it { expect(assigns(:ticket)).to be_persisted }
     end
   end
-
-
 end

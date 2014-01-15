@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 describe :host do
-  subject { FactoryGirl.create :user, :host }
+  subject { create :user, :host }
   let(:ability) { Ability.new(subject) }
 
   describe 'its own' do
     describe Event do
-      let(:event) { FactoryGirl.create :event, owner: subject }
+      let(:event) { create :event, owner: subject }
       before(:each) { subject.grant(:host, event) }
       describe 'has permission to change' do
         it { expect(ability.can?(:modify, event)).to eq(true) }
@@ -15,7 +15,7 @@ describe :host do
     end
 
     describe Ticket do
-      let(:ticket) { FactoryGirl.create :ticket }
+      let(:ticket) { create :ticket }
       before(:each) do
         subject.grant(:host, ticket.event)
         ticket.event.owner = subject
@@ -27,7 +27,7 @@ describe :host do
     end
 
     describe Order do
-      let(:order) { FactoryGirl.create :order }
+      let(:order) { create :order }
       it { expect(ability.can?(:create, order)).to eq(false) }
       it { expect(ability.can?(:cancel, order)).to eq(false) }
     end

@@ -3,6 +3,8 @@ require 'rack/contrib/time_zone'
 Portcullis::Application.configure do
   config.middleware.use Rack::Attack
   config.middleware.use Rack::Referrals
+  config.middleware.use Rack::Runtime
+  config.middleware.use ActionDispatch::RemoteIp
   config.middleware.use Rack::TimeZone
 
   if Rails.env.development?

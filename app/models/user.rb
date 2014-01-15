@@ -1,5 +1,6 @@
 class User < ActiveRecord::Base
   include Roleable
+  include Customer
 
   devise :database_authenticatable, :registerable,
     :recoverable, :rememberable, :trackable, :validatable,
@@ -50,7 +51,7 @@ class User < ActiveRecord::Base
 
   public
     def permissions_for(provider_name)
-      # NOTE: This only applied for Facebook. If we don't have the provider
+      # NOTE This is only applied for Facebook. If we don't have the provider
       # for any other service, we assume that we couldn't get any data.
       provider = providers.where(name: provider_name)
       return nil if provider.nil?

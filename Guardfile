@@ -30,7 +30,6 @@ group :ui do
   end 
 
   guard :livereload, apply_css_live: true, grace_period: 0.1, override_url: true do
-    watch('config/routes.rb')
     watch(%r{app/views/.+\.haml$})
     watch(%r{app/helpers/.+\.rb})
     watch(%r{public/.+\.(css|js|html)})
@@ -46,12 +45,13 @@ group :test do
     watch('config/application.rb')
     watch('config/environments/test.rb')
     watch('spec/spec_helper.rb')
+    watch(%w{^spec/support/prefork/*\.rb$})
     watch(%r{config/settings/test\.*\.yml})
     watch(%r{^config/initializers/.+\.rb$})
-    watch(%w{^spec/support/prefork/*\.rb$}) { [:spork, :rspec] }
   end
 
-  guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :keep, cmd: 'bundle exec rspec --drb' do
+  guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :none,
+    cmd: 'bundle exec rspec --drb --format NyanCatWideFormatter' do
     # Global changes
     watch('.rspec')                                     { 'spec' }
     watch('spec/spec_helper.rb')                        { 'spec' }
@@ -74,4 +74,9 @@ group :test do
     watch(%r{^app/controllers/(.+)_(controller)\.rb$})  { |m| ["spec/routing/#{m[1]}_routing_spec.rb", "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb", "spec/acceptance/#{m[1]}.feature"] }
     watch(%r{^spec/acceptance/(.+)\.feature$})          { |m| "spec/acceptance/#{m[1]}.feature" }
   end
+
+  #guard :teaspoon do
+    #watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
+    #watch(%r{spec/javascripts/(.*)})
+  #end
 end

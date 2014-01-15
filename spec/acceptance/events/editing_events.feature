@@ -4,7 +4,7 @@ Feature: Editing Events
 
   @backlog
   Scenario: handling descriptions
-    When I go to the new events page
+    When I go to create an event
     And I set the event's title with "Snow White"
     And I set the event's description to some placeholder text
     And I populate the time range for the event

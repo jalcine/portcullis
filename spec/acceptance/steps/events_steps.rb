@@ -34,7 +34,6 @@ module EventSteps
     date_start = Time.now + Random.rand(20).to_i.days
     date_end = date_start + Random.rand(15).to_i.hours
     page.evaluate_script("alert($('#start_day'))")
-    screenshot_and_open_image
   end
 
   step 'I have should :number tickets for the event' do | count |
@@ -45,6 +44,12 @@ module EventSteps
     @event = create :event, :with_tickets
   end
 
+  step 'the pre-existing event is currently active' do
+    @event.date_start = Time.zone.now + 2.days
+    @event.date_end = @event.date_start + 2.days
+    @event.save!
+  end
+
   step 'it should create a new event' do
     expect(page).to have_content 'successfully updated'
   end
@@ -53,7 +58,6 @@ module EventSteps
     within 'form.edit_event' do
       click_on 'Save Event'
     end
-    expect(response).to be_success
   end
 
   step 'It should show the new event page' do

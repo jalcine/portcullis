@@ -31,7 +31,7 @@ describe Users::OmniauthController do
               get provider
             end
 
-            it { expect(response.status).to eq(500) }
+            it { expect(response.status).to eq(302) }
             it { expect(controller.current_user).to be_nil }
           end
         end
@@ -121,7 +121,7 @@ describe Users::OmniauthController do
             get provider
           end
 
-          it { expect(response.status).to eq(302) }
+          it { expect(response.status).to eq(500) }
         end
       end
 

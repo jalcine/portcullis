@@ -34,17 +34,6 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
-    active_utils (2.0.1)
-      activesupport (>= 2.3.11)
-      i18n
-    activemerchant (1.42.3)
-      active_utils (~> 2.0, >= 2.0.1)
-      activesupport (>= 2.3.14, < 5.0.0)
-      builder (>= 2.1.2, < 4.0.0)
-      i18n (~> 0.5)
-      json (~> 1.7)
-      money (< 7.0.0)
-      nokogiri (~> 1.4)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -64,11 +53,8 @@ GEM
     airbrake (3.1.15)
       builder
       multi_json
-    ansi (1.4.3)
     arel (4.0.1)
     atomic (1.1.14)
-    attr_encrypted (1.3.1)
-      encryptor (>= 1.3.0)
     awesome_print (1.2.0)
     backbone-on-rails (1.1.0.0)
       eco
@@ -81,17 +67,19 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    braintree (2.28.0)
+      builder (>= 2.0.0)
     browser (0.3.2)
     builder (3.1.4)
     callsite (0.0.11)
     cancan (1.6.10)
-    capybara (2.2.0)
+    capybara (2.2.1)
       mime-types (>= 1.16)
       nokogiri (>= 1.3.3)
       rack (>= 1.0.0)
       rack-test (>= 0.5.4)
       xpath (~> 2.0)
-    capybara-screenshot (0.3.14)
+    capybara-screenshot (0.3.16)
       capybara (>= 1.0, < 3)
       launchy
     carrierwave (0.9.0)
@@ -110,8 +98,6 @@ GEM
     ci_reporter (1.9.1)
       builder (>= 2.1.2)
     cliver (0.3.2)
-    code_analyzer (0.4.3)
-      sexp_processor
     coderay (1.0.9)
     coffee-rails (4.0.0)
       coffee-script (>= 2.2.0)
@@ -122,7 +108,6 @@ GEM
       coffee-script-source
       execjs
     coffee-script-source (1.6.3)
-    colored (1.2)
     columnize (0.3.6)
     compass (0.12.2)
       chunky_png (~> 1.2)
@@ -132,6 +117,7 @@ GEM
       compass (>= 0.12.2)
     connection_pool (1.2.0)
     coolline (0.4.2)
+    daemons (1.1.9)
     database_cleaner (1.2.0)
     debug_inspector (0.0.2)
     debugger (1.6.5)
@@ -152,6 +138,8 @@ GEM
     diffy (3.0.1)
     docile (1.1.1)
     dotenv (0.9.0)
+    dotenv-rails (0.9.0)
+      dotenv (= 0.9.0)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -161,7 +149,6 @@ GEM
     em-websocket (0.5.0)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.5.3)
-    encryptor (1.3.0)
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
@@ -173,6 +160,13 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
+    fake_braintree (0.4)
+      activesupport
+      braintree (~> 2.5)
+      capybara
+      i18n
+      sinatra
+      thin
     faker (1.1.2)
       i18n (~> 0.5)
     faraday (0.8.8)
@@ -190,8 +184,6 @@ GEM
       ruby-hmac
     font-awesome-sass (4.0.2)
       sass-rails (>= 3.1.1)
-    foreigner (1.6.0)
-      activerecord (>= 3.0.0)
     formatador (0.2.4)
     friendly_id (5.0.2)
       activerecord (~> 4.0.0)
@@ -199,8 +191,6 @@ GEM
     geocoder (1.1.9)
     gherkin (2.12.2)
       multi_json (~> 1.3)
-    gretel (3.0.5)
-      rails (>= 3.2.0)
     grit (2.5.0)
       diff-lcs (~> 1.1)
       mime-types (~> 1.15)
@@ -254,7 +244,6 @@ GEM
     http_parser.rb (0.5.3)
     httpauth (0.2.0)
     i18n (0.6.9)
-    icalendar (1.5.0)
     jazz_hands (0.5.2)
       awesome_print (~> 1.2)
       coolline (>= 0.4.2)
@@ -298,10 +287,6 @@ GEM
     mail (2.5.4)
       mime-types (~> 1.16)
       treetop (~> 1.4.8)
-    mailboxer (0.11.0)
-      carrierwave (>= 0.5.8)
-      foreigner (>= 0.9.1)
-      rails (> 3.0.0)
     meta_request (0.2.8)
       callsite
       rack-contrib
@@ -311,8 +296,6 @@ GEM
     mini_portile (0.5.2)
     minitest (4.7.5)
     modernizr-rails (2.7.0)
-    money (6.0.0)
-      i18n (~> 0.6.4)
     multi_json (1.8.2)
     multipart-post (1.2.0)
     net-scp (1.1.2)
@@ -321,6 +304,8 @@ GEM
     newrelic_rpm (3.6.9.171)
     nokogiri (1.6.1)
       mini_portile (~> 0.5.0)
+    nyan-cat-formatter (0.5.2)
+      rspec (>= 2.13)
     oauth (0.4.7)
     oauth2 (0.8.1)
       faraday (~> 0.8)
@@ -346,7 +331,6 @@ GEM
       activerecord (>= 3.0, < 5.0)
       activesupport (>= 3.0, < 5.0)
     pg (0.17.0)
-    phantomjs (1.9.2.1)
     poltergeist (1.5.0)
       capybara (~> 2.1)
       cliver (~> 0.3.1)
@@ -383,11 +367,12 @@ GEM
       rack
     rack-livereload (0.3.15)
       rack
+    rack-protection (1.5.1)
+      rack
     rack-referrals (0.0.2)
       rack
     rack-test (0.6.2)
       rack (>= 1.0)
-    railroady (1.1.1)
     rails (4.0.0)
       actionmailer (= 4.0.0)
       actionpack (= 4.0.0)
@@ -402,15 +387,6 @@ GEM
     rails_12factor (0.0.2)
       rails_serve_static_assets
       rails_stdout_logging
-    rails_best_practices (1.14.4)
-      activesupport
-      awesome_print
-      code_analyzer (>= 0.4.3)
-      colored
-      erubis
-      i18n
-      require_all
-      ruby-progressbar
     rails_config (0.3.3)
       activesupport (>= 3.0)
     rails_serve_static_assets (0.0.2)
@@ -430,12 +406,8 @@ GEM
     redis (3.0.6)
     redis-namespace (1.4.1)
       redis (~> 3.0.4)
-    require_all (1.3.2)
     rmagick (2.13.2)
     rolify (3.3.0.rc4)
-    rqrcode (0.4.2)
-    rqrcode-rails3 (0.1.7)
-      rqrcode (>= 0.4.2)
     rspec (2.14.1)
       rspec-core (~> 2.14.0)
       rspec-expectations (~> 2.14.0)
@@ -453,7 +425,6 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     ruby-hmac (0.4.0)
-    ruby-progressbar (1.4.0)
     ruby_parser (3.1.3)
       sexp_processor (~> 4.1)
     sass (3.2.13)
@@ -471,13 +442,15 @@ GEM
       json
       redis (>= 3.0.6)
       redis-namespace (>= 1.3.1)
-    sidekiq-middleware (0.1.4)
-      sidekiq (>= 2.12.4, < 3)
     simplecov (0.8.2)
       docile (~> 1.1.0)
       multi_json
       simplecov-html (~> 0.8.0)
     simplecov-html (0.8.0)
+    sinatra (1.4.4)
+      rack (~> 1.4)
+      rack-protection (~> 1.4)
+      tilt (~> 1.3, >= 1.3.4)
     slop (3.4.7)
     spork (1.0.0rc4)
     spork-rails (4.0.0)
@@ -494,12 +467,10 @@ GEM
       actionpack (>= 3.0)
       activesupport (>= 3.0)
       sprockets (~> 2.8)
-    tapout (0.4.5)
-      ansi
-      json
-    teaspoon (0.7.8)
-      phantomjs (>= 1.8.1.1)
-      railties (>= 3.2.5, < 5)
+    thin (1.6.1)
+      daemons (>= 1.0.9)
+      eventmachine (>= 1.0.0)
+      rack (>= 1.0.0)
     thor (0.18.1)
     thread_safe (0.1.3)
       atomic
@@ -511,9 +482,6 @@ GEM
     turnip (1.1.0)
       gherkin (>= 2.5)
       rspec (~> 2.0)
-    turnout (0.2.5)
-      nokogiri (~> 1.3)
-      rack
     tzinfo (0.3.38)
     uglifier (2.3.0)
       execjs (>= 0.3.0)
@@ -542,21 +510,20 @@ PLATFORMS
 
 DEPENDENCIES
   CoffeeTags
-  activemerchant
   airbrake (~> 3.1.15)
-  attr_encrypted (~> 1.3.1)
   awesome_print (~> 1.2.0)
   backbone-on-rails (~> 1.1.0.0)
   bcrypt-ruby (~> 3.1.2)
   better_errors (~> 1.0.1)
   binding_of_caller (~> 0.7.2)
+  braintree (~> 2.28.0)
   browser (~> 0.3.2)
   cancan (~> 1.6.10)
   capybara
   capybara-screenshot
   carrierwave (~> 0.9.0)
   carrierwave-processing (~> 0.0.2)
-  chrome_logger
+  chrome_logger (~> 0.1.2)
   ci_reporter (~> 1.9.0)
   coffee-rails (= 4.0.0)
   coffee-rails-source-maps
@@ -565,17 +532,16 @@ DEPENDENCIES
   debugger (~> 1.6.2)
   debugger-xml (~> 0.3.3)
   devise (~> 3.0.0rc)
-  dotenv
-  ejs (~> 1.1.1)
+  dotenv-rails (~> 0.9.0)
   erb2haml (~> 0.1.5)
   factory_girl_rails (~> 4.2.1)
+  fake_braintree (~> 0.4.0)
   faker (~> 1.1.2)
   fog
   font-awesome-sass (~> 4.0.1)
   foundation-rails (~> 5.0.2)!
   friendly_id (~> 5.0.1)
   geocoder (~> 1.1.0)
-  gretel
   growl
   guard (= 2.2.2)
   guard-bundler (~> 2.0.0)
@@ -588,18 +554,17 @@ DEPENDENCIES
   guard-spork (~> 1.5.1)
   haml (= 4.0.3)
   haml-rails (~> 0.4)
-  icalendar
   jazz_hands (~> 0.5.2)
   jbuilder (~> 1.5.2)
   jquery-rails-cdn (~> 1.0.1)
   kaminari (~> 0.14.1)
   libnotify
   linkedin (~> 0.4.4)
-  mailboxer (~> 0.11.0)
   meta_request (~> 0.2.8)
   modernizr-rails (~> 2.7.0)
   newrelic_rpm (~> 3.6.8)
   nokogiri (~> 1.6.0)
+  nyan-cat-formatter
   omniauth (~> 1.1.4)
   omniauth-facebook (~> 1.4.1)
   omniauth-gplus (~> 1.2.0)
@@ -608,39 +573,32 @@ DEPENDENCIES
   pg (= 0.17.0)
   poltergeist
   pry (= 0.9.12.2)
+  pry-rails (~> 0.3.2)
   quiet_assets (~> 1.0.2)
   rack-attack
   rack-contrib!
   rack-livereload (~> 0.3.15)
   rack-referrals
-  railroady
   rails (= 4.0.0)
   rails-timeago (~> 2.0)
   rails_12factor (~> 0.0.2)
-  rails_best_practices (~> 1.14.4)
   rails_config
   rb-fsevent
   rb-inotify
   rmagick (~> 2.13.2)
   rolify (~> 3.3.0.rc4)
-  rqrcode-rails3
   rspec (~> 2.14)
   rspec-expectations (~> 2.14)
   rspec-mocks (~> 2.14)
   rspec-rails (~> 2.14)
   sass-rails (= 4.0.0)
   sdoc
-  sidekiq
-  sidekiq-middleware
   simplecov
   simplecov-html
   spork-rails (~> 4.0.0)
   sprockets-image_compressor
-  tapout (~> 0.4.5)
-  teaspoon (~> 0.7.8)
   tinymce-rails!
   turnip
-  turnout
   uglifier (= 2.3.0)
   underscore-rails (~> 1.5.2)
   unf (~> 0.1.3)
