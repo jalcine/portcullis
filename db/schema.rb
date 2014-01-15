@@ -66,9 +66,9 @@ ActiveRecord::Schema.define(version: 20140109083035) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status",         default: 0
+    t.integer  "transaction_id"
     t.integer  "quantity",       default: 0
     t.decimal  "charge",         default: 0.0
-    t.integer  "transaction_id"
   end
 
   add_index "orders", ["ticket_id"], name: "index_orders_on_ticket_id", using: :btree
@@ -129,8 +129,6 @@ ActiveRecord::Schema.define(version: 20140109083035) do
   create_table "transactions", force: true do |t|
     t.datetime "created_at"
     t.datetime "updated_at"
-    t.integer  "merchant_id"
-    t.string   "braintree_transaction_id"
   end
 
   create_table "users", force: true do |t|

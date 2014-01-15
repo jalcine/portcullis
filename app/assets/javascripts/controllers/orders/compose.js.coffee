@@ -9,10 +9,11 @@ Portcullis.Orders.Compose =
       ticketElem = $('li[data-ticket-id=' + ticket.id + ']')
       ticketName = ticketElem.find('.titlebar > h2').attr('title')
       ticketPrice = parseFloat(ticketElem.find('.titlebar span.price').attr('data-price'))
-      ticketQuantity = ticketElem.find('input[type=number]').val()
+      ticketPrice = 0 if isNaN(ticketPrice)
+      ticketQuantity = parseFloat(ticketElem.find('input[type=number]').val())
+      ticketQuantity = 0 if isNaN(ticketQuantity)
       tr = $('<tr>').appendTo('table#orders > tbody')
       tr.data 'order', ticket
-      console.debug ticketPrice
       name = $('<td></td>').appendTo(tr).text(ticketName)
       price = $('<td></td>').appendTo(tr).html(ticketPrice)
       quantity = $('<td></td>').appendTo(tr).text(ticket.number)
