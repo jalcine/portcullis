@@ -1,8 +1,10 @@
-#= require tinymce-jquery
+//= require tinymce-jquery
 
-$ ->
-  tinyMCE.init
+Portcullis.bind('boot', function(){
+  tinyMCE.init({
     selector: 'textarea.tinymce'
     mode: 'textarea'
     theme: 'modern'
     height: 400
+  });
+});
