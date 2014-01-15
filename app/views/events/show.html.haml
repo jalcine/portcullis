@@ -19,7 +19,8 @@
         - if can? :modify, @event
           - if @event.draft?
             %a#event_draft_button{href: edit_event_path(@event), title: 'Edit Event'}
-              Draft
+              %i.fa.fa-fw.fa-pencil
+              Edit
       %li.social
         %ul.button-group
           %li
