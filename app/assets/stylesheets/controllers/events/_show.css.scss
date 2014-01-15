@@ -14,12 +14,15 @@ body.events.show {
   header#event_banner {
     @include grid-row;
     margin-bottom: rem-calc(10px);
+    background-position: center center;
+    background-size: cover;
+    background-repeat: no-repeat;
     max-width: none;
 
     > #event_banner_topheavy {
       @include grid-column($columns: 12, $collapse: true, $float: false,
-        $center: true);
-      background: $event-banner-bg;
+      $center: true);
+      background: rgba($event-banner-bg, 0.45);
       color: $event-banner-fg;
       height: $event-banner-height;
 
@@ -61,32 +64,29 @@ body.events.show {
             padding: 0rem;
 
             a#event_draft_button {
-              @include button($bg: lighten($event-banner-bg, 10%));
+              @include button($bg: $light-red);
               @include single-transition;
               overflow: hidden;
               height: $event-banner-height;
               line-height: $event-banner-height * 8/15;
               position: relative;
 
-              &:after {
-                @include single-transition;
-                box-sizing: border-box;
-                position: absolute;
-                width: 100%;
-                height: $event-banner-height;
-                top: 0;
-                left: -100%;
-                background-color: $primary-color;
-                content: attr(title);
-                color: #fff;
-                line-height: $event-banner-height;
-              }
+              /*&:after {*/
+              /*@include single-transition;*/
+              /*box-sizing: border-box;*/
+              /*position: absolute;*/
+              /*width: 100%;*/
+              /*height: $event-banner-height;*/
+              /*top: -1 * $event-banner-height;*/
+              /*background-color: darken($dark-red, 20%);*/
+              /*content: attr(title);*/
+              /*color: #fff;*/
+              /*line-height: $event-banner-height;*/
+            /*}*/
 
               &:hover {
                 color: $event-banner-bg;
-                &:after {
-                  left: 0px;
-                }
+                /*&:after { top: 0px; }*/
               }
             }
           }
@@ -121,10 +121,6 @@ body.events.show {
     }
 
     > #event_banner_content {
-      background-color: $event-banner-bg;
-      background-position: center center;
-      background-size: cover;
-      background-repeat: no-repeat;
       height: $event-banner-height * 7;
       text-align: center;
       display: table;
@@ -132,7 +128,7 @@ body.events.show {
       > h1 {
         @include text-shadow(0px 0px 6px #000);
         @include background(radial-gradient(
-          rgba($event-banner-bg, 0.8), transparent ($event-banner-height * 7)
+        rgba($event-banner-bg, 0.8), transparent ($event-banner-height * 7)
         ));
         padding: rem-calc(2px) rem-calc(8px) 0rem rem-calc(8px);
         margin: 0em;
