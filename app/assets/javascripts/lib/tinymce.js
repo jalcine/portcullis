@@ -2,9 +2,9 @@
 
 Portcullis.bind('boot', function(){
   tinyMCE.init({
-    selector: 'textarea.tinymce'
-    mode: 'textarea'
-    theme: 'modern'
+    selector: 'textarea.tinymce',
+    mode: 'textarea',
+    theme: 'modern',
     height: 400
   });
 });

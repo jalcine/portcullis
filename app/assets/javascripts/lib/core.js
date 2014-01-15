@@ -9,7 +9,7 @@
 // Backbone and Underscore would be found here.
 
 // TODO Bind function call to the window object.
-$(function(){
+(function(){
   Portcullis = {
     boot: function(){
       $('input[type=date]').pickadate()

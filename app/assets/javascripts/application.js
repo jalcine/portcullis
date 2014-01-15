@@ -18,7 +18,7 @@ $(window).load(function(){
       selector: '.has-tip, *[data-tooltip]'
     },
     topbar: {
-      is_hover: false
+      is_hover: false,
       mobile_show_parent_link: true
     },
     reveal: {
