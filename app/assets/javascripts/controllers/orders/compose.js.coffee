@@ -3,9 +3,11 @@
 Portcullis.Orders.Compose =
   compile: ->
     orders = Portcullis.Orders.collectOrders() 
+    Portcullis.Orders.Compose.bind()
     $('table#orders > tbody > tr:first-child').remove()
     for ticket in orders.tickets
       # TODO Refactor the fuck outta this.
+      alert ticket
       ticketElem = $('li[data-ticket-id=' + ticket.id + ']')
       ticketName = ticketElem.find('.titlebar > h2').attr('title')
       ticketPrice = parseFloat(ticketElem.find('.titlebar span.price').attr('data-price'))
@@ -20,6 +22,8 @@ Portcullis.Orders.Compose =
       total = $('<td></td>').appendTo(tr).html(ticketPrice * ticket.number)
 
   bind: ->
+    $('table#orders > tfoot td[colspan=3] a.button').on 'click', ->
+      # TODO Refactor for submission using Backbone.
 
 Portcullis.bind 'boot', ->
   Portcullis.Orders.Compose.bind()

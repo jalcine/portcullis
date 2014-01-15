@@ -24,8 +24,7 @@ class Ticket < ActiveRecord::Base
 
     def expired?
       return true if event.expired?
-      return true if Time.now >= date_end
-      false
+      date_end <= DateTime.now
     end
 
     def price=(value)

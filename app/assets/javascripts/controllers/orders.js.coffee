@@ -1,4 +1,6 @@
 #= require lib/core
+# TODO Use Backbone.Model for orders
+# TODO Use Backbone.Views to handle views
 
 Portcullis.Orders =
   validateOrders: () ->

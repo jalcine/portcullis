@@ -14,18 +14,42 @@ describe Ticket do
     it { expect(subject).to have(:no).errors_on(:date_) }
   end
 
+  describe '.elapsing?'
+
   describe '.expired?' do
-    subject { create :ticket, :expired }
-    it { expect(subject).to be_expired }
-    it { expect(subject).to_not be_available }
-    describe 'expired events'
-    describe 'active events'
-    describe 'expired tickets'
+    describe 'expired events' do
+      let(:event) { create(:event, :expired) }
+      subject { create(:ticket, :expired, event: event) }
+      it { expect(subject).to be_expired }
+      it { expect(subject).to_not be_available }
+    end
+
+    describe 'active events' do
+      let(:event) { create(:event, :available) }
+
+      describe 'expired tickets' do
+        subject { create(:ticket, :expired, event: event) }
+        it { expect(subject).to be_expired }
+        it { expect(subject).to_not be_available }
+      end
+
+      describe 'valid tickets' do
+        subject { create(:ticket, :available, event: event) }
+        it { expect(subject).to_not be_expired }
+        it { expect(subject).to be_available }
+      end
+    end
+
+    describe 'expired tickets' do
+      subject { create(:ticket, :expired) }
+      it { expect(subject).to be_expired }
+      it { expect(subject).to_not be_available }
+    end
   end
 
   describe '.available?' do
     subject { create :ticket, :available }
-    xit { expect(subject).to be_available }
+    it { expect(subject).to be_available }
   end
 
   describe '.purchase' do

@@ -26,8 +26,8 @@ FactoryGirl.define do
     end
 
     trait :available do
-      date_start { Time.now - 3.days }
-      date_end { date_start + 1.day }
+      date_start { Time.zone.now - 1.day }
+      date_end { date_start + 2.days }
     end
 
     trait :unlisted do

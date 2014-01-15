@@ -24,7 +24,7 @@ FactoryGirl.define do
     trait :expired do
       event { create :event, :expired }
       date_start { 5.days.ago }
-      date_end { 2.days.ago }
+      date_end { event.date_start }
     end
 
     trait :available do
