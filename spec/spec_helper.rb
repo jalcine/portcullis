@@ -10,6 +10,7 @@ def prefork_some_jazz
 
   RSpec.configure do | config |
     config.include ModelHelpers
+    config.include AjaxHelpers, type: :feature
     config.include ViewHelpers, type: :view
     config.include ViewHelpers, type: :feature
     config.include ControllerHelpers, type: :controller

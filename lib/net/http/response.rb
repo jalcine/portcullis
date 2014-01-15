@@ -6,9 +6,7 @@ module DecodeHttpResponseOverride
 
   def body
     res = super
-    if self['content-length']
-      self['content-length']= res.bytesize
-    end
+    self['content-length']= res.bytesize if self['content-length']
     res
   end
 end

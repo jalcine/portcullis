@@ -85,9 +85,13 @@ module TicketSteps
   end
 
   step 'I see a confirmation to order the tickets' do
-    expect(find("#bulk_order_event")).to be_visible
-    expect(page).to have_content 'Confirm Order'
-    expect(page).to have_button 'Pay'
+    click_link 'Order'
+    wait_for_ajax
+    within '#bulk_order_event' do
+      screenshot_and_open_image
+      expect(page).to have_content 'Confirm Order'
+      expect(page).to have_link 'Pay'
+    end
   end
 
   step 'I click to edit the ticket named :name' do | name |

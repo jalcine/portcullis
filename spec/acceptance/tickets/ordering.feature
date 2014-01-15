@@ -6,6 +6,7 @@ Feature: Ordering tickets
     And all of the tickets for the event are available
     And I go to view the event
 
+  @js
   @broken
   Scenario: ordering one ticket
     When I pick the first ticket to order
@@ -14,6 +15,7 @@ Feature: Ordering tickets
     Then I see a confirmation to order the tickets
     And I see the price of the final transaction
 
+  @js
   @broken
   Scenario: ordering multiple ticket
     When I pick multiple tickets to order

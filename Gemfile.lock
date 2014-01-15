@@ -55,8 +55,6 @@ GEM
       multi_json
     arel (4.0.1)
     atomic (1.1.14)
-    attr_encrypted (1.3.1)
-      encryptor (>= 1.3.0)
     awesome_print (1.2.0)
     backbone-on-rails (1.1.0.0)
       eco
@@ -151,7 +149,6 @@ GEM
     em-websocket (0.5.0)
       eventmachine (>= 0.12.9)
       http_parser.rb (~> 0.5.3)
-    encryptor (1.3.0)
     erb2haml (0.1.5)
       html2haml
     erubis (2.7.0)
@@ -514,7 +511,6 @@ PLATFORMS
 DEPENDENCIES
   CoffeeTags
   airbrake (~> 3.1.15)
-  attr_encrypted (~> 1.3.1)
   awesome_print (~> 1.2.0)
   backbone-on-rails (~> 1.1.0.0)
   bcrypt-ruby (~> 3.1.2)

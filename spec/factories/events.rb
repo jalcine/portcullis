@@ -11,24 +11,23 @@ FactoryGirl.define do
 
     trait :with_tickets do
       after(:create) do | event, evaluator |
-        10.times.each do
-          t = event.tickets.create attributes_for(:ticket, {
-            date_start: event.date_start - Random.rand(15).days,
+        10.times.each { event.tickets.create attributes_for(:ticket, {
+            date_start: event.date_start - 6.days,
             date_end: event.date_start
           })
-        end
+        }
         event.save!
       end
     end
 
     trait :expired do
       date_start { Time.now - 15.days }
-      date_end { date_end - 5.days }
+      date_end { date_start - 5.days }
     end
 
     trait :available do
       date_start { Time.now - 3.days }
-      date_end { date_start + 6.days }
+      date_end { date_start + 1.day }
     end
 
     trait :unlisted do
