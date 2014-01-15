@@ -18,6 +18,9 @@ describe Ticket do
     subject { create :ticket, :expired }
     it { expect(subject).to be_expired }
     it { expect(subject).to_not be_available }
+    describe 'expired events'
+    describe 'active events'
+    describe 'expired tickets'
   end
 
   describe '.available?' do

@@ -23,6 +23,7 @@
       %a{href: event_ticket_url(ticket.event, ticket), rel: :nofollow, data: {remote: true, ticket: {action: :delete}, method: :delete}} Delete
     - if can? :modify, ticket
       %a{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}} Edit
+    - Rails.logger.debug "NAH #{ticket.expired?}"
     - if can? :order, ticket
       %label
         %input{type: :number, min: 0, max: ticket.max_quantity.present? ? ticket.max_quantity : nil, data: {ticket: :quantity}, value: 0, placeholder: '#'}

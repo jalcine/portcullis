@@ -1,9 +1,8 @@
 require 'spec_helper'
 
-describe 'tickets/_form.html.haml' do
-  let(:event)   { create :event }
+describe 'tickets/_form.html.haml', broken: true do
+  let(:event)   { create :event, :available }
   let(:ticket)  { create(:ticket, event: event) }
-
   before(:each) do
     assign(:event, event)
     assign(:ticket, ticket)

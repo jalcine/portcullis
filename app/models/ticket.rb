@@ -23,8 +23,8 @@ class Ticket < ActiveRecord::Base
     end
 
     def expired?
-      return true if Time.now > date_end
       return true if event.expired?
+      return true if Time.now >= date_end
       false
     end
 
