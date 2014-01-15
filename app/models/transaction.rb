@@ -5,22 +5,9 @@ class Transaction < ActiveRecord::Base
 
   def authorize!
     return if authorized?
-    result = Braintree::Transaction.sale(
-      amount: 100.00,
-      credit_card: {
-        number: 4444444444444448,
-        expiration_date: "05/14"
-      }
-    ) 
-
-    if result.success?
-      write_attribute(:braintree_transaction_id, result.transaction.id)
-      save!
-    else
-      raise NoMethodError, result.errors.to_s
-    end
-
-    result.success?
+    # TODO Collect payment information from the user's Braintree backend.
+    customer = user.to_customer
+    true
   end
 
   def settle!
