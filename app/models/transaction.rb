@@ -1,13 +1,12 @@
 class Transaction < ActiveRecord::Base
   has_many :orders
   belongs_to :merchant, class_name: User, foreign_key: :merchant_id
+  before_save :only_one_paying_user
   after_save :readonly!, if: -> { braintree_transaction_id.present? }
 
+  public
   def authorize!
     return if authorized?
-    # TODO Collect payment information from the user's Braintree backend.
-    customer = user.to_customer
-    true
   end
 
   def settle!
@@ -17,7 +16,8 @@ class Transaction < ActiveRecord::Base
   end
 
   def service_fee
-    braintree_transaction.service_fee
+    bt = braintree_transaction
+    bt.nil? ? -1 : bt.service_fee
   end
 
   def authorized?
@@ -37,7 +37,8 @@ class Transaction < ActiveRecord::Base
   end
 
   def amount
-    braintree_transaction.amount
+    bt = braintree_transaction
+    bt.nil? ? -1 : bt.amount
   end
 
   private
@@ -45,5 +46,10 @@ class Transaction < ActiveRecord::Base
     return nil if braintree_transaction_id.nil?
     result = Braintree::Transaction.find(braintree_transaction_id)
     result
+  end
+
+  def only_one_paying_user
+    users = orders.select(:user_id)
+    users.length == 1 or users.length == 0
   end
 end
