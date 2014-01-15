@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::Base
-  use_vanity :current_user if Settings.toggles.ab
+  use_vanity :current_user if Settings.toggles.ab == true
 
   extend Browser::ActionController
 

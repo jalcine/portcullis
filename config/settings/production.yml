@@ -1,5 +1,6 @@
 toggles:
   in_beta: true
+  ab: false
   features:
     - beta
     - auth:facebook
