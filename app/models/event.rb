@@ -67,7 +67,11 @@ class Event < ActiveRecord::Base
   end
 
   def expired?
-    date_start < DateTime.now && date_end < DateTime.now
+    Time.zone.now > date_start && Time.zone.now > date_end
+  end
+
+  def elapsing?
+    Time.zone.now > date_start && Time.zone.now < date_end
   end
 
   def draft?

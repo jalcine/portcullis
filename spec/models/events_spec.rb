@@ -20,22 +20,29 @@ describe Event do
     it { expect(subject).to be_draft }
   end
 
+  describe '.elapsing' do
+    subject { create :event, :ongoing }
+    it { expect(subject).to be_elapsing }
+    it { expect(subject).to_not be_expired }
+  end
+
   describe '.expired?' do
     subject { create :event, :expired }
+    it { expect(subject).to_not be_elapsing }
     it { expect(subject).to be_expired }
   end
 
   describe '.tickets' do
-    it 'saves tickets' do
-      params = FactoryGirl.attributes_for :event, :with_tickets
-      a_event = Event.create params
-      expect(a_event).to be_persisted
-      expect(a_event.errors).to be_empty
+    describe 'saves tickets' do
+      let(:params) { FactoryGirl.attributes_for :event, :with_tickets }
+      let(:a_event) { Event.create params }
+      it { expect(a_event).to be_persisted }
+      it { expect(a_event.errors).to be_empty }
     end
 
-    it 'lists tickets' do
-      a_event = FactoryGirl.create :event, :with_tickets
-      expect(a_event.tickets).to_not be_empty
+    describe 'lists tickets' do
+      let(:a_event) { FactoryGirl.create :event, :with_tickets }
+      it { expect(a_event.tickets).to_not be_empty }
     end
   end
 end

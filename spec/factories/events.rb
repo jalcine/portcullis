@@ -4,7 +4,7 @@ FactoryGirl.define do
     latitude    2.2945
     name        { Faker::Lorem.sentence }
     description { Faker::Lorem.paragraph(3) }
-    date_start  { Time.now + 6.days }
+    date_start  { Time.zone.now + 6.days }
     date_end    { date_start }
     address     { Faker::Address.street_address(include_secondary: true) }
     publicity   :public
@@ -21,13 +21,18 @@ FactoryGirl.define do
     end
 
     trait :expired do
-      date_start { Time.now - 15.days }
-      date_end { date_start - 5.days }
+      date_start { Time.zone.now - 15.days }
+      date_end { date_start + 5.days }
     end
 
     trait :available do
-      date_start { Time.now - 3.days }
-      date_end { date_start + 1.day }
+      date_start { Time.zone.now + 3.days }
+      date_end { date_start + 6.hours }
+    end
+
+    trait :ongoing do
+      date_start { Time.zone.now - 2.hours }
+      date_end { date_start + 6.hours }
     end
 
     trait :unlisted do
