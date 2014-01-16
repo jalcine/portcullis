@@ -31,5 +31,8 @@ FactoryGirl.define do
       date_start { Time.now - 1.day }
       date_end { date_start + 2.weeks }
     end
+
+    factory :available_ticket, traits: [ :available ]
+    factory :expired_ticket,  traits: [ :expired ]
   end
 end

@@ -14,7 +14,8 @@ gem 'unf', '~> 0.1.3'
 gem 'haml', '4.0.3'
 gem 'haml-rails', '~> 0.4'
 gem 'sprockets-image_compressor'
-gem 'foundation-rails', '~> 5.0.2', git: 'git://github.com/jalcine/foundation-rails'
+gem 'foundation-rails', '~> 5.0.2', 
+  git: 'git://github.com/jalcine/foundation-rails'
 gem 'compass-rails', '~> 1.1.2'
 gem 'sass-rails', '4.0.0'
 gem 'font-awesome-sass', '~> 4.0.1'
@@ -23,7 +24,8 @@ gem 'underscore-rails', '~> 1.5.2'
 gem 'backbone-on-rails', '~> 1.1.0.0'
 gem 'modernizr-rails', '~> 2.7.0'
 gem 'coffee-rails', '4.0.0'
-gem 'tinymce-rails', git: 'git://github.com/spohlenz/tinymce-rails', branch: 'tinymce-4'
+gem 'tinymce-rails', git: 'git://github.com/spohlenz/tinymce-rails',
+  branch: 'tinymce-4'
 gem 'jbuilder', '~> 1.5.2'
 gem 'yajl-ruby', '~> 1.1.0'
 gem 'uglifier', '2.3.0'
@@ -116,6 +118,8 @@ group :test, :development do
   gem 'capybara-screenshot', require: false
   gem 'poltergeist', require: false
   gem 'turnip', require: false
+  gem 'turnip-kanban', require: false,
+    git: 'git://github.com/jalcine/turnip-agile.git'
   gem 'libnotify', require: false
   gem 'growl', require: false
   gem 'rb-inotify', require: false

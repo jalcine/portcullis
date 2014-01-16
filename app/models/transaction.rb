@@ -1,26 +1,14 @@
 class Transaction < ActiveRecord::Base
   has_many :orders
   belongs_to :merchant, class_name: User, foreign_key: :merchant_id
+  before_save :at_least_one_order
+  after_save :only_one_paying_user, unless: -> { orders.empty? }
   after_save :readonly!, if: -> { braintree_transaction_id.present? }
 
+  public
   def authorize!
     return if authorized?
-    result = Braintree::Transaction.sale(
-      amount: 100.00,
-      credit_card: {
-        number: 4444444444444448,
-        expiration_date: "05/14"
-      }
-    ) 
-
-    if result.success?
-      write_attribute(:braintree_transaction_id, result.transaction.id)
-      save!
-    else
-      raise NoMethodError, result.errors.to_s
-    end
-
-    result.success?
+    braintree_transaction_id = Random.rand(300)
   end
 
   def settle!
@@ -30,7 +18,8 @@ class Transaction < ActiveRecord::Base
   end
 
   def service_fee
-    braintree_transaction.service_fee
+    bt = braintree_transaction
+    return (bt.nil? ? -1 : bt.service_fee)
   end
 
   def authorized?
@@ -50,7 +39,8 @@ class Transaction < ActiveRecord::Base
   end
 
   def amount
-    braintree_transaction.amount
+    bt = braintree_transaction
+    return (bt.nil? ? -1 : bt.amount)
   end
 
   private
@@ -58,5 +48,15 @@ class Transaction < ActiveRecord::Base
     return nil if braintree_transaction_id.nil?
     result = Braintree::Transaction.find(braintree_transaction_id)
     result
+  end
+
+  def at_least_one_order
+    orders.length >= 1
+  end
+
+  def only_one_paying_user
+    users = orders.select(:paying_user_id)
+    puts ap(users)
+    users.length == 1 or users.length == 0
   end
 end

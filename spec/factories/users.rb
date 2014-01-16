@@ -12,6 +12,8 @@ FactoryGirl.define do
           user.save! 
         end
       end
+
+      factory "#{role}_user".to_sym, traits: [ role ]
     end
   end
 end

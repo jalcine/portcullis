@@ -14,6 +14,13 @@ GIT
       rack (>= 0.9.1)
 
 GIT
+  remote: git://github.com/jalcine/turnip-agile.git
+  revision: 4504fcb152d48c5a589c3cee8b0422930e349269
+  specs:
+    turnip-kanban (0.0.1)
+      turnip
+
+GIT
   remote: git://github.com/spohlenz/tinymce-rails
   revision: b398df1b434d56e20d1c2ae65fa0715cb6bf16e5
   branch: tinymce-4
@@ -599,6 +606,7 @@ DEPENDENCIES
   sprockets-image_compressor
   tinymce-rails!
   turnip
+  turnip-kanban!
   uglifier (= 2.3.0)
   underscore-rails (~> 1.5.2)
   unf (~> 0.1.3)

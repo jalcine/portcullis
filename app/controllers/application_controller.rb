@@ -4,7 +4,8 @@ class ApplicationController < ActionController::Base
   extend Browser::ActionController
 
   rescue_from CanCan::AccessDenied do |e|
-    Rails.logger.warn "Authorization failure! Attempted to #{e.action} a #{e.subject}"
+    Rails.logger.warn "Authorization failure! " +
+      "Attempted to #{e.action} a #{e.subject}"
     respond_to do | format |
       format.html { redirect_to root_url, alert: e.message }
       format.json { render json: e.message, status: :forbidden }
