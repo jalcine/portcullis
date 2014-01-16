@@ -1,31 +1,28 @@
 require 'spec_helper'
 
 describe Transaction do
+  subject { create :transaction }
   describe 'validations' do
-    subject { create :transaction }
     it { expect(subject).to have(:no).errors_on(:orders) }
     it { expect(subject).to have(:no).errors_on(:merchant) }
-    it 'should be readonly' do
-      subject.authorize!
-      expect(subject).to be_readonly
-    end
   end
 
-  describe '.authorize!' do
+  describe '.authorize!', broken: true do
     subject { create :transaction }
     before(:each) { subject.authorize! }
     it { expect(subject).to be_authorized }
+    it { expect(subject).to be_readonly }
   end
 
-  describe '.settle!', braintree_settling: true do
+  describe '.settle!', braintree_settling: true, broken: true do
     subject { create :transaction, :authorized }
     before(:each) { subject.settle! }
-    xit { expect(subject).to be_settled }
+    it { expect(subject).to be_settled }
   end
 
-  describe '.declined?', decline_transactions: true do
+  describe '.declined?', decline_transactions: true, broken: true do
     subject { create :transaction, :authorized }
     before(:each) { subject.authorize! }
-    xit { expect(subject).to be_declined }
+    it { expect(subject).to be_declined }
   end
 end

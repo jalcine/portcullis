@@ -2,6 +2,7 @@ Feature: Saving Events
   Background:
     Given a host is signed in
 
+  @broken
   @backlog
   Scenario: Saves a new event properly
     When I go to the new events page

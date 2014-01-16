@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140109083035) do
+ActiveRecord::Schema.define(version: 20140115185622) do
 
   create_table "age_groups", force: true do |t|
     t.string   "name"
@@ -51,8 +51,8 @@ ActiveRecord::Schema.define(version: 20140109083035) do
     t.string   "address"
     t.decimal  "latitude"
     t.decimal  "longitude"
-    t.integer  "secondary_category_id"
     t.integer  "primary_category_id"
+    t.integer  "secondary_category_id"
     t.string   "banner"
     t.boolean  "publicity"
   end
@@ -66,9 +66,10 @@ ActiveRecord::Schema.define(version: 20140109083035) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status",         default: 0
+    t.integer  "charge",         default: 0
     t.integer  "quantity",       default: 0
-    t.decimal  "charge",         default: 0.0
     t.integer  "transaction_id"
+    t.integer  "paying_user_id", default: 0
   end
 
   add_index "orders", ["ticket_id"], name: "index_orders_on_ticket_id", using: :btree
@@ -116,12 +117,12 @@ ActiveRecord::Schema.define(version: 20140109083035) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "name"
-    t.integer  "max_quantity"
-    t.integer  "quantity"
-    t.datetime "date_end"
-    t.datetime "date_start"
     t.decimal  "price",        precision: 8, scale: 2
-    t.text     "description",                          default: "", null: false
+    t.datetime "date_start"
+    t.datetime "date_end"
+    t.integer  "quantity"
+    t.integer  "max_quantity"
+    t.text     "description"
   end
 
   add_index "tickets", ["event_id"], name: "index_tickets_on_event_id", using: :btree

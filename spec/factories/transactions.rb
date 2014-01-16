@@ -1,9 +1,11 @@
 FactoryGirl.define do
   factory :transaction do
-    merchant { create(:user) }
+    merchant { create(:host_user) }
 
     after(:build) do | trs, _ |
-      3.times { trs.orders << create(:order) }
+      Random.rand(Time.now.hour + 4).to_i.times { 
+        trs.orders << build(:order, transaction: trs)
+      }
     end
 
     trait :authorized do

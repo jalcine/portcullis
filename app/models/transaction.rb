@@ -1,12 +1,14 @@
 class Transaction < ActiveRecord::Base
   has_many :orders
   belongs_to :merchant, class_name: User, foreign_key: :merchant_id
-  before_save :only_one_paying_user
+  before_save :at_least_one_order
+  after_save :only_one_paying_user, unless: -> { orders.empty? }
   after_save :readonly!, if: -> { braintree_transaction_id.present? }
 
   public
   def authorize!
     return if authorized?
+    braintree_transaction_id = Random.rand(300)
   end
 
   def settle!
@@ -17,7 +19,7 @@ class Transaction < ActiveRecord::Base
 
   def service_fee
     bt = braintree_transaction
-    bt.nil? ? -1 : bt.service_fee
+    return (bt.nil? ? -1 : bt.service_fee)
   end
 
   def authorized?
@@ -38,7 +40,7 @@ class Transaction < ActiveRecord::Base
 
   def amount
     bt = braintree_transaction
-    bt.nil? ? -1 : bt.amount
+    return (bt.nil? ? -1 : bt.amount)
   end
 
   private
@@ -48,8 +50,13 @@ class Transaction < ActiveRecord::Base
     result
   end
 
+  def at_least_one_order
+    orders.length >= 1
+  end
+
   def only_one_paying_user
-    users = orders.select(:user_id)
+    users = orders.select(:paying_user_id)
+    puts ap(users)
     users.length == 1 or users.length == 0
   end
 end
