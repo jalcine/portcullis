@@ -10,55 +10,61 @@ class Ticket < ActiveRecord::Base
   validates_numericality_of :price, message: 'must use a number for the price'
 
   public
-    def is_free?
-      price == 0.0
+  def is_free?
+    price == 0.0
+  end
+
+  def is_donation?
+    price < 0
+  end
+
+  def is_priced?
+    price > 0
+  end
+
+  def expired?
+    return true if event.expired?
+    return true if Time.now >= date_end
+    false
+  end
+
+  def price=(value)
+    value = value.to_i
+    if value < -1
+      value = -1
     end
 
-    def is_donation?
-      price < 0
-    end
+    write_attribute(:price, value)
+  end
 
-    def is_priced?
-      price > 0
-    end
+  def service_fee
+    service_amount = (0.025 * price).ceil + 99
+    service_amount = 995 if service_amount > 995
+    service_amount
+  end
 
-    def expired?
-      return true if event.expired?
-      return true if Time.now >= date_end
-      false
-    end
+  def available?
+    return false if expired?
+    time_now = Time.now
+    time_now > date_start && time_now < date_end
+  end
 
-    def price=(value)
-      value = value.to_i
-      if value < -1
-        value = -1
-      end
+  def purchased?(user)
+    !Order.includes(:tickets, :users).where(ticket: self, user: user).empty?
+  end
 
-      write_attribute(:price, value)
-    end
+  # TODO: Form transaction data for purchases of orders.
+  def purchase_for(user)
+    return nil if !available? or user.nil?
+    order = Order.create ticket: self, user: user
+    order
+  end
 
-    def available?
-      return false if expired?
-      time_now = Time.now
-      time_now > date_start && time_now < date_end
+  def to_builder
+    Jbuilder.new do | ticket |
+      ticket.(self, :name, :description, :price, :quantity, :event)
     end
-
-    def purchased?(user)
-      !Order.includes(:tickets, :users).where(ticket: self, user: user).empty?
-    end
-
-    # TODO: Form transaction data for purchases of orders.
-    def purchase_for(user)
-      return nil if !available? or user.nil?
-      order = Order.create ticket: self, user: user
-      order
-    end
-
-    def to_builder
-      Jbuilder.new do | ticket |
-        ticket.(self, :name, :description, :price, :quantity, :event)
-      end
-    end
+  end
 
   alias_method :priced?, :is_priced?
   alias_method :donation?, :is_donation?
