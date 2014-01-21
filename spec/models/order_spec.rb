@@ -43,7 +43,8 @@ describe Order do
     end
 
     describe 'donational tickets' do
-      subject { create(:order, user: create(:user, :attendee), ticket: create(:ticket, :donation) ) }
+      let(:price) { Random.rand(3000).to_i + 1 }
+      subject { create(:order, user: create(:user, :attendee), ticket: create(:ticket, :donation, price: price) ) }
       it { expect(subject.service_fee).to_not be > 995 }
     end
   end

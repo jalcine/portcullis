@@ -38,6 +38,7 @@ class Ticket < ActiveRecord::Base
   end
 
   def service_fee
+    return 0 if free?
     service_amount = (0.025 * price).ceil + 99
     service_amount = 995 if service_amount > 995
     service_amount
