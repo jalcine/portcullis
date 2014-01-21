@@ -66,9 +66,9 @@ ActiveRecord::Schema.define(version: 20140121194729) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "status",         default: 0
-    t.integer  "transaction_id"
     t.integer  "charge",         default: 0
     t.integer  "quantity",       default: 0
+    t.integer  "transaction_id"
     t.integer  "paying_user_id", default: 0
   end
 
