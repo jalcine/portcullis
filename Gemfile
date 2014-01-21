@@ -1,6 +1,6 @@
 # vim: ft=ruby fdm=indent
 source 'https://rubygems.org'
-ruby '2.0.0'
+ruby '2.1.0'
 
 # We use Rails 4. We bout that life.
 gem 'rails', '4.0.0'
@@ -14,15 +14,14 @@ gem 'unf', '~> 0.1.3'
 gem 'haml', '4.0.3'
 gem 'haml-rails', '~> 0.4'
 gem 'sprockets-image_compressor'
-gem 'foundation-rails', '~> 5.0.2', 
-  git: 'git://github.com/jalcine/foundation-rails'
-gem 'compass-rails', '~> 1.1.2'
+gem 'foundation-rails', '5.0.3'
+gem 'compass-rails', '1.1.2'
 gem 'sass-rails', '4.0.0'
-gem 'font-awesome-sass', '~> 4.0.1'
-gem 'jquery-rails-cdn', '~> 1.0.1'
-gem 'underscore-rails', '~> 1.5.2'
-gem 'backbone-on-rails', '~> 1.1.0.0'
-gem 'modernizr-rails', '~> 2.7.0'
+gem 'font-awesome-sass', '4.0.1'
+gem 'jquery-rails-cdn', '1.0.1'
+gem 'underscore-rails', '1.5.2'
+gem 'backbone-on-rails', '1.1.0.0'
+gem 'modernizr-rails', '2.7.0'
 gem 'coffee-rails', '4.0.0'
 gem 'tinymce-rails', git: 'git://github.com/spohlenz/tinymce-rails',
   branch: 'tinymce-4'
@@ -67,7 +66,7 @@ gem 'rails-timeago', '~> 2.0'
 gem 'rack-referrals'
 gem 'rack-attack'
 gem 'paper_trail', '~> 3.0.0'
-gem 'airbrake', '~> 3.1.15'
+gem 'airbrake', '~> 3.1.15', group: [:production]
 
 group :development do
   #gem 'rails_best_practices', '~> 1.1.4'
@@ -82,9 +81,9 @@ group :development do
   gem 'guard-migrate', '~> 0.2.1', require: false
   gem 'guard-ctags-bundler', '~> 1.0.1', require: false
   gem 'guard-livereload', '~> 2.0.0', require: false
-  gem 'chrome_logger', '~> 0.1.2', require: 'chrome_logger/railtie'
+  #gem 'chrome_logger', '~> 0.1.2', require: 'chrome_logger/railtie'
   gem 'guard-rspec', '~> 4.0.0', require: false
-  gem 'guard-sidekiq', '~> 0.0.11', require: false
+  #gem 'guard-sidekiq', '~> 0.0.11', require: false
   gem 'guard-spork', '~> 1.5.1', require: false
   gem 'guard-rails', '~> 0.4.7', require: false
   #gem 'guard-teaspoon', '~> 0.0.4', require: false
@@ -101,12 +100,12 @@ end
 # Set up testing.
 group :test, :development do
   gem 'ci_reporter', '~> 1.9.0'
-  gem 'fake_braintree', '~> 0.4.0', require: false
   #gem 'ejs', '~> 1.1.1'
   #gem 'teaspoon', '~> 0.7.8'
   #gem 'tapout', '~> 0.4.5'
   gem 'awesome_print', '~> 1.2.0'
-  gem 'faker', '~> 1.1.2', require: false
+  gem 'faker', '~> 1.2.0', require: false
+  gem 'fake_braintree', '~> 0.4', require: false
   gem 'rspec', '~> 2.14', require: false
   gem 'rspec-rails', '~> 2.14', require: false
   gem 'rspec-mocks', '~> 2.14', require: false
@@ -118,8 +117,7 @@ group :test, :development do
   gem 'capybara-screenshot', require: false
   gem 'poltergeist', require: false
   gem 'turnip', require: false
-  gem 'turnip-kanban', require: false,
-    git: 'git://github.com/jalcine/turnip-agile.git'
+  gem 'turnip-kanban', require: false
   gem 'libnotify', require: false
   gem 'growl', require: false
   gem 'rb-inotify', require: false

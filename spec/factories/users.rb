@@ -13,7 +13,11 @@ FactoryGirl.define do
         end
       end
 
-      factory "#{role}_user".to_sym, traits: [ role ]
+      if !(role == :guest or role == :administrator)
+        factory "#{role}_user".to_sym, traits: [ role ] do
+          profile { create(:paying_profile) }
+        end
+      end
     end
   end
 end

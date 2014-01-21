@@ -9,6 +9,7 @@ class Profile < ActiveRecord::Base
   belongs_to :user
   mount_uploader :avatar, AvatarUploader
 
+  private
   def slug_candidates
     [
       :first_name,
@@ -17,7 +18,7 @@ class Profile < ActiveRecord::Base
     ]
   end
 
-  private
+  public
   def update_braintree_customer
     return if user.nil? or user.new_record?
     hash_of_properties = {}

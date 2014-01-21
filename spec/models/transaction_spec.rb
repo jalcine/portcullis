@@ -1,28 +1,43 @@
 require 'spec_helper'
 
-describe Transaction do
-  subject { create :transaction }
+describe Transaction, slow: true do
   describe 'validations' do
-    it { expect(subject).to have(:no).errors_on(:orders) }
-    it { expect(subject).to have(:no).errors_on(:merchant) }
+    describe 'authorized' do
+      subject { create :transaction, :authorized }
+      it { expect(subject).to have(:no).errors_on(:orders) }
+      it { expect(subject).to have(:no).errors_on(:merchant) }
+    end
   end
 
-  describe '.authorize!', broken: true do
-    subject { create :transaction }
+  describe '.authorize!' do
+    subject { create :transaction, :authorized }
     before(:each) { subject.authorize! }
-    it { expect(subject).to be_authorized }
+
+    it { expect(subject).to have(:no).errors }
     it { expect(subject).to be_readonly }
+    it { expect(subject).to be_authorized }
+    it { expect(subject).to_not be_settled }
+    it { expect(subject).to_not be_declined }
   end
 
-  describe '.settle!', braintree_settling: true, broken: true do
+  describe '.settle!', broken: true do
     subject { create :transaction, :authorized }
     before(:each) { subject.settle! }
+
+    it { expect(subject).to have(:no).errors }
+    it { expect(subject).to be_readonly }
     it { expect(subject).to be_settled }
+    it { expect(subject).to be_authorized }
+    it { expect(subject).to_not be_declined }
   end
 
-  describe '.declined?', decline_transactions: true, broken: true do
-    subject { create :transaction, :authorized }
-    before(:each) { subject.authorize! }
+  describe '.declined?', braintree: :decline, broken: true do
+    subject { create(:transaction, :authorized) }
+
+    it { expect(subject).to have(:no).errors }
+    it { expect(subject).to be_readonly }
     it { expect(subject).to be_declined }
+    it { expect(subject).to_not be_authorized }
+    it { expect(subject).to_not be_settled }
   end
 end

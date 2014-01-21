@@ -7,10 +7,10 @@
     = stylesheet_link_tag :application
     %link{rel: 'shortcut icon', href: asset_url('favicon.png')}/
     %link{rel: :icon, href: asset_url('favicon.png')}/
+    = airbrake_javascript_notifier if Rails.env.production?
     = render 'components/seo'
     = render 'components/mobile'
     = render 'components/ios'
-    = airbrake_javascript_notifier
     = javascript_include_tag :modernizr
   %body{class: page_classes(params)}
     .off-canvas-wrap

@@ -11,5 +11,6 @@ module Portcullis
   class Application < Rails::Application
     config.time_zone = 'Eastern Time (US & Canada)'
     config.autoload_paths += %W({config.root}/lib)
+    require "#{Rails.root}/lib/net/http/response"
   end
 end
