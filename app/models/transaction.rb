@@ -18,6 +18,10 @@ class Transaction < ActiveRecord::Base
     prices.each { |p| total_price += p }
     service_fees.each { |n| total_service_fee += n }
 
+    # TODO Determine if the user is using a credit card.
+    # Right now, there's only the ability to pay via crEdit card.
+    total_service_fee += 0.03 * (total_price)
+
     result = Braintree::Transaction.sale(
       amount: (total_price.to_f / 100).to_f,
       service_fee_amount: (total_service_fee.to_f / 100).to_f,
