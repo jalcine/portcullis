@@ -32,6 +32,11 @@ describe Ticket do
     subject { create :ticket }
     let(:variant) { Random.rand(Time.now.hour * Time.now.year) + 1 }
 
+    it 'doesnt exist for free tickets' do
+      ticket = create(:ticket, :free)
+      expect(ticket.service_fee).to be_zero
+    end
+
     it 'ensures cap of $9.95 for service fees' do
       subject.price = variant + 35840
       expect(subject.service_fee).to be 995

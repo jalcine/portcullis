@@ -10,7 +10,7 @@ FactoryGirl.define do
     max_quantity { (quantity / 30).to_i }
 
     trait :free do
-      price 0.00
+      price { 0 }
     end
 
     trait :priced do
