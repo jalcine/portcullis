@@ -22,7 +22,7 @@ class Event < ActiveRecord::Base
   scope :last_month, -> { where(date_start: (Time.now.midnight - 1.month)..Time.now.midnight) }
   scope :last_week,  -> { where(date_start: (Time.now.midnight - 1.week)..Time.now.midnight) }
   scope :last_year,  -> { where(date_start: (Time.now.midnight - 1.year)..Time.now.midnight) }
-  scope :public,     -> { where(publicity: true) }
+  #scope :public,     -> { where(publicity: true) }
 
   # Validations
   validates_presence_of :name, allow_blank: true, allow_nil: false

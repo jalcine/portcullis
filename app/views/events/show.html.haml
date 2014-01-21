@@ -67,7 +67,7 @@
   - unless @event.tickets.empty? 
     = render 'tickets/stub_list', tickets: @event.tickets unless @event.tickets.empty?
     #bulk_order_event.reveal-modal.large{data: {reveal: true}}
-    - unless @event.expired or @event.elapsing?
+    - unless @event.expired? or @event.elapsing?
       %a.button.large.right.success{href: '#', data: {reveal: {id: 'bulk_order_event', ajax: bulk_order_event_path(@event)}, event: @event.id}}
         Order
 

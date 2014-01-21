@@ -8,15 +8,16 @@ module Customer
   public
   def to_customer
     connect_with_braintree if braintree_customer_id.nil?
-    return Braintree::Customer.search do | search |
-      search.id.is braintree_customer_id
-      search.email.is email
-    end
+    result = Braintree::Customer.find(braintree_customer_id)
+    result
   end
 
-  private
+  protected
   def connect_with_braintree
-    result = Braintree::Customer.create
+    result = Braintree::Customer.create({
+      email: self.email
+    })
+    self.profile.update_braintree_customer if self.profile.present?
     write_attribute(:braintree_customer_id, result.customer.id) if result.success?
   end
 end

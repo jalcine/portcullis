@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140116170212) do
+ActiveRecord::Schema.define(version: 20140121194729) do
 
   create_table "age_groups", force: true do |t|
     t.string   "name"
@@ -132,7 +132,10 @@ ActiveRecord::Schema.define(version: 20140116170212) do
     t.datetime "updated_at"
     t.integer  "merchant_id"
     t.string   "braintree_transaction_id"
+    t.integer  "paying_user_id_id",        default: 0
   end
+
+  add_index "transactions", ["paying_user_id_id"], name: "index_transactions_on_paying_user_id_id", using: :btree
 
   create_table "users", force: true do |t|
     t.datetime "created_at"

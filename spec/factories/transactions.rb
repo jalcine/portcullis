@@ -4,14 +4,12 @@ FactoryGirl.define do
 
     after(:build) do | trs, _ |
       Random.rand(Time.now.hour + 4).to_i.times { 
-        trs.orders << build(:order, transaction: trs)
+        trs.orders << create(:order, transaction: trs)
       }
     end
 
     trait :authorized do
-      after(:create) do | trs, _ |
-        trs.authorize!
-      end
+      after(:create) { | t, _ | t.authorize! }
     end
   end
 end
