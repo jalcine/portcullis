@@ -1,4 +1,4 @@
-require 'fake_braintree'
+#require 'fake_braintree'
 
 RSpec.configure do | config |
   config.before(:each) do
@@ -7,4 +7,4 @@ RSpec.configure do | config |
     FakeBraintree.decline_all_cards! if braintree_config == :decline
     FakeBraintree.verify_all_cards! if braintree_config == :verify
   end
-end
+end if defined?(FakeBraintree)

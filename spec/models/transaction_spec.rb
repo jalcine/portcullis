@@ -9,7 +9,7 @@ describe Transaction, slow: true do
     end
   end
 
-  describe '.authorize!', focus: true do
+  describe '.authorize!' do
     subject { create :transaction, :authorized }
     before(:each) { subject.authorize! }
 
@@ -20,7 +20,7 @@ describe Transaction, slow: true do
     it { expect(subject).to_not be_declined }
   end
 
-  describe '.settle!' do
+  describe '.settle!', broken: true do
     subject { create :transaction, :authorized }
     before(:each) { subject.settle! }
 
@@ -31,9 +31,8 @@ describe Transaction, slow: true do
     it { expect(subject).to_not be_declined }
   end
 
-  describe '.declined?', braintree: :decline do
-    subject { create :transaction, :authorized }
-    before(:each) { subject.settle! }
+  describe '.declined?', braintree: :decline, broken: true do
+    subject { create(:transaction, :authorized) }
 
     it { expect(subject).to have(:no).errors }
     it { expect(subject).to be_readonly }
