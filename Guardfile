@@ -37,8 +37,8 @@ group :ui do
     watch(%r{app/helpers/.+\.rb})
     watch(%r{public/.+\.(css|js|html)})
     watch(%r{config/locales/.+\.yml})
-    watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*})
-      { |m| "/assets/#{m[3]}" }
+    watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| 
+      "/assets/#{m[3]}" }
   end
 end
 
@@ -50,48 +50,46 @@ group :test do
     watch('config/application.rb')
     watch('config/environments/test.rb')
     watch('spec/spec_helper.rb')
-    watch(%w{^spec/support/prefork/*\.rb$})
+    watch(%w{^spec/support/(modules|prefork|run)*\.rb$})
     watch(%r{config/settings/test\.*\.yml})
     watch(%r{^config/initializers/.+\.rb$})
   end
 
-  guard :rspec, all_on_pass: true, all_on_start: true, failed_mode: :none,
-    cmd: 'bundle exec rspec --drb --format NyanCatWideFormatter -t \'\'' do
+  guard :rspec, all_on_pass: false, all_on_start: false, failed_mode: :none,
+    cmd: 'rspec --drb --format NyanCatWideFormatter' do
     # Global changes
-    watch('.rspec')                                                  { 'spec' }
-    watch('spec/spec_helper.rb')                                     { 'spec' }
-    watch(%w{^spec/factories/**/*.rb$})                 { 
-                                                          ['spec/models',
-                                                           'spec/controllers']
-                                                        }
-    watch(%w{^spec/support/run/**/*.rb$})                            { 'spec' }
-    watch('config/routes.rb')                                { 'spec/routing' }
-    watch('spec/turnip_helper.rb')                        { 'spec/acceptance' }
-    watch('app/models/ability.rb')                         { 'spec/abilities' }
-    watch('app/controllers/application_controller.rb')   { 'spec/controllers' }
-    watch(%r{^spec/factories/(.+)\.rb$})                { |m| 
-                                      ["spec/routing/#{m[1]}_routing_spec.rb",
-                                       "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb",
-                                       "spec/acceptance/#{m[1]}s/*.feature"] }
-
+    watch('.rspec') { 'spec' }
+    watch('spec/spec_helper.rb') { 'spec' }
+    watch('config/routes.rb') { 'spec/routing' }
+    watch('spec/turnip_helper.rb') { 'spec/acceptance' }
+    watch('app/models/ability.rb') { 'spec/abilities' }
+    watch('app/controllers/application_controller.rb') { 'spec/controllers' }
+    watch(%w{^spec/factories/**/*.rb$}) { ['spec/models', 'spec/controllers'] }
+    watch(%w{^spec/support/(modules|prefork|run)/*.rb$})
+    watch(%r{^spec/factories/(.+)\.rb$}) { |m| 
+      ["spec/routing/#{m[1]}_routing_spec.rb",
+       "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb" ]} 
+    watch(%r{^app/controllers/(.+)_(controller)\.rb$})  {|m| 
+      [ "spec/routing/#{m[1]}_routing_spec.rb",
+        "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb" ]}
     # Per-file changes
     watch(%r{^spec/.+_spec\.rb$})
     watch(%r{^lib/(.+)\.rb$})                { |m| "spec/lib/#{m[1]}_spec.rb" }
     watch(%r{^app/(.+)\.rb$})                    { |m| "spec/#{m[1]}_spec.rb" }
     watch(%r{^app/views/(.*)\.haml$}) {|m| "spec/views/#{m[1]}#{m[2]}_spec.rb"}
+  end
 
+  guard :rspec, all_on_pass: true, all_on_start: false, failed_mode: :none,
+    cmd: 'TURNIP=true rspec --drb --format NyanCatWideFormatter' do
     # Integration and acceptance testing
     watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { 'spec/acceptance' }
-    watch(%r{^app/controllers/(.+)_(controller)\.rb$})  {|m| 
-                                      [ "spec/routing/#{m[1]}_routing_spec.rb",
-                                       "spec/#{m[2]}s/#{m[1]}_#{m[2]}_spec.rb",
-                                         "spec/acceptance/#{m[1]}/*.feature"] }
-    watch(%r{^spec/acceptance/(.+)\.feature$})          {|m| 
-      "spec/acceptance/#{m[1]}.feature" }
+    watch(%r{^spec/factories/(.+)\.rb$}) {|m| "spec/acceptance/#{m[1]}.feature" }
+    watch(%r{^app/controllers/(.+)_(controller)\.rb$})  {|m| "spec/acceptance/#{m[1]}/*.feature" }
+    watch(%r{^spec/acceptance/(.+)\.feature$}) {|m| "spec/acceptance/#{m[1]}.feature" }
   end
 
   #guard :teaspoon do
-    #watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
-    #watch(%r{spec/javascripts/(.*)})
+  #watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
+  #watch(%r{spec/javascripts/(.*)})
   #end
 end
