@@ -1,62 +1,92 @@
 class Transaction < ActiveRecord::Base
   has_many :orders
   belongs_to :merchant, class_name: User, foreign_key: :merchant_id
-  after_save :readonly!, if: -> { braintree_transaction_id.present? }
+  belongs_to :paying_user, class_name: User, foreign_key: :paying_user_id
+  before_save :at_least_one_order
+  after_save :only_one_paying_user, unless: -> { orders.empty? }
 
+  public
   def authorize!
-    return if authorized?
+    return false if authorized?
+    paying_user = orders.first.paying_user
+    customer = paying_user.to_customer
+
+    total_price = 0
+    total_service_fee = 0
+    prices = orders.map { |o| o.charge }
+    service_fees = orders.map { |o| o.service_fee }
+    prices.each { |p| total_price += p }
+    service_fees.each { |n| total_service_fee += n }
+
+    # TODO Determine if the user is using a credit card.
+    # Right now, there's only the ability to pay via crEdit card.
+    total_service_fee += 0.03 * (total_price)
+
     result = Braintree::Transaction.sale(
-      amount: 100.00,
-      credit_card: {
-        number: 4444444444444448,
-        expiration_date: "05/14"
+      amount: (total_price.to_f / 100).to_f,
+      service_fee_amount: (total_service_fee.to_f / 100).to_f,
+      customer: {
+        id: customer.id
       }
-    ) 
+    )
 
     if result.success?
       write_attribute(:braintree_transaction_id, result.transaction.id)
       save!
+      readonly!
     else
-      raise NoMethodError, result.errors.to_s
+      raise StandardError, "Couldn't handle transaction."
+      return false
     end
 
-    result.success?
+    true
   end
 
   def settle!
+    return false unless authorized?
     result = Braintree::Transaction.submit_for_settlement(braintree_transaction_id)
-    return true if result.success?
-    raise NoMethodError, result.errors.to_s
+    raise StandardError unless result.success?
+    true
   end
 
-  def service_fee
-    braintree_transaction.service_fee
+  def charged_amount
+    return -1 unless readonly?
+    to_braintree.amount
+  end
+
+  def charged_service_fee
+    return -1 unless readonly?
+    to_braintree.service_fee
   end
 
   def authorized?
     return false unless readonly?
-    braintree_transaction.status == 'authorized'
+    to_braintree.status == 'authorized'
   end
 
   def settled?
-    return false unless readonly?
-    puts ap(braintree_transaction)
-    braintree_transaction.status == 'settled'
+    return false unless authorized? 
+    to_braintree.status == 'settled'
   end
 
   def declined?
-    return false unless readonly?
-    braintree_transaction.status == 'declined'
-  end
-
-  def amount
-    braintree_transaction.amount
+    return false unless authorized?
+    to_braintree.status == 'declined'
   end
 
   private
-  def braintree_transaction
-    return nil if braintree_transaction_id.nil?
+  def to_braintree
+    return nil unless readonly?
     result = Braintree::Transaction.find(braintree_transaction_id)
-    result
+    return result
+  end
+
+  def at_least_one_order
+    orders.length >= 1
+  end
+
+  def only_one_paying_user
+    users = orders.select(:paying_user_id).distinct
+    users.length == 1 or users.length == 0
   end
 end

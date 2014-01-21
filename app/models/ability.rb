@@ -34,6 +34,7 @@ class Ability
 
   def administrator
     can :manage, :all
+    can :manage, Order
   end
 
   def host

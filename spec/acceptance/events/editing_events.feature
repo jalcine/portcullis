@@ -3,6 +3,7 @@ Feature: Editing Events
     Given a host is signed in
 
   @backlog
+  @broken
   Scenario: handling descriptions
     When I go to create an event
     And I set the event's title with "Snow White"

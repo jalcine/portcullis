@@ -10,10 +10,17 @@ class OrdersController < ApplicationController
   def create
     authorize! :create, Order
 
-    @order = Order.new order_params
-    @order.ticket = @ticket
-    @order.user = current_user
+    @order = Order.new order_params.merge({
+      ticket: @ticket,
+      user: current_user,
+      paying_user: current_user
+    })
     saved_order = @order.save
+
+    if !saved_order
+      puts ap(@order)
+      puts ap(order_params)
+    end
 
     respond_to do | format |
       if saved_order

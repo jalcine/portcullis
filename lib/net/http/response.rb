@@ -1,12 +1,14 @@
 module DecodeHttpResponseOverride
   def initialize(h,c,m)
     super(h,c,m)
-    @decode_content = true
+    @decode_content = false
   end
 
   def body
     res = super
-    self['content-length']= res.bytesize if self['content-length']
+    if self['content-length']
+      self['content-length'] = res.bytesize
+    end
     res
   end
 end

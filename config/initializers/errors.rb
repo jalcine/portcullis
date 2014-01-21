@@ -3,4 +3,4 @@ Airbrake.configure do |config|
   config.host    = Settings.errbit.host
   config.port    = Settings.errbit.port
   config.secure  = config.port == 443
-end
+end if Rails.env.production?

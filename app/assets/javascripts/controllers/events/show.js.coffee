@@ -9,8 +9,8 @@ Portcullis.Events.Show =
     , 3750
   loadBannerImage: ->
     banner = $('#event_banner_content')
-    banner.css 'background-image', "url(#{banner.attr('data-event-banner')})"
-    banner.removeAttr 'data-event-banner'
+    header = $('#event_banner')
+    header.css 'background-image', "url(#{banner.attr('data-event-banner')})"
 
 self = Portcullis.Events.Show
 
