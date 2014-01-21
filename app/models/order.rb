@@ -14,17 +14,21 @@ class Order < ActiveRecord::Base
 
   public
   def charge=(new_charge)
-    if ticket.free? then
-      new_charge = 0
-    elsif ticket.priced? then
-      new_charge = ticket.price + ticket.service_fee
-    elsif ticket.donation? then
-      service_fee = new_charge * 0.025 + 99
-      service_fee = 995 if service_fee > 995
-      new_charge += service_fee
-    end
-
+    new_charge = 0 if ticket.free?
     write_attribute(:charge, new_charge)
+  end
+
+  public
+  def service_fee
+    if ticket.free? then
+      return 0
+    elsif ticket.priced?
+      return ticket.service_fee
+    elsif ticket.donation?
+      fee = charge * 0.025 + 99
+      fee = 995 if fee > 995
+      return fee
+    end
   end
 
   private

@@ -26,7 +26,25 @@ describe Order do
       it { expect(subject).to have(:no).errors_on(:transaction) }
       it { expect(subject).to have(:no).errors_on(:charge) }
       it { expect(subject.charge).to be_nonzero }
-      it { expect(subject.charge).to be subject.ticket.price+subject.ticket.service_fee }
+      it { expect(subject.charge).to be subject.ticket.price }
+    end
+  end
+
+  describe '.service_fee' do
+    describe 'free tickets' do
+      subject { create(:order, user: create(:user, :attendee), ticket: create(:ticket, :free) ) }
+      it { expect(subject.service_fee).to be_zero }
+    end
+
+    describe 'priced tickets' do
+      subject { create(:order, user: create(:user, :attendee), ticket: create(:ticket, :priced) ) }
+      it { expect(subject.service_fee).to_not be_zero }
+      it { expect(subject.service_fee).to_not be > 995 }
+    end
+
+    describe 'donational tickets' do
+      subject { create(:order, user: create(:user, :attendee), ticket: create(:ticket, :donation) ) }
+      it { expect(subject.service_fee).to_not be > 995 }
     end
   end
 

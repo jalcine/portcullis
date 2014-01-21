@@ -1,4 +1,4 @@
-#require 'fake_braintree'
+require 'fake_braintree'
 
 RSpec.configure do | config |
   config.before(:each) do

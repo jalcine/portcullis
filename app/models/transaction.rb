@@ -12,11 +12,15 @@ class Transaction < ActiveRecord::Base
     customer = paying_user.to_customer
 
     total_price = 0
+    total_service_fee = 0
     prices = orders.map { |o| o.charge }
+    service_fees = orders.map { |o| o.service_fee }
     prices.each { |p| total_price += p }
+    service_fees.each { |n| total_service_fee += n }
 
     result = Braintree::Transaction.sale(
       amount: (total_price.to_f / 100).to_f,
+      service_fee_amount: (total_service_fee.to_f / 100).to_f,
       customer: {
         id: customer.id
       }
