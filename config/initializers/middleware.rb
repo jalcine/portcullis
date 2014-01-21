@@ -1,7 +1,7 @@
 require 'rack/contrib/time_zone'
 
 Portcullis::Application.configure do
-  config.middleware.use Rack::Attack
+  config.middleware.use Rack::Attack if Rails.env.production?
   config.middleware.use Rack::Referrals
   config.middleware.use Rack::Runtime
   config.middleware.use ActionDispatch::RemoteIp
