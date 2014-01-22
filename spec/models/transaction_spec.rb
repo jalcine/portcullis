@@ -6,6 +6,7 @@ describe Transaction, slow: true do
       subject { create :transaction, :authorized }
       it { expect(subject).to have(:no).errors_on(:orders) }
       it { expect(subject).to have(:no).errors_on(:merchant) }
+      it { expect(subject).to have(:no).errors_on(:braintree_transaction_id) }
     end
   end
 
