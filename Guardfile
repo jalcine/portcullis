@@ -2,6 +2,8 @@
 scope groups: [:ui, :test, :core]
 notification :libnotify, timeout: 3
 
+require 'pry-rails'
+
 group :core do
   guard :bundler do
     watch('Gemfile')
@@ -37,7 +39,7 @@ group :ui do
     watch(%r{app/helpers/.+\.rb})
     watch(%r{public/.+\.(css|js|html)})
     watch(%r{config/locales/.+\.yml})
-    watch(%r{(app|vendor)(/assets/\w+/(.+\.(css|js|html))).*}) { |m| 
+    watch(%r{(app|vendor)(/assets/\w+/(.+\.(png|jpg|css|js|html))).*}) { |m| 
       "/assets/#{m[3]}" }
   end
 end

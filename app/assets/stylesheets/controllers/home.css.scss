@@ -16,7 +16,6 @@ body.home.landing {
 
       > .row:nth-child(1) {
         > .columns {
-          @include background(radial-gradient($black, transparent 100px));
           img {
             margin: 1.5em 0em;
             max-width: rem-calc(512px);
@@ -26,13 +25,12 @@ body.home.landing {
       }
 
       > .row:nth-child(2){
-        max-width: inherit;
         h2 {
-          @include text-shadow(0px 0px 9px $black);
+          @include text-shadow(0px 0px 15px $black);
           color: $white;
           text-align: center;
           margin-bottom: 1em;
-          font-size: 2rem;
+          font-size: 2.25rem;
           text-transform: capitalize;
         }
       }
