@@ -1,3 +1,7 @@
 %ul.ticket-list{data: {event: tickets.first.event.id}}
+  = render 'tickets/stub'
   - tickets.each do | ticket |
-    = render 'tickets/stub', ticket: ticket
+    :javascript
+      $(function(){
+        Portcullis.Tickets.addToList((new Portcullis.Ticket({model: { id: #{ticket.id} }})));
+      });

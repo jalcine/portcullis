@@ -1,29 +1,18 @@
-%li.ticket{data: {ticket: {id:ticket.id, start: ticket.date_start, end: ticket.date_end, purchased: purchased_ticket?(ticket)}}}
-  .status-region
-    %i.fa.fa-asterisk
-  .content-region
-    .titlebar
-      %h2{title: ticket.name}
-        = ticket.name
-        %span.price{data: {price: ticket.donation? ? -1 : ticket.price }}
-          = number_to_currency(ticket.price, precision: 2) if ticket.priced?
-          = "FREE" if ticket.free?
-          = "DONATION" if ticket.donation?
-        %span.time
-          - if Time.zone.now >= ticket.date_start
-            closes
-            = timeago_tag ticket.date_end
-          - else
-            opens
-            = timeago_tag ticket.date_start
-    .metadata
-      %div= ticket.description.html_safe
-  .actions-region
-    - if can? :destroy, ticket
-      %a{href: event_ticket_url(ticket.event, ticket), rel: :nofollow, data: {remote: true, ticket: {action: :delete}, method: :delete}} Delete
-    - if can? :modify, ticket
-      %a{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}} Edit
-    - Rails.logger.debug "NAH #{ticket.expired?}"
-    - if can? :order, ticket
-      %label
-        %input{type: :number, min: 0, max: ticket.max_quantity.present? ? ticket.max_quantity : nil, data: {ticket: :quantity}, value: 0, placeholder: '#'}
+%script{type: 'text/template'}
+  %li.ticket
+    .status-region
+      %i.fa.fa-asterisk
+    .content-region
+      .titlebar
+        %h2
+          :plain
+            <%= name %>
+          %span.price
+            :plain
+            <%= price %>
+          %span.time
+      .metadata
+        %div
+          :plain
+            <%= description %>
+    .actions-region
