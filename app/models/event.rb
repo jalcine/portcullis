@@ -1,9 +1,7 @@
 class Event < ActiveRecord::Base
-  unless defined?(FEE_SPLIT)
-    FEE_SPLIT   = 0x0100
-    FEE_TAKE_ON = 0x0200
-    FEE_PASS_ON = 0x0300
-  end
+  FEE_SPLIT   = 0x0001
+  FEE_TAKE_ON = 0x0002
+  FEE_PASS_ON = 0x0003
 
   # Relations
   belongs_to :owner, class_name: User, foreign_key: :user_id
@@ -17,12 +15,13 @@ class Event < ActiveRecord::Base
   mount_uploader :banner, EventBannerUploader
 
   # Scopes
-  scope :in_future,  -> (time = DateTime.now) { where('date_start > ?', time) }
-  scope :in_past,    -> (time = DateTime.now) { where('date_start < ?', time) }
-  scope :last_month, -> { where(date_start: (Time.now.midnight - 1.month)..Time.now.midnight) }
-  scope :last_week,  -> { where(date_start: (Time.now.midnight - 1.week)..Time.now.midnight) }
-  scope :last_year,  -> { where(date_start: (Time.now.midnight - 1.year)..Time.now.midnight) }
-  #scope :public,     -> { where(publicity: true) }
+  scope :in_future,  -> (time = Time.zone.now) { where('date_start > ?', time) }
+  scope :in_past,    -> (time = Time.zone.now) { where('date_start < ?', time) }
+  scope :yesterday,  -> { where(date_start: (Time.zone.now - 1.day)..Time.zone.now) }
+  scope :last_month, -> { where(date_start: (Time.zone.now.midnight - 1.month)..Time.zone.now.midnight) }
+  scope :last_week,  -> { where(date_start: (Time.zone.now.midnight - 1.week)..Time.zone.now.midnight) }
+  scope :last_year,  -> { where(date_start: (Time.zone.now.midnight - 1.year)..Time.zone.now.midnight) }
+  scope :public,     -> { where(publicity: true) }
 
   # Validations
   validates_presence_of :name, allow_blank: true, allow_nil: false
@@ -30,6 +29,7 @@ class Event < ActiveRecord::Base
   validates_presence_of :date_start, allow_blank: true, allow_nil: false
   validates_presence_of :description, allow_blank: true, allow_nil: false
   validates_presence_of :address, allow_blank: true, allow_nil: false
+  validates_presence_of :fee_processing, allow_blank: false, allow_nil: false
 
   # Concerns
   include Searchable

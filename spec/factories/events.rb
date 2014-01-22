@@ -40,7 +40,6 @@ FactoryGirl.define do
     end
 
     trait :draft do
-      name nil
       description nil
       date_end nil
       date_start nil
