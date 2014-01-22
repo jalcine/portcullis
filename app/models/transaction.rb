@@ -5,30 +5,17 @@ class Transaction < ActiveRecord::Base
   before_save :at_least_one_order
   after_save :only_one_paying_user, unless: -> { orders.empty? }
 
+  def event
+    orders.first.ticket.event
+  end
+
   public
   def authorize!
     return false if authorized?
-    paying_user = orders.first.paying_user
-    customer = paying_user.to_customer
+    self.paying_user = orders.first.paying_user
 
-    total_price = 0
-    total_service_fee = 0
-    prices = orders.map { |o| o.charge }
-    service_fees = orders.map { |o| o.service_fee }
-    prices.each { |p| total_price += p }
-    service_fees.each { |n| total_service_fee += n }
-
-    # TODO Determine if the user is using a credit card.
-    # Right now, there's only the ability to pay via crEdit card.
-    total_service_fee += 0.03 * (total_price)
-
-    result = Braintree::Transaction.sale(
-      amount: (total_price.to_f / 100).to_f,
-      service_fee_amount: (total_service_fee.to_f / 100).to_f,
-      customer: {
-        id: customer.id
-      }
-    )
+    charges = parse_fee_handling(calculate_charges)
+    result = transact(charges)
 
     if result.success?
       write_attribute(:braintree_transaction_id, result.transaction.id)
@@ -79,6 +66,55 @@ class Transaction < ActiveRecord::Base
     return nil unless readonly?
     result = Braintree::Transaction.find(braintree_transaction_id)
     return result
+  end
+
+  def calculate_charges
+    total_price = 0
+    total_service_fee = 0
+    orders.each do |o|
+      total_price += o.charge
+      total_service_fee += o.service_fee
+    end
+
+    {
+      price: total_price,
+      service_fee: total_service_fee + (0.03 * total_price),
+    }
+  end
+
+  def parse_fee_handling(charges)
+    case event.fee_processing
+      when Event::FEE_SPLIT
+        charges[:price] += half
+      when Event::FEE_PASS_ON
+        charges[:price] += charges[:service_fee]
+      when Event::FEE_TAKE_ON
+        charges[:price] -= charges[:service_fee]
+    end
+
+    charges
+  end
+
+  def monetize_prices(charges)
+    [:price, :service_fee].each { |f| charges[f] = (charges[f].to_f / 100).round(2) }
+    charges
+  end
+
+  def transact(charges)
+    charges = monetize_prices(charges)
+    customer = self.paying_user.to_customer
+    Braintree::Transaction.sale(
+      merchant_account_id: Settings.braintree.merchant_account,
+      amount: charges[:price],
+      service_fee_amount: charges[:service_fee],
+      customer: {
+        id: customer.id
+      },
+      options: {
+        submit_for_settlement: false,
+        hold_in_escrow: true
+      }
+    )
   end
 
   def at_least_one_order
