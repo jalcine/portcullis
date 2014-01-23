@@ -27,11 +27,11 @@
             = f.password_field :password, placeholder: 'supersekretpassword'
         - if devise_mapping.rememberable?
           .row
-            .small-8.columns
-              = f.label :remember_me do
-                = f.check_box :remember_me
-                Remember Me
-            .small-4.columns
+            -#.small-8.columns
+              -#= f.label :remember_me do
+                -#= f.check_box :remember_me
+                -#Remember Me
+            .small-push-8.small-4.columns
               = f.button type: :submit, class: 'button success shiny radius small', title: 'Sign In' do
                 Sign In
 .row

@@ -10,16 +10,10 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource)
-    return request.referrer if request.referrer.present?
-    return request.env['omniauth.origin'] if request.env.include? 'omniauth.origin'
-    return params[:ref] if params.include? :ref
     root_url
   end
 
   def after_sign_in_path_for(resource)
-    return request.referrer if request.referrer.present?
-    return request.env['omniauth.origin'] if request.env.include? 'omniauth.origin'
-    return params[:ref] if params.include? :ref
     events_url(scope: :recommended)
   end
 
@@ -28,6 +22,6 @@ class ApplicationController < ActionController::Base
   end
 
   use_vanity :current_user if Settings.toggles.ab == true
-  protect_from_forgery with: :null_session
+  protect_from_forgery with: :exception
   extend Browser::ActionController
 end
