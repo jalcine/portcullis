@@ -7,12 +7,22 @@ class EventsController < ApplicationController
   def index
     authorize! :view, Event
     @events = Event.all
+
+    respond_to do | format |
+      format.html
+      format.json { render json: @events }
+    end
   end
 
   # GET/POST /events/1
   # GET/POST /events/1.json
   def show
     authorize! :view, @event
+
+    respond_to do | format |
+      format.html
+      format.json { render json: @event }
+    end
   end
 
   # GET /events/new

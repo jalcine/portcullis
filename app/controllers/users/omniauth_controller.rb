@@ -60,7 +60,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
 
     redirect_to new_user_registration_path, error: t('auth.failure') and return false if no_good
     redirect_to new_user_registration_path, error: t('auth.failure') and return false if is_omniauth_auth_malformed?
-    return true
+    true
   end
 
   private
@@ -107,7 +107,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
         @provider.import_from_oauth(omniauth_auth['info']) if @user.profile.nil?
       end
     else
-      redirect_to new_user_session_pathstatus: :not_found,
+      redirect_to new_user_session_path, status: :not_found,
         error: t('auth.failure') and return
     end
 
@@ -126,7 +126,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
     class_eval <<-METHODS, __FILE__, __LINE__+1
     public
     def #{provider}
-      do_the_deed('#{provider}')
+      return do_the_deed('#{provider}')
     end
     METHODS
   end

@@ -1,7 +1,7 @@
 class ApplicationController < ActionController::Base
   rescue_from CanCan::AccessDenied do |e|
     Rails.logger.warn "Authorization failure! " +
-      "Attempted to #{e.action} a #{e.subject} without permission."
+      "Attempted to #{e.action} a #{e.subject.class.name} without permission."
     respond_to do | format |
       format.html { redirect_to root_url, alert: e.message }
       format.json { render json: e.message, status: :forbidden }

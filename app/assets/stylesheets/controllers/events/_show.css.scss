@@ -71,22 +71,8 @@ body.events.show {
               line-height: $event-banner-height * 8/15;
               position: relative;
 
-              /*&:after {*/
-              /*@include single-transition;*/
-              /*box-sizing: border-box;*/
-              /*position: absolute;*/
-              /*width: 100%;*/
-              /*height: $event-banner-height;*/
-              /*top: -1 * $event-banner-height;*/
-              /*background-color: darken($dark-red, 20%);*/
-              /*content: attr(title);*/
-              /*color: #fff;*/
-              /*line-height: $event-banner-height;*/
-            /*}*/
-
               &:hover {
                 color: $event-banner-bg;
-                /*&:after { top: 0px; }*/
               }
             }
           }

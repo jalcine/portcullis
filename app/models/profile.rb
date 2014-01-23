@@ -28,9 +28,9 @@ class Profile < ActiveRecord::Base
 
     begin
       result = Braintree::Customer.update(user.read_attribute(:braintree_customer_id), hash_of_properties)
-    rescue Braintree::NotFoundError
+    rescue Braintree::NotFoundError => e
       Rails.logger.warn "No Braintree information found for profile ##{self.id}."
-    rescue Braintree::UnexpectedError
+    rescue Braintree::UnexpectedError => e
       Rails.logger.warn "Unable to update Braintree user information for profile ##{self.id}."
     end
   end

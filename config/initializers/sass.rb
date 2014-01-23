@@ -1,5 +1,5 @@
 Portcullis::Application.configure do
-  config.sass.relative_assets = false
+  config.sass.relative_assets = true
   config.sass.disable_warnings = true 
   config.sass.sourcemap = true
 

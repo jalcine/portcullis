@@ -8,6 +8,7 @@ FactoryGirl.define do
     date_end    { date_start }
     address     { Faker::Address.street_address(include_secondary: true) }
     publicity   :public
+    fee_processing { Event::FEE_PASS_ON }
 
     trait :with_tickets do
       after(:create) do | event, evaluator |
