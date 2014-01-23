@@ -1,3 +1,3 @@
 window.WebFontConfig =
   google:
-    families: ["Open+Sans:300,500:latin"]
+    families: ["Lato:300,400:latin"]

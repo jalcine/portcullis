@@ -22,6 +22,5 @@ class ApplicationController < ActionController::Base
   end
 
   use_vanity :current_user if Settings.toggles.ab == true
-  protect_from_forgery with: :exception
   extend Browser::ActionController
 end

@@ -13,7 +13,7 @@
   .page.classical.large-8.small-12.columns
     = form_for(resource, as: resource_name, url: session_path(resource_name), html: { class: 'custom' }) do |f|
       = devise_error_messages! unless resource.errors.empty?
-      = f.hidden_field :ref, value: request.referrer
+      = hidden_field_tag :ref, request.referrer
       %fieldset
         .row.collapse
           .small-4.columns

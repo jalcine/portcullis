@@ -60,7 +60,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
 
     redirect_to new_user_registration_path, error: t('auth.failure') and return false if no_good
     redirect_to new_user_registration_path, error: t('auth.failure') and return false if is_omniauth_auth_malformed?
-    true
+    return true
   end
 
   private
@@ -76,7 +76,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
   def do_the_deed(provider)
     return unless validate_parameters!
 
-    case @task
+    case @task.to_s
     when 'new'
       case find_user_from_oauth(provider)
       when :error_not_found
@@ -107,7 +107,7 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
         @provider.import_from_oauth(omniauth_auth['info']) if @user.profile.nil?
       end
     else
-      redirect_to new_user_session_path, status: :not_found,
+      redirect_to new_user_session_pathstatus: :not_found,
         error: t('auth.failure') and return
     end
 
@@ -119,13 +119,14 @@ class Users::OmniauthController < Devise::OmniauthCallbacksController
     flash[:notice] = "Welcome #{@user.profile.first_name}!"
     sign_in_and_redirect @user and return true unless @user.nil?
     redirect_to new_user_session_path,  error: t('auth.failure') and return true if @user.nil
+    false
   end
 
   Settings.authentication.providers.each do | provider, _ |
     class_eval <<-METHODS, __FILE__, __LINE__+1
     public
     def #{provider}
-      return do_the_deed('#{provider}')
+      do_the_deed('#{provider}')
     end
     METHODS
   end

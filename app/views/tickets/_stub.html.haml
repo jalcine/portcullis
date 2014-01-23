@@ -20,9 +20,9 @@
       %div= ticket.description.html_safe
   .actions-region
     - if can? :destroy, ticket
-      %a{href: event_ticket_url(ticket.event, ticket), rel: :nofollow, data: {remote: true, ticket: {action: :delete}, method: :delete}} Delete
+      -#%a{href: event_ticket_url(ticket.event, ticket), rel: :nofollow, data: {remote: true, ticket: {action: :delete}, method: :delete}} Delete
     - if can? :modify, ticket
-      %a{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}} Edit
+      -#%a{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}} Edit
     - Rails.logger.debug "NAH #{ticket.expired?}"
     - if can? :order, ticket
       %label

@@ -124,6 +124,7 @@ body.events.show {
       height: $event-banner-height * 7;
       text-align: center;
       display: table;
+      width: 100%;
 
       > h1 {
         @include text-shadow(0px 0px 6px #000);
