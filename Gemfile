@@ -70,6 +70,10 @@ gem 'rack-referrals'
 gem 'rack-attack'
 gem 'paper_trail', '~> 3.0.0'
 gem 'airbrake', '~> 3.1.15', group: [:production]
+gem 'flex', '~> 1.0.6'
+gem 'rest-client'
+gem 'flex-rails', '~> 1.0.6'
+gem 'flex-scopes', '~> 1.0.6'
 
 group :development do
   #gem 'rails_best_practices', '~> 1.1.4'

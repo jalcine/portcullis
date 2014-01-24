@@ -26,6 +26,9 @@ GEM
       erubis (~> 2.7.0)
       rack (~> 1.5.2)
       rack-test (~> 0.6.2)
+    active_attr (0.8.2)
+      activemodel (>= 3.0.2, < 4.1)
+      activesupport (>= 3.0.2, < 4.1)
     activemodel (4.0.0)
       activesupport (= 4.0.0)
       builder (~> 3.1.0)
@@ -129,6 +132,7 @@ GEM
     dotenv (0.9.0)
     dotenv-rails (0.9.0)
       dotenv (= 0.9.0)
+    dye (0.1.4)
     eco (1.0.0)
       coffee-script
       eco-source
@@ -161,6 +165,21 @@ GEM
     faraday (0.8.8)
       multipart-post (~> 1.2.0)
     ffi (1.9.3)
+    flex (1.0.6)
+      dye (~> 0.1.4)
+      multi_json (>= 1.3.4)
+      progressbar (= 0.12.0)
+    flex-models (1.0.6)
+      active_attr (>= 0.6.0)
+      flex (= 1.0.6)
+      flex-scopes (= 1.0.6)
+    flex-rails (1.0.6)
+      flex (= 1.0.6)
+      flex-models (= 1.0.6)
+      prompter (~> 0.1.5)
+      rails (>= 2.0)
+    flex-scopes (1.0.6)
+      flex (= 1.0.6)
     fog (1.19.0)
       builder
       excon (~> 0.31.0)
@@ -327,6 +346,10 @@ GEM
       websocket-driver (>= 0.2.0)
     polyglot (0.3.3)
     posix-spawn (0.3.8)
+    progressbar (0.12.0)
+    prompter (0.1.6)
+      dye (>= 0.1.1)
+      yard (>= 0.6.3)
     pry (0.9.12.2)
       coderay (~> 1.0.5)
       method_source (~> 0.8)
@@ -392,6 +415,8 @@ GEM
       ffi (>= 0.5.0)
     rdoc (3.12.2)
       json (~> 1.4)
+    rest-client (1.6.7)
+      mime-types (>= 1.16)
     rmagick (2.13.2)
     rolify (3.3.0.rc4)
     rspec (2.14.1)
@@ -518,6 +543,9 @@ DEPENDENCIES
   factory_girl_rails (~> 4.2.1)
   fake_braintree (~> 0.4)
   faker (~> 1.2.0)
+  flex (~> 1.0.6)
+  flex-rails (~> 1.0.6)
+  flex-scopes (~> 1.0.6)
   fog
   font-awesome-sass (= 4.0.1)
   foundation-rails (= 5.0.3)
@@ -565,6 +593,7 @@ DEPENDENCIES
   rails_config
   rb-fsevent
   rb-inotify
+  rest-client
   rmagick (~> 2.13.2)
   rolify (~> 3.3.0.rc4)
   rspec (~> 2.14)
