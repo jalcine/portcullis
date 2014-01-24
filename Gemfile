@@ -12,7 +12,7 @@ gem 'pg', '0.17.0'
 gem 'unf', '~> 0.1.3'
 
 # Money jazz.
-gem 'money-rails'
+#gem 'money-rails'
 
 gem 'haml', '4.0.3'
 gem 'haml-rails', '~> 0.4'

@@ -17,7 +17,7 @@ class EventsController < ApplicationController
 
   # GET /events/new
   def new
-    @event = Event.create! owner: current_user
+    @event = Event.new owner: current_user
     current_user.grant :host, @event
   end
 

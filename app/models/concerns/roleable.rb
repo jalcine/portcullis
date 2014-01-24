@@ -16,8 +16,8 @@ module Roleable
   end
 
   public
-    def role
-      ensure_a_role_is_present if self.roles.empty?
-      self.roles.first.name
-    end
+  def role
+    ensure_a_role_is_present if self.roles.empty?
+    self.roles.first.name
+  end
 end

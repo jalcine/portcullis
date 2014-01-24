@@ -29,15 +29,15 @@ group :ui do
     watch('config/environment.rb')
     watch('config/environments/development.rb')
     watch('config/unicorn/development.rb')
-    watch(%r{^config/(initializers)/.+\.rb$})
-    watch(%r{^config/settings/.+\.yml$})
+    watch(%r{^config/initializers/*.rb$})
+    watch(%r{^config/settings/*.yml$})
   end 
 
   guard :livereload, apply_css_live: true, grace_period: 0.1,
     override_url: true do
     watch(%r{app/views/.+\.haml$})
     watch(%r{app/helpers/.+\.rb})
-    watch(%r{public/.+\.(css|js|html)})
+    watch(%r{public/.+\.(css|js|html|png|jpg)})
     watch(%r{config/locales/.+\.yml})
     watch(%r{(app|vendor)(/assets/\w+/(.+\.(png|jpg|css|js|html))).*}) { |m| 
       "/assets/#{m[3]}" }
@@ -79,10 +79,7 @@ group :test do
     watch(%r{^lib/(.+)\.rb$})                { |m| "spec/lib/#{m[1]}_spec.rb" }
     watch(%r{^app/(.+)\.rb$})                    { |m| "spec/#{m[1]}_spec.rb" }
     watch(%r{^app/views/(.*)\.haml$}) {|m| "spec/views/#{m[1]}#{m[2]}_spec.rb"}
-  end
 
-  guard :rspec, all_on_pass: true, all_on_start: false, failed_mode: :none,
-    cmd: 'TURNIP=true rspec --drb --format NyanCatWideFormatter' do
     # Integration and acceptance testing
     watch(%r{^spec/acceptance/steps/(.+)_steps\.rb$})   { 'spec/acceptance' }
     watch(%r{^spec/factories/(.+)\.rb$}) {|m| "spec/acceptance/#{m[1]}.feature" }
