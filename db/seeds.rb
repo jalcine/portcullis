@@ -6,7 +6,6 @@ categorySocial = Category.create! name: 'Social'
 categoryActivities = Category.create! name: 'Activities'
 categoryArts = Category.create! name: 'The Arts'
 
-# Add 'Campus Life' under Social
 
 ['Concert', 'Music Show', 'Alternative', 'Classical', 'Electronic/Dance',
  'Folk/Country', 'Hip-Hop/RnB', 'Jazz/Blues', 'Pop', 'Afrobeats', 'Latin',

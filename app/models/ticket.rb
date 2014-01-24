@@ -7,6 +7,7 @@ class Ticket < ActiveRecord::Base
   validates_presence_of :date_end, message: 'must include an ending window'
   validates_presence_of :name, message: 'must include a name for the ticket'
   validates_presence_of :price, message: 'must set a price'
+  validates_presence_of :refundable, message: 'must be provided'
   validates_numericality_of :price, message: 'must use a number for the price'
 
   public
