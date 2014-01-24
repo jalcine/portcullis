@@ -8,6 +8,7 @@ FactoryGirl.define do
     quantity { Random.rand(4000).to_i  } 
     price { Random.rand(10000).to_i  }
     max_quantity { (quantity / 30).to_i }
+    refundable { true }
 
     trait :free do
       price { 0 }
