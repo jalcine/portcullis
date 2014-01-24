@@ -24,7 +24,7 @@
             Donation
             %i.fa.fa-fw
       = f.label :refundable do
-        = f.checkbox :refundable, checked: @ticket.refundable
+        = f.check_box :refundable, checked: @ticket.refundable
         Refundable
   .row
     .large-6.columns
