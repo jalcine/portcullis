@@ -34,6 +34,7 @@ class Event < ActiveRecord::Base
   # Concerns
   include Searchable
   include Geocodable
+  include Flex::ModelIndexer
   resourcify
 
   def public?
