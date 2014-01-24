@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140122211429) do
+ActiveRecord::Schema.define(version: 20140124172724) do
 
   create_table "age_groups", force: true do |t|
     t.string   "name"
@@ -124,6 +124,7 @@ ActiveRecord::Schema.define(version: 20140122211429) do
     t.integer  "quantity"
     t.integer  "max_quantity"
     t.text     "description"
+    t.boolean  "refundable",   default: true
   end
 
   add_index "tickets", ["event_id"], name: "index_tickets_on_event_id", using: :btree
