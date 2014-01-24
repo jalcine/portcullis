@@ -1,6 +1,6 @@
 # vim: ft=ruby fdm=indent
 source 'https://rubygems.org'
-ruby '2.1.0'
+ruby '2.0.0'
 
 # We use Rails 4. We bout that life.
 gem 'rails', '4.0.0'
