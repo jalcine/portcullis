@@ -23,6 +23,9 @@
           %span#price_donation{role: :link, data: {checked: @ticket.donation?}}
             Donation
             %i.fa.fa-fw
+      = f.label :refundable do
+        = f.checkbox :refundable, checked: @ticket.refundable
+        Refundable
   .row
     .large-6.columns
       .row.collapse
