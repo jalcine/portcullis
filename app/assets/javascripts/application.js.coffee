@@ -3,9 +3,15 @@
 #= require jquery/number.min
 #= require rails-timeago
 #= require foundation
+#= require portcullis
 #= require_tree ./lib
 #= require_tree ./controllers
 #= require count_up
+#= require_tree ../templates
+#= require_tree ./models
+#= require_tree ./collections
+#= require_tree ./views
+#= require_tree ./routers
 
 # Force timeago to publish times in a future tense (nearly all of them will be
 # anyways, so why not?)
