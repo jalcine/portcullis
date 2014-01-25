@@ -9,6 +9,9 @@
 # Backbone and Underscore would be found here.
 
 Portcullis =
+  Models : {}
+  Views : {}
+  Collections : {}
   boot : ->
     $('input[type=date]').pickadate()
     $('input[type=time]').pickatime()
