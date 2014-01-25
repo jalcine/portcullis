@@ -3,15 +3,13 @@
 #= require jquery/number.min
 #= require rails-timeago
 #= require foundation
-#= require portcullis
-#= require_tree ./lib
-#= require_tree ./controllers
 #= require count_up
+#= require_tree ./lib
 #= require_tree ../templates
+#= require_tree ./controllers
 #= require_tree ./models
 #= require_tree ./collections
 #= require_tree ./views
-#= require_tree ./routers
 
 # Force timeago to publish times in a future tense (nearly all of them will be
 # anyways, so why not?)
@@ -27,9 +25,7 @@ $(window).load ->
       mobile_show_parent_link: true
     reveal:
       close_on_background_click: true
-  $('.fit-text').fitText(0.7,
-    minFontSize: '1rem'
-  )
+  $('.fit-text').fitText(0.7, minFontSize: '1rem')
   $('[data-countup-start]').each (index, rawElem) ->
     elem = $(rawElem)
     numAnim = new countUp(rawElem, elem.attr('data-countup-start'), elem.attr('data-countup-end'), elem.attr('data-countup-places'), elem.attr('data-countup-speed'))
