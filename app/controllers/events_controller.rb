@@ -13,6 +13,11 @@ class EventsController < ApplicationController
   # GET/POST /events/1.json
   def show
     authorize! :view, @event
+
+    respond_to do | format |
+      format.html
+      format.json { render json: @event.to_builder.target! }
+    end
   end
 
   # GET /events/new

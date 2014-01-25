@@ -88,4 +88,14 @@ class Event < ActiveRecord::Base
     # TODO: Get the users who have completed orders for tickets of this event.
     # User.includes(:orders, :tickets).where(ticket: {event: })
   end
+
+  def to_builder
+    Jbuilder.new do | event |
+      event.(self, :name, :description, :date_start, :date_end, :longitude, :latitude, :address,
+            :primary_category, :second_category, :banner_url,
+            :fee_processing, :publicity)
+      event.tickets self.tickets.map { | t | t.id }
+      #event.attendees self.tickets.map { | a | a.id }
+    end
+  end
 end

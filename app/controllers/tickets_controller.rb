@@ -35,12 +35,10 @@ class TicketsController < ApplicationController
     respond_to do | format |
       if @ticket.nil?
         format.html
-        format.js { render jbuilder: nil }
         format.json { render nothing: true }
       else
-        format.js { render jbuilder: @ticket }
-        format.json { render nothing: true }
-        format.html { redirect_to root_url, notice: 'No ticket was found :(' }
+        format.json { render json: @ticket.to_builder.target! }
+        format.html { redirect_to root_url, notice: 'No ticket was found :(', status: :not_found}
       end
     end
   end
@@ -99,12 +97,12 @@ class TicketsController < ApplicationController
 
   private
     def set_event
-      @event = Event.find params[:event_id]
+      @event = Event.find params[:event_id] if params.include? :event_id
       Rails.logger.info 'No event passed!' unless params.include? :event_id
     end
 
     def set_ticket
-      @ticket = Ticket.find params[:id]
+      @ticket = Ticket.find params[:id] if params.include? :id
       Rails.logger.info 'No ticket passed!' unless params.include? :id
     end
 
