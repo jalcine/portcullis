@@ -1,0 +1,16 @@
+<li class='ticket ticket-stale'>
+  <div class='status-region'>
+    <i class='fa fa-asterisk'></i>
+  </div>
+  <div class='status-region'>
+    <div class='titlebar'>
+      <h2>
+        <%- name %>
+      </h2>
+    </div>
+    <div class='metadata'>
+      <div><%- description %></div>
+    </div>
+  </div>
+  <div class='actions-region'></div>
+</li>
