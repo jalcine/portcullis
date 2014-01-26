@@ -6,5 +6,4 @@ describe 'Portcullis', ->
     expect(Portcullis).to.not.be.null
 
   it 'boots once', ->
-    Portcullis.boot()
     expect(Portcullis.boot).to.be.null

@@ -13,18 +13,18 @@ Portcullis =
   Views : {}
   Collections : {}
   boot : ->
-    $('input[type=date]').pickadate()
-    $('input[type=time]').pickatime()
-    $('input[type=number], .number').number(true, 2)
+    Portcullis.bindElements $(document.body)
+    Portcullis.trigger 'boot'
+    Portcullis.boot = null
+  bindElements: (base) ->
+    base.find('input[type=date]').pickadate()
+    base.find('input[type=time]').pickatime()
+    base.find('input[type=number], .number').number(true, 2)
 
     $(document).on 'opened', '[data-reveal]', ->
       obj = $(this)
-      obj.find('input[type=time]').pickatime()
-      obj.find('input[type=date]').pickadate()
-      obj.find('input[type=number], .number').number(true, 2)
+      Portcullis.bindElements obj
 
-    Portcullis.trigger 'boot'
-    Portcullis.boot = null
 
 _.extend Portcullis, Backbone.Events
 _.once Portcullis.boot

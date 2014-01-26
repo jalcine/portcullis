@@ -77,7 +77,7 @@ group :development do
   gem 'pry-rails', '~> 0.3.2'
   gem 'CoffeeTags', require: false
   gem 'debugger', '~> 1.6.2'
-  gem 'debugger-xml', '~> 0.3.3'
+  #gem 'debugger-xml', '~> 0.3.3'
   gem 'binding_of_caller', '~> 0.7.2'
   gem 'guard', '2.2.2'
   gem 'guard-bundler', '~> 2.0.0', require: false
@@ -89,7 +89,7 @@ group :development do
   #gem 'guard-sidekiq', '~> 0.0.11', require: false
   gem 'guard-spork', '~> 1.5.1', require: false
   gem 'guard-rails', '~> 0.4.7', require: false
-  #gem 'guard-teaspoon', '~> 0.0.4', require: false
+  gem 'guard-teaspoon', '~> 0.0.4', require: false
   gem 'rack-livereload', '~> 0.3.15', require: false
   #gem 'bullet'
   gem 'quiet_assets', '~> 1.0.2'
@@ -103,8 +103,7 @@ end
 # Set up testing.
 group :test, :development do
   gem 'ci_reporter', '~> 1.9.0'
-  #gem 'ejs', '~> 1.1.1'
-  #gem 'teaspoon', '~> 0.7.8'
+  gem 'teaspoon', '~> 0.7.8'
   #gem 'tapout', '~> 0.4.5'
   gem 'awesome_print', '~> 1.2.0'
   gem 'faker', '~> 1.2.0', require: false

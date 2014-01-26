@@ -45,7 +45,7 @@ group :ui do
 end
 
 group :test do
-  guard :spork, rspec_env: { RAILS_ENV: 'test' }, wait: 90, retry_delay: 2,
+  guard :spork, rspec_env: { RAILS_ENV: 'test' }, wait: 180, retry_delay: 2,
     bundler: true, notify_on_start: true, rspec: true do
     watch('Gemfile.lock')
     watch('config/unicorn/test.rb')
@@ -87,8 +87,8 @@ group :test do
     watch(%r{^spec/acceptance/(.+)\.feature$}) {|m| "spec/acceptance/#{m[1]}.feature" }
   end
 
-  #guard :teaspoon do
-  #watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
-  #watch(%r{spec/javascripts/(.*)})
-  #end
+  guard :teaspoon do
+    watch(%r{app/assets/javascripts/(.+).js}) { |m| "#{m[1]}_spec" }
+    watch(%r{spec/javascripts/(.*)})
+  end
 end
