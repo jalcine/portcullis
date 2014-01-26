@@ -2,7 +2,7 @@
 %header#event_banner{itemprop: 'http://schema.org/Event', itemscope: ''}
   #event_banner_topheavy
     %ul
-      %li.text{data: {always: :true}}
+      %li.text
         %time#event_banner_date.date-box
           %span.day= @event.date_start.nil? ? '?' : @event.date_start.strftime('%-d')
           %span.month= @event.date_end.nil? ? '?' : @event.date_start.strftime('%^B')
