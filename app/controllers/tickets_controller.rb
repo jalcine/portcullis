@@ -7,7 +7,10 @@ class TicketsController < ApplicationController
   # TODO: Add actions on destruction.
   def destroy
     @ticket.destroy unless @ticket.nil?
-    render nothing: true, status: :moved_permanently
+    respond_to do | format |
+      format.html { redirect_to @event, notice: 'Deleted that ticket!' }
+      format.json { render nothing: true, status: :moved_permanently }
+    end
   end
 
   # GET /events/:event_id/tickets/new
@@ -34,11 +37,11 @@ class TicketsController < ApplicationController
   def show
     respond_to do | format |
       if @ticket.nil?
-        format.html
+        format.html { redirect_to root_url, notice: 'No ticket was found :(', status: :not_found }
         format.json { render nothing: true }
       else
+        format.html
         format.json { render json: @ticket.to_builder.target! }
-        format.html { redirect_to root_url, notice: 'No ticket was found :(', status: :not_found}
       end
     end
   end
