@@ -54,4 +54,4 @@ class Portcullis.Views.TicketsShow extends Backbone.View
     @updateTimeSensitiveClasses()
     @_timer = setTimeout =>
       @updateTiming()
-    , 6000
+    , 3000
