@@ -35,7 +35,7 @@
           %li
             %a.gplus.button.tiny
               %i.icon.fa-lg
-  #event_banner_content{data: {event: {banner: @event.banner.masthead.url}}}
+  #event_banner_content{data: {event: {banner: @event.banner.masthead.url, id: @event.id}}}
     %h1= @event.name.present? ? @event.name : 'Untitled Event'
 - if user_signed_in? and can? :update, @event and @event.publicity == :unlisted
   %p.alert-box.info.radius.center-text
@@ -63,8 +63,8 @@
         People can't RSVP to your event until you add some tickets!
         %a.button.tiny.alert.right{href: "#{edit_event_url(@event)}#tickets"}
           Add Tickets
+  = render 'tickets/list', tickets: @event.tickets unless @event.tickets.empty?
   - unless @event.tickets.empty? 
-    = render 'tickets/stub_list', tickets: @event.tickets unless @event.tickets.empty?
     #bulk_order_event.reveal-modal.large{data: {reveal: true}}
     - unless @event.expired? or @event.elapsing?
       %a.button.large.right.success{href: '#', data: {reveal: {id: 'bulk_order_event', ajax: bulk_order_event_path(@event)}, event: @event.id}}

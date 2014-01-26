@@ -64,7 +64,8 @@ class Ticket < ActiveRecord::Base
 
   def to_builder
     Jbuilder.new do | ticket |
-      ticket.(self, :name, :description, :price, :quantity, :date_start, :date_end)
+      ticket.(self, :name, :description, :price, :quantity, 
+              :date_start, :date_end, :max_quantity)
       ticket.event self.event.id
     end
   end

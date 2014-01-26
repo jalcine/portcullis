@@ -7,6 +7,13 @@ class Portcullis.Models.Ticket extends Backbone.Model
     name: ""
     description: ""
     quantity: 0
+    max_quantity: 0
+
+  isFree: ->
+    parseFloat(@get('price')) == 0
+
+  isPriced: ->
+    !@isFree
 
   validate : (attrs) =>
     return 'A name for the ticket is required' if !attrs.name?

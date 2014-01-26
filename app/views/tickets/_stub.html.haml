@@ -1,16 +1,19 @@
-%li.ticket{data: {ticket: {id:ticket.id, start: ticket.date_start, end: ticket.date_end, purchased: purchased_ticket?(ticket)}}}
+%li.ticket{data: {ticket: {id: ticket.id}}}
   .status-region
     %i.fa.fa-asterisk
   .content-region
     .titlebar
       %h2{title: ticket.name}
         = ticket.name
-        %span.price{data: {price: ticket.donation? ? -1 : ticket.price }}
+        %span.price
           = number_to_currency(ticket.price, precision: 2) if ticket.priced?
           = "FREE" if ticket.free?
           = "DONATION" if ticket.donation?
         %span.time
-          - if Time.zone.now >= ticket.date_start
+          - if Time.zone.now >= ticket.date_end
+            closed
+            = timeago_tag ticket.date_end
+          - elsif Time.zone.now >= ticket.date_start
             closes
             = timeago_tag ticket.date_end
           - else
@@ -20,10 +23,9 @@
       %div= ticket.description.html_safe
   .actions-region
     - if can? :destroy, ticket
-      -#%a{href: event_ticket_url(ticket.event, ticket), rel: :nofollow, data: {remote: true, ticket: {action: :delete}, method: :delete}} Delete
+      %a.button.alert.expand{href: ticket_path(ticket.event, ticket), rel: :nofollow, data: {remote: true, ticket: {action: :delete}, method: :delete}} Delete
     - if can? :modify, ticket
-      -#%a{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_event_ticket_url(ticket.event,ticket)}, ticket: {action: :edit}}} Edit
-    - Rails.logger.debug "NAH #{ticket.expired?}"
+      %a.button.secondary.expand{href: '#', data: {reveal: {id: :modal_edit_ticket, ajax: edit_ticket_path(ticket.event,ticket)}, ticket: {action: :edit}}} Edit
     - if can? :order, ticket
       %label
         %input{type: :number, min: 0, max: ticket.max_quantity.present? ? ticket.max_quantity : nil, data: {ticket: :quantity}, value: 0, placeholder: '#'}
