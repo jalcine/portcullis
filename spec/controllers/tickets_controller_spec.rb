@@ -7,44 +7,60 @@ describe TicketsController do
 
   describe 'DELETE /tickets/:id' do
     let(:ticket) { event.tickets.create FactoryGirl.attributes_for(:ticket) }
-    before(:each) { delete :destroy, { id: ticket.id, event_id: event.id } }
+    before(:each) { delete :destroy, { id: ticket.id, event_id: event.id }, format: :html }
     it { expect(assigns(:event)).to_not be_nil }
     it { expect(assigns(:ticket)).to be_destroyed }
-    it { expect(response.status).to eql(301) }
+    it { expect(response).to be_a_redirect }
+    xit 'check for malformed responses'
   end
 
   describe 'GET /tickets/new' do
-    before(:each){ get :new, { event_id: event.id } }
-    it { expect(assigns(:ticket)).to_not be_nil }
+    describe 'shows a means of creating tickets' do
+      before(:each){ get :new, { event_id: event.id } }
+      it { expect(assigns(:ticket)).to_not be_nil }
+      it { expect(assigns(:event)).to_not be_nil }
+    end
+    xit 'check for malformed responses'
   end
 
   describe 'GET /tickets/:id/edit' do
     let(:ticket) { Ticket.create subject }
-    before(:each){ get :edit, { event_id: event.id, id: ticket.id } }
-    it { expect(assigns(:ticket)).to_not be_nil }
+    describe 'shows a means of editing tickets' do
+      before(:each){ get :edit, { event_id: event.id, id: ticket.id } }
+      it { expect(assigns(:ticket)).to_not be_nil }
+    end
+    xit 'check for malformed responses'
   end
 
   describe 'GET /tickets/:id' do
-    describe 'shows the ticket' do
-      let(:ticket) { Ticket.create subject }
-      before(:each) do 
-        event.tickets << ticket
-        get :show, { id: ticket.id, event_id: event.id }
+    [:html, :json].each do | format |
+      describe "using :#{format}" do
+        describe 'shows the ticket' do
+          let(:ticket) { Ticket.create subject }
+          before(:each) do 
+            event.tickets << ticket
+            get :show, { id: ticket.id, event_id: event.id }, format: format
+          end
+          it { expect(assigns(:event)).to_not  be_nil }
+          it { expect(assigns(:ticket)).to_not be_nil }
+          it { expect(response.status).to_not  be(404) }
+        end
       end
-      it { expect(assigns(:event)).to_not be_nil }
-      it { expect(assigns(:ticket)).to_not be_nil }
-      it { expect(response.status).to be(302) }
     end
+    xit 'check for malformed responses'
   end
 
   describe 'PUT /tickets/:id' do
-    let(:ticket) { Ticket.create subject }
-    subject { FactoryGirl.attributes_for :ticket }
-    before(:each) { put :update, { ticket: subject, event_id: event.id, id: ticket.id } }
-    it { expect(assigns(:event)).to_not be_nil }
-    it { expect(assigns(:ticket)).to_not be_nil }
-    it { expect(assigns(:ticket)).to be_persisted }
-    it { expect(response.status).to be(302) }
+    describe 'updates an existing ticket' do
+      let(:ticket) { Ticket.create subject }
+      subject { FactoryGirl.attributes_for :ticket }
+      before(:each) { put :update, { ticket: subject, event_id: event.id, id: ticket.id } }
+      it { expect(assigns(:event)).to_not be_nil }
+      it { expect(assigns(:ticket)).to_not be_nil }
+      it { expect(assigns(:ticket)).to be_persisted }
+      it { expect(response.status).to be(302) }
+    end
+    xit 'check for malformed responses'
   end
 
   describe 'POST /tickets' do
@@ -56,5 +72,6 @@ describe TicketsController do
       it { expect(assigns(:ticket)).to_not be_a_new_record }
       it { expect(assigns(:ticket)).to be_persisted }
     end
+    xit 'check for malformed responses'
   end
 end
