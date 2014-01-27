@@ -1,18 +1,31 @@
-<div class='reveal-modal'>
+<div class='reveal-modal medium' data-reveal id='order_dialog'>
   <h2>Confirm Order</h2>
   <p>
-    You sure you want to order these tickets? Double-check your order before 
-    making that final purchase.
+  You sure you want to order these tickets? Double-check your order before 
+  making that final purchase.
   </p>
   <table>
     <thead>
-      <th>Ticket Name</th>
-      <th>Price + Fees</th>
-      <th>Quantity</th>
+      <tr>
+        <th>Ticket Name</th>
+        <th>Quantity</th>
+        <th>Price + Fees</th>
+      </tr>
     </thead>
     <tbody></tbody>
     <tfoot>
-      <td colspan=3></td>
+      <tr>
+        <td colspan=2>
+          <a href='#' class='button small secondary left radius'>
+            Cancel
+          </a>
+          <button class='success large right radius' id='confirm_order'>
+            Confirm Order
+          </button>
+        </td>
+        <td>
+        </td>
+      </tr>
     </tfoot>
   </table>
   <a class='close-reveal-modal'>&#215;</a>

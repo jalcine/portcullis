@@ -4,15 +4,15 @@ class Portcullis.Views.OrdersShow extends Backbone.View
   className: 'order'
   constructor: (opts) ->
     @model = opts.model || null
-    console.log @model
   render: ->
-    console.log @model.ticket()
-    data =
+    @model.ticket().fetch()
+    data = {
       name: @model.ticket().get 'name'
       charge: @model.charge()
-      service_fee: @model.service()
-      quantity: @model.quantity()
-    @$el = $(@template({}))
+      service_fee: @model.serviceFee()
+      quantity: parseFloat(@model.get('quantity'))
+    }
+    @$el = $(@template(data))
     @
   cancelOrder: ->
     # TODO Remove from the parent collection.

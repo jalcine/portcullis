@@ -22,8 +22,7 @@ window.Portcullis =
     base.find('input[type=time]').pickatime()
     base.find('input[type=number], .number').number(true, 2)
 
-    $(document).on 'opened', '[data-reveal]', =>
-      console.log @
+    $(document).on 'opened', '[data-reveal]', ->
       Portcullis.bindElements $(@)
 
 _.extend Portcullis, Backbone.Events
@@ -31,5 +30,5 @@ _.once Portcullis.boot
 
 # This should always only happen on the DOM load. So it'd only run on a clean
 # slate.
-$(window).on 'load', =>
+$(window).one 'load', =>
   Portcullis.boot()

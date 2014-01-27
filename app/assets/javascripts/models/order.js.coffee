@@ -7,20 +7,20 @@ class Portcullis.Models.Order extends Backbone.Model
   initializer: (opts) ->
     unless opts is undefined
       return 'Orders require an actual Ticket model' unless typeof opts.ticket is Portcullis.Models.Ticket
-    console.log opts
     @bind 'change:ticket', (model, ticket) ->
       console.log model, ticket
+      return if typeof ticket is Portcullis.Models.Ticket
       @set 'ticket', (new Portcullis.Models.Ticket({id: ticket}))
+      @get('ticket').fetch()
 
   ticket: ->
     @get 'ticket'
 
-  charge: () ->
-    return unless typeof @ticket() is Portcullis.Models.Ticket
-    console.log @ticket()
+  charge: ->
+    return -1 unless typeof @ticket() is Portcullis.Models.Ticket
     @ticket().get('price')
 
-  serviceFee: () ->
+  serviceFee: ->
     return 0 if @ticket().get('price') is 0
     fee = 0.025 * @ticket().get('price') + 0.99
     fee = 9.95 if fee > 9.95
