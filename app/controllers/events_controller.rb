@@ -9,8 +9,8 @@ class EventsController < ApplicationController
     @events = Event.all
   end
 
-  # GET/POST /events/1
-  # GET/POST /events/1.json
+  # GET/POST /events/:id
+  # GET/POST /events/:id.json
   def show
     authorize! :view, @event
 

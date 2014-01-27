@@ -1,0 +1,9 @@
+<tr>
+  <td><%- ticket_name %></td>
+  <td>
+    <b><%- charge %></b>
+    <i class='fa fa-plus'></i>
+    <i><%- service_fee %></i>
+  </td>
+  <td><%- quantity %></td>
+</tr>

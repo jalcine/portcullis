@@ -4,15 +4,20 @@ class Portcullis.Views.TicketsShow extends Backbone.View
   className: 'ticket'
   el : ->
     "li[data-ticket-id='" + @model.get('id') + "'].ticket"
-  events: {
+  events:
     'input[data-ticket=quantity] change' : @validateRange
-  }
   render: =>
     @updateTiming()
+  providedQuantity : ->
+    return 1 if @model.isDonation()
+    order_field = @$ 'input[data-ticket=quantity]'
+    parseInt(order_field.val())
+  isAvailable: () ->
+    time_range = @obtainTimeRange()
+    time_range.is_current
   validateRange: ->
     return true if @model.isFree()
-    order_field = @$ 'input[data-ticket=quantity]'
-    order_count = parseInt(order_field.val())
+    order_count = @providedQuantity()
     max_size = Number.POSITIVE_INFINITY
     max_size = parseInt(order_field.attr('max')) if order_field.is('[max]')
     min_size = parseInt(order_field.attr('min'))

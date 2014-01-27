@@ -5,13 +5,30 @@ Portcullis.Events.Show =
   current: null
   tickets: []
   ticketViews: []
+
   init : ->
-    self.loadBannerImage()
     event_id = $('#event_banner_content').attr('data-event-id')
     self.current = new Portcullis.Models.Event {id: event_id}
     self.current.on 'change:tickets', (event, tickets) ->
       self.collectTickets tickets
     self.current.fetch()
+    $('button#order_tickets').bind 'click', ->
+      self.invokeOrderDialog
+    self.loadBannerImage()
+
+  invokeOrderDialog : () ->
+    orders = new Portcullis.Collections.Orders()
+    for ticketView in self.ticketViews
+      do (ticketView) ->
+        return unless ticketView.isAvailable()
+        aOrder = null
+        attrs =
+          ticket:   ticketView.model
+          quantity: ticketView.providedQuantity()
+        aOrder = new Portcullis.Models.Order attrs
+        orders.add aOrder
+    (new Portcullis.Views.OrdersIndex({orders: orders})).showModal()
+
   collectTickets: (ticketIds) ->
     for ticketId in ticketIds
       do (ticketId) ->
@@ -26,7 +43,8 @@ Portcullis.Events.Show =
   loadBannerImage: ->
     banner = $('#event_banner_content')
     header = $('#event_banner')
-    header.css 'background-image', "url(#{banner.attr('data-event-banner')})"
+    banner_url = banner.attr 'data-event-banner'
+    header.css 'background-image', "url(#{banner_url})"
 
 self = Portcullis.Events.Show
 

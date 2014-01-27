@@ -21,10 +21,8 @@ $(window).load ->
     tooltips:
       selector: '.has-tip, *[data-tooltip]'
     topbar:
-      is_hover: false
+      is_hover: true
       mobile_show_parent_link: true
-    reveal:
-      close_on_background_click: true
   $('.fit-text').fitText(0.7, minFontSize: '1rem')
   $('[data-countup-start]').each (index, rawElem) ->
     elem = $(rawElem)

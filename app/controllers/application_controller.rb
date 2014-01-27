@@ -10,10 +10,12 @@ class ApplicationController < ActionController::Base
   end
 
   def after_sign_out_path_for(resource)
+    # TODO: Handle redirection
     root_url
   end
 
   def after_sign_in_path_for(resource)
+    # TODO: Handle redirection
     events_url(scope: :recommended)
   end
 
@@ -23,4 +25,5 @@ class ApplicationController < ActionController::Base
 
   use_vanity :current_user if Settings.toggles.ab == true
   extend Browser::ActionController
+  include ApplicationHelper
 end

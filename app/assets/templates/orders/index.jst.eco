@@ -1,0 +1,19 @@
+<div class='reveal-modal'>
+  <h2>Confirm Order</h2>
+  <p>
+    You sure you want to order these tickets? Double-check your order before 
+    making that final purchase.
+  </p>
+  <table>
+    <thead>
+      <th>Ticket Name</th>
+      <th>Price + Fees</th>
+      <th>Quantity</th>
+    </thead>
+    <tbody></tbody>
+    <tfoot>
+      <td colspan=3></td>
+    </tfoot>
+  </table>
+  <a class='close-reveal-modal'>&#215;</a>
+</div>

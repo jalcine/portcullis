@@ -52,6 +52,8 @@
             %i.fa.fa-stack-2x.fa-square
             %i.fa.fa-stack-1x.fa-inverse
           = portion.capitalize
+%section#description.event_panel{data: {magellan: {destination: :description}}}
+  = @event.description.html_safe
 
 %section#tickets.event_panel{data: {magellan: {destination: :tickets}}}
   - if @event.tickets.empty? and can? :modify, @event
@@ -64,17 +66,12 @@
         %a.button.tiny.alert.right{href: "#{edit_event_url(@event)}#tickets"}
           Add Tickets
   = render 'tickets/list', tickets: @event.tickets unless @event.tickets.empty?
-  - unless @event.tickets.empty? 
-    #bulk_order_event.reveal-modal.large{data: {reveal: true}}
-    - unless @event.expired? or @event.elapsing?
-      %a.button.large.right.success{href: '#', data: {reveal: {id: 'bulk_order_event', ajax: bulk_order_event_path(@event)}, event: @event.id}}
-        Order
+  - unless @event.expired? or @event.elapsing? and !@event.tickets.empty?
+    %button#order_tickets.success.right.large
+      Order
 
-%section#description.event_panel{data: {magellan: {destination: :description}}}
-  = @event.description.html_safe
 %section#attendees.event_panel{data: {magellan: {destination: :attendees}}}
-  %ul.small-block-grid-2.medium-block-grid-3.large-block-grid-4
-    - 16.times.each do 
-      %li= render 'users/square'
+  - nil
+
 %section#schedule.event_panel{data: {magellan: {destination: :schedule}}}
   - nil

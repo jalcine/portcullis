@@ -8,7 +8,7 @@
 # with this. I'll find you. Seriously, most of the core JavaScript things like
 # Backbone and Underscore would be found here.
 
-Portcullis =
+window.Portcullis =
   Models : {}
   Views : {}
   Collections : {}
@@ -17,19 +17,17 @@ Portcullis =
     Portcullis.trigger 'boot'
     Portcullis.boot = null
   bindElements: (base) ->
+    return if base is undefined
     base.find('input[type=date]').pickadate()
     base.find('input[type=time]').pickatime()
     base.find('input[type=number], .number').number(true, 2)
 
-    $(document).on 'opened', '[data-reveal]', ->
-      obj = $(this)
-      Portcullis.bindElements obj
-
+    $(document).on 'opened', '[data-reveal]', =>
+      console.log @
+      Portcullis.bindElements $(@)
 
 _.extend Portcullis, Backbone.Events
 _.once Portcullis.boot
-
-window.Portcullis = Portcullis
 
 # This should always only happen on the DOM load. So it'd only run on a clean
 # slate.

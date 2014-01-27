@@ -74,8 +74,7 @@ describe EventsController do
     describe 'includes tickets' do
       subject { create :event, :with_tickets }
       before(:each) { get :show, id: subject.id }
-      it { expect(response).to render_template 'tickets/_stub_list' }
-      it { expect(response).to render_template 'tickets/_stub' }
+      it { expect(response).to render_template 'tickets/_list' }
     end
   end
 
